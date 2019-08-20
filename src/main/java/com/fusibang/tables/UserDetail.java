@@ -7,39 +7,26 @@ package com.fusibang.tables;
 
 import java.sql.Timestamp;
 
-import javax.persistence.*;
-
 @Entity
-@Table(
-    name = "user_detail"
-)
+@Table(name = "user_detail")
 public class UserDetail {
     @Id
-    @GeneratedValue(
-        strategy = GenerationType.AUTO
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @OneToOne(
-        cascade = {CascadeType.ALL},
-        optional = false,
-        fetch = FetchType.LAZY
-    )
-    @JoinColumn(
-        name = "user_id"
-    )
+    @OneToOne(cascade = {CascadeType.ALL}, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
     private String name;
     private String id_card;
     private String edu_degree;
     private String city;
     private int credit_sorce;
-//    private String credit_number;
-//    private String credit_name;
-//    private String reserved_number;
+    private String credit_number;
+    private String credit_name;
+    private String reserved_number;
     private Timestamp put_time;
 
-    public UserDetail() {
-    }
+    public UserDetail() {}
 
     public int getId() {
         return this.id;
@@ -89,7 +76,7 @@ public class UserDetail {
         this.credit_sorce = credit_sorce;
     }
 
-    /*public String getCredit_number() {
+    public String getCredit_number() {
         return this.credit_number;
     }
 
@@ -111,7 +98,7 @@ public class UserDetail {
 
     public void setReserved_number(String reserved_number) {
         this.reserved_number = reserved_number;
-    }*/
+    }
 
     public Timestamp getPut_time() {
         return this.put_time;

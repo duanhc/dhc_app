@@ -28,16 +28,18 @@ public class UserDetailServiceImp extends ResponseStatus implements UserDetailSe
     private IdentifyDao identifyDao;
     private IdCardDao idCardDao;
 
-    public UserDetailServiceImp() {
-    }
+    public UserDetailServiceImp() {}
 
     public String addDetail(UserDetail userDetail, HttpSession session) {
         Integer id = (Integer)session.getAttribute("ui");
-        if(id != null) {
+        if (id != null) {
             User user = this.userDao.findById(id.intValue());
-            if(!this.userDetailDao.exist(user.getId())) {
+            if (!this.userDetailDao.exist(user.getId())) {
                 userDetail.setUser(user);
                 userDetail.setPut_time(new Timestamp((new Date()).getTime()));
+                userDetail.setCredit_name("");
+                userDetail.setCredit_number("");
+                userDetail.setReserved_number("");
                 this.userDetailDao.addDetail(userDetail);
                 this.identifyDao.findByUserId(user.getId()).setStep3(1);
                 return "{\"hint\":\"success\"}";
@@ -51,14 +53,19 @@ public class UserDetailServiceImp extends ResponseStatus implements UserDetailSe
 
     public String altDetail(UserDetail userDetail, HttpSession session) {
         Integer id = (Integer)session.getAttribute("ui");
-        if(id != null) {
+        if (id != null) {
             User user = this.userDao.findById(id.intValue());
             UserDetail hold = this.userDetailDao.findByUserId(user.getId());
-            if(hold != null) {
-                userDetail.setId(hold.getId());
-                userDetail.setUser(hold.getUser());
-                userDetail.setPut_time(new Timestamp((new Date()).getTime()));
+            if (hold != null) {
+                // userDetail.setId(hold.getId());
+                // userDetail.setUser(hold.getUser());
+                // userDetail.setPut_time(new Timestamp((new Date()).getTime()));
                 this.userDetailDao.altDetail(userDetail);
+                hold.setPut_time(new Timestamp((new Date()).getTime()));
+                hold.setCredit_number(userDetail.getCredit_number());
+                hold.setCredit_name(userDetail.getCredit_name());
+                hold.setReserved_number(userDetail.getReserved_number());
+                this.userDetailDao.altDetail(hold);
                 return "{\"hint\":\"success\"}";
             } else {
                 return "{\"hint\":\"account_not_found\"}";
@@ -72,14 +79,14 @@ public class UserDetailServiceImp extends ResponseStatus implements UserDetailSe
         Integer id = (Integer)request.getSession().getAttribute("ui");
         User user = this.userDao.findById(id.intValue());
         IdCard idCard = this.idCardDao.findByUserid(id.intValue());
-        if(user != null && idCard != null) {
+        if (user != null && idCard != null) {
             Identify identify = this.identifyDao.findByUserId(user.getId());
-            if(identify.getStep3() == 0) {
+            if (identify.getStep3() == 0) {
                 request.setAttribute("name", idCard.getName());
                 request.setAttribute("idcard", idCard.getNum());
                 return "step3";
             } else {
-                return identify.getStep4() == 0?"step4":"success";
+                return identify.getStep4() == 0 ? "step4" : "success";
             }
         } else {
             return "un_login";

@@ -43,32 +43,6 @@
 			<form id="detail_form">
 			<ul>
 				<li>
-					<input type="text"  readOnly="true" name="name" value="${name}" placeholder="姓名" maxlength="15" />
-					
-				</li>
-				<li>
-					<input type="text"  readOnly="true" name="id_card" value="${idcard}" maxlength="18" placeholder="身份证号码" style="width: 80vw;"/>
-					<div class="more">
-						<img src="images/more.png" style="width: 6vw;"/>
-					</div>
-				</li>
-				<li>
-					<input type="text" name="city" id="city-picker"  placeholder="现居地址" maxlength="50" />
-					<div class="more">
-						<img src="images/more.png" style="width: 6vw;"/>
-					</div>
-				</li>
-				<li>
-					<input type="text" name="edu_degree" id="picker"  placeholder="学历" maxlength="11" />
-					<div class="more">
-						<img src="images/more.png" style="width: 6vw;"/>
-					</div>
-				</li>
-				<li>
-					<input type="number" name="credit_sorce"  placeholder="芝麻信用分" maxlength="3" />
-					
-				</li>
-				<%--<li>
 					<input type="tel" name="credit_number" id="bank_num"  placeholder="银行卡号" maxlength="25" />
 					
 				</li>
@@ -82,7 +56,7 @@
 					<div class="more">
 						<img src="images/more.png" style="width: 6vw;"/>
 					</div>
-				</li>--%>
+				</li>
 			</ul>
 			</form>
 		</div>
@@ -104,22 +78,15 @@
 			if (empty) {
 				return;
 			}
-			var phone = $("#bank_phone").val().trim();
-			var phoneReg = /(^1[3|4|5|6|7|8|9]\d{9}$)|(^09\d{8}$)/;  //手机号正则表达式
-			if(!phoneReg.test(phone)){
-				$.alert("请输入正确的手机号！",function(){
-						return;
-				});	
-				return;
-			}
+
 			var options = {
-				url : "../user_detail_add.action",
+				url : "../user_detail_alt.action",
 				type : "post",
 				dataType : "json",
 				success : function (data) {
 					var hint = data.hint;
 					if (hint == "success") {
-						window.location.href = "user_detail_view.action";
+						window.location.href = "auth_center.action";
 					} else if (hint == "un_login") {
 						$.alert("登录超时，请重新登录",function(){
 							window.location.href = "../login.html";
@@ -137,23 +104,7 @@
 			
 		}
 		
-		$("#picker").picker({
-			  title: "请选择学历",
-			  cols: [
-			  
-			    {
-			      textAlign: 'center',
-			      values: ['无', '小学', '初中', '高中','大学及以上']
-			    }
-			  ],
-			  
-		});
-		$("#city-picker").cityPicker({
-		    title: "请选择居住城市"
-		});
-		
-		
-		/*$("#bank-picker").picker({
+		$("#bank-picker").picker({
 		title: "请选择所属银行",
 		cols: [
 		{
@@ -184,9 +135,8 @@
 					}
 				}
 			});
-		});*/
+		});
 		
 	</script>
 	</body>
 </html>
-    

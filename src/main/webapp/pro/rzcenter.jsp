@@ -191,7 +191,7 @@
 			var s3 = ${identify.step5};
 			if (s3 == 1) {	
 				$.alert("银行卡认证请绑定本人实名银行卡",function(){
-					$.ajax({
+					/*$.ajax({
 					url : "bank_auth.action?source=ios",
 					type : "GET",
 					dataType : "text",
@@ -204,8 +204,9 @@
 							window.location.href = "template.do?title=" + "绑定银行卡"  + "&url=" + data;
 						}
 					}
-					
-					});
+
+					});*/
+                    window.location.href = "bank_auth.jsp";
 				});
 				
 			} else {

@@ -33,9 +33,9 @@ public class UserDetail {
     private String edu_degree;
     private String city;
     private int credit_sorce;
-    private String credit_number;
-    private String credit_name;
-    private String reserved_number;
+//    private String credit_number;
+//    private String credit_name;
+//    private String reserved_number;
     private Timestamp put_time;
 
     public UserDetail() {
@@ -89,7 +89,7 @@ public class UserDetail {
         this.credit_sorce = credit_sorce;
     }
 
-    public String getCredit_number() {
+    /*public String getCredit_number() {
         return this.credit_number;
     }
 
@@ -111,7 +111,7 @@ public class UserDetail {
 
     public void setReserved_number(String reserved_number) {
         this.reserved_number = reserved_number;
-    }
+    }*/
 
     public Timestamp getPut_time() {
         return this.put_time;

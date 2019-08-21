@@ -206,7 +206,7 @@
 					}
 
 					});*/
-                    window.location.href = "bank_auth.jsp";
+                    window.open('user_detail_view.action?uuid=' + Math.random()  , '_self');
 				});
 				
 			} else {

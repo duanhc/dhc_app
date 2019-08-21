@@ -5,12 +5,6 @@
 
 package com.fusibang.servicesimp;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import com.fusibang.dao.IdCardDao;
 import com.fusibang.dao.IdentifyDao;
 import com.fusibang.dao.UserDao;
@@ -21,6 +15,11 @@ import com.fusibang.tables.IdCard;
 import com.fusibang.tables.Identify;
 import com.fusibang.tables.User;
 import com.fusibang.tables.UserDetail;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class UserDetailServiceImp extends ResponseStatus implements UserDetailService {
     private UserDetailDao userDetailDao;
@@ -60,12 +59,13 @@ public class UserDetailServiceImp extends ResponseStatus implements UserDetailSe
                 // userDetail.setId(hold.getId());
                 // userDetail.setUser(hold.getUser());
                 // userDetail.setPut_time(new Timestamp((new Date()).getTime()));
-                this.userDetailDao.altDetail(userDetail);
+//                this.userDetailDao.altDetail(userDetail);
                 hold.setPut_time(new Timestamp((new Date()).getTime()));
                 hold.setCredit_number(userDetail.getCredit_number());
                 hold.setCredit_name(userDetail.getCredit_name());
                 hold.setReserved_number(userDetail.getReserved_number());
                 this.userDetailDao.altDetail(hold);
+                this.identifyDao.findByUserId(user.getId()).setStep6(1);
                 return "{\"hint\":\"success\"}";
             } else {
                 return "{\"hint\":\"account_not_found\"}";
@@ -86,7 +86,7 @@ public class UserDetailServiceImp extends ResponseStatus implements UserDetailSe
                 request.setAttribute("idcard", idCard.getNum());
                 return "step3";
             } else {
-                return identify.getStep4() == 0 ? "step4" : "success";
+                return identify.getStep4() == 0 ? "step4" : (identify.getStep6() == 0) ? "step6" : "success";
             }
         } else {
             return "un_login";

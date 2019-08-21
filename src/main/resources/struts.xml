@@ -171,6 +171,7 @@
 		<action name="user_detail_view" class="userDetailAction" method="view">
 			<result name="step3" >/pro/jcmess.jsp</result>
 			<result name="step4" >/pro/bcMess.html</result>
+			<result name="step6" >/pro/bank_auth.jsp</result>
 			<result name="un_login" type="redirect">/login.html</result>
 		</action>
 		<action name="user_detail_add" class="userDetailAction" method="addDetail"></action>

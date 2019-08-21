@@ -127,11 +127,11 @@
 <div id="top">
     <span style="width: 10vw;height: 12vw;display: block;float: left;"><img onclick="window.location.href = 'auth_center.action';" src="images/tuihou.png"
                                                                             style="width: 3vw;margin-left: 3vw;margin-top: 4vw;"/></span>
-    <p style="color: #fff;height: 13vw;text-align: center;width: 90vw;line-height: 13vw;font-size: 4.8vw;">填写信息</p>
+    <p style="color: #fff;height: 13vw;text-align: center;width: 90vw;line-height: 13vw;font-size: 4.8vw;">银行卡认证</p>
 </div>
-<div id="select">
+<%--<div id="select">
     <span style="color: #5F9BF1;border-bottom: 0.8vw solid #5F9BF1;">银行卡认证</span>
-</div>
+</div>--%>
 <div id="content">
     <form id="detail_form">
         <ul>

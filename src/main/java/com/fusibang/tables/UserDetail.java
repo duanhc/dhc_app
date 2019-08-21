@@ -7,6 +7,8 @@ package com.fusibang.tables;
 
 import java.sql.Timestamp;
 
+import javax.persistence.*;
+
 @Entity
 @Table(name = "user_detail")
 public class UserDetail {

@@ -136,6 +136,9 @@
         border-radius: 1vw;
     }
 
+    .weui-btn {
+        background-color: #3A81F1;
+    }
 </style>
 <body>
 <div id="top">
@@ -210,10 +213,10 @@
 </div>
 
 <div id="qrzf">
-    确认支付
+    <a href="wechat_pay.action" class="weui-btn">确认支付</a>
 </div>
 <script type="text/javascript">
-    $(function () {
+    /*$(function () {
         $("#content li").click(function () {
             $(this).find(".select_item").attr("src", "images/select_true.png");
             $(this).siblings().find(".select_item").attr("src", "images/select_false.png");
@@ -235,7 +238,7 @@
             }
 
         });
-    });
+    });*/
 </script>
 </body>
 </html>

@@ -243,7 +243,7 @@
         <property name="appid2" value="${wechatg.appid}"></property>
         <property name="secret2" value="${wechatg.secret}"></property>
         <property name="mch_id" value="${wechat.mch_id}"></property>
-        <property name="totalFree" value="${wechat.mch_id}"></property>
+        <property name="totalFree" value="${wechat.totalFree}"></property>
         <property name="userDao" ref="userDao"></property>
         <property name="wechatPayHelp" ref="wechatPayHelp"></property>
         <property name="payHelp" ref="payHelp"></property>

@@ -104,14 +104,14 @@
 			if (empty) {
 				return;
 			}
-			var phone = $("#bank_phone").val().trim();
+//			var phone = $("#bank_phone").val().trim();
 			var phoneReg = /(^1[3|4|5|6|7|8|9]\d{9}$)|(^09\d{8}$)/;  //手机号正则表达式
-			if(!phoneReg.test(phone)){
+			/*if(!phoneReg.test(phone)){
 				$.alert("请输入正确的手机号！",function(){
 						return;
 				});	
 				return;
-			}
+			}*/
 			var options = {
 				url : "../user_detail_add.action",
 				type : "post",

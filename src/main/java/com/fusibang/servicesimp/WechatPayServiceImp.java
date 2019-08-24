@@ -48,74 +48,52 @@ public class WechatPayServiceImp implements WechatPayService {
             String state = request.getParameter("state");
             String code = request.getParameter("code");
 
-            if (null == code || "".equals(code)) {
-                logger.debug("------------- getCode ----------------");
-                String addr = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + this.appid + "&redirect_uri=http%3a%2f%2f" + this.hostName + "%2f" + this.webName
-                    + "%2fwechat_pay.action&response_type=code&scope=snsapi_base&state=zhifu#wechat_redirect";
-                try {
-                    URL e = new URL(addr);
-                    HttpURLConnection httpUrlConn = (HttpURLConnection)e.openConnection();
-                    httpUrlConn.setDoOutput(true);
-                    httpUrlConn.setDoInput(true);
-                    httpUrlConn.setUseCaches(false);
-                    httpUrlConn.setRequestMethod("GET");
-                    httpUrlConn.connect();
-                    InputStream inputStream = httpUrlConn.getInputStream();
-                    inputStream.close();
-                    httpUrlConn.disconnect();
+            logger.info("getOpenid request state=" + state + "&code=" + code);
+            StringBuffer buffer = new StringBuffer();
+            String addr = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + this.appid + "&secret=" + this.secret + "&code=" + code + "&grant_type=authorization_code";
+            if ("auth".equals(state)) {
+                addr = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + this.appid2 + "&secret=" + this.secret2 + "&code=" + code + "&grant_type=authorization_code";
+            }
+
+            try {
+                URL e = new URL(addr);
+                HttpURLConnection httpUrlConn = (HttpURLConnection)e.openConnection();
+                httpUrlConn.setDoOutput(true);
+                httpUrlConn.setDoInput(true);
+                httpUrlConn.setUseCaches(false);
+                httpUrlConn.setRequestMethod("GET");
+                httpUrlConn.connect();
+                InputStream inputStream = httpUrlConn.getInputStream();
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String str = null;
+
+                while ((str = bufferedReader.readLine()) != null) {
+                    buffer.append(str);
+                }
+
+                bufferedReader.close();
+                inputStreamReader.close();
+                inputStream.close();
+                inputStream = null;
+                httpUrlConn.disconnect();
+                String result = buffer.toString();
+                logger.info("getopenid result:" + result);
+                JSONObject json = JSONObject.parseObject(result);
+                String openid = json.getString("openid");
+                if ("zhifu".equals(state)) {
+                    Map order = this.wechatPayHelp.placeOrder(openid, this.totalFree, Integer.valueOf(user.getId()));
+                    request.setAttribute("order", order);
+                    return "success";
+                } else if ("auth".equals(state)) {
+                    user.setOpenid(openid);
                     return "success2";
-                } catch (Exception var19) {
-                    var19.printStackTrace();
-                    return "error";
+                } else {
+                    return "illegal_request";
                 }
-            } else {
-                logger.debug("getOpenid request state=" + state + "&code=" + code);
-                StringBuffer buffer = new StringBuffer();
-                String addr = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + this.appid + "&secret=" + this.secret + "&code=" + code + "&grant_type=authorization_code";
-                if ("auth".equals(state)) {
-                    addr = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + this.appid2 + "&secret=" + this.secret2 + "&code=" + code + "&grant_type=authorization_code";
-                }
-
-                try {
-                    URL e = new URL(addr);
-                    HttpURLConnection httpUrlConn = (HttpURLConnection)e.openConnection();
-                    httpUrlConn.setDoOutput(true);
-                    httpUrlConn.setDoInput(true);
-                    httpUrlConn.setUseCaches(false);
-                    httpUrlConn.setRequestMethod("GET");
-                    httpUrlConn.connect();
-                    InputStream inputStream = httpUrlConn.getInputStream();
-                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
-                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                    String str = null;
-
-                    while ((str = bufferedReader.readLine()) != null) {
-                        buffer.append(str);
-                    }
-
-                    bufferedReader.close();
-                    inputStreamReader.close();
-                    inputStream.close();
-                    inputStream = null;
-                    httpUrlConn.disconnect();
-                    String result = buffer.toString();
-                    logger.debug("getopenid result:" + result);
-                    JSONObject json = JSONObject.parseObject(result);
-                    String openid = json.getString("openid");
-                    if ("zhifu".equals(state)) {
-                        Map order = this.wechatPayHelp.placeOrder(openid, this.totalFree, Integer.valueOf(user.getId()));
-                        request.setAttribute("order", order);
-                        return "success";
-                    } else if ("auth".equals(state)) {
-                        user.setOpenid(openid);
-                        return "success2";
-                    } else {
-                        return "illegal_request";
-                    }
-                } catch (Exception var19) {
-                    var19.printStackTrace();
-                    return "error";
-                }
+            } catch (Exception var19) {
+                var19.printStackTrace();
+                return "error";
             }
 
         } else {

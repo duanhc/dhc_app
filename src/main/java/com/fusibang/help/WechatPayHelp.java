@@ -5,11 +5,12 @@
 
 package com.fusibang.help;
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.security.MessageDigest;
-import java.util.*;
+import com.fusibang.tables.Pay;
+import org.apache.log4j.Logger;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -19,14 +20,11 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import org.apache.log4j.Logger;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-
-import com.fusibang.tables.Pay;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.security.MessageDigest;
+import java.util.*;
 
 public class WechatPayHelp {
     private static final Logger logger = Logger.getLogger(WechatPayHelp.class);
@@ -165,7 +163,7 @@ public class WechatPayHelp {
     }
 
     public Map<String, String> placeOrder(String openid, String totalFree, Integer userId) {
-        logger.debug("placeOrder{openid=" + openid + ",totalFree=" + totalFree + ",userId=" + userId + "}");
+        logger.info("placeOrder{openid=" + openid + ",totalFree=" + totalFree + ",userId=" + userId + "}");
         HashMap retMap = new HashMap();
         String out_trade_no;
         synchronized(this) {
@@ -239,7 +237,7 @@ public class WechatPayHelp {
                 retMap.put("appId", this.appid);
                 retMap.put("timeStamp", String.valueOf(System.currentTimeMillis() / 1000L));
                 retMap.put("nonceStr", "b1089cb0231011e7b7e1484520356fdc");
-                retMap.put("package", "prepay_id=" + (String)resultMap.get("prepay_id"));
+                retMap.put("packageKey", "prepay_id=" + (String)resultMap.get("prepay_id"));
                 retMap.put("signType", "MD5");
                 retMap.put("paySign", generateSignature(retMap, this.key, "MD5"));
                 Pay pay = new Pay();

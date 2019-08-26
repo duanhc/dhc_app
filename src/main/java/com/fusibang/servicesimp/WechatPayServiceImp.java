@@ -102,7 +102,7 @@ public class WechatPayServiceImp implements WechatPayService {
     }
 
     public String resultNotify(HttpServletRequest request) {
-        logger.debug("recept wechat pay notification");
+        logger.info("recept wechat pay notification");
         Map map = null;
 
         try {
@@ -121,7 +121,7 @@ public class WechatPayServiceImp implements WechatPayService {
                 amount = (byte[])null;
                 inner_trade_no.flush();
                 String result = new String(inner_trade_no.toByteArray(), "UTF-8");
-                logger.debug("wechat pay notification content:" + result);
+                logger.info("wechat pay notification content:" + result);
                 map = WechatPayHelp.xmlToMap(result);
             }
         } catch (Exception var9) {

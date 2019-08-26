@@ -176,7 +176,7 @@ public class WechatPayHelp {
         data.put("device_info", "WEB");
         data.put("nonce_str", "b1089cb0231011e7b7e1484520356fdc");
         data.put("out_trade_no", out_trade_no);
-        data.put("body", "数据分析");
+        data.put("body", "data analysis");
         data.put("openid", openid);
         data.put("total_fee", totalFree);
         data.put("spbill_create_ip", this.serverIp);
@@ -195,7 +195,7 @@ public class WechatPayHelp {
 
         try {
             xmlData = mapToXml(data);
-            logger.debug("order info:" + xmlData);
+            logger.info("order info:" + xmlData);
         } catch (Exception var21) {
             var21.printStackTrace();
         }
@@ -230,16 +230,18 @@ public class WechatPayHelp {
             inputStream = null;
             httpUrlConn.disconnect();
             String result = e.toString();
-            logger.debug("order result:" + result);
+            logger.info("order resultXML:" + result);
             Map resultMap = xmlToMap(result);
+            logger.info("order resultMap:" + resultMap.toString());
             if(((String)resultMap.get("return_code")).equals("SUCCESS") && ((String)resultMap.get("result_code")).equals("SUCCESS")) {
                 logger.debug("order " + (String)resultMap.get("prepay_id") + " success");
                 retMap.put("appId", this.appid);
                 retMap.put("timeStamp", String.valueOf(System.currentTimeMillis() / 1000L));
                 retMap.put("nonceStr", "b1089cb0231011e7b7e1484520356fdc");
-                retMap.put("packageKey", "prepay_id=" + (String)resultMap.get("prepay_id"));
+                retMap.put("package", "prepay_id=" + (String)resultMap.get("prepay_id"));
                 retMap.put("signType", "MD5");
                 retMap.put("paySign", generateSignature(retMap, this.key, "MD5"));
+                retMap.put("packageEL","prepay_id=" + (String)resultMap.get("prepay_id"));
                 Pay pay = new Pay();
                 pay.setIndent_str(out_trade_no);
                 this.payHelp.insertPay(pay, userId.intValue());
@@ -247,7 +249,7 @@ public class WechatPayHelp {
         } catch (Exception var24) {
             var24.printStackTrace();
         }
-
+        logger.info("Call JSAPI param: "+retMap.toString());
         return retMap;
     }
 

@@ -230,7 +230,7 @@
     <!-- 微信支付 -->
     <bean id="wechatPayHelp" class="com.fusibang.help.WechatPayHelp">
         <property name="appid" value="${wechat.appid}"></property>
-        <property name="key" value="${wechat.key"></property>
+        <property name="key" value="${wechat.key}"></property>
         <property name="mch_id" value="${wechat.mch_id}"></property>
         <property name="serverIp" value="${project.serverIp}"></property>
         <property name="hostName" value="${project.host}"></property>

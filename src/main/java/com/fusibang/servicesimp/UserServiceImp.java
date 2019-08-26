@@ -40,8 +40,6 @@ public class UserServiceImp extends ResponseStatus implements UserService {
         User user = this.userDao.findByPhone(phone);
         if(user != null) {
             String token = (new MD5()).getMD5ofStr(phone + pwd + user.getSalt());
-            //todo 密码先不验证
-            token = user.getPassword();
             if(token.equals(user.getPassword())) {
                 session.setAttribute("ui", Integer.valueOf(user.getId()));
                 Jedis jedis = this.jedisFactory.getInstance();

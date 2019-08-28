@@ -5,23 +5,22 @@
 
 package com.fusibang.servicesimp;
 
-import javax.servlet.http.HttpSession;
-
 import com.fusibang.dao.UserDao;
 import com.fusibang.help.JedisFactory;
-import com.fusibang.help.PhoneVerify;
 import com.fusibang.help.PhoneVerifyMessage;
 import com.fusibang.help.ResponseStatus;
+import com.fusibang.help.SendPhoneVerify;
 import com.fusibang.services.PhoneVerifyService;
-
 import redis.clients.jedis.Jedis;
+
+import javax.servlet.http.HttpSession;
 
 public class PhoneVerifyServiceImp extends ResponseStatus implements PhoneVerifyService {
     private String model;
     private int interval;
     private UserDao userDao;
     private JedisFactory jedisFactory;
-    private PhoneVerify phoneVerify;
+    private SendPhoneVerify phoneVerify;
     private PhoneVerifyMessage phoneVerifyMessage;
 
     public PhoneVerifyServiceImp() {
@@ -37,13 +36,13 @@ public class PhoneVerifyServiceImp extends ResponseStatus implements PhoneVerify
                     return "{\"hint\":\"too_frequently\"}";
                 }
 
-                String e = this.phoneVerify.getRandomVerifyCode(5);
-                if(this.phoneVerify.send2Registe(phone, e, this.model)) {
-                    jedis.set(key, e);
+                String code = this.phoneVerify.getRandomcode(5);
+                if(this.phoneVerify.sendVerifyCodeRegiste(phone, code)) {
+                    jedis.set(key, code);
                     jedis.expire(key, this.interval);
                     jedis.incr(phone + "i");
                     jedis.expire(phone + "i", 3600);
-                    session.setAttribute(key, e);
+                    session.setAttribute(key,code);
                     session.removeAttribute("i");
                     return "{\"hint\":\"success\"}";
                 }
@@ -72,16 +71,16 @@ public class PhoneVerifyServiceImp extends ResponseStatus implements PhoneVerify
                     return "{\"hint\":\"too_frequently\"}";
                 }
 
-                String e = this.phoneVerify.getRandomVerifyCode(5);
-                if(!this.phoneVerify.send2ModifyPwd(phone, e, this.model)) {
+                String code = this.phoneVerify.getRandomcode(5);
+                if(!this.phoneVerify.sendVerifyCodeAltPassword(phone, code)) {
                     return "{\"hint\":\"unknow_error\"}";
                 }
 
-                jedis.set(key, e);
+                jedis.set(key, code);
                 jedis.expire(key, this.interval);
                 jedis.incr(phone + "i");
                 jedis.expire(phone + "i", 3600);
-                session.setAttribute(key, e);
+                session.setAttribute(key,code);
                 session.removeAttribute("i");
                 return "{\"hint\":\"success\"}";
             } catch (Exception var9) {
@@ -107,13 +106,13 @@ public class PhoneVerifyServiceImp extends ResponseStatus implements PhoneVerify
                     return "{\"hint\":\"too_frequently\"}";
                 }
 
-                String e = this.phoneVerify.getRandomVerifyCode(5);
-                if(this.phoneVerify.send2Login(phone, e, this.model)) {
+                String code = this.phoneVerify.getRandomcode(5);
+                if(this.phoneVerify.sendVerifyCodeLogin(phone, code)) {
                     jedis.incr(phone + "i");
                     jedis.expire(phone + "i", 3600);
-                    jedis.set(key, e);
+                    jedis.set(key, code);
                     jedis.expire(key, this.interval);
-                    session.setAttribute(key, e);
+                    session.setAttribute(key, code);
                     return "{\"hint\":\"success\"}";
                 }
             } catch (Exception var9) {
@@ -150,7 +149,7 @@ public class PhoneVerifyServiceImp extends ResponseStatus implements PhoneVerify
         this.interval = interval;
     }
 
-    public void setPhoneVerify(PhoneVerify phoneVerify) {
+    public void setPhoneVerify(SendPhoneVerify phoneVerify) {
         this.phoneVerify = phoneVerify;
     }
 

@@ -171,6 +171,12 @@
         <property name="lendSercice" ref="lendSercice"></property>
     </bean>
     <!-- 验证码 -->
+    <!-- 短信平台（新） -->
+    <bean id="newPhoneVerify" class="com.fusibang.help.SendPhoneVerify">
+        <property name="username" value="${sms.username}"></property>
+        <property name="passwd" value="${sms.passwd}"></property>
+        <property name="sign" value="${sms.sign}"></property>
+    </bean>
     <!-- 天瑞短信平台 -->
     <bean id="phoneVerify" class="com.fusibang.help.PhoneVerify">
         <property name="accesskey" value="${trvalify.accesskey}"></property>
@@ -195,7 +201,7 @@
         <property name="interval" value="${project.interval}"></property>
         <property name="userDao" ref="userDao"></property>
         <property name="jedisFactory" ref="jedisFactory"></property>
-        <property name="phoneVerify" ref="phoneVerify"></property>
+        <property name="phoneVerify" ref="newPhoneVerify"></property>
         <property name="phoneVerifyMessage" ref="phoneVerifyMessage"></property>
     </bean>
     <bean id="phoneVerifyAction" class="com.fusibang.actions.PhoneVerifyAction" scope="prototype">

@@ -48,7 +48,7 @@ public class SendPhoneVerify {
 		String requestParamt = "needstatus=false&username=" + username
 								+ "&passwd=" + passwd 
 								+ "&phone=" + phone
-								+ "&msg=" + "您正在注册成为新用户，验证码是：" + code + "，感谢您的支持！【" + sign +"】";
+								+ "&msg=" + "您正在注册为新用户，验证码是：" + code + "，感谢您的支持！【" + sign +"】";
 								
 		
 		URL url = new URL("http://www.qybor.com:8500/shortMessage");
@@ -98,7 +98,7 @@ public class SendPhoneVerify {
 		String requestParamt = "needstatus=false&username=" + username
 				+ "&passwd=" + passwd 
 				+ "&phone=" + phone
-				+ "&msg=" + "您正在修改登录密码，验证码是：" + code + "，不要告诉任何人！【" + sign +"】";
+				+ "&msg=" + "您正在修改密码，验证码是：" + code + "，感谢您的支持！【" + sign +"】";
 				
 
 		URL url = new URL("http://www.qybor.com:8500/shortMessage");
@@ -148,7 +148,7 @@ public class SendPhoneVerify {
 		String requestParamt = "needstatus=false&username=" + username
 				+ "&passwd=" + passwd
 				+ "&phone=" + phone
-				+ "&msg=" + "您正在登录，验证码是：" + code + "，不要告诉任何人！【" + sign +"】";
+				+ "&msg=" + "您正在登入App，验证码是：" + code + "，感谢您的支持！【" + sign +"】";
 
 
 		URL url = new URL("http://www.qybor.com:8500/shortMessage");

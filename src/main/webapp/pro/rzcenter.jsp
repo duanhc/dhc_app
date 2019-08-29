@@ -29,8 +29,8 @@
 		#bottom ul li p{text-align: center;font-size: 3vw;margin-top: -1vw;height: 4vw;line-height: 4vw;color: #DEDEDE;}
 		.regButton{width: 90vw;margin-left: 5vw;background: #56A4F6;height: 11vw;font-size: 5vw;text-align: center;line-height: 11vw;border-radius: 2vw;margin-top: 3vw;color: white;font-weight: 700;margin-bottom: 4vw;}
 	</style>
-	
-	<body>
+
+	<body onload="addBackListener();">
 		<div id="top">
 			<span style="width: 10vw;height: 12vw;display: block;float: left;"><img src="images/tuihou.png" onclick="window.open('myMess.html','_self');" style="width: 3vw;margin-left: 3vw;margin-top: 4vw;"/></span>
 			<p style="color: #fff;height: 13vw;text-align: center;width: 90vw;line-height: 13vw;font-size: 4.8vw;">认证中心</p>
@@ -85,6 +85,40 @@
 		
 	</body>
 	<script>
+        //返回键处理
+        function addBackListener() {
+            document.addEventListener('plusready', function() {
+                var webview = plus.webview.currentWebview();
+                plus.key.addEventListener('backbutton', function() {
+                    webview.canBack(function(e) {
+                        if(e.canBack) {
+                            webview.back();
+                        } else {
+                            //webview.close(); //hide,quit
+                            //plus.runtime.quit();
+                            //首页返回键处理
+                            //处理逻辑：1秒内，连续两次按返回键，则退出应用；
+                            var first = null;
+                            plus.key.addEventListener('backbutton', function() {
+                                //首次按键，提示‘再按一次退出应用’
+                                if (!first) {
+                                    first = new Date().getTime();
+                                    //console.log('再按一次退出应用');
+                                    setTimeout(function() {
+                                        first = null;
+                                    }, 1000);
+                                } else {
+                                    if (new Date().getTime() - first < 1500) {
+                                        plus.runtime.quit();
+                                    }
+                                }
+                            }, false);
+                        }
+                    })
+                });
+            });
+        }
+
 		var check_status = ${check};
 		function submited() {
 			$.alert("认证已完成",function(){

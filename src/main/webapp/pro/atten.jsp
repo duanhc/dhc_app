@@ -47,7 +47,7 @@
 	<script>
 		control.atten();
 	</script>
-	<body>
+	<body onload="addBackListener();">
 		<div id="top">
 			<span style="width: 10vw;height: 12vw;display: block;float: left;"><img onclick="window.open('myMess.html','_self');" src="images/tuihou.png" style="width: 3vw;margin-left: 3vw;margin-top: 4vw;"/></span>
 			<p style="color: #fff;height: 13vw;text-align: center;width: 90vw;line-height: 13vw;font-size: 4.8vw;">关注公众号</p>
@@ -76,6 +76,42 @@
 			<img style="width: 49%;float: left;margin-left: 1%" src="../tipimages/tip3.png">
 			<img style="width: 49%;float: left" src="../tipimages/tip4.png">
 		</div>
+
+		<script>
+            //返回键处理
+            function addBackListener() {
+                document.addEventListener('plusready', function() {
+                    var webview = plus.webview.currentWebview();
+                    plus.key.addEventListener('backbutton', function() {
+                        webview.canBack(function(e) {
+                            if(e.canBack) {
+                                webview.back();
+                            } else {
+                                //webview.close(); //hide,quit
+                                //plus.runtime.quit();
+                                //首页返回键处理
+                                //处理逻辑：1秒内，连续两次按返回键，则退出应用；
+                                var first = null;
+                                plus.key.addEventListener('backbutton', function() {
+                                    //首次按键，提示‘再按一次退出应用’
+                                    if (!first) {
+                                        first = new Date().getTime();
+                                        //console.log('再按一次退出应用');
+                                        setTimeout(function() {
+                                            first = null;
+                                        }, 1000);
+                                    } else {
+                                        if (new Date().getTime() - first < 1500) {
+                                            plus.runtime.quit();
+                                        }
+                                    }
+                                }, false);
+                            }
+                        })
+                    });
+                });
+            }
+		</script>
 	</body>
 </html>
     

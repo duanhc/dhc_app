@@ -82,6 +82,9 @@ public class PayHelp {
                     channel.setPay(channel.getPay() + 1);
                     channel.setPay1(channel.getPay1() + 1);
                 }
+
+                // 发送钉钉消息
+                new DingDingHelp().send(user.getPhone_number());
             }
 
             return "success";

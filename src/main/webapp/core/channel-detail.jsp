@@ -38,7 +38,7 @@
         <div class="sider___rHZmy ant-layout-sider ant-layout-sider-dark" style="flex: 0 0 200px; max-width: 200px; min-width: 200px; width: 200px;">
             <div class="ant-layout-sider-children">
                 <div class="logo___2ajOE">
-                    <p class="logo_name___1R-S0">花蝴蝶</p>
+                    <p class="logo_name___1R-S0">如意分期</p>
                     <p class="logo_name___1R-S0">渠道管理后台</p>
                 </div>
                 <ul class="ant-menu ant-menu-dark ant-menu-root ant-menu-inline" role="menu">
@@ -164,7 +164,7 @@
                                                                         <tbody class="ant-table-tbody">
                                                                         <tr class="ant-table-row  ant-table-row-level-0" data-row-key="979">
                                                                             <td class="" style="text-align: center;"><span class="ant-table-row-indent indent-level-0"
-                                                                                                                           style="padding-left: 0px;"></span>${collect.ua}</td>
+                                                                                                                           style="padding-left: 0px;"></span>${collect.valid}</td>
                                                                             <td class="" style="text-align: center;">0</td>
                                                                             <td class="" style="text-align: center;">0</td>
                                                                             <td class="" style="text-align: center;">--</td>

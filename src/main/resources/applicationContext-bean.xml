@@ -15,6 +15,7 @@
     </bean>
     <bean id="payHelp" class="com.fusibang.help.PayHelp">
         <property name="identifyDao" ref="identifyDao"></property>
+        <property name="dingDingHelp" ref="dingDingHelp"></property>
         <property name="payDao" ref="payDao"></property>
         <property name="userDao" ref="userDao"></property>
         <property name="cut" value="false"></property>
@@ -208,13 +209,18 @@
         <property name="phoneVerifyService" ref="phoneVerifyService"></property>
     </bean>
     <bean id="dingDingHelp" class="com.fusibang.help.DingDingHelp">
-        <property name="appid" value="${wechat.appid}"></property>
-        <property name="key" value="${wechat.key}"></property>
-        <property name="mch_id" value="${wechat.mch_id}"></property>
-        <property name="totalFree" value="${wechat.totalFree}"></property>
-        <property name="serverIp" value="${project.serverIp}"></property>
-        <property name="hostName" value="${project.host}"></property>
-        <property name="webName" value="${project.name}"></property>
+        <property name="wechatAppid" value="${wechat.appid}"></property>
+        <property name="wechatSecret" value="${wechat.secret}"></property>
+        <property name="wechatKey" value="${wechat.key}"></property>
+        <property name="wechatMchId" value="${wechat.mch_id}"></property>
+        <property name="wechatTotalFree" value="${wechat.totalFree}"></property>
+        <property name="projectServerIp" value="${project.serverIp}"></property>
+        <property name="projectHostName" value="${project.host}"></property>
+        <property name="projectWebName" value="${project.name}"></property>
+        <property name="jdbcUser" value="${jdbc.user}"></property>
+        <property name="jdbcPassword" value="${jdbc.password}"></property>
+        <property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
+        <property name="jedisFactory" ref="jedisFactory"></property>
     </bean>
     <!-- 支付 -->
     <bean id="payDao" class="com.fusibang.dao.PayDao">

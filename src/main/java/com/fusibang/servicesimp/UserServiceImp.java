@@ -184,7 +184,7 @@ public class UserServiceImp extends ResponseStatus implements UserService {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String str = sdf.format(new Date());
             star = star == null ? str : star;
-            end = end == null ? str : end;
+            end = end == null ? star : end;
             request.setAttribute("star", star);
             request.setAttribute("end", end);
             star = star + " 00:00:00";

@@ -23,6 +23,7 @@ import com.fusibang.tables.User;
 public class PayHelp {
     private static final Logger logger = Logger.getLogger(PayHelp.class);
     private IdentifyDao identifyDao;
+    private DingDingHelp dingDingHelp;
     private PayDao payDao;
     private UserDao userDao;
     private boolean cut;
@@ -84,7 +85,7 @@ public class PayHelp {
                 }
 
                 // 发送钉钉消息
-                new DingDingHelp().send(user.getPhone_number());
+                dingDingHelp.send(user.getPhone_number());
             }
 
             return "success";
@@ -149,6 +150,10 @@ public class PayHelp {
         pay.setUser(user);
         pay.setSubmit_time(new Timestamp((new Date()).getTime()));
         this.payDao.save(pay);
+    }
+
+    public void setDingDingHelp(DingDingHelp dingDingHelp) {
+        this.dingDingHelp = dingDingHelp;
     }
 
     public void setIdentifyDao(IdentifyDao identifyDao) {

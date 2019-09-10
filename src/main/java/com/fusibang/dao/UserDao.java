@@ -73,7 +73,7 @@ public class UserDao {
     }
 
     public List<Map<String, String>> getAll(String star, String end, int page, int id) {
-        String hql = "FROM User u WHERE u.channel.id = :id AND u.registe_time > :star AND u.registe_time < :end ORDER BY u.id DESC";
+        String hql = "FROM User u WHERE u.channel.id = :id AND u.registe_time > :star AND u.registe_time < :end AND u.valid=1 ORDER BY u.id DESC";
         byte eachCount = 13;
         int offSet = eachCount * (page - 1);
         List users = this.getSession().createQuery(hql).setInteger("id", id).setString("star", star).setString("end", end).setMaxResults(eachCount).setFirstResult(offSet).list();

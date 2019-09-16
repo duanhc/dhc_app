@@ -79,11 +79,12 @@ public class UserDetailServiceImp extends ResponseStatus implements UserDetailSe
         Integer id = (Integer)request.getSession().getAttribute("ui");
         User user = this.userDao.findById(id.intValue());
         IdCard idCard = this.idCardDao.findByUserid(id.intValue());
-        if (user != null && idCard != null) {
+//        if (user != null && idCard != null) {
+        if (user != null) {
             Identify identify = this.identifyDao.findByUserId(user.getId());
             if (identify.getStep3() == 0) {
-                request.setAttribute("name", idCard.getName());
-                request.setAttribute("idcard", idCard.getNum());
+                request.setAttribute("name", null==idCard?"":idCard.getName());
+                request.setAttribute("idcard", null==idCard?"":idCard.getNum());
                 return "step3";
             } else {
                 return identify.getStep4() == 0 ? "step4" : (identify.getStep6() == 0) ? "step6" : "success";

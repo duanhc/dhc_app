@@ -43,11 +43,10 @@
 			<form id="detail_form">
 			<ul>
 				<li>
-					<input type="text"  readOnly="true" name="name" value="${name}" placeholder="姓名" maxlength="15" />
-					
+					<input type="text"  name="name" value="${name}" placeholder="姓名" maxlength="15" />
 				</li>
 				<li>
-					<input type="text"  readOnly="true" name="id_card" value="${idcard}" maxlength="18" placeholder="身份证号码" style="width: 80vw;"/>
+					<input type="text"  name="id_card" value="${idcard}" maxlength="18" placeholder="身份证号码" style="width: 80vw;"/>
 					<div class="more">
 						<img src="images/more.png" style="width: 6vw;"/>
 					</div>

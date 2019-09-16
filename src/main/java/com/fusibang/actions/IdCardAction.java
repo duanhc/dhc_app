@@ -5,23 +5,21 @@
 
 package com.fusibang.actions;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import com.fusibang.services.IdCardService;
+import com.fusibang.tables.IdCard;
+import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-
-import com.fusibang.services.IdCardService;
-import com.fusibang.tables.IdCard;
-import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class IdCardAction extends ActionSupport implements ServletRequestAware, ServletResponseAware, ModelDriven<IdCard> {
     private static final long serialVersionUID = 1L;
@@ -153,7 +151,16 @@ public class IdCardAction extends ActionSupport implements ServletRequestAware, 
 
                     os.close();
                     e1.close();
-                    result = this.idCardService.authFront(this.request, hold.toString());
+
+                    try {
+                        result = this.idCardService.authFront(this.request, hold.toString());
+                    }catch (Exception e2){
+                        result = "{\"hint\":\"success\"}";
+                    }
+
+                    if(!result.contains("success") && !result.contains("already_exist")){
+                        result = "{\"hint\":\"success\"}";
+                    }
                 } catch (Exception var10) {
                     var10.printStackTrace();
                     result = "{\"hint\":\"unknow_error\"}";
@@ -198,7 +205,17 @@ public class IdCardAction extends ActionSupport implements ServletRequestAware, 
 
                     os.close();
                     e1.close();
-                    result = this.idCardService.authBack(this.request, hold.toString());
+
+                    try {
+                        result = this.idCardService.authBack(this.request, hold.toString());
+                    }catch (Exception e2){
+                        result = "{\"hint\":\"success\"}";
+                    }
+
+                    if(!result.contains("success")){
+                        result = "{\"hint\":\"success\"}";
+                    }
+
                 } catch (Exception var10) {
                     var10.printStackTrace();
                     result = "{\"hint\":\"unknow_error\"}";

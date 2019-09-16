@@ -5,11 +5,6 @@
 
 package com.fusibang.servicesimp;
 
-import java.io.FileNotFoundException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import com.fusibang.butterfly.Back;
 import com.fusibang.butterfly.Front;
 import com.fusibang.butterfly.IdCardAuth;
@@ -21,6 +16,9 @@ import com.fusibang.services.IdCardService;
 import com.fusibang.tables.IdCard;
 import com.fusibang.tables.Identify;
 import com.fusibang.tables.User;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class IdCardServiceImp extends ResponseStatus implements IdCardService {
     private IdCardDao idCardDao;
@@ -79,6 +77,7 @@ public class IdCardServiceImp extends ResponseStatus implements IdCardService {
                 if(e.getStatus().equals("success")) {
                     IdCard hold = this.idCardDao.existNum(e.getCar_id());
                     if(hold != null && hold.getUser().getId() != user.getId()) {
+                        this.identifyDao.findByUserId(user.getId()).setStep1(1);
                         return "{\"hint\":\"already_exist\"}";
                     } else {
                         IdCard idCard = new IdCard();
@@ -94,9 +93,19 @@ public class IdCardServiceImp extends ResponseStatus implements IdCardService {
                         return "{\"hint\":\"success\"}";
                     }
                 } else {
+                    IdCard idCard = new IdCard();
+                    idCard.setUser(user);
+                    idCard.setFont(1);
+                    this.identifyDao.findByUserId(user.getId()).setStep1(1);
+                    this.idCardDao.save(idCard);
                     return "{\"hint\":\"" + e.getStatus() + "\"}";
                 }
-            } catch (FileNotFoundException var9) {
+            } catch (Exception var9) {
+                IdCard idCard = new IdCard();
+                idCard.setUser(user);
+                idCard.setFont(1);
+                this.identifyDao.findByUserId(user.getId()).setStep1(1);
+                this.idCardDao.save(idCard);
                 var9.printStackTrace();
                 return "{\"hint\":\"unknow_error\"}";
             }
@@ -125,9 +134,11 @@ public class IdCardServiceImp extends ResponseStatus implements IdCardService {
                         this.identifyDao.findByUserId(id.intValue()).setStep2(1);
                         return "{\"hint\":\"success\"}";
                     } else {
+                        this.identifyDao.findByUserId(id.intValue()).setStep2(1);
                         return "{\"hint\":\"" + back.getStatus() + "\"}";
                     }
-                } catch (FileNotFoundException var8) {
+                } catch (Exception var8) {
+                    this.identifyDao.findByUserId(id.intValue()).setStep2(1);
                     var8.printStackTrace();
                     return "{\"hint\":\"unknow_error\"}";
                 }

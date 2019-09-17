@@ -93,7 +93,7 @@
                     <td>
                         <a class="upframe" href="channel_alt_view.do?id=${channel.id}">修改</a>
                         <div style="display:none" id="biao${channel.id}">http://${projectHost}/${projectName}/register.html?source=${channel.id}&target=mobile</div>
-                            <%--                        <a class="upframe" href="user_view_channel.do?channelId=${channel.id}" target="_blank">查看详情</a>--%>
+                                                    <a class="upframe" href="user_view_channel.do?channelId=${channel.id}" target="_blank">查看详情</a>
                         <a class="upframe" onClick="copyURL(${channel.id})">复制连接</a>
                     </td>
                 </tr>

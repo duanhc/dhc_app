@@ -137,6 +137,16 @@
 			if (empty) {
 				return;
 			}
+
+            var id_card = $("#id_card").val().trim();
+            var idcardReg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/; //身份证号
+            if (!idcardReg.test(id_card)) {
+                $.alert("请输入正确的身份证号",function(){
+                    return	;
+                });
+                return;
+            }
+
 //			var phone = $("#bank_phone").val().trim();
 			var phoneReg = /(^1[3|4|5|6|7|8|9]\d{9}$)|(^09\d{8}$)/;  //手机号正则表达式
 			/*if(!phoneReg.test(phone)){

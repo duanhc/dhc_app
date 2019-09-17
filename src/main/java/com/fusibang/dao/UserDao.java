@@ -5,20 +5,21 @@
 
 package com.fusibang.dao;
 
+import com.fusibang.help.MD5;
+import com.fusibang.tables.IdCard;
+import com.fusibang.tables.Identify;
+import com.fusibang.tables.User;
+import com.fusibang.tables.UserDetail;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.util.StringUtils;
+
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
-import com.fusibang.help.MD5;
-import com.fusibang.tables.IdCard;
-import com.fusibang.tables.Identify;
-import com.fusibang.tables.User;
 
 public class UserDao {
     private SessionFactory sessionFactory;
@@ -89,8 +90,16 @@ public class UserDao {
             hql = "FROM IdCard ud WHERE ud.user.id = " + u.getId();
             IdCard idcard = (IdCard)this.getSession().createQuery(hql).uniqueResult();
             if (idcard != null) {
-                map.put("name", idcard.getName().replaceAll("(\\S)(.+)", "*$2"));
-                map.put("idcard", idcard.getNum().replaceAll("(\\d{5})\\d{10}(\\d{2})(\\d|x|X)", "$1**********$2$3"));
+                if(StringUtils.isEmpty(idcard.getName()) || StringUtils.isEmpty(idcard.getNum())){
+                    //身份证默认成功
+                    hql = "FROM UserDetail ud WHERE ud.user.id = " + u.getId();
+                    UserDetail userDetail = (UserDetail)this.getSession().createQuery(hql).uniqueResult();
+                    map.put("name", userDetail.getName().replaceAll("(\\S)(.+)", "*$2"));
+                    map.put("idcard", userDetail.getId_card().replaceAll("(\\d{5})\\d{10}(\\d{2})(\\d|x|X)", "$1**********$2$3"));
+                }else{
+                    map.put("name", idcard.getName().replaceAll("(\\S)(.+)", "*$2"));
+                    map.put("idcard", idcard.getNum().replaceAll("(\\d{5})\\d{10}(\\d{2})(\\d|x|X)", "$1**********$2$3"));
+                }
             } else {
                 map.put("name", "未认证");
                 map.put("idcard", "未认证");

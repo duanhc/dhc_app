@@ -38,7 +38,7 @@
         <div class="sider___rHZmy ant-layout-sider ant-layout-sider-dark" style="flex: 0 0 200px; max-width: 200px; min-width: 200px; width: 200px;">
             <div class="ant-layout-sider-children">
                 <div class="logo___2ajOE">
-                    <p class="logo_name___1R-S0">如意分期</p>
+                    <p class="logo_name___1R-S0">小花钱包</p>
                     <p class="logo_name___1R-S0">渠道管理后台</p>
                 </div>
                 <ul class="ant-menu ant-menu-dark ant-menu-root ant-menu-inline" role="menu">

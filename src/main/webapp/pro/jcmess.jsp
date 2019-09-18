@@ -46,7 +46,7 @@
 					<input type="text"  name="name" value="${name}" placeholder="姓名" maxlength="15" />
 				</li>
 				<li>
-					<input type="text"  name="id_card" value="${idcard}" maxlength="18" placeholder="身份证号码" style="width: 80vw;"/>
+					<input type="text" id="id_card"  name="id_card" value="${idcard}" maxlength="18" placeholder="身份证号码" style="width: 80vw;"/>
 					<div class="more">
 						<img src="images/more.png" style="width: 6vw;"/>
 					</div>

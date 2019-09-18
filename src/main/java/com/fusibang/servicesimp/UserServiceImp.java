@@ -189,12 +189,12 @@ public class UserServiceImp extends ResponseStatus implements UserService {
             request.setAttribute("end", end);
             star = star + " 00:00:00";
             end = end + " 23:59:59";
-            List users = this.userDao.getAll(star, end, page, channelId);
+            // List users = this.userDao.getAll(star, end, page, channelId);
             int count = this.userDao.getCount(star, end, channelId);
             int pageCount = (int)Math.ceil((double)count / 13.0D);
             Map collect = this.userDao.Stat(star, end, channelId);
             request.setAttribute("collect", collect);
-            request.setAttribute("users", users);
+            // request.setAttribute("users", users);
             request.setAttribute("count", Integer.valueOf(count));
             request.setAttribute("pageCount", Integer.valueOf(pageCount));
             request.setAttribute("thisPage", Integer.valueOf(page));

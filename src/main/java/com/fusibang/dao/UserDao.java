@@ -62,6 +62,7 @@ public class UserDao {
 
         loan /= 10;
         collect.put("valid", String.valueOf(valid));
+        collect.put("ljsqrs", valid/2);
         collect.put("ua", String.valueOf(ua));
         collect.put("apply", String.valueOf(apply));
         collect.put("loan", String.valueOf(loan));

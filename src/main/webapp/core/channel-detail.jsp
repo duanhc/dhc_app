@@ -155,8 +155,8 @@
                                                                         <thead class="ant-table-thead">
                                                                         <tr>
                                                                             <th class="" style="text-align: center;"><span>累计注册人数</span></th>
-                                                                            <th class="" style="text-align: center;"><span>累计放款人数</span></th>
-                                                                            <th class="" style="text-align: center;"><span><span>累计放款金额</span></span></th>
+                                                                            <th class="" style="text-align: center;"><span>累计申请人数</span></th>
+                                                                            <%--<th class="" style="text-align: center;"><span><span>累计放款金额</span></span></th>--%>
                                                                             <th class="" style="text-align: center;"><span><span>逾期</span></span></th>
                                                                         </tr>
                                                                         </thead>
@@ -164,8 +164,8 @@
                                                                         <tr class="ant-table-row  ant-table-row-level-0" data-row-key="979">
                                                                             <td class="" style="text-align: center;"><span class="ant-table-row-indent indent-level-0"
                                                                                                                            style="padding-left: 0px;"></span>${collect.valid}</td>
-                                                                            <td class="" style="text-align: center;">0</td>
-                                                                            <td class="" style="text-align: center;">0</td>
+                                                                            <td class="" style="text-align: center;">${collect.ljsqrs}</td>
+                                                                            <%--<td class="" style="text-align: center;">0</td>--%>
                                                                             <td class="" style="text-align: center;">--</td>
                                                                         </tr>
                                                                         </tbody>

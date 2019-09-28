@@ -19,6 +19,7 @@ public class JedisFactory {
     public Jedis getInstance() {
         Jedis jedis = this.pool.getResource();
         jedis.auth(this.auth);
+        jedis.select(1);
         return jedis;
     }
 

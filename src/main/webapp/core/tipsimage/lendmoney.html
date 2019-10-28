@@ -1,0 +1,1103 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,maximum-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="">
+    <title>旋风速贷</title>
+  <link rel="stylesheet" type="text/css" href="../css/reset200802.css">
+  <link rel="stylesheet" type="text/css" href="../css/weui.css">
+  <!-- <link rel="stylesheet" href="http://apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css"> -->
+  <style type="text/css">
+  * {
+      -webkit-tap-highlight-color: transparent;
+  }
+  html{
+    font-size: 14px;
+    font-family: "黑体","微软雅黑","Helvetica Neue";
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .weui-btn_primary {
+      background: #4160e5;
+      border-radius: 14px;
+      height: 3.714rem;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "黑体";
+  }
+  .weui-btn_primary:not(.weui-btn_disabled):visited {
+    color: #000;
+  }
+  .weui-btn_primary:not(.weui-btn_disabled):active {
+    color: rgba(0, 0, 0, 0.6);
+    background-color: #8B008B;
+  }
+  .weui-btn_disabled.weui-btn_primary {
+    color: rgba(0, 0, 0, 1);
+    background-color: #8B008B;
+  }
+  .weui-btn_loading.weui-btn_primary {
+    background-color: #8B008B;
+    color: rgba(0, 0, 0, 0.6);
+  }
+  .weui-btn_warn {
+    background-color: #000;
+  }
+  .weui-btn_warn:not(.weui-btn_disabled):visited {
+    color: #FFFFFF;
+  }
+  .weui-btn_warn:not(.weui-btn_disabled):active {
+    color: rgb(255, 255, 255);
+    background-color: #000;
+    /*opacity: 0.6;*/
+  }
+  .weui-tabbar__item.weui-bar__item_on .weui-tabbar__label {
+      color: #FFD72D;
+  }
+  .weui-tabbar__item{
+    padding: 8px 0 0;
+  }
+  .all-bg{
+    position: fixed;
+    z-index: -1;
+    background-color:  #8B008B;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
+  .btn-view{
+    width: 94%;
+    margin: 0 auto;
+    margin-top: 3.8rem;
+    /* margin-top: 4.32rem; */
+  }
+  .btn-view>a {
+      color: #FFF;
+      font-weight: 300;
+      margin-bottom: 1rem;
+      border-radius: 0.71rem;
+      width: 86%;
+      line-height: 3.64rem;
+  }
+  html,body,.dxjk_warp{
+    height: 100%;
+    background-color: #FFF; 
+  }
+  .page {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+  }
+  #panel_1{
+    /*display: none;*/
+    background-color: #F8F8F8;
+  }
+  #panel_1 .top-view{
+    min-height: 10.3rem;
+    background-color:  #4160e5;
+    text-align: center;
+    overflow: hidden;
+  }
+  .weui-tabbar img{
+    height: 22.5px;
+    width: inherit;
+  }
+  .top-view p {
+      font-size: 1.15rem;
+      color: #4A4A4A;
+      line-height: 1.15rem;
+      padding-bottom: 1.36rem;
+      padding-top: 1.07rem;
+      font-size: 18px;
+      color: #FFFFFF;
+      letter-spacing: 1px;
+      font-family: "黑体";
+  }
+  #panel_1 .top-view h3 {
+      font-size: 2.14rem;
+      color: #FFF;
+      line-height: 1.8rem;
+      font-weight: 300;
+  }
+  #panel_1 .center-view{
+    background-color: #4160e5;
+    /*margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;*/
+    padding-left: 0.66rem;
+    padding-right: 0.66rem;
+  }
+  #panel_1 .center-view2{
+    background-color: #fff;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 0.66rem;
+    padding-right: 0.66rem;
+  }
+  #panel_1 .center-view .center-title{
+      width: 92%;
+      margin: 0 auto;
+      padding: 0.95rem 0 0.8rem;
+  }
+  #panel_1 .center-view2 .center-title{
+      width: 92%;
+      margin: 0 auto;
+      padding: 0.95rem 0 0.8rem;
+  }
+  #panel_1 .center-view .center-div{
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  #panel_1 .center-view2 .center-div{
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  #panel_1 .center-view .center-div>div{
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  #panel_1 .center-view2 .center-div>div{
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  #panel_1 .center-view2 .center-div>div>a{
+    display: block;
+    border-radius: 0.5rem;
+    height: 2.32rem;
+    line-height: 2.32rem;
+    width: 90%;
+    margin: 0 auto;
+    font-size: 16px;
+    font-size: 1.15rem;
+    padding: 0.25rem 0;
+    background-color: #E5E6EC;
+    color: #4A4A4A;
+  }
+  #panel_1 .center-view2 .center-div>div>a.active{
+    background-color:  #8B008B;
+    color: #FFF;
+  }
+  #panel_1 .list-view{
+    background-color: #FFF;
+  }
+  #panel_1 .list-center-div{
+    background-color: #FFF;
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    padding: 1.1rem;
+    height: 60px;
+    box-sizing: border-box;
+    height: 4.288rem;
+    padding-left: 0;
+    margin-left: 1.1rem;
+  }
+  #panel_1 .list-center-div + .list-center-div{
+      border-top: 1px solid #D4D4D4;
+  }
+  #panel_1 .list-center-div>div:nth-child(1){
+    font-size: 14px;
+    color: #9B9B9B;
+    font-size: 1rem;
+    flex: 1;
+    justify-content: flex-start;
+  }
+  #panel_1 .list-center-div>div:nth-child(2){
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: right;
+  }
+  #panel_1 .list-center-div>div:nth-child(2) p{
+    font-size: 14px;
+      color: #4A4A4A;
+      font-size: 1rem;
+      font-weight: 600;
+        line-height: 1rem; 
+  }
+  #panel_1 .list-center-div>div:nth-child(2) h5{
+    font-size: 10px;
+    color: #9B9B9B;
+    font-size: 0.85rem;
+    font-weight: 300;
+  }
+  #panel_1 .weui-btn:after{
+    border: none;
+  }
+
+  
+
+  /*条子*/
+  .weui-slider__track {
+      height: 0.75rem;
+      background-color: #8B008B;
+      border-radius: 5px 0 0 5px;
+  }
+  .weui-slider__handler{
+    box-shadow: 0 0 5px 0 rgba(74,74,74,0.44);
+  }
+  .weui-slider__inner {
+      position: relative;
+      height: 0.75rem;
+      background-color: #fff;
+      border-radius:10px;
+  }
+  .weui-slider__handler {
+      width: 42px;
+      height: 42px;
+      margin-top: -21px;
+      background: transparent;
+      box-shadow: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  .the-slider{
+    margin:0 auto;
+    margin-top:1.03rem;
+  }
+  .flex_1{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .the-slider .flex_1 img {
+      height: 23px;
+      height: 1.75rem;
+      display: block;
+  }
+  .flex_5 {
+      flex: 5!important;
+      padding-left: 3px;
+      padding-right: 3px;
+  }
+  .users-info {
+      margin-top: 0;
+      background-color: #EAEEEF;
+  }
+  .users-info-top {
+      background-color: #FFF;
+      height: 90px;
+      height: 6.43rem;
+      box-sizing: border-box;
+  }
+  .users-info-content>div{
+      margin-top: 1rem!important;
+  }
+  #usersName{
+    margin-bottom: 0.3rem;
+      font-size: 16px;
+      font-size: 1.14rem;
+      font-weight: 600;
+      line-height: 2rem;
+  }
+  #usersMobile{
+      font-size: 14px;
+      color: #4A4A4A;
+      font-size: 1rem;
+  }
+  #usersImg{
+    width: 60px;
+    display: block;
+    height: 60px;
+    border-radius: 100%;
+    width: 4.28rem;
+    height: 4.28rem;
+  }
+  .weui-cell {
+      padding: 9px 15px;
+  }
+  .users-info-content a .weui-cell__hd img{
+    width:20px;width:1.43rem;margin-right:1.02rem;display:block;
+  }
+  .users-info-content .weui-cell__bd{
+    display: flex;
+  }
+  .users-info-content .weui-cell__bd p{
+    flex:1;
+    /*font-weight: 600;*/
+  }
+  .users-info-content .weui-cell__bd p:nth-child(2){
+    text-align: right;
+    color: #9B9B9B;
+  }
+
+  
+    #sliderHandler>div{
+      height: 22px;
+        box-shadow: 0 0 5px 0 rgba(74,74,74,0.44);
+        width: 22px;
+        margin-left: -11px;
+        border-radius: 50%;
+        /*background-color: #000;*/
+        /*border: 6px solid #FFF;*/
+        box-sizing: border-box;
+        position: relative;
+        background-image: url('../images/xm3_index_btn.png');
+        background-size: 100% 100%;
+    }
+    #sliderHandler>div>div {
+        color: #3A3A3A;
+        font-size: 1.07rem;
+        position: absolute;
+        bottom: -2rem;
+        left: -1rem;
+        min-width: 50px;
+        text-align: center;
+        font-family: "黑体";
+        letter-spacing: 1px;
+    }
+    .top-view-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.78rem;
+        margin-top: 1.2rem;
+    }
+    .top-view-bottom>div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+    }
+    .top-view-bottom p {
+        padding: 0;
+        font-size: 1rem;
+        line-height: 22px;
+        width: 100%;
+    }
+    .top-view-bottom>div:nth-child(1) {
+        text-align: left;
+    }
+    .top-view-bottom>div:nth-child(2) {
+        text-align: right;
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
+    .top-view-bottom>div:nth-child(2) div {
+        text-align: center;
+    }
+    .userAgreement {
+        /*display: flex;*/
+        width: 91%;
+        margin: 0 auto;
+        font-size: 10px;
+        /*font-size: 12px;*/
+        /*font-size: 0.85rem;*/
+        align-items: center;
+    }
+    .userAgreement>img {
+        width: 1.1rem;
+        height: 1.1rem;
+        margin-right: 0.85rem;
+        vertical-align: middle;
+    }
+    .userAgreement a {
+        color: #8B008B;
+        vertical-align: middle;
+    }
+    .selectimg{
+      width:1.42rem;
+      height:1.42rem;
+    }
+    #toggleImg{
+      width:1.42rem;
+      height:1.42rem;
+    }
+  * {
+      -webkit-tap-highlight-color: transparent;
+  }
+  @media screen and (-webkit-min-device-pixel-ratio: 2) {
+      #panel_1 .list-center-div + .list-center-div{
+          border-top: 0.5px solid #D4D4D4;
+      }
+  }
+  @media screen and (-webkit-min-device-pixel-ratio: 3) {
+      #panel_1 .list-center-div + .list-center-div{
+          border-top:  0.333333px solid #D4D4D4;
+      }
+  }
+  /*@media screen and (min-width:1200px){
+    
+
+  }
+
+  @media screen and (min-width: 960px) and (max-width: 1199px) {
+
+
+  }*/
+  @media screen and (min-width: 768px) and (max-width: 959px) {
+    html,body{
+      font-size:15px;
+    }
+  }
+  @media only screen and (min-width: 375px) and (max-width: 767px){
+    html,body{
+      font-size:14px;
+    }
+  }
+  @media only screen and (min-width: 200px) and (max-width:374px) {
+    html,body{
+      font-size:12px;
+    }
+
+  }
+  .slider-box-about{
+    overflow: hidden;
+    background-color:#4160e5;
+  }
+  .rightLine{
+    position: relative;
+  }
+  .rightLine::after{
+    content: '';
+    display: block;
+    height: 58%;
+    width: 0.5px;
+    background-color: #9DE8FD;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 21%;
+    margin: auto;
+  }
+  .month_select{
+    position: relative;
+  }
+  .lendmonth_7{
+    width: 92%;
+    height: 4.03rem;
+    background-color: #fff;
+    margin: 0 auto;
+    margin-left: 4%;
+    position: relative;margin-top:1.14rem;
+  }
+  #toggleImg1 {
+    width: 1.42rem;
+    height: 1.42rem;
+    position: absolute;
+    left: 2rem;
+    top: 1.39rem;
+}
+#toggleImg2 {
+    width: 1.42rem;
+    height: 1.42rem;
+    position: absolute;
+    left: 2rem;
+    top: 1.39rem;
+}
+#toggleImg3 {
+    width: 1.42rem;
+    height: 1.42rem;
+    position: absolute;
+    left: 2rem;
+    top: 1.39rem;
+}
+  .xian{
+    width:1px;
+    height:1.42rem;
+    background-color:#999;
+    position:absolute;
+    left:8.2rem;
+    top:1.39rem;
+}
+.xian1{
+    width:1px;
+    height:1.42rem;
+    background-color:#999;
+    position:absolute;
+    left:8.2rem;
+    top:1.39rem;
+}
+.xian2{
+    width:1px;
+    height:1.42rem;
+    background-color:#999;
+    position:absolute;
+    left:9.23rem;
+    top:1.39rem;
+}
+  .lendtime{
+    position: absolute;
+    left: 3.82rem;
+    top: 1.39rem;
+    color:#999;
+
+  }
+  .lendtime1{
+    position: absolute;
+    left: 3.82rem;
+    top: 1.39rem;
+    color:#999;
+
+  }
+  .lendtime2{
+    position: absolute;
+    left: 3.82rem;
+    top: 1.39rem;
+    color:#999;
+
+  }
+  .kong{
+    width: 1px;
+    height: 1.42rem;
+    background-color: #999999;
+    position: absolute;
+    left: 6.7rem;
+    top: 1.39rem;
+  }
+  .backmoney{
+    color:#999;
+    display: inline-block;
+    position: absolute;
+    left: 8.55rem;
+    top: 1.39rem;
+  }
+  .backmoney1{
+    color:#999;
+    display: inline-block;
+    position: absolute;
+    left: 8.55rem;
+    top: 1.39rem;
+  }
+  .backmoney2{
+    color:#999;
+    display: inline-block;
+    position: absolute;
+    left: 9.55rem;
+    top: 1.39rem;
+  }
+  .lilv{
+    display: inline-block;
+    font-size:13px;
+    font-family:PingFangSC-Regular;
+    color:rgba(153,153,153,1);
+    position: absolute;
+    right:1.71rem;
+    top:1.39rem;
+    line-height:1.71rem;
+    text-align: center;
+  }
+  .wan5{
+    font-size:18px;
+    color:#4160e5;
+    line-height:1.71rem;
+    text-align: center;
+  }
+  .xuxian{
+    width:82.4%;
+    height:1px;
+    border-bottom:1px dashed #bcbcbc;
+    position:absolute;
+    left:8.8%;
+    z-index:1;
+  }
+  .gaoshi{
+    width: 92%;
+    height: 3rem;
+    background-color: #fff;
+    margin: 0 auto;
+    margin-left: 4%;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+  }
+  .backmoney_back{
+    display:inline-block;
+    font-size:12px;
+    line-height: 3rem;
+    text-align:center;
+    font-family:PingFangSC-Regular;
+    color:rgba(153,153,153,1);
+  }
+  .backmoney_fuwu{
+    display:inline-block;
+    font-size:12px;
+    line-height: 3rem;
+    text-align:center;
+    font-family:PingFangSC-Regular;
+    color:rgba(153,153,153,1);
+  }
+  </style>
+  </head>
+  <body ontouchstart="">
+    <div class="all-bg"></div>
+  <div class="page tabbar js_show">
+      <div class="page__bd" style="height: 100%;">
+          <div class="weui-tab">
+              <div id="panel_1" class="weui-tab__panel panel_1">
+          <div class="top-view">
+            <div>
+              <p>借款金额(元)</p>
+              <h3><span class="needMoney">5000</span>元</h3>
+            </div>
+            <div class="center-view">
+              <!-- <div class="center-title" style="padding-bottom:0.3rem; ">申请金额（元）</div> -->
+              <div class="slider-box-about">
+                <div class="weui-slider-box weui-flex the-slider"  style="margin-bottom: 1rem">
+                  <div class="flex_1" onClick="setMonenyVal(-100)">
+                    <img src="../images/wrh_index_del.png">
+                  </div>
+                    <div class="weui-slider weui-flex__item flex_5">
+                        <div id="sliderInner" class="weui-slider__inner">
+                            <div id="sliderTrack" style="width: 100%;" class="weui-slider__track"></div>
+                            <div id="sliderHandler" style="left: 100%;" class="weui-slider__handler">
+                              <div>
+                                <!-- <div class="needMoney">1000</div> -->
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex_1" onClick="setMonenyVal(100)">
+                      <img src="../images/wrh_index_add.png">
+                    </div>
+                </div> 
+              </div>
+            </div>
+            <!-- <div class="top-view-bottom rightLine">
+                <div>
+                  <p>总还款：<span id="allMoney"></span>元</p>
+                  <p style="font-size:0.85rem">(含服务费<span id="otherMoney"></span>元)</p>
+                </div>
+                <div>
+                  <div>
+                    <p><span id="monthMoney"></span>元</p>
+                    <p>平均月供</p>
+                  </div>
+                </div>
+            </div> -->
+          </div>
+          <div class="content-view">
+            <!-- 借七天 -->
+            <div class="month_select">
+              <div class="lendmonth_7">
+                  <!-- id="toggleImg" -->
+                  <img id="toggleImg1"  class="selectimg shrimg" src="../images/wrh_login_ok.png">
+                  <span class="lendtime">借一个月</span>
+                  <span class="xian"></span>
+                  <div>
+                    <p class="backmoney"><span class="allMoney">6300</span>元</p>
+                    <!-- <h5>(含服务费￥<span id="otherMoney">300</span>元)</h5> -->
+                  </div>
+                  <div class="lilv">利率 <span class="wan5">万5</span></div>
+              </div>
+              <div class="xuxian"></div>
+              <div class="gaoshi">
+                  <p class="backmoney_back"><span class="allMoney">6300</span>元借一个月。</p>
+                  <h5 class="backmoney_fuwu">(含服务费￥<span class="otherMoney">300</span>元)</h5>
+              </div>
+            </div>
+            <!-- 借一个月 -->
+            <div class="month_select">
+                <div class="lendmonth_7">
+                    <!-- id="toggleImg" -->
+                    <img id="toggleImg2"  class="shrimg" src="../images/wrh_login_not_ok.png">
+                    <span class="lendtime1">借三个月</span>
+                    <span class="xian1"></span>
+                    <div>
+                      <p class="backmoney1"><span class="allMoney1">6300</span>元</p>
+                      <!-- <h5>(含服务费￥<span id="otherMoney">300</span>元)</h5> -->
+                    </div>
+                    <div class="lilv">利率 <span class="wan5">万5</span></div>
+                </div>
+                <div class="xuxian"></div>
+                <div class="gaoshi">
+                    <p class="backmoney_back"><span class="allMoney1">6300</span>元借三个月。</p>
+                    <h5 class="backmoney_fuwu">(含服务费￥<span class="otherMoney1">300</span>元)</h5>
+                </div>
+              </div>
+              <!-- 借三个月 -->
+              <div class="month_select">
+                  <div class="lendmonth_7">
+                      <!-- id="toggleImg" -->
+                      <img id="toggleImg3"  class="shrimg" src="../images/wrh_login_not_ok.png">
+                      <span class="lendtime2">借十二个月</span>
+                      <span class="xian2"></span>
+                      <div>
+                        <p class="backmoney2"><span class="allMoney2">6300</span>元</p>
+                        <!-- <h5>(含服务费￥<span id="otherMoney">300</span>元)</h5> -->
+                      </div>
+                      <div class="lilv">利率 <span class="wan5">万5</span></div>
+                  </div>
+                  <div class="xuxian"></div>
+                  <div class="gaoshi">
+                      <p class="backmoney_back"><span class="allMoney2">6300</span>元借十二个月。</p>
+                      <h5 class="backmoney_fuwu">(含服务费￥<span class="otherMoney2">300</span>元)</h5>
+                  </div>
+                </div>
+
+            <!-- <div class="center-view2">
+              <div class="center-title">借款期限</div>
+              <div class="center-div" id="center-div">
+                <div class="month-btn"><a href="javascript:;" class="active" data-val="1">一个月</a></div>
+                <div class="month-btn"><a href="javascript:;" data-val="3">三个月</a></div>
+                <div class="month-btn"><a href="javascript:;" data-val="12">十二个月</a></div>
+              </div>
+            </div> -->
+            <!-- 总还款 -->
+            <!-- <div class="list-view">
+              <div class="list-center-div">
+                <div>总还款</div>
+                <div>
+                  <p><span class="allMoney">6300</span>元</p>
+                  <h5>(含服务费￥<span id="otherMoney">300</span>元)</h5>
+                </div>
+              </div>
+              <div class="list-center-div" id="goBlankView">
+                <div>待还款</div>
+                <div>
+                  <p>0元</p>
+                </div>
+              </div>
+            </div> -->
+          </div>
+
+        <!-- <div class="userAgreement">
+          <img id="toggleImg" class="selectimg" src="../images/dxjk_login_ok.png">申请有礼：送100万出行保障险，平安出行，查看<a href="http://zx.taochexian.com.cn/m/daikuan/multiple/dm/pa/gz.html">《投保需知》</a>
+        </div> -->
+
+        <!-- 立即借款 -->
+        <div class="btn-view">
+          <a href="javascript:;" id="getMoneyBtn" class="weui-btn weui-btn_primary">立即借款</a>
+        </div>
+
+              </div>
+
+
+          </div>
+      </div>
+  </div>
+
+
+<!-- weui toast -->
+<div id="loadingToast" style="display: none;">
+    <div class="weui-mask_transparent"></div>
+    <div class="weui-toast">
+        <i class="weui-loading weui-icon_toast"></i>
+        <p class="weui-toast__content" id="loadInfo"></p>
+    </div>
+</div>
+<div id="toast" style="display: none;">
+    <div class="weui-mask_transparent"></div>
+    <div class="weui-toast">
+        <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+        <p class="weui-toast__content">发送成功</p>
+    </div>
+</div>
+<!-- 提示框 -->
+<!-- iosDialog -->
+<div class="js_dialog" id="iosDialog1" style="display: none;">
+    <div class="weui-mask"></div>
+    <div class="weui-dialog" style="z-index:100001">
+        <div class="weui-dialog__hd"><strong class="weui-dialog__title">提示</strong></div>
+        <div class="weui-dialog__bd" id="dialog_1_info"></div>
+        <div class="weui-dialog__ft">
+            <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default" onclick="iosDialog1Hide()">取消</a>
+            <a href="javascript:;" id="dialog_1_ok" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+        </div>
+    </div>
+</div>
+<!-- 提示框 -->
+<!-- iosDialog2 -->
+<div class="js_dialog" id="iosDialog2" style="display: none;">
+    <div class="weui-mask"></div>
+    <div class="weui-dialog" style="z-index:100001">
+        <div class="weui-dialog__bd" id="dialog_2_info"></div>
+        <div class="weui-dialog__ft">
+            <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" onclick="comeback()">好的</a>
+        </div>
+    </div>
+</div>
+
+
+  </body>
+
+
+  <!-- <script type="text/javascript" src="../js/jquery.min.js"></script> -->
+    <script src="../js/jquery.min.js"></script>
+    <!-- <script src="http://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script> -->
+
+  <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+  <script type="text/javascript">
+    var isFirstLoads = true;
+    var apiArr = {
+
+    }
+    var needMoneyTime = 1;//默认一个月
+    var showLoadingToastTimer = "";//计时器
+    var showToastTimer = "";//计时器2
+    var ossurl = "../images/";
+    //用户协议 同意与否
+    
+    $(".month_select").click(function(){
+      // $(".shrimg").click(function(){
+        var that = $(this);
+        // var loginbtn = $("#loginbtn");
+        // console.log(that.hasClass('selectimg'))
+        if(that.find('.shrimg').hasClass('selectimg')){
+          return
+          // that.attr('src',ossurl+'wrh_login_not_ok.png');
+          // that.removeClass('selectimg');
+          // loginbtn.addClass('weui-btn_disabled');
+        }else{
+          $('.shrimg').removeClass('selectimg').attr('src',ossurl+'wrh_login_not_ok.png')
+          that.find('.shrimg').addClass('selectimg').attr('src',ossurl+'wrh_login_ok.png')
+          
+          // that.attr('src',ossurl+'wrh_login_ok.png')
+          // that.addClass('selectimg');
+          // loginbtn.removeClass('weui-btn_disabled');
+        }
+      });
+    // $("#toggleImg2").click(function(){
+    //   var that = $(this);
+    //   var loginbtn = $("#loginbtn");
+    //   if(that.hasClass('selectimg')){
+    //     that.attr('src',ossurl+'wrh_login_ok.png');
+    //     that.removeClass('selectimg');
+    //     loginbtn.addClass('weui-btn_disabled');
+    //   }else{
+    //     that.attr('src',ossurl+'wrh_login_not_ok.png')
+    //     that.addClass('selectimg');
+    //     loginbtn.removeClass('weui-btn_disabled');
+    //   }
+    // });
+    // $("#toggleImg3").click(function(){
+    //   var that = $(this);
+    //   var loginbtn = $("#loginbtn");
+    //   if(that.hasClass('selectimg')){
+    //     that.attr('src',ossurl+'wrh_login_ok.png');
+    //     that.removeClass('selectimg');
+    //     loginbtn.addClass('weui-btn_disabled');
+    //   }else{
+    //     that.attr('src',ossurl+'wrh_login_not_ok.png')
+    //     that.addClass('selectimg');
+    //     loginbtn.removeClass('weui-btn_disabled');
+    //   }
+    // });
+      //thisId : bar1 | bar2 | bar3
+      function goBarDetail(thisId){
+        //请求的时候加吧
+        if(isFirstLoads){
+          $("#loadInfo").html("正在加载");
+          showLoadingToast();
+          isFirstLoads = false;
+        }
+      }
+  var getMoneyInterest = 1.08;//利率
+  var zongshubi = 10000;//总值
+  var allAcitveVal = 4000;//能活动的值
+  var minVals = 1000;//最小值
+  $('.needMoney').html(allAcitveVal+minVals);
+  var bili =(zongshubi)/allAcitveVal;
+      //滑动拖拉
+    $(function(){
+        var $sliderTrack = $('#sliderTrack'),
+            $sliderHandler = $('#sliderHandler'),
+            $sliderValue = $('.needMoney');
+        var totalLen = $('#sliderInner').width(),
+            startLeft = 0,
+            startX = 0;
+        $sliderHandler
+            .on('touchstart', function (e) {
+                startLeft = (parseInt($sliderHandler.css('left')) *  100)/100;
+                startX = e.originalEvent.changedTouches[0].clientX;
+            })
+            .on('touchmove', function(e){
+              if(totalLen==0){
+            totalLen = $('#sliderInner').width()
+              }
+                var dist = startLeft + e.originalEvent.changedTouches[0].clientX - startX,
+                    percent;
+                    // dist = dist/2;
+                dist = dist < 0 ? 0 : dist > totalLen ? totalLen : dist;
+                percent =  parseInt(dist / totalLen * 100);
+                $sliderTrack.css('width', percent + '%');
+                $sliderHandler.css('left', percent + '%');
+                $sliderValue.text(parseInt(percent/bili)*100+minVals);
+                postInfo(needMoneyTime);//计算
+                e.preventDefault();
+            })
+        ;
+    });
+    function setMonenyVal(val){
+      var $sliderTrack = $('#sliderTrack'),
+          $sliderHandler = $('#sliderHandler'),
+          $sliderValue = $('.needMoney:eq(0)');
+      var totalLen = $('#sliderInner').width(),
+          startLeft = 0,
+          startX = 0;
+          if(val=='-100' && $sliderValue.html()==minVals || val=='100' && $sliderValue.html()==allAcitveVal+minVals ){return;}
+          $(".needMoney").html(parseInt($sliderValue.text())+val);
+            percent = parseInt(($sliderValue.text()-minVals)/allAcitveVal*100);
+            $sliderTrack.css('width', percent + '%');
+            $sliderHandler.css('left', percent + '%');
+          postInfo(needMoneyTime);//计算
+    }
+    //几个月的点击选择
+    $(".month-btn").click(function(){
+      var that = $(this);
+      if(that.find('a').hasClass('active')){return;}
+      // console.log('几个月呢？');
+      // console.log(that.find('a').attr('data-val'));
+        that.find('a').addClass('active').parent('.month-btn').siblings().find('a').removeClass('active');
+        needMoneyTime = that.find('a').attr('data-val');
+        if(needMoneyTime==7){
+          $("#moneyDay>span").html("7");
+          $("#moneyDay>em").html("天");
+        }else if(needMoneyTime==30){
+          $("#moneyDay>span").html("1");
+          $("#moneyDay>em").html("个月");
+        }else if(needMoneyTime==15){
+          $("#moneyDay>span").html("15");
+          $("#moneyDay>em").html("天");
+        }else if(needMoneyTime==180){
+          $("#moneyDay>span").html("6");
+          $("#moneyDay>em").html("个月");
+        }
+      postInfo(needMoneyTime)
+    });
+    function postInfo(needMoneyTime){
+      // needMoneyTime = needMoneyTime?needMoneyTime:30
+      var needMoney =parseInt($(".needMoney").html());
+      // console.log((needMoney*needMoneyTime*getMoneyInterest).toFixed(2))
+
+      var lixi = needMoney*needMoneyTime*getMoneyInterest
+      console.log("lixi")
+      console.log(lixi)
+
+
+      var jsMoneyVal = needMoney;
+      console.log(jsMoneyVal)
+      var periodsCount = needMoneyTime;
+      console.log(needMoneyTime)
+      console.log(periodsCount)
+      var Interest = 0.017;
+      var totalInterest = parseFloat(jsMoneyVal*Interest+jsMoneyVal/periodsCount);
+      // console.log(totalInterest)
+      // console.log('要每月要还那么多钱！')
+      // console.log(totalInterest.toFixed(2))
+
+      $("#monthMoney").html(totalInterest.toFixed(2))
+      $(".allMoney").html((jsMoneyVal*1.017).toFixed(2))
+      $(".allMoney1").html((jsMoneyVal*1.045).toFixed(2))
+      $(".allMoney2").html((jsMoneyVal*1.204).toFixed(2))
+      $(".otherMoney").html((jsMoneyVal*0.014).toFixed(2));
+      $(".otherMoney1").html((jsMoneyVal*0.045).toFixed(2));
+      $(".otherMoney2").html((jsMoneyVal*0.204).toFixed(2));
+
+      // $(".otherMoney").html(lixi.toFixed(2));
+      // $(".otherMoney").html(parseInt(lixi).toFixed(2));
+      // $("#allMoney").html(parseInt(lixi+needMoney).toFixed(2));
+      // $("#monthMoney").html(parseFloat((lixi+needMoney)/parseInt(needMoneyTime)).toFixed(2));
+        // needMoney
+    }
+    postInfo(needMoneyTime);//默认一个月
+
+
+    $("#getMoneyBtn").click(function(){
+      var needMoney =parseInt($(".needMoney").html());//要借多少钱
+      console.log(needMoney);//要多少钱
+      console.log(parseInt(needMoneyTime));//要多少个月
+
+      // if(!$("#toggleImg").hasClass('selectimg')){showTipsInfo("同意《赠保协议》才可借款！");return false;}
+      showTipsInfo1("需完成信息认证方可借款");
+    })
+
+
+    var $iosDialog1 = $("#iosDialog1");
+    var $dialog_1_info = $("#dialog_1_info");
+    //显示选择框
+    function showTipsInfo1(info){
+      $("#dialog_1_info").html(info);
+      $iosDialog1.fadeIn(200);
+    }
+    //选择框点确定时
+    $("#dialog_1_ok").click(function(){
+        var wxInter = getQueryString("wx"); //获取微信入口进入
+        var urlParame = '';    //接收参数确认是否微信
+      $iosDialog1.fadeOut(200);
+          urlParame = wxInter=='1'? wxInter:'0';
+       window.location.href = "../jsp/renzheng.jsp";
+    });
+    //选择框点取消时
+    function iosDialog1Hide(){
+      $iosDialog1.fadeOut(200);
+    }
+  //Toast info
+  // loading
+  var $loadingToast = $('#loadingToast');
+  function showLoadingToast(){
+      if ($loadingToast.css('display') != 'none') return;
+      $loadingToast.fadeIn(100);
+      showLoadingToastTimer = setTimeout(function () {
+          $loadingToast.fadeOut(100);
+      }, 20000);
+  }
+  // toast
+  var $toast = $('#toast');
+  function showToast(){
+     if ($toast.css('display') != 'none') return;
+     $toast.fadeIn(100);
+     showToastTimer = setTimeout(function () {
+         $toast.fadeOut(100);
+     }, 2000);
+  }
+  var $iosDialog2 = $("#iosDialog2");
+  var $dialog_2_info = $("#dialog_2_info");
+  //提示框
+  function showTipsInfo(info){
+    $("#dialog_2_info").html(info);
+    $iosDialog2.fadeIn(200);
+  }
+  // 提示框 点确定/取消时
+  function comeback(){
+    $("#iosDialog2").fadeOut(200);
+  }
+
+  // getQueryString
+  function getQueryString(name) { 
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+    var r = window.location.search.substr(1).match(reg); 
+    if (r != null) return decodeURIComponent(r[2]); return null; 
+  } 
+  var zshowtipsinfo = getQueryString('showtipsinfo');
+  if(zshowtipsinfo && zshowtipsinfo!=undefined){
+    var showstr = "";
+    if(zshowtipsinfo=="reg"){
+      showstr = "注册成功";
+    }else if(zshowtipsinfo=="login"){
+      showstr = "登录成功";
+    }
+    showTipsInfo(showstr);
+
+  }
+  $("#goBlankView").click(function(){
+    window.location.href="dxjk_blank.htm";
+  });
+
+      
+      
+  </script>
+  </html>

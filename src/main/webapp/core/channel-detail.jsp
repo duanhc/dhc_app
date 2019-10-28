@@ -1,228 +1,188 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+		 pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
-<head>
-    <link rel="stylesheet" href="css/vendors.13cc6c1a.chunk.css"/>
-    <link rel="stylesheet" href="css/antd.317558af.chunk.css"/>
-    <link rel="stylesheet" href="css/umi.acd00da0.chunk.css"/>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
-    <script>window.routerBase = "/";</script>
-    <link rel="stylesheet" type="text/css" href="css/layouts__index.7ea1c9f0.chunk.css"/>
-    <script charset="utf-8" src="js/layouts__index.81149523.async.js"></script>
-    <script charset="utf-8" src="js/p__channelCustomer__index.6cbfdaea.async.js"></script>
-    <script src="http://dzez.v228.10000net.cn/js/jquery.min.js"></script>
-    <style>
-        #down_context {
-            display: none;
+<html data-page="data-realTime">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<title>实时数据</title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Cache-Control" content="no-siteapp">
+		<link rel="stylesheet" href="//at.alicdn.com/t/font_1102140_0q0tngtghwbf.css">
+		<link href="css/app.07395103.css" rel="preload" as="style">
+		<!--<link href="js/app.71c7e848.js" rel="preload" as="script">
+		<link href="js/chunk-polyfills.76cb83dc.js" rel="preload" as="script">
+		<link href="js/chunk-vendors.9d57dcae.js" rel="preload" as="script">-->
+		<link href="css/app.07395103.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/chunk-ef878d8c.2bdb8de0.css">
+		<!--<script charset="utf-8" src="js/chunk-ef878d8c.5ed49e64.js"></script>
+		<script charset="utf-8" src="js/chunk-2d0de3a1.fb551851.js"></script>-->
+		<link rel="stylesheet" type="text/css" href="css/chunk-cc66c468.ad15da32.css">
+		<!--<script charset="utf-8" src="js/chunk-cc66c468.9ed75a38.js"></script>
+		<script charset="utf-8" src="js/chunk-2d214429.e82e9ebb.js"></script>
+		<script charset="utf-8" src="js/chunk-2d0c949e.1eec5383.js"></script>-->
+		<script src="http://dzez.v228.10000net.cn/js/jquery.min.js"></script>
+	</head>
+
+	<body style="">
+	<form action="user_view_channel.do" target="_self" id="date_search_form">
+		<input type="hidden" name="channelId" value="${channelId}"/>
+		<input type="hidden" name="page" value="1"/>
+		<input type="hidden" id="star_time_inp" name="star" value="${star}"/>
+		<input type="hidden" id="end_time_inp" name="end" value="${end}"/>
+	</form>
+		<div class="app">
+			<section class="el-container app is-vertical">
+				<div data-v-79751bb3="" class="topbar-wrapper">
+					<header data-v-79751bb3="" class="el-header topbar" style="height: 60px;">
+						<div data-v-79751bb3="" class="topbar-brand">推广平台</div>
+						<div data-v-79751bb3="" class="topbar-account">
+							<div data-v-79751bb3="" class="topbar-forgot"><span data-v-79751bb3="">${name}，您好！</span></div>
+						</div>
+					</header>
+				</div>
+				<section class="el-container app-bottom">
+					<aside data-v-2aab1cbf="" class="app-aside">
+						<div data-v-2aab1cbf="" class="app-menu">
+							<ul data-v-2aab1cbf="" role="menubar" class="el-menu" style="background-color: rgb(0, 21, 41);">
+								<li data-v-2aab1cbf="" role="menuitem" aria-haspopup="true" class="el-submenu is-active is-opened" aria-expanded="true">
+									<div class="el-submenu__title" style="padding-left: 20px; color: rgb(255, 255, 255); background-color: rgb(0, 21, 41);"><i data-v-2aab1cbf="" class="menu-icon icon-data"></i><span data-v-2aab1cbf="">数据统计</span><i class="el-submenu__icon-arrow el-icon-arrow-down"></i></div>
+									<ul role="menu" class="el-menu el-menu--inline" data-old-padding-top="" data-old-padding-bottom="" data-old-overflow="" style="background-color: rgb(0, 21, 41);">
+										<li data-v-2aab1cbf="" role="menuitem" tabindex="-1" class="el-menu-item is-active" style="padding-left: 40px; color: rgb(255, 255, 255); background-color: rgb(0, 21, 41);"><i data-v-2aab1cbf="" class="menu-icon el-icon-tickets"></i><span data-v-2aab1cbf="">实时数据</span></li>
+
+									</ul>
+								</li>
+							</ul>
+						</div>
+						<div data-v-2aab1cbf="" title="折叠/展开" class="collapse"><i data-v-2aab1cbf="" class="el-icon-arrow-left"></i></div>
+					</aside>
+					<main class="el-main">
+						<div class="main-page">
+							<div data-v-ac923a6a="" data-v-8882c062="" >
+								<div data-v-4c771c42="" data-v-ac923a6a="" class="page-record" style="margin-bottom: 50px;">
+									<div data-v-4c771c42="" class="el-card sec-table is-always-shadow">
+										<div class="el-card__header">日期选择</div>
+										<input id="input_date__range" value="${star}" autocomplete="off" placeholder="选择日期范围" type="text" rows="2" class="el-input__inner"  style="width: 20%;height: 50px;">
+										<button data-v-2283f450="" type="button" class="el-button el-button--primary" onclick="test()" style="background:#2b83f9;margin-left: 30px;">
+											<span><i data-v-2283f450="" class="fa fa-search"></i>查询</span>
+										</button>
+									</div>
+										
+								</div>
+								
+								<div data-v-4c771c42="" data-v-ac923a6a="" class="page-record">
+									<div data-v-4c771c42="" class="el-card sec-table is-always-shadow">
+										<div class="el-card__header">数据统计</div>
+										<div class="el-card__body">
+											<div data-v-4c771c42="" class="el-table el-table--fit el-table--border el-table--enable-row-hover el-table--enable-row-transition el-table--medium">
+												<div class="hidden-columns">
+													<div></div>
+													<div></div>
+													<div data-v-4c771c42=""></div>
+													<div></div>
+													<div></div>
+												</div>
+												<div class="el-table__header-wrapper">
+													<table cellspacing="0" cellpadding="0" border="0" class="el-table__header" style="width: 100%;">
+														<colgroup>
+															<col name="el-table_19_column_91" width="10%">
+															<col name="el-table_19_column_92" width="22%">
+															<col name="el-table_19_column_93" width="22%">
+															<col name="el-table_19_column_94" width="22%">
+															<col name="el-table_19_column_95" width="22%">
+															<col name="gutter" width="0">
+														</colgroup>
+														<thead class="has-gutter">
+															<tr class="">
+																<th colspan="1" rowspan="1" class="el-table_19_column_91  is-center   is-leaf table-head-th">
+																	<div class="cell">编号</div>
+																</th>
+																<th colspan="1" rowspan="1" class="el-table_19_column_92  is-center   is-leaf table-head-th">
+																	<div class="cell">日期</div>
+																</th>
+																<th colspan="1" rowspan="1" class="el-table_19_column_93  is-center   is-leaf table-head-th">
+																	<div class="cell">渠道号</div>
+																</th>
+																<th colspan="1" rowspan="1" class="el-table_19_column_94  is-center   is-leaf table-head-th">
+																	<div class="cell">注册量（个）</div>
+																</th>
+																<th colspan="1" rowspan="1" class="el-table_19_column_95  is-center   is-leaf table-head-th">
+																	<div class="cell">是否合格</div>
+																</th>
+																<th class="gutter" style="width: 0px; display: none;"></th>
+															</tr>
+														</thead>
+													</table>
+												</div>
+												<div class="el-table__body-wrapper is-scrolling-none">
+													<table cellspacing="0" cellpadding="0" border="0" class="el-table__body" style="width: 100%;">
+														<colgroup>
+															<col name="el-table_19_column_91" width="10%">
+															<col name="el-table_19_column_92" width="22%">
+															<col name="el-table_19_column_93" width="22%">
+															<col name="el-table_19_column_94" width="22%">
+															<col name="el-table_19_column_95" width="22%">
+														</colgroup>
+														<tbody>
+															<tr class="el-table__row" style="width: 100%;">
+																<td rowspan="1" colspan="1" class="el-table_19_column_91 is-center  " style="text-align: center;">
+																	<div class="cell el-tooltip" style="width: 150px;">
+																		<div>1</div>
+																	</div>
+																</td>
+																<td rowspan="1" colspan="1" class="el-table_19_column_92 is-center  " style="text-align: center;">
+																	<div class="cell el-tooltip" style="width: 335px;" >${star}</div>
+																</td>
+																<td rowspan="1" colspan="1" class="el-table_19_column_93 is-center  ">
+																	<div class="cell" style="width: 315px;">${name}</div>
+																</td>
+																<td rowspan="1" colspan="1" class="el-table_19_column_94 is-center  ">
+																	<div class="cell el-tooltip" style="width: 275px;">${collect.valid}</div>
+																</td>
+																<td rowspan="1" colspan="1" class="el-table_19_column_95 is-center  ">
+																	<div class="cell el-tooltip" style="width: 295px;">是</div>
+																</td>
+															</tr>
+															<!---->
+														</tbody>
+													</table>
+													<!---->
+													<!---->
+												</div>
+												
+												<div class="el-table__column-resize-proxy" style="display: none;"></div>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</main>
+				</section>
+			</section>
+			
+		</div>
+	<script src="js/laydate.js"></script>
+	<script>
+        laydate.render({
+            elem: '#input_date__range',
+            min: -10,
+            max: +1,
+            done: function (value, date, endDate) {
+                $("#star_time_inp").val(value);
+                $("#end_time_inp").val(value);
+            }
+        });
+
+        function test() {
+            document.getElementById("date_search_form").submit();
         }
+	</script>
+	</body>
 
-        .ant-dropdown-trigger:hover #down_context {
-            display: block;
-        }
-    </style>
-</head>
-
-
-<body>
-<form action="user_view_channel.do" target="_self" id="date_search_form">
-    <input type="hidden" name="channelId" value="${channelId}"/>
-    <input type="hidden" name="page" value="1"/>
-    <input type="hidden" id="star_time_inp" name="star" value="${star}"/>
-    <input type="hidden" id="end_time_inp" name="end" value="${end}"/>
-</form>
-<div id="root">
-    <div class="ant-layout ant-layout-has-sider">
-        <div class="sider___rHZmy ant-layout-sider ant-layout-sider-dark" style="flex: 0 0 200px; max-width: 200px; min-width: 200px; width: 200px;">
-            <div class="ant-layout-sider-children">
-                <div class="logo___2ajOE">
-                    <p class="logo_name___1R-S0">小花钱包</p>
-                    <p class="logo_name___1R-S0">渠道管理后台</p>
-                </div>
-                <ul class="ant-menu ant-menu-dark ant-menu-root ant-menu-inline" role="menu">
-                    <li class="ant-menu-item ant-menu-item-selected" role="menuitem" style="padding-left: 24px;"><span>渠道客户管理</span></li>
-                </ul>
-            </div>
-        </div>
-        <div class="ant-layout">
-            <div class="header___tDjU- ant-layout-header">
-                <i class="anticon anticon-menu-fold trigger___8tHlg"></i>
-                <span style="float: right;">
-		<span class="ant-dropdown-trigger" style="margin-right: 8px;">${name}
-			<i class="anticon anticon-down"></i>
-			 <div class="ant-dropdown ant-dropdown-placement-bottomLeft" id="down_context" style="left: 1818.61px; top: 45px;">
-	<ul class="ant-dropdown-menu ant-dropdown-menu-light ant-dropdown-menu-root ant-dropdown-menu-vertical" role="menu">
-		<li class="ant-dropdown-menu-item ant-dropdown-menu-item-active" role="menuitem"><a>修改密码</ a></li>
-		<li class="ant-dropdown-menu-item" role="menuitem"><a>退出登录</a></li>
-	</ul>
-</div>
-		</span>
-	</span>
-            </div>
-            <div class="ant-layout-content" style="margin: 24px; padding: 24px; background: rgb(255, 255, 255); min-height: 280px;">
-                <div>
-                    <div class="antd-pro-page-header-pageHeader">
-                        <div class="antd-pro-page-header-detail">
-                            <div class="antd-pro-page-header-main">
-                                <div class="antd-pro-page-header-row">
-                                    <h1 class="antd-pro-page-header-title">渠道客户管理</h1>
-                                </div>
-                                <div class="antd-pro-page-header-row"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content___2eDcp">
-                        <div class="ant-card ant-card-wider-padding ant-card-padding-transition">
-                            <div class="ant-card-body">
-                                <div class="tableList">
-                                    <div class="tableListForm">
-
-                                        <div class="ant-row" style="margin-left: -24px; margin-right: -24px;">
-                                            <div class="ant-col-sm-24 ant-col-md-8" style="padding-left: 24px; padding-right: 24px;">
-                                                <div class="ant-row ant-form-item">
-                                                    <div class="ant-form-item-label">
-                                                        <label class="" title="渠道" for="channelId">渠道</label>
-                                                    </div>
-                                                    <div class="ant-form-item-control-wrapper">
-                                                        <div class="ant-form-item-control has-success">
-                  <span class="ant-form-item-children">
-                   <div class="ant-select ant-select-enabled" style="width: 100%;">
-                  
-                  
-						<select class="ant-input ant-input-lg" style="display: block;margin-left: 11px;margin-top:-5px; margin-right: 11px;position: relative;height: 40px;line-height: 40px;"
-                                name="channelId">
-							<option value="0" selected="selected">${name}</option>					
-						</select>
-                    
-            
-                   </div></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="ant-col-sm-24 ant-col-md-8" style="padding-left: 24px; padding-right: 24px;">
-                                                <div class="ant-row ant-form-item">
-                                                    <div class="ant-form-item-label">
-                                                        <label for="range-picker" class="" title="注册时间">注册时间</label>
-                                                    </div>
-                                                    <div class="ant-form-item-control-wrapper">
-                                                        <div class="ant-form-item-control has-success">
-                  <span class="ant-form-item-children">
-				  <span id="range-picker" class="ant-calendar-picker" tabindex="0">
-					<span class="ant-calendar-picker-input ant-input" style="height:40px;line-height:40px;margin-top:-5px">
-                        <input id="input_date__range" class="ant-calendar-range-picker-input" value="${star}" placeholder="选择日期" style="width:240px" lay-key="1">
-					</span>
-				  </span>
-				  </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="ant-col-sm-24 ant-col-md-4" style="text-align: right; padding-left: 24px; padding-right: 24px;">
-                                                <div class="ant-row ant-form-item">
-                                                    <div class="ant-form-item-control-wrapper">
-                                                        <div class="ant-form-item-control">
-                                                            <span class="ant-form-item-children"><span class="submitButtons" onclick="test()"><button type="button"
-                                                                                                                                                      class="ant-btn ant-btn-primary"><span>查 询</span></button><button
-                                                                    type="button" class="ant-btn" style="margin-left: 8px;"><span>重 置</span></button></span></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                    <div style="margin-bottom: 25px;">
-                                        <h4>数据统计</h4>
-                                        <p>备注：申请指完成认证。</p>
-                                        <div class="standardTable___3DIwF">
-                                            <div class="ant-table-wrapper">
-                                                <div class="ant-spin-nested-loading">
-                                                    <div class="ant-spin-container">
-                                                        <div class="ant-table ant-table-default ant-table-bordered ant-table-scroll-position-left">
-                                                            <div class="ant-table-content">
-                                                                <div class="ant-table-body">
-                                                                    <table class="">
-                                                                        <colgroup>
-                                                                            <col/>
-                                                                            <col/>
-                                                                            <col/>
-                                                                            <col/>
-                                                                            <col/>
-                                                                        </colgroup>
-                                                                        <thead class="ant-table-thead">
-                                                                        <tr>
-                                                                            <th class="" style="text-align: center;"><span>累计注册人数</span></th>
-                                                                            <th class="" style="text-align: center;"><span>累计申请人数</span></th>
-                                                                            <%--<th class="" style="text-align: center;"><span><span>累计放款金额</span></span></th>--%>
-                                                                            <th class="" style="text-align: center;"><span><span>逾期</span></span></th>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody class="ant-table-tbody">
-                                                                        <tr class="ant-table-row  ant-table-row-level-0" data-row-key="979">
-                                                                            <td class="" style="text-align: center;"><span class="ant-table-row-indent indent-level-0"
-                                                                                                                           style="padding-left: 0px;"></span>${collect.valid}</td>
-                                                                            <td class="" style="text-align: center;">${collect.ljsqrs}</td>
-                                                                            <%--<td class="" style="text-align: center;">0</td>--%>
-                                                                            <td class="" style="text-align: center;">--</td>
-                                                                        </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="js/laydate.js"></script>
-<script>
-    laydate.render({
-        elem: '#input_date__range',
-        min: -10,
-        max: +1,
-        done: function (value, date, endDate) {
-            $("#star_time_inp").val(value);
-            $("#end_time_inp").val(value);
-        }
-    });
-
-    function test() {
-        document.getElementById("date_search_form").submit();
-    }
-
-    function copyURL() {
-
-        var Url2 = document.getElementById("url_copy").innerText;
-        var oInput = document.createElement('input');
-        oInput.value = Url2;
-        document.body.appendChild(oInput);
-        oInput.select(); // 选择对象
-        document.execCommand("Copy"); // 执行浏览器复制命令
-        oInput.className = 'oInput';
-        oInput.style.display = 'none';
-        document.getElementById("jumpbox").style.display = "block";
-        window.setTimeout(function () {
-            document.getElementById("jumpbox").style.display = "none";
-        }, 1000);
-
-    }
-</script>
-
-
-</body>
 </html>

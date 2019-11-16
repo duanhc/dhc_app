@@ -5,9 +5,8 @@
 
 package com.fusibang.tables;
 
-import java.sql.Timestamp;
-
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "user_detail")
@@ -27,6 +26,9 @@ public class UserDetail {
     private String credit_name;
     private String reserved_number;
     private Timestamp put_time;
+
+    @Transient
+    private String validatecode;
 
     public UserDetail() {}
 
@@ -116,5 +118,13 @@ public class UserDetail {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getValidatecode() {
+        return validatecode;
+    }
+
+    public void setValidatecode(String validatecode) {
+        this.validatecode = validatecode;
     }
 }

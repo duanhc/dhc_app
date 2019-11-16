@@ -5,19 +5,17 @@
 
 package com.fusibang.actions;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-
 import com.fusibang.services.UserDetailService;
 import com.fusibang.tables.UserDetail;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 public class UserDetailAction extends ActionSupport implements ServletRequestAware, ServletResponseAware, ModelDriven<UserDetail> {
     private static final long serialVersionUID = 1L;
@@ -26,12 +24,11 @@ public class UserDetailAction extends ActionSupport implements ServletRequestAwa
     private UserDetail userDetail;
     private UserDetailService userDetailService;
 
-    public UserDetailAction() {
-    }
+    public UserDetailAction() {}
 
     public String view() {
         String result = this.userDetailService.view(this.request);
-        if(result.equals("success")) {
+        if (result.equals("success")) {
             try {
                 this.response.sendRedirect("auth_center.action");
             } catch (IOException var3) {
@@ -68,12 +65,46 @@ public class UserDetailAction extends ActionSupport implements ServletRequestAwa
         return null;
     }
 
+    /**
+     * 确认短信
+     * 
+     * @return
+     */
+    public String smsConfirm() {
+        HttpSession session = this.request.getSession();
+
+        try {
+            this.response.getWriter().write(this.userDetailService.smsConfirm(this.userDetail, session));
+        } catch (IOException var3) {
+            var3.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * 确认短信
+     *
+     * @return
+     */
+    public String smsResend() {
+        HttpSession session = this.request.getSession();
+
+        try {
+            this.response.getWriter().write(this.userDetailService.smsResend(this.userDetail, session));
+        } catch (IOException var3) {
+            var3.printStackTrace();
+        }
+
+        return null;
+    }
+
     public void setUserDetailService(UserDetailService userDetailService) {
         this.userDetailService = userDetailService;
     }
 
     public UserDetail getModel() {
-        if(this.userDetail == null) {
+        if (this.userDetail == null) {
             this.userDetail = new UserDetail();
         }
 

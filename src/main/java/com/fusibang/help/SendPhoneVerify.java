@@ -1,6 +1,5 @@
 package com.fusibang.help;
 
-import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
 
 import java.io.*;
@@ -44,29 +43,25 @@ public class SendPhoneVerify {
      * @return boolean
      **/
     public boolean sendVerifyCodeRegiste(String phone, String code, String sign) throws Exception {
-        String requestParamt = "needstatus=false&username=" + username + "&passwd=" + passwd + "&phone=" + phone + "&msg=" + "您正在注册成为新用户，验证码是：" + code + "，感谢您的支持！【" + sign +"】";
-
-		URL url = new URL("http://www.qybor.com:8500/shortMessage");
+        String requestParamt = "needstatus=false&account=" + username + "&pswd=" + passwd + "&msg=【" + sign + "】您正在注册为新用户，验证码是：" + code + "，感谢您的支持！&mobile=" + phone;
+        URL url = new URL("http://118.178.138.170/msg/HttpBatchSendSM");
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setDoOutput(true);
         conn.setDoInput(true);
-        conn.setRequestMethod("GET");
-
+        conn.setRequestMethod("POST");
         OutputStream out = conn.getOutputStream();
         OutputStreamWriter writer = new OutputStreamWriter(out, "utf-8");
         writer.write(requestParamt);
         writer.close();
         out.close();
-
         InputStream in = conn.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         String line = reader.readLine();
-        in.close();
         logger.debug("send verifycode to " + phone + " result：    " + line);
-		JSONObject json = (JSONObject) JSONObject.parse(line);
-		boolean success = json.get("respcode").equals("0");
+        String result = line.split(",")[1];
+        boolean success = result.equals("0");
         if (!success) {
-			logger.info("send verifycode to " + phone + " failed  result respdesc：" + json.get("respdesc") );
+            logger.info("send verifycode to " + phone + "failed  result code：" + result);
         }
 
         return success;
@@ -91,29 +86,25 @@ public class SendPhoneVerify {
      * @return boolean
      **/
     public boolean sendVerifyCodeAltPassword(String phone, String code, String sign) throws Exception {
-        String requestParamt = "needstatus=false&username=" + username + "&passwd=" + passwd + "&phone=" + phone + "&msg=" + "您正在修改登录密码，验证码是：" + code + "，不要告诉任何人！【" + sign +"】";
-
-		URL url = new URL("http://www.qybor.com:8500/shortMessage");
+        String requestParamt = "needstatus=false&account=" + username + "&pswd=" + passwd + "&msg=【" + sign + "】您正在修改登入密码，验证码是：" + code + "，感谢您的支持！&mobile=" + phone;
+        URL url = new URL("http://118.178.138.170/msg/HttpBatchSendSM");
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setDoOutput(true);
         conn.setDoInput(true);
-        conn.setRequestMethod("GET");
-
+        conn.setRequestMethod("POST");
         OutputStream out = conn.getOutputStream();
         OutputStreamWriter writer = new OutputStreamWriter(out, "utf-8");
         writer.write(requestParamt);
         writer.close();
         out.close();
-
         InputStream in = conn.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         String line = reader.readLine();
-        in.close();
         logger.debug("send verifycode to " + phone + " result：    " + line);
-		JSONObject json = (JSONObject) JSONObject.parse(line);
-		boolean success = json.get("respcode").equals("0");
+        String result = line.split(",")[1];
+        boolean success = result.equals("0");
         if (!success) {
-			logger.info("send verifycode to " + phone + " failed  result respdesc：" + json.get("respdesc") );
+            logger.info("send verifycode to " + phone + "failed  result code：" + result);
         }
 
         return success;
@@ -138,29 +129,25 @@ public class SendPhoneVerify {
      * @return boolean
      **/
     public boolean sendVerifyCodeLogin(String phone, String code, String sign) throws Exception {
-        String requestParamt = "needstatus=false&username=" + username + "&passwd=" + passwd + "&phone=" + phone + "&msg=" + "您正在登入App，验证码是：" + code + "，感谢您的支持！【" + sign +"】";
-
-        URL url = new URL("http://www.qybor.com:8500/shortMessage");
+        String requestParamt = "needstatus=false&account=" + username + "&pswd=" + passwd + "&msg=【" + sign + "】您正在登入App，验证码是：" + code + "，感谢您的支持！&mobile=" + phone;
+        URL url = new URL("http://118.178.138.170/msg/HttpBatchSendSM");
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setDoOutput(true);
         conn.setDoInput(true);
-        conn.setRequestMethod("GET");
-
+        conn.setRequestMethod("POST");
         OutputStream out = conn.getOutputStream();
         OutputStreamWriter writer = new OutputStreamWriter(out, "utf-8");
         writer.write(requestParamt);
         writer.close();
         out.close();
-
         InputStream in = conn.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         String line = reader.readLine();
-        in.close();
         logger.debug("send verifycode to " + phone + " result：    " + line);
-        JSONObject json = (JSONObject) JSONObject.parse(line);
-        boolean success = json.get("respcode").equals("0");
+        String result = line.split(",")[1];
+        boolean success = result.equals("0");
         if (!success) {
-            logger.info("send verifycode to " + phone + " failed  result respdesc：" + json.get("respdesc") );
+            logger.info("send verifycode to " + phone + "failed  result code：" + result);
         }
 
         return success;

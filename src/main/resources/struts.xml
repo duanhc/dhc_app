@@ -1,246 +1,254 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC
-	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
-	"http://struts.apache.org/dtds/struts-2.3.dtd">
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
 
-    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
-    <constant name="struts.devMode" value="false" />
+    <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+    <constant name="struts.devMode" value="false"/>
     <constant name="struts.multipart.saveDir" value="/tmp"></constant>
-	<constant name="struts.action.extension" value="action,do"></constant>
-	<constant name="struts.multipart.maxSize" value="104857600" />
-	
-	
-	<package name="fusibang" extends="struts-default">
-	<!-- 获取sessionid -->
-		<action name="getsession" class="userAction" method="getSessionId"></action>
-	<!-- 图形验证码 -->	
-		<action name="image_verify" class="imageVerifyCode"></action>
-	<!-- 管理员 -->
-		<action name="admin_login" class="adminAction" method="login"></action>
-		<action name="admin_logout" class="adminAction" method="logout"></action>
-		<action name="admin_add" class="adminAction" method="addAdmin"></action>
-		<action name="admin_forbid" class="adminAction" method="forbidAdmin"></action>
-		<action name="admin_alt" class="adminAction" method="altAdmin"></action>
-		<action name="admin_manage" class="adminAction" method="manage">
-			<result name="success" type="">/core/manage.jsp</result>
-			<result name="un_login" type="redirect">/core/timeout.html</result>
-		</action>
-		<action name="admin_alt_view" class="adminAction" method="altView">
-			<result name="success" type="">/core/altrt.jsp</result>
-			<result name="not_permission" type="redirect">/core/nopermission.html</result>
-			<result name="un_login" type="redirect">/core/timeout.html</result>
-			<result name="illegal_request" type="redirect">/core/illegal_request.html</result>
-		</action>
-		<action name="admin_rt_forbid_view" class="adminAction" method="rtforbidView">
-			<result name="success" type="">/core/admin_rt_forbid.jsp</result>
-			<result name="not_permission" type="redirect">/core/nopermission.html</result>
-			<result name="un_login" type="redirect">/core/timeout.html</result>
-		</action>
-		<action name="admin_app_view" class="adminAction" method="adminAppView">
-			<result name="success" type="">/core/admin_app.jsp</result>
-			<result name="not_permission" type="redirect">/core/nopermission.html</result>
-			<result name="un_login" type="redirect">/core/timeout.html</result>
-		</action>
-		<action name="admin_rt_forbided_view" class="adminAction" method="rtforbidVediew">
-			<result name="success" type="">/core/admin_rt.jsp</result>
-			<result name="not_permission" type="redirect">/core/nopermission.html</result>
-			<result name="un_login" type="redirect">/core/timeout.html</result>
-		</action>
-		<action name="admin_detail_view" class="adminDetailAction" method="detailView">
-			<result name="success" type="">/core/admin-view.jsp</result>
-			<result name="not_permission" type="redirect">/core/nopermission.html</result>
-			<result name="un_login" type="redirect">/core/timeout.html</result>
-			<result name="illegal_request" type="redirect">/core/illegal_request.html</result>
-		</action>
-		<action name="admin_all_view" class="adminAction" method="allView">
-			<result name="success" type="">/core/admin_all_forbid.jsp</result>
-			<result name="not_permission" type="redirect">/core/nopermission.html</result>
-			<result name="un_login" type="redirect">/core/timeout.html</result>
-			<result name="illegal_request" type="redirect">/core/illegal_request.html</result>
-		</action>
-	<!-- 上传图片 -->
-		<action name="image_upload" class="imageUpload"></action>
-	<!-- 口子超市 -->
-		<action name="getappjson" class="appStoreAction" method="getJson"></action>
-		<action name="app_add" class="appStoreAction" method="addApp"></action>
-		<action name="app_alt" class="appStoreAction" method="altApp"></action>
-		<action name="app_put" class="appStoreAction" method="putApp"></action>
-		<action name="app_priority" class="appStoreAction" method="priority"></action>
-		<action name="app_delete" class="appStoreAction" method="delete"></action>
-		<action name="app_get" class="appStoreAction" method="getURL"></action>
-		<action name="app_redirect" class="appStoreAction" method="sendRedirect"></action>
-		<action name="app_jieguo" class="appStoreAction" method="jieguoView">
-			<result>/dynamic/jieguo.jsp</result>
-		</action>
-		<action name="app_market" class="appStoreAction" method="marketView">
-			<result>/dynamic/kouzi.jsp</result>
-		</action>
-		<action name="app_getqr" class="appStoreAction" method="getQRCode">
-			<result name="not_permission" type="redirect">/core/nopermission.html</result>
-			<result name="un_login" type="redirect">/core/timeout.html</result>
-		</action>
-		<action name="app_alt_view" class="appStoreAction" method="altView">
-			<result name="success" type="">/core/altkou.jsp</result>
-			<result name="not_permission" type="redirect">/core/nopermission.html</result>
-			<result name="un_login" type="redirect">/core/timeout.html</result>
-			<result name="illegal_request" type="redirect">/core/illegal_request.html</result>
-		</action>
-		<action name="app_put_view" class="appStoreAction" method="putView">
-			<result name="success" type="">/core/upframe.jsp</result>
-			<result name="not_permission" type="redirect">/core/nopermission.html</result>
-			<result name="un_login" type="redirect">/core/timeout.html</result>
-			<result name="illegal_request" type="redirect">/core/illegal_request.html</result>
-		</action>
-		<action name="app_down_view" class="appStoreAction" method="downView">
-			<result name="success" type="">/core/downframe.jsp</result>
-			<result name="not_permission" type="redirect">/core/nopermission.html</result>
-			<result name="un_login" type="redirect">/core/timeout.html</result>
-			<result name="illegal_request" type="redirect">/core/illegal_request.html</result>
-		</action>
-	<!-- 渠道 -->
-		<action name="channel_add" class="channelAction" method="addChannel"></action>
-		<action name="channel_alt" class="channelAction" method="altChannel"></action>
-		<action name="channel_add_view" class="channelAction" method="addView">
-			<result name="success" type="">/core/addchannel.jsp</result>
-			<result name="not_permission" type="redirect">/core/nopermission.html</result>
-			<result name="un_login" type="redirect">/core/timeout.html</result>
-		</action>
-		<action name="channel_alt_view" class="channelAction" method="altView">
-			<result name="success" type="">/core/altchannel.jsp</result>
-			<result name="not_permission" type="redirect">/core/nopermission.html</result>
-			<result name="un_login" type="redirect">/core/timeout.html</result>
-			<result name="illegal_request" type="redirect">/core/illegal_request.html</result>
-		</action>
-		<action name="channel_view" class="channelAction" method="channelView">
-			<result name="success" type="">/core/channel-view.jsp</result>
-			<result name="not_permission" type="redirect">/core/nopermission.html</result>
-			<result name="un_login" type="redirect">/core/timeout.html</result>
-		</action>
-		
-	<!-- 用户登录、注册、修改密码、视图 -->
-		<action name="user_login" class="userAction" method="loginByPwd"></action>
-		<action name="user_login_phone" class="userAction" method="loginByPhone"></action>
-		<action name="user_logout" class="userAction" method="logout"></action>
-		<action name="user_add" class="userAction" method="add"></action>
-		<action name="user_alt" class="userAction" method="alt"></action>
-		<action name="need_login" class="userAction" method="logined"></action>
-		<action name="user_valid" class="userAction" method="setValid"></action>
-		<action name="user_del" class="userAction" method="delUser"></action>
-		<action name="user_view" class="userAction" method="usersView">
-			<result name="success" type="">/core/user_view.jsp</result>
-			<result name="not_permission" type="redirect">/core/nopermission.html</result>
-			<result name="un_login" type="redirect">/core/timeout.html</result>
-			<result name="illegal_request" type="redirect">/core/illegal_request.html</result>
-		</action>
-		<action name="user_view_channel" class="userAction" method="getAll">
-			<result name="success">/core/channel-detail.jsp</result>
-			<result name="illegal_request" type="redirect">/core/illegal_request.html</result>
-		</action>
-		<action name="user_view_channel_rt" class="userAction" method="getAllRt">
-			<result name="success">/core/channel-detail-rt.jsp</result>
-			<result name="illegal_request" type="redirect">/core/illegal_request.html</result>
-			<result name="un_login" type="redirect">/core/timeout.html</result>
-		</action>
-	<!-- 用户状态 -->
-		<action name="faxian" class="identifyAction" method="faxian">
-			<result name="success" type="">/pro/faxian.jsp</result>
-		</action>
-		<action name="show_app" class="identifyAction" method="showApp"></action>
-		<action name="version_cheak" class="identifyAction" method="version"></action>
-		<action name="volaty_get" class="identifyAction" method="volaty"></action>
-		<action name="identify_get" class="identifyAction" method="getIdentify"></action>
-		<action name="identify_submit" class="identifyAction" method="submit"></action>
-		<action name="auth_center" class="identifyAction" method="authCenter">
-			<result name="success" type="">/pro/rzcenter.jsp</result>
-			<result name="un_login" type="redirect">/login.html</result>
-		</action>
-	<!-- 身份证 -->
-		<action name="id_card_font" class="idCardAction" method="addFont"></action>
-		<action name="id_card_back" class="idCardAction" method="addBack"></action>
-		<action name="id_card_auth_font" class="idCardAction" method="authFront">	</action>
-		<action name="id_card_auth_back" class="idCardAction" method="authBack"></action>
-		<action name="id_card_image_font" class="idCardAction" method="frontImage"></action>
-		<action name="id_card_image_back" class="idCardAction" method="backImage"></action>
-		<action name="id_card_view" class="idCardAction" method="view">
-			<result name="success" >/pro/postcard.jsp</result>
-			<result name="un_login" type="redirect">/login.html</result>
-		</action>
-	<!-- 用户资料 -->
-		<action name="user_detail_view" class="userDetailAction" method="view">
-			<result name="step3" >/pro/jcmess.jsp</result>
-			<result name="step4" >/pro/bcMess.html</result>
-			<result name="step6" >/pro/bank_auth.jsp</result>
-			<result name="un_login" type="redirect">/login.html</result>
-		</action>
-		<action name="user_detail_add" class="userDetailAction" method="addDetail"></action>
-		<action name="user_detail_alt" class="userDetailAction" method="altDetail"></action>
-	<!-- 补充资料 -->
-		<action name="user_detail_append_add" class="detailAppendAction" method="appendDetail"></action>
-		<action name="user_detail_append_alt" class="detailAppendAction" method="altDetail"></action>
-	<!-- 备份联系人 -->
-		<action name="user_contact_view" class="userContactAction" method="view">
-			<result name="step5" >/pro/linkman.html</result>
-			<result name="un_login" type="redirect">/login.html</result>
-		</action>
-		<action name="user_contact_add" class="userContactAction" method="addContact"></action>
-		<action name="user_contact_alt" class="userContactAction" method="altContact"></action>
-	<!-- 借款申请 -->	
-		<action name="user_lend_need" class="lendAction" method="addLend"></action>
-		<action name="user_lend_verify" class="lendAction" method="verifyLend"></action>
-		<action name="user_verify_view" class="lendAction" method="verifyView">
-			<result name="success" >/pro/lend_verify.jsp</result>
-			<result name="un_login" type="redirect">/login.html</result>
-			<result name="illegal_request" type="redirect">/pro/myMess.html</result>
-		</action>
-		<action name="user_collect_view" class="lendAction" method="collectView">
-			<result name="success" >/pro/collect.jsp</result>
-			<result name="un_login" type="redirect">/login_collect.html</result>
-			<result name="illegal_request" type="redirect">/pro/myMess.html</result>
-		</action>
-	<!-- 手机验证码 -->
-		<action name="phone_registe" class="phoneVerifyAction" method="send2Registe"></action>
-		<action name="phone_modifypwd" class="phoneVerifyAction" method="send2modifyPwd"></action>
-		<action name="phone_login" class="phoneVerifyAction" method="send2Login"></action>
-    <!-- 畅快捷支付 -->
-    	<action name="bank_auth" class="chanPayAction" method="auth"></action>
-    	<action name="bank_auth_notify" class="chanPayAction" method="authNotify"></action>
-    	<action name="chan_pay" class="chanPayAction" method="authPay"></action>
-    	<action name="chan_pay_notify" class="chanPayAction" method="payNotify"></action>
-    <!-- 微信支付 -->	
-    	<action name="wechat_pay_notify" class="wechatPayAction" method="payNotify"></action>
-    	<action name="wechat_pay" class="wechatPayAction" method="placeOrder">
-    		<result name="success" >/pay/wechat-pay.jsp</result>
-    		<result name="success2" type="redirectAction">user_collect_view</result>
-			<result name="un_login" type="redirect">/login_collect.html</result>
-			<result name="illegal_request" type="redirect">/login_collect.html</result>
-			<result name="error" type="redirectAction">user_collect_view</result>
-    	</action>
-    <!-- 消息推送 -->
-    	<action name="task_add" class="newsAction" method="addTask"></action>
-    	<action name="task_cancle" class="newsAction" method="cancleTask"></action>
-    	<action name="task_add_view" class="newsAction" method="taskAddView">
-    		<result name="success" type="">/core/task_add.jsp</result>
-    		<result name="un_login" type="redirect">/core/timeout.html</result>
-			<result name="not_permission" type="redirect">/core/nopermission.html</result>
-    	</action>
-    	<action name="task_run_view" class="newsAction" method="runView">
-    		<result name="success" type="">/core/task_view.jsp</result>
-    		<result name="un_login" type="redirect">/core/timeout.html</result>
-			<result name="not_permission" type="redirect">/core/nopermission.html</result>
-    	</action>
-    	<action name="task_history_view" class="newsAction" method="hostoryView">
-    		<result name="success" type="">/core/task_log.jsp</result>
-    		<result name="un_login" type="redirect">/core/timeout.html</result>
-			<result name="not_permission" type="redirect">/core/nopermission.html</result>
-    	</action>
-    <!-- 页面模版 -->
-    	<action name="template" class="templateAction" method="execute">
-    		<result name="success" type="">/pro/template.jsp</result>
-    	</action>
+    <constant name="struts.action.extension" value="action,do"></constant>
+    <constant name="struts.multipart.maxSize" value="104857600"/>
+
+
+    <package name="fusibang" extends="struts-default">
+        <!-- 获取sessionid -->
+        <action name="getsession" class="userAction" method="getSessionId"></action>
+        <!-- 图形验证码 -->
+        <action name="image_verify" class="imageVerifyCode"></action>
+        <!-- 管理员 -->
+        <action name="admin_login" class="adminAction" method="login"></action>
+        <action name="admin_logout" class="adminAction" method="logout"></action>
+        <action name="admin_add" class="adminAction" method="addAdmin"></action>
+        <action name="admin_forbid" class="adminAction" method="forbidAdmin"></action>
+        <action name="admin_alt" class="adminAction" method="altAdmin"></action>
+        <action name="admin_manage" class="adminAction" method="manage">
+            <result name="success" type="">/core/manage.jsp</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+        </action>
+        <action name="admin_alt_view" class="adminAction" method="altView">
+            <result name="success" type="">/core/altrt.jsp</result>
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+            <result name="illegal_request" type="redirect">/core/illegal_request.html</result>
+        </action>
+        <action name="admin_rt_forbid_view" class="adminAction" method="rtforbidView">
+            <result name="success" type="">/core/admin_rt_forbid.jsp</result>
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+        </action>
+        <action name="admin_app_view" class="adminAction" method="adminAppView">
+            <result name="success" type="">/core/admin_app.jsp</result>
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+        </action>
+        <action name="admin_rt_forbided_view" class="adminAction" method="rtforbidVediew">
+            <result name="success" type="">/core/admin_rt.jsp</result>
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+        </action>
+        <action name="admin_detail_view" class="adminDetailAction" method="detailView">
+            <result name="success" type="">/core/admin-view.jsp</result>
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+            <result name="illegal_request" type="redirect">/core/illegal_request.html</result>
+        </action>
+        <action name="admin_all_view" class="adminAction" method="allView">
+            <result name="success" type="">/core/admin_all_forbid.jsp</result>
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+            <result name="illegal_request" type="redirect">/core/illegal_request.html</result>
+        </action>
+        <!-- 上传图片 -->
+        <action name="image_upload" class="imageUpload"></action>
+        <!-- 口子超市 -->
+        <action name="getappjson" class="appStoreAction" method="getJson"></action>
+        <action name="app_add" class="appStoreAction" method="addApp"></action>
+        <action name="app_alt" class="appStoreAction" method="altApp"></action>
+        <action name="app_put" class="appStoreAction" method="putApp"></action>
+        <action name="app_priority" class="appStoreAction" method="priority"></action>
+        <action name="app_delete" class="appStoreAction" method="delete"></action>
+        <action name="app_get" class="appStoreAction" method="getURL"></action>
+        <action name="app_redirect" class="appStoreAction" method="sendRedirect"></action>
+        <action name="app_jieguo" class="appStoreAction" method="jieguoView">
+            <result>/dynamic/jieguo.jsp</result>
+        </action>
+        <action name="app_market" class="appStoreAction" method="marketView">
+            <result>/dynamic/kouzi.jsp</result>
+        </action>
+        <action name="app_getqr" class="appStoreAction" method="getQRCode">
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+        </action>
+        <action name="app_alt_view" class="appStoreAction" method="altView">
+            <result name="success" type="">/core/altkou.jsp</result>
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+            <result name="illegal_request" type="redirect">/core/illegal_request.html</result>
+        </action>
+        <action name="app_put_view" class="appStoreAction" method="putView">
+            <result name="success" type="">/core/upframe.jsp</result>
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+            <result name="illegal_request" type="redirect">/core/illegal_request.html</result>
+        </action>
+        <action name="app_down_view" class="appStoreAction" method="downView">
+            <result name="success" type="">/core/downframe.jsp</result>
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+            <result name="illegal_request" type="redirect">/core/illegal_request.html</result>
+        </action>
+        <!-- 渠道 -->
+        <action name="channel_add" class="channelAction" method="addChannel"></action>
+        <action name="channel_alt" class="channelAction" method="altChannel"></action>
+        <action name="channel_add_view" class="channelAction" method="addView">
+            <result name="success" type="">/core/addchannel.jsp</result>
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+        </action>
+        <action name="channel_alt_view" class="channelAction" method="altView">
+            <result name="success" type="">/core/altchannel.jsp</result>
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+            <result name="illegal_request" type="redirect">/core/illegal_request.html</result>
+        </action>
+        <action name="channel_view" class="channelAction" method="channelView">
+            <result name="success" type="">/core/channel-view.jsp</result>
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+        </action>
+
+        <!-- 用户登录、注册、修改密码、视图 -->
+        <action name="user_login" class="userAction" method="loginByPwd"></action>
+        <action name="user_login_phone" class="userAction" method="loginByPhone"></action>
+        <action name="user_logout" class="userAction" method="logout"></action>
+        <action name="user_add" class="userAction" method="add"></action>
+        <action name="user_alt" class="userAction" method="alt"></action>
+        <action name="need_login" class="userAction" method="logined"></action>
+        <action name="user_valid" class="userAction" method="setValid"></action>
+        <action name="user_del" class="userAction" method="delUser"></action>
+        <action name="user_view" class="userAction" method="usersView">
+            <result name="success" type="">/core/user_view.jsp</result>
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+            <result name="illegal_request" type="redirect">/core/illegal_request.html</result>
+        </action>
+        <action name="user_view_channel" class="userAction" method="getAll">
+            <result name="success">/core/channel-detail.jsp</result>
+            <result name="illegal_request" type="redirect">/core/illegal_request.html</result>
+        </action>
+        <action name="user_view_channel_rt" class="userAction" method="getAllRt">
+            <result name="success">/core/channel-detail-rt.jsp</result>
+            <result name="illegal_request" type="redirect">/core/illegal_request.html</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+        </action>
+        <!-- 用户状态 -->
+        <action name="faxian" class="identifyAction" method="faxian">
+            <result name="success" type="">/pro/faxian.jsp</result>
+        </action>
+        <action name="show_app" class="identifyAction" method="showApp"></action>
+        <action name="version_cheak" class="identifyAction" method="version"></action>
+        <action name="volaty_get" class="identifyAction" method="volaty"></action>
+        <action name="identify_get" class="identifyAction" method="getIdentify"></action>
+        <action name="identify_submit" class="identifyAction" method="submit"></action>
+        <action name="auth_center" class="identifyAction" method="authCenter">
+            <result name="success" type="">/pro/rzcenter.jsp</result>
+            <result name="un_login" type="redirect">/login.html</result>
+        </action>
+        <!-- 身份证 -->
+        <action name="id_card_font" class="idCardAction" method="addFont"></action>
+        <action name="id_card_back" class="idCardAction" method="addBack"></action>
+        <action name="id_card_auth_font" class="idCardAction" method="authFront"></action>
+        <action name="id_card_auth_back" class="idCardAction" method="authBack"></action>
+        <action name="id_card_image_font" class="idCardAction" method="frontImage"></action>
+        <action name="id_card_image_back" class="idCardAction" method="backImage"></action>
+        <action name="id_card_view" class="idCardAction" method="view">
+            <result name="success">/pro/postcard.jsp</result>
+            <result name="un_login" type="redirect">/login.html</result>
+        </action>
+        <!-- 用户资料 -->
+        <action name="user_detail_view" class="userDetailAction" method="view">
+            <result name="step3">/pro/jcmess.jsp</result>
+            <result name="step4">/pro/bcMess.html</result>
+            <result name="step6">/pro/bank_auth.jsp</result>
+            <result name="un_login" type="redirect">/login.html</result>
+        </action>
+        <action name="user_detail_add" class="userDetailAction" method="addDetail"></action>
+        <action name="user_detail_alt" class="userDetailAction" method="altDetail"></action>
+        <action name="user_detail_smsConfirm" class="userDetailAction" method="smsConfirm"></action>
+        <action name="user_detail_smsResend" class="userDetailAction" method="smsResend"></action>
+
+        <!-- 补充资料 -->
+        <action name="user_detail_append_add" class="detailAppendAction" method="appendDetail"></action>
+        <action name="user_detail_append_alt" class="detailAppendAction" method="altDetail"></action>
+        <!-- 备份联系人 -->
+        <action name="user_contact_view" class="userContactAction" method="view">
+            <result name="step5">/pro/linkman.html</result>
+            <result name="un_login" type="redirect">/login.html</result>
+        </action>
+        <action name="user_contact_add" class="userContactAction" method="addContact"></action>
+        <action name="user_contact_alt" class="userContactAction" method="altContact"></action>
+        <!-- 借款申请 -->
+        <action name="user_lend_need" class="lendAction" method="addLend"></action>
+        <action name="user_lend_verify" class="lendAction" method="verifyLend"></action>
+        <action name="user_verify_view" class="lendAction" method="verifyView">
+            <result name="success">/pro/lend_verify.jsp</result>
+            <result name="un_login" type="redirect">/login.html</result>
+            <result name="illegal_request" type="redirect">/pro/myMess.html</result>
+        </action>
+        <action name="user_collect_view" class="lendAction" method="collectView">
+            <result name="success">/pro/collect.jsp</result>
+            <result name="un_login" type="redirect">/login_collect.html</result>
+            <result name="illegal_request" type="redirect">/pro/myMess.html</result>
+        </action>
+        <!-- 手机验证码 -->
+        <action name="phone_registe" class="phoneVerifyAction" method="send2Registe"></action>
+        <action name="phone_modifypwd" class="phoneVerifyAction" method="send2modifyPwd"></action>
+        <action name="phone_login" class="phoneVerifyAction" method="send2Login"></action>
+        <!-- 畅快捷支付 -->
+        <action name="bank_auth" class="chanPayAction" method="auth"></action>
+        <action name="bank_auth_notify" class="chanPayAction" method="authNotify"></action>
+        <action name="chan_pay" class="chanPayAction" method="authPay"></action>
+        <action name="chan_pay_notify" class="chanPayAction" method="payNotify"></action>
+        <!-- 微信支付 -->
+        <action name="wechat_pay_notify" class="wechatPayAction" method="payNotify"></action>
+        <action name="wechat_pay" class="wechatPayAction" method="placeOrder">
+            <result name="success">/pay/wechat-pay.jsp</result>
+            <result name="success2" type="redirectAction">user_collect_view</result>
+            <result name="un_login" type="redirect">/login_collect.html</result>
+            <result name="illegal_request" type="redirect">/login_collect.html</result>
+            <result name="error" type="redirectAction">user_collect_view</result>
+        </action>
+        <!-- 消息推送 -->
+        <action name="task_add" class="newsAction" method="addTask"></action>
+        <action name="task_cancle" class="newsAction" method="cancleTask"></action>
+        <action name="task_add_view" class="newsAction" method="taskAddView">
+            <result name="success" type="">/core/task_add.jsp</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+        </action>
+        <action name="task_run_view" class="newsAction" method="runView">
+            <result name="success" type="">/core/task_view.jsp</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+        </action>
+        <action name="task_history_view" class="newsAction" method="hostoryView">
+            <result name="success" type="">/core/task_log.jsp</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+        </action>
+        <!-- 页面模版 -->
+        <action name="template" class="templateAction" method="execute">
+            <result name="success" type="">/pro/template.jsp</result>
+        </action>
+
+        <!-- 易宝支付 -->
+        <action name="yeepay_action_unionFirstPay" class="yeePayAction" method="unionFirstPay"></action>
+        <action name="yeepay_action_firstPaySmsConfirm" class="yeePayAction" method="firstPaySmsConfirm"></action>
+        <action name="yeepay_action_firstPaySmsReSend" class="yeePayAction" method="firstPaySmsReSend"></action>
+        <action name="yeepay_notify" class="yeePayAction" method="payNotify"></action>
     </package>
-    
 
 
     <!-- Add packages here -->

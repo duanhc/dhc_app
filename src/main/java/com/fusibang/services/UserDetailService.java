@@ -5,10 +5,10 @@
 
 package com.fusibang.services;
 
+import com.fusibang.tables.UserDetail;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import com.fusibang.tables.UserDetail;
 
 public interface UserDetailService {
     String addDetail(UserDetail var1, HttpSession var2);
@@ -16,4 +16,8 @@ public interface UserDetailService {
     String altDetail(UserDetail var1, HttpSession var2);
 
     String view(HttpServletRequest var1);
+
+    String smsConfirm(UserDetail userDetail, HttpSession session);
+
+    String smsResend(UserDetail userDetail, HttpSession session);
 }

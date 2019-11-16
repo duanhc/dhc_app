@@ -122,6 +122,19 @@
         margin-top: 3vw;
         font-weight: 700;
     }
+
+    .getCode {
+        width: 27vw;
+        height: 11vw;
+        border-radius: 2vw;
+        border: none;
+        outline: none;
+        color: #fff;
+        float: right;
+        background: #5F9BF1;
+        font-size: 3vw;
+        line-height: 11vw;
+    }
 </style>
 <body onload="addBackListener();">
 <div id="top">
@@ -129,42 +142,60 @@
                                                                             style="width: 3vw;margin-left: 3vw;margin-top: 4vw;"/></span>
     <p style="color: #fff;height: 13vw;text-align: center;width: 90vw;line-height: 13vw;font-size: 4.8vw;">银行卡认证</p>
 </div>
-<%--<div id="select">
-    <span style="color: #5F9BF1;border-bottom: 0.8vw solid #5F9BF1;">银行卡认证</span>
-</div>--%>
+
 <div id="content">
     <form id="detail_form">
         <ul>
             <li>
-                <input type="tel" name="credit_number" id="bank_num" placeholder="银行卡号" maxlength="25"/>
+                <input type="text" name="name" value="${name}" placeholder="姓名" maxlength="15"/>
+            </li>
+
+            <li>
+                <input type="text" id="id_card" name="id_card" value="${idcard}" maxlength="18" placeholder="身份证号码" style="width: 80vw;"/>
+            </li>
+
+            <li>
+                <input type="text" name="reserved_number" id="reserved_number" value="${reserved_number}" placeholder="预留号码" maxlength="11"/>
 
             </li>
 
             <li>
-                <input type="text" name="reserved_number" id="bank_phone" placeholder="预留号码" maxlength="11"/>
-
+                <input type="tel" name="credit_number" id="bank_num" placeholder="银行卡号" maxlength="25" value="${credit_number}"/>
             </li>
+
             <li>
-                <input type="text" name="credit_name" id="bank-picker" placeholder="开户银行" style="width: 80vw;"/>
+                <input type="text" name="credit_name" id="bank-picker" placeholder="开户银行" style="width: 80vw;" value="${credit_name}"/>
                 <div class="more">
                     <img src="images/more.png" style="width: 6vw;"/>
                 </div>
             </li>
+            <input type="hidden" id="lend" name="lend" value="${lend}"/>
+        </ul>
+    </form>
+
+    <form id="sms_form">
+        <ul>
+            <li style="width:73vw;">
+                <input style="width: 73vw;" type="tel" id="validatecode" maxlength="6" name="validatecode" placeholder="请输入手机验证码"/>
+            </li>
+            <li style="width:27vw;float: right;">
+                <button class="getCode" type="button">获取验证码</button>
+            </li>
         </ul>
     </form>
 </div>
-<div class="regButton" onclick="submit()">
+<div class="regButton" onclick="submit();">
     下一步
 </div>
 <script type="text/javascript">
 
     //返回键处理
     function addBackListener() {
-        document.addEventListener('plusready', function() {
+        document.addEventListener('plusready', function () {
             var webview = plus.webview.currentWebview();
-            plus.key.addEventListener('backbutton', function() {
-                webview.canBack(function(e) {
-                    if(e.canBack) {
+            plus.key.addEventListener('backbutton', function () {
+                webview.canBack(function (e) {
+                    if (e.canBack) {
                         webview.back();
                     } else {
                         //webview.close(); //hide,quit
@@ -172,12 +203,12 @@
                         //首页返回键处理
                         //处理逻辑：1秒内，连续两次按返回键，则退出应用；
                         var first = null;
-                        plus.key.addEventListener('backbutton', function() {
+                        plus.key.addEventListener('backbutton', function () {
                             //首次按键，提示‘再按一次退出应用’
                             if (!first) {
                                 first = new Date().getTime();
                                 //console.log('再按一次退出应用');
-                                setTimeout(function() {
+                                setTimeout(function () {
                                     first = null;
                                 }, 1000);
                             } else {
@@ -192,9 +223,10 @@
         });
     }
 
-    function submit() {
+    //校验人卡信息，成功后返回验证码
+    $('.getCode', "#sms_form").click(function () {
         var empty = false;
-        $("input").each(function (n) {
+        $("input", "#detail_form").each(function (n) {
             if ($(this).val().trim() == "") {
                 $.alert("请填写完整后提交", function () {
                     return;
@@ -206,8 +238,153 @@
             return;
         }
 
-        var options = {
+        var id_card = $("#id_card").val().trim();
+        var idcardReg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/; //身份证号
+        if (!idcardReg.test(id_card)) {
+            $.alert("请输入正确的身份证号", function () {
+                return;
+            });
+            return;
+        }
+
+        var phone = $("#reserved_number").val().trim();
+        var phoneReg = /(^1[3|4|5|6|7|8|9]\d{9}$)|(^09\d{8}$)/;  //手机号正则表达式
+        if (!phoneReg.test(phone)) {
+            $.alert("请输入正确的手机号！", function () {
+                return;
+            });
+            return;
+        }
+
+        var optionsInfo = {
             url: "../user_detail_alt.action",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                var hint = data.hint;
+                if (hint == "unionFirstPay_success") {
+                    $("#lend").val("1");
+                    $.confirm({
+                        title: '提示',
+                        text: '已发送验证码，请注意查收',
+                        onOK: function () {
+                        },
+                        onCancel: function () {
+                        }
+                    });
+                } else if (hint == "un_login") {
+                    $.alert("登录超时，请重新登录", function () {
+                        window.location.href = "../login.html";
+                    });
+                } else if (hint == "already_exist") {
+                    $.alert("请勿重复提交", function () {
+                        window.location.href = "auth_center.action";
+                    });
+                } else {
+                    $.confirm({
+                        title: '提示',
+                        text: decodeURI(hint),
+                        onOK: function () {
+                        },
+                        onCancel: function () {
+                        }
+                    });
+                }
+
+            }
+        };
+
+        //短信重发
+        var optionsResend = {
+            url: "../user_detail_smsResend.action",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                var hint = data.hint;
+                if (hint == "firstPaySmsResend_success") {
+                    $.confirm({
+                        title: '提示',
+                        text: '已发送验证码，请注意查收',
+                        onOK: function () {
+                        },
+                        onCancel: function () {
+                        }
+                    });
+                } else if (hint == "un_login") {
+                    $.alert("登录超时，请重新登录", function () {
+                        window.location.href = "../login.html";
+                    });
+                } else if (hint == "already_exist") {
+                    $.alert("请勿重复提交", function () {
+                        window.location.href = "auth_center.action";
+                    });
+                } else if (hint == "too_frequently") {
+                    $.alert("操作频繁，请60秒后再试！", function () {
+
+                    });
+                } else if (hint == "re_try") {
+                    $.alert("操作超时，请重试！", function () {
+
+                    });
+                    $("#lend").val("0");
+                } else {
+                    $.confirm({
+                        title: '提示',
+                        text: decodeURI(hint),
+                        onOK: function () {
+                        },
+                        onCancel: function () {
+                        }
+                    });
+                }
+
+            }
+        };
+
+        //如果lend=1，表示四项认证成功，待短信验证
+        var lend = $("#lend").val().trim();
+
+        if (lend == 0) {
+            $("#detail_form").ajaxSubmit(optionsInfo);
+        } else {
+            $("#detail_form").ajaxSubmit(optionsResend);
+        }
+
+
+    });
+
+    //校验验证码，代扣
+    function submit() {
+        var empty = false;
+        $("input", "#content").each(function (n) {
+            if ($(this).val().trim() == "") {
+                $.alert("请填写完整后获取验证码", function () {
+                    return;
+                });
+                empty = true;
+            }
+        });
+        if (empty) {
+            return;
+        }
+
+        //如果lend=1，表示四项认证成功，待短信确认
+        var lend = $("#lend").val().trim();
+        if (lend != 1) {
+            $.confirm({
+                title: '提示',
+                text: '请获取验证码',
+                onOK: function () {
+                },
+                onCancel: function () {
+                }
+            });
+            return;
+        }
+
+        //短信确认接口
+        var options = {
+            url: "../user_detail_smsConfirm.action",
             type: "post",
             dataType: "json",
             success: function (data) {
@@ -222,12 +399,21 @@
                     $.alert("请勿重复提交", function () {
                         window.location.href = "auth_center.action";
                     });
+                } else {
+                    $.confirm({
+                        title: '提示',
+                        text: decodeURI(hint),
+                        onOK: function () {
+                        },
+                        onCancel: function () {
+                        }
+                    });
                 }
 
             }
         };
 
-        $("#detail_form").ajaxSubmit(options);
+        $("#sms_form").ajaxSubmit(options);
 
     }
 

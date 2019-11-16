@@ -5,28 +5,17 @@
 
 package com.fusibang.tables;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
-import javax.persistence.*;
-
 @Entity
-@Table(
-    name = "identify"
-)
+@Table(name = "identify")
 public class Identify {
     @Id
-    @GeneratedValue(
-        strategy = GenerationType.AUTO
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @OneToOne(
-        cascade = {CascadeType.ALL},
-        optional = false,
-        fetch = FetchType.LAZY
-    )
-    @JoinColumn(
-        name = "user_id"
-    )
+    @OneToOne(cascade = {CascadeType.ALL}, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
     private int step1;
     private int step2;
@@ -44,8 +33,12 @@ public class Identify {
     @Transient
     private Timestamp now;
 
-    public Identify() {
-    }
+    /**
+     * 订单号
+     */
+    private String requestno;
+
+    public Identify() {}
 
     public int getId() {
         return this.id;
@@ -173,5 +166,13 @@ public class Identify {
 
     public void setLend_time(String lend_time) {
         this.lend_time = lend_time;
+    }
+
+    public String getRequestno() {
+        return requestno;
+    }
+
+    public void setRequestno(String requestno) {
+        this.requestno = requestno;
     }
 }

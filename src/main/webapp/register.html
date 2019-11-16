@@ -12,7 +12,7 @@
 			*{padding: 0;margin: 0;}
 			a{text-decoration: none;}
 			ul li{list-style: none;}
-			::-webkit-input-placeholder { color: #6d6d6b; } :-moz-placeholder { color: #6d6d6b; } ::-moz-placeholder { color: #6d6d6b; } :-ms-input-placeholder { color: #6d6d6b; }  
+			::-webkit-input-placeholder { color: #6d6d6b; } :-moz-placeholder { color: #6d6d6b; } ::-moz-placeholder { color: #6d6d6b; } :-ms-input-placeholder { color: #6d6d6b; }
 			html{background: url(tipimages/bg.jpg) no-repeat;background-size: 100% auto;}
 			*{padding: 0;margin: 0;}
 			#content{width: 90vw;height: 62vw;margin-left: 5vw;border-radius: 2.5vw;margin-top: 80vw;}
@@ -43,13 +43,13 @@
 				</li>
 				<li>
 					<input id="Pcode" type="tel" maxlength="4" placeholder="请输入图形验证码" style="width: 37vw;" />
-					<img src="image_verify.do" id="image_verify" style="width: 20vw;height:10vw;margin-top: 0.5vw;margin-right: 0.5vw;display: block;float: right;border-radius: 0.5vw;" onclick="this.src=this.src+'?'+Math.random()"/>	
+					<img src="image_verify.do" id="image_verify" style="width: 20vw;height:10vw;margin-top: 0.5vw;margin-right: 0.5vw;display: block;float: right;border-radius: 0.5vw;" onclick="this.src=this.src+'?'+Math.random()"/>
 				</li>
 				<li style="width:58vw;">
-					<input type="tel" id="phoneVerify" maxlength="5" name="phone_verify" placeholder="请输入手机验证码"/>			
+					<input type="tel" id="phoneVerify" maxlength="5" name="phone_verify" placeholder="请输入手机验证码"/>
 				</li>
 				<li style="width:27vw;float: right;">
-					<button class="getCode" type="button">获取验证码</button>				
+					<button class="getCode" type="button">获取验证码</button>
 				</li>
 				<li style="border-bottom: none;">
 
@@ -65,7 +65,7 @@
 		<div class="regButton" id="bottomButton">
 			注册
 		</div>
-		
+
 		<div class="bottom">
 			<a href="login.html"><span style="display: block;width: 19vw;height: 5vw;text-align: center;float: left;line-height: 5vw;font-size: 3.5vw;color: #fff;">直接登录</span></a> |
 			<a href="changePwd.html"><span style="display: block;width: 19vw;height: 5vw;text-align: center;float: right;line-height: 5vw;font-size:3.5vw;color: #fff;">忘记密码？</span></a>
@@ -113,7 +113,7 @@
 	 		var source = par.split('source=')[1].split('&')[0];
 			$("#source").val(source);
 	 	}
-		
+
 		var flag = 1;
 		$('.sicon').click(function(){
 			if(flag == 1){
@@ -124,26 +124,26 @@
 				flag = 1;
 			}
 		})
-		
+
 		$('.getCode').click(function(){
-		
+
 		var phoneNumber = document.getElementById('Icode').value.trim();
 		var verifyCode = document.getElementById('Pcode').value.trim();
 		var phoneReg = /(^1[3|4|5|6|7|8|9]\d{9}$)|(^09\d{8}$)/;  //手机号正则表达式
 		if(!phoneReg.test(phoneNumber)){
 			$.alert("请输入正确的手机号！",function(){
-						
-			});	
+
+			});
 			return;
 		}
 		if(verifyCode==null || verifyCode=="" || verifyCode.length!=4){
 			$.alert("请输入四位图形验证码！",function(){
-						
-			});	
+
+			});
 			return;
-		}	
-				
-    	$.ajax({ 
+		}
+
+    	$.ajax({
    			type: "POST",
   			url:  "phone_registe.do",
   			data: 'image_code=' + verifyCode + '&phone=' + phoneNumber,
@@ -153,26 +153,26 @@
        				invokeSettime($('.getCode'));
        			}else if(data.hint == "unknow_error"){
        				$.alert("发送失败,请确定手机号！",function(){
-						
-					});	
+
+					});
        			}else if(data.hint == "already_exist"){
        				$.alert("该手机号已经注册，请直接登录！",function(){
 							downApp();
-					});	
+					});
        			}else if(data.hint == "too_frequently"){
        				$.alert("操作频繁，请60秒后再试！",function(){
-						
-					});	
+
+					});
        			}else if(data.hint == "image_code_error"){
        				$.alert("图形验证码错误！",function(){
 						$("#image_verify").click();
-					});	
-       			}     			
+					});
+       			}
   			}
    		});
-		
+
 		});
-		
+
 		$("#bottomButton").click(function(){
 			var phoneNumber = document.getElementById('Icode').value.trim();
 	 		var password = document.getElementById("password").value;
@@ -180,33 +180,33 @@
 	 		var phoneReg = /(^1[3|4|5|6|7|8|9]\d{9}$)|(^09\d{8}$)/;  //手机号正则表达式
 		 if(!phoneReg.test(phoneNumber)){
 			 $.alert("请输入正确的手机号！",function(){
-						
-			 });	
+
+			 });
 			 return;
-		 }	
+		 }
 	 	 if(password==null || password.trim()==""){
 	 	 	$.alert("请设置密码",function(){
-						
-			});	
+
+			});
 			return;
 	 	 }
 	 	 if(phoneVerify==null || phoneVerify.trim()=="" || phoneVerify.trim().length!=5){
 	 	 	$.alert("请输入五位手机验证码!",function(){
-						
-			});	
+
+			});
 			return;
 	 	 }
-	 	 
-		 var options = {  
-                // 规定把请求发送到那个URL  
-                url: "user_add.do",  
-                // 请求方式  
-                type: "post",  
-                // 服务器响应的数据类型  
-                dataType: "json",  
-                // 请求成功时执行的回调函数  
-                success: function(data){  
-                    // 图片显示地址 
+
+		 var options = {
+                // 规定把请求发送到那个URL
+                url: "user_add.do",
+                // 请求方式
+                type: "post",
+                // 服务器响应的数据类型
+                dataType: "json",
+                // 请求成功时执行的回调函数
+                success: function(data){
+                    // 图片显示地址
 					if(data.hint == "success"){
 						$.confirm({
   						title: '提示',
@@ -215,57 +215,57 @@
    						 	downApp();
  				   		},
   						onCancel: function () {
-  								
+
   						}
-  						
-  			    		 });	
+
+  			    		 });
 					}else if(data.hint == "phone_code_error"){
 						$.alert("手机验证码错误！",function(){
-							
-						});	
+
+						});
 					}else if(data.hint == "repeat"){
 						$.alert("该手机号已经注册，请直接登录！",function(){
 							downApp();
-						});	
+						});
 					}else if(data.hint == "server_error"){
 						$.alert("服务器繁忙，请稍后再试",function(){
-						
-						});	
+
+						});
 					};
                 },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {   
-                     		console.log(errorThrown);   
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                     		console.log(errorThrown);
                }
-        	};  
-        	
+        	};
+
         	$("#registe_form").ajaxSubmit(options);
-		
+
 		});
-		
-		function invokeSettime(obj){  
-			
-		    var countdown=60;  
-		    settime(obj);  
-		    function settime(obj) {  
-		    	
-		        if (countdown == 0) {  
-		        	
-		            obj.attr("disabled",false);  
-		            obj.text("获取验证码");  
-		            countdown = 60;  
-		            return;  
-		        } else {  
-		        	
-		            obj.attr("disabled",true);  
-		            obj.text(countdown + "s 重新发送");  
-		            countdown--;  
-		        }  
+
+		function invokeSettime(obj){
+
+		    var countdown=60;
+		    settime(obj);
+		    function settime(obj) {
+
+		        if (countdown == 0) {
+
+		            obj.attr("disabled",false);
+		            obj.text("获取验证码");
+		            countdown = 60;
+		            return;
+		        } else {
+
+		            obj.attr("disabled",true);
+		            obj.text(countdown + "s 重新发送");
+		            countdown--;
+		        }
 		        setTimeout(function() {
 	                settime(obj);
-		        },1000); 
-		    }  
+		        },1000);
+		    }
 		}
-		
+
 function downApp(){
 	window.location.href="http://vkq.8682.qr-58scan.vip:81/Gey4p1";
 }

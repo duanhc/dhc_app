@@ -14,11 +14,15 @@ import com.fusibang.tables.User;
 public class IdentifyDao {
     private SessionFactory sessionFactory;
 
-    public IdentifyDao() {
-    }
+    public IdentifyDao() {}
 
     public Identify findByUserId(int id) {
         Identify identify = (Identify)this.getSession().createQuery("FROM Identify i WHERE i.user.id = :id").setInteger("id", id).uniqueResult();
+        return identify;
+    }
+
+    public Identify findByRequestno(String requestno) {
+        Identify identify = (Identify)this.getSession().createQuery("FROM Identify i WHERE i.requestno = :requestno").setString("requestno", requestno).uniqueResult();
         return identify;
     }
 
@@ -30,7 +34,7 @@ public class IdentifyDao {
     }
 
     public boolean showApp(User user) {
-        if(user.getChannel().getId() != 0 && user.getTop_three() != 1) {
+        if (user.getChannel().getId() != 0 && user.getTop_three() != 1) {
             int suc = this.getSession().createQuery("FROM Identify i WHERE i.user.channel.id = :id AND i.step1 = 1").setInteger("id", user.getChannel().getId()).setMaxResults(5).list().size();
             Identify identify = this.findByUserId(user.getId());
             return identify.getStep1() == 1 && suc > 2;

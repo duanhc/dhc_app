@@ -127,6 +127,8 @@
         <property name="userDao" ref="userDao"></property>
         <property name="identifyDao" ref="identifyDao"></property>
         <property name="idCardDao" ref="IdCardDao"></property>
+        <property name="yeePayHelp" ref="yeePayHelp"></property>
+        <property name="jedisFactory" ref="jedisFactory"></property>
     </bean>
     <bean id="userDetailAction" class="com.fusibang.actions.UserDetailAction" scope="prototype">
         <property name="userDetailService" ref="userDetailService"></property>
@@ -248,6 +250,25 @@
     <bean id="chanPayAction" class="com.fusibang.actions.ChanPayAction" scope="prototype">
         <property name="chanPayService" ref="chanPayService"></property>
     </bean>
+
+    <!-- 易宝支付 -->
+    <bean id="yeePayHelp" class="com.fusibang.help.YeePayHelp">
+        <property name="merchantno" value="${yeepay.merchantno}"></property>
+        <property name="appKey" value="${yeepay.appKey}"></property>
+        <property name="publickey" value="${yeepay.publickey}"></property>
+        <property name="privatekey" value="${yeepay.privatekey}"></property>
+        <property name="unionfirstpayUri" value="${yeepay.unionfirstpayUri}"></property>
+        <property name="firstpaysmsconfUri" value="${yeepay.firstpaysmsconfUri}"></property>
+        <property name="firstpaysmsresendUri" value="${yeepay.firstpaysmsresendUri}"></property>
+        <property name="amount" value="${yeepay.amount}"></property>
+        <property name="hostName" value="${project.host}"></property>
+        <property name="webName" value="${project.name}"></property>
+        <property name="identifyDao" ref="identifyDao"></property>
+    </bean>
+    <bean id="yeePayAction" class="com.fusibang.actions.YeePayAction" scope="prototype">
+        <property name="yeePayHelp" ref="yeePayHelp"></property>
+    </bean>
+
     <!-- 微信支付 -->
     <bean id="wechatPayHelp" class="com.fusibang.help.WechatPayHelp">
         <property name="appid" value="${wechat.appid}"></property>

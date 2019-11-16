@@ -5,13 +5,6 @@
 
 package com.fusibang.help;
 
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
-
-import org.apache.log4j.Logger;
-
 import com.fusibang.dao.IdentifyDao;
 import com.fusibang.dao.PayDao;
 import com.fusibang.dao.UserDao;
@@ -19,9 +12,16 @@ import com.fusibang.tables.Channel;
 import com.fusibang.tables.Identify;
 import com.fusibang.tables.Pay;
 import com.fusibang.tables.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 
 public class PayHelp {
-    private static final Logger logger = Logger.getLogger(PayHelp.class);
+    private static Logger logger = LoggerFactory.getLogger(YeePayHelp.class);
     private IdentifyDao identifyDao;
     private DingDingHelp dingDingHelp;
     private PayDao payDao;

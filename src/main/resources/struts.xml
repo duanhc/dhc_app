@@ -156,6 +156,11 @@
             <result name="success" type="">/pro/rzcenter.jsp</result>
             <result name="un_login" type="redirect">/login.html</result>
         </action>
+        <!--    审核页面    -->
+        <action name="auth_shenhe" class="identifyAction" method="authVerify">
+            <result name="success" type="">/pro/shenhe.jsp</result>
+            <result name="un_login" type="redirect">/login.html</result>
+        </action>
         <!-- 身份证 -->
         <action name="id_card_font" class="idCardAction" method="addFont"></action>
         <action name="id_card_back" class="idCardAction" method="addBack"></action>

@@ -260,24 +260,8 @@
                 success: function (data) {
                     var hint = data.hint;
                     if (hint == "success") {
-                        if (check_status == 1) {
-                            $.alert("提交审核中，请耐心等待", function () {
-                                window.location.href = "auth_center.action";
-                            });
-                        } else {
-                            $.confirm({
-                                title: '提示',
-                                text: '您的申请正在审核中，根据你的当前额度平台还推荐给您了一些低门槛极速放款合作平台，去看看吧！',
-                                onOK: function () {
-                                    window.location.href = "app_market.do";
-                                },
-                                onCancel: function () {
-                                    window.location.href = "auth_center.action";
-
-                                }
-                            });
-                        }
-
+                        //跳转审核页
+                        window.location.href = "auth_shenhe.action";
                     } else if (hint = "un_login") {
                         $.alert("登录超时，请重新登录", function () {
                             window.location.href = "../login.html";

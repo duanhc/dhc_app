@@ -5,18 +5,16 @@
 
 package com.fusibang.actions;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-
 import com.fusibang.services.IdentifyService;
 import com.fusibang.tables.Identify;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public class IdentifyAction extends ActionSupport implements ServletRequestAware, ServletResponseAware, ModelDriven<Identify> {
     private static final long serialVersionUID = 1L;
@@ -52,6 +50,10 @@ public class IdentifyAction extends ActionSupport implements ServletRequestAware
 
     public String authCenter() {
         return this.identifyService.authCenter(this.request);
+    }
+
+    public String authVerify() {
+        return this.identifyService.authVerify(this.request);
     }
 
     public String version() {

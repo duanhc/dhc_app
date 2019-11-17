@@ -5,12 +5,6 @@
 
 package com.fusibang.servicesimp;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import com.alibaba.fastjson.JSON;
 import com.fusibang.dao.IdentifyDao;
 import com.fusibang.dao.UserDao;
@@ -20,6 +14,11 @@ import com.fusibang.help.Volaty;
 import com.fusibang.services.IdentifyService;
 import com.fusibang.tables.Identify;
 import com.fusibang.tables.User;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class IdentifyServiceImp extends ResponseStatus implements IdentifyService {
     private UserDao userDao;
@@ -99,6 +98,25 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
         Integer id = (Integer)request.getSession().getAttribute("ui");
         User user = null;
         return id != null && (user = this.userDao.findById(id.intValue())) != null?(this.identifyDao.showApp(user)?"success":"faild"):"faild";
+    }
+
+    @Override
+    public String authVerify(HttpServletRequest request) {
+        Integer id = (Integer)request.getSession().getAttribute("ui");
+        User user = null;
+        if(id != null && (user = this.userDao.findById(id.intValue())) != null) {
+            Identify identify = this.identifyDao.findByUserId(user.getId());
+            byte check = 0;
+            if(user.getTop_three() == 1 || user.getChannel().getId() == 0 || ((new Date()).getTime() - identify.getPut_time().getTime() < 300000L)) {
+                check = 1;
+            }
+
+            request.setAttribute("check", Integer.valueOf(check));
+            request.setAttribute("identify", identify);
+            return "success";
+        } else {
+            return "un_login";
+        }
     }
 
     public void setUserDao(UserDao userDao) {

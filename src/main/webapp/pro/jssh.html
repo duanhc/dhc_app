@@ -162,7 +162,7 @@
     #hidebox p {
         height: 8vw;
         text-align: center;
-        line-height: 5vw;
+        line-height: 10vw;
     }
 
     #hidebox .quxiao, #hidebox .queding {
@@ -233,7 +233,7 @@
 <div id="hidebg"></div>
 <div id="hidebox">
     <p style="margin-top: 5vw;font-weight: 700;font-size: 5vw;">借款</p>
-    <p style="font-size: 2vw;" id="auth_tip">借款需要完成实名认证</p>
+    <p style="font-size: 4vw;" id="auth_tip">借款需要完成实名认证</p>
     <div class="quxiao" style="border-right: 1px solid #DEDEDE;" onClick="hide();">
         取消
     </div>
@@ -288,38 +288,20 @@
                     window.location.href = "../login.html";
                 });
             } else {
-                if (data.put == 0 || data.user.top_three == 1) {
+                if (data.put == 0) {
                     var status = "借款需要完成实名认证";
                     $("#auth_confirm").html("认证");
                     $("#auth_tip").html(status);
                     $("#auth_confirm").click(function () {
                         window.location.href = "auth_center.action";
                     });
-                } else if (data.put == 1 && data.lend == 0) {
-                    var status = "您的申请正在审核中，根据你的当前额度平台还推荐给您了一些低门槛极速放款合作平台，去看看吧！";
-                    $("#auth_confirm").html("前往");
+                } else {
+                    var status = "查看结果";
+                    $("#auth_confirm").html("认证");
                     $("#auth_tip").html(status);
-                    $("#edu").html(5000);
                     $("#auth_confirm").click(function () {
-                        window.location.href = "app_market.do";
-                    });
-                } else if (data.put == 1 && data.lend == 1) {
-                    var status = "您的申请正在审核中，根据你的当前额度平台还推荐给您了一些低门槛极速放款合作平台，去看看吧！";
-                    $("#auth_confirm").html("前往");
-                    $("#auth_tip").html(status);
-                    $("#eduu").html(data.lend_count);
-                    $("#edu").html(5000 - data.lend_count);
-                    $("#auth_confirm").click(function () {
-                        window.location.href = "app_market.do";
-                    });
-                } else if (data.put == 1 && data.lend == 2) {
-                    var status = "您的申请正在审核中，根据你的当前额度平台还推荐给您了一些低门槛极速放款合作平台，去看看吧！";
-                    $("#auth_confirm").html("前往");
-                    $("#auth_tip").html(status);
-                    $("#eduu").html(data.lend_count);
-                    $("#edu").html(5000 - data.lend_count);
-                    $("#auth_confirm").click(function () {
-                        window.location.href = "app_market.do";
+                        //跳转审核页
+                        window.location.href = "auth_shenhe.action";
                     });
                 }
             }

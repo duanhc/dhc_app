@@ -22,4 +22,6 @@ public interface IdentifyService {
     String version();
 
     String faxian(HttpServletRequest var1);
+
+    String authVerify(HttpServletRequest request);
 }

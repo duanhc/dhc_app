@@ -81,7 +81,7 @@ public class YeePayHelp {
     public String unionFirstPay(Map<String, String> map) {
         map.put("merchantno", merchantno);
         map.put("amount", amount);
-        map.put("callbackurl", "http://" + this.hostName + "/" + this.webName + "/yeepay_notify.action");
+        map.put("callbackurl", "http://" + this.hostName + "/" + this.webName + "/yeepay_notify.do");
 
         Map<String, String> yopresponsemap = new HashMap<>();
         try {

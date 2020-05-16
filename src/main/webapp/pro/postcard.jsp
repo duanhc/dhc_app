@@ -6,13 +6,13 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-		<link rel="stylesheet" href="http://dzez.v228.10000net.cn/css/weui.min.css">
-		<link rel="stylesheet" href="http://dzez.v228.10000net.cn/css/jquery-weui.min.css">
-		<script src="http://dzez.v228.10000net.cn/js/jquery.min.js"></script>
+		<link rel="stylesheet" href="http://hkwj.v228.10000net.cn/css/weui.min.css">
+		<link rel="stylesheet" href="http://hkwj.v228.10000net.cn/css/jquery-weui.min.css">
+		<script src="http://hkwj.v228.10000net.cn/js/jquery.min.js"></script>
 		<script src="js/localResizeIMG.js" type="text/javascript"></script>
    		<script src="js/mobileBUGFix.mini.js" type="text/javascript"></script>
-		<script src="http://dzez.v228.10000net.cn/js/jquery-weui.min.js"></script>
-		<script src="http://dzez.v228.10000net.cn/js/jquery.form.js"  type="text/javascript"></script>
+		<script src="http://hkwj.v228.10000net.cn/js/jquery-weui.min.js"></script>
+		<script src="http://hkwj.v228.10000net.cn/js/jquery.form.js"  type="text/javascript"></script>
 	</head>	
 	<style type="text/css">
 		*{padding: 0;margin: 0;}

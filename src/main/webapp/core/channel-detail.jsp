@@ -25,7 +25,7 @@
 		<!--<script charset="utf-8" src="js/chunk-cc66c468.9ed75a38.js"></script>
 		<script charset="utf-8" src="js/chunk-2d214429.e82e9ebb.js"></script>
 		<script charset="utf-8" src="js/chunk-2d0c949e.1eec5383.js"></script>-->
-		<script src="http://dzez.v228.10000net.cn/js/jquery.min.js"></script>
+		<script src="http://hkwj.v228.10000net.cn/js/jquery.min.js"></script>
 	</head>
 
 	<body style="">

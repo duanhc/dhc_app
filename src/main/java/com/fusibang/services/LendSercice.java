@@ -5,11 +5,11 @@
 
 package com.fusibang.services;
 
+        import com.fusibang.tables.Lend;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.fusibang.tables.Lend;
 
 public interface LendSercice {
     String addLend(Lend var1, HttpSession var2);

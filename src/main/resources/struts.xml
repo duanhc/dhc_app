@@ -217,6 +217,17 @@
 			<result name="illegal_request" type="redirect">/login_collect.html</result>
 			<result name="error" type="redirectAction">user_collect_view</result>
     	</action>
+
+    <!-- 支付宝支付 -->
+        <action name="notify_url" class="aliPayAction" method="payNotify"></action>
+        <action name="return_url" class="aliPayAction" method="returnUrl">
+            <result name="success" >/pay/wechat-pay.jsp</result>
+            <result name="success2" type="redirectAction">user_collect_view</result>
+            <result name="un_login" type="redirect">/login_collect.html</result>
+            <result name="illegal_request" type="redirect">/login_collect.html</result>
+            <result name="error" type="redirectAction">user_collect_view</result>
+        </action>
+
     <!-- 消息推送 -->
     	<action name="task_add" class="newsAction" method="addTask"></action>
     	<action name="task_cancle" class="newsAction" method="cancleTask"></action>

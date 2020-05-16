@@ -5,13 +5,6 @@
 
 package com.fusibang.help;
 
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
-
-import org.apache.log4j.Logger;
-
 import com.fusibang.dao.IdentifyDao;
 import com.fusibang.dao.PayDao;
 import com.fusibang.dao.UserDao;
@@ -19,6 +12,12 @@ import com.fusibang.tables.Channel;
 import com.fusibang.tables.Identify;
 import com.fusibang.tables.Pay;
 import com.fusibang.tables.User;
+import org.apache.log4j.Logger;
+
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 
 public class PayHelp {
     private static final Logger logger = Logger.getLogger(PayHelp.class);
@@ -85,7 +84,7 @@ public class PayHelp {
                 }
 
                 // 发送钉钉消息
-                dingDingHelp.send(user.getPhone_number());
+//                dingDingHelp.send(user.getPhone_number());
             }
 
             return "success";

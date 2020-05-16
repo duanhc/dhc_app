@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="http://hkwj.v228.10000net.cn/css/bootstrap.min.css">
 	<script src="http://hkwj.v228.10000net.cn/js/jquery.min.js"></script>
 	<script src="http://hkwj.v228.10000net.cn/js/bootstrap.min.js"></script>
-	<script src="http://dzez.v228.10000net.cn/js/jquery.form.js"  type="text/javascript"></script>
+	<script src="/js/jquery.form.js"  type="text/javascript"></script>
 </head>
 <body>
 

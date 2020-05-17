@@ -99,6 +99,7 @@
     </bean>
     <bean id="identifyService" class="com.fusibang.servicesimp.IdentifyServiceImp">
         <property name="identifyDao" ref="identifyDao"></property>
+        <property name="userDetailDao" ref="userDetailDao"></property>
         <property name="userDao" ref="userDao"></property>
         <property name="volaty" ref="volaty"></property>
         <property name="versionInfo" ref="versionInfo"></property>

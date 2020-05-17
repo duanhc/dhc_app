@@ -5,18 +5,16 @@
 
 package com.fusibang.actions;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-
 import com.fusibang.services.LendSercice;
 import com.fusibang.tables.Lend;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public class LendAction extends ActionSupport implements ServletRequestAware, ServletResponseAware, ModelDriven<Lend> {
     private static final long serialVersionUID = 1L;
@@ -33,6 +31,22 @@ public class LendAction extends ActionSupport implements ServletRequestAware, Se
 
         try {
             this.response.getWriter().write(this.lendSercice.addLend(this.lend, this.request.getSession()));
+        } catch (IOException var2) {
+            var2.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * 修改借款期限
+     * @return
+     */
+    public String altLendTime() {
+        this.response.setContentType("application/json; charset=utf-8");
+
+        try {
+            this.response.getWriter().write(this.lendSercice.altLendTime(this.lend, this.request.getSession()));
         } catch (IOException var2) {
             var2.printStackTrace();
         }

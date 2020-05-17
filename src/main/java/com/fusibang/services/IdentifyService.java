@@ -5,11 +5,15 @@
 
 package com.fusibang.services;
 
+import com.fusibang.tables.Identify;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public interface IdentifyService {
     String getIdentify(HttpSession var1);
+
+    String jkgl(HttpSession var1);
 
     String IdentifySubmit(HttpSession var1);
 
@@ -22,4 +26,6 @@ public interface IdentifyService {
     String version();
 
     String faxian(HttpServletRequest var1);
+
+    String addCashPassword(Identify identify, HttpSession session);
 }

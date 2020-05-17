@@ -3,11 +3,11 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-		<link rel="stylesheet" href="/css/weui.min.css">
-		<link rel="stylesheet" href="/css/jquery-weui.min.css">
-		<script src="/js/jquery.min.js"></script>
-		<script src="/js/jquery-weui.min.js"></script>
-		<script src="/js/jquery.form.js"  type="text/javascript"></script>
+		<link rel="stylesheet" href="../css/weui.min.css">
+		<link rel="stylesheet" href="../css/jquery-weui.min.css">
+		<script src="../js/jquery.min.js"></script>
+		<script src="../js/jquery-weui.min.js"></script>
+		<script src="../js/jquery.form.js"  type="text/javascript"></script>
 	</head>	
 	<style type="text/css">
 		*{padding: 0;margin: 0;}
@@ -23,7 +23,7 @@
 		#edsz .yjed span,#edsz .syed span{font-size: 3.5vw;text-align: center;color: #FF8755;display: block;width: 50vw;font-weight: 700;}
 		.regButton{width: 90vw;margin-left: 5vw;margin-top:3vw; background: #5F9BF1;height: 11vw;font-size: 4vw;text-align: center;line-height: 11vw;border-radius: 5vw;color: white;}
 		#bottom{height: 12vw;width: 100vw;position: fixed;bottom: 0;left: 0;border-top: 1px solid #DEDEDE;background: white;}
-		#bottom ul li{width: 25vw;float: left;height: 12vw;}
+		#bottom ul li{width: 30vw;float: left;height: 12vw;}
 		#bottom ul li p{text-align: center;font-size: 3vw;margin-top: -1vw;height: 4vw;line-height: 4vw;color: #DEDEDE;}
    		#hidebg { position:absolute;left:0px;top:0px;
 	      background-color:#000;
@@ -47,7 +47,7 @@
 				信用额度(元)
 			</div>
 			<div class="edNum">
-				5000.00
+				50000.00
 			</div>
 		</div>
 		<div id="edsz">
@@ -67,25 +67,25 @@
 			<ul>
 				<a href="jssh.html">
 				<li>
-					<img src="images/sy02.png" style="width:5vw;margin-left: 10vw;margin-top: 1.5vw;"/>
+					<img src="images/sy02.png" style="width:5vw;margin-left: 12vw;margin-top: 1.5vw;"/>
 					<p style="color: #5F9BF1;">首页</p>
 				</li>
 				</a>
 				<a href="repay.html">
 				<li>
-					<img src="images/hk01.png" style="width:5vw;margin-left: 10vw;margin-top: 1.5vw;"/>
-					<p>还款</p>
+					<img src="images/hk01.png" style="width:5vw;margin-left: 12vw;margin-top: 1.5vw;"/>
+					<p>借款管理</p>
 				</li>
 				</a>
-				<a href="faxian.do">
+				<!--<a href="faxian.do">
 				<li>
 					<img src="images/fx01.png" style="width:5vw;margin-left: 10vw;margin-top: 1.5vw;"/>
 					<p>发现</p>
 				</li>
-				</a>
+				</a>-->
 				<a href="myMess.html">
 				<li>
-					<img src="images/wd01.png" style="width:5vw;margin-left: 10vw;margin-top: 1.5vw;"/>
+					<img src="images/wd01.png" style="width:5vw;margin-left: 12vw;margin-top: 1.5vw;"/>
 					<p>我的</p>
 				</li>
 				</a>
@@ -160,7 +160,7 @@
 						var  status = "选择借款期限";
 						$("#auth_confirm").html("前往");
 						$("#auth_tip").html(status);
-						$("#edu").html(5000);
+						$("#edu").html(50000);
 						$("#auth_confirm").click(function(){
 							window.location.href = "lendmoney.html";
 						});
@@ -169,20 +169,29 @@
 						$("#auth_confirm").html("前往");
 						$("#auth_tip").html(status);
 						$("#eduu").html(data.lend_count);
-						$("#edu").html(5000 - data.lend_count);
+						$("#edu").html(50000 - data.lend_count);
 						$("#auth_confirm").click(function(){
 							window.location.href = "user_verify_view.action";
 						});
 					} else if (data.put == 1 && data.lend == 2) {
-						var  status = "借款在筹集中，请关注公众号查看进度";
+						var  status = "查看审批进度";
 						$("#auth_confirm").html("查看");
 						$("#auth_tip").html(status);
 						$("#eduu").html(data.lend_count);
-						$("#edu").html(5000 - data.lend_count);
+						$("#edu").html(50000 - data.lend_count);
 						$("#auth_confirm").click(function(){
-							window.location.href = "atten.html";
+							window.location.href = "shenhe1.html";
 						});
-					}
+					}else if (data.put == 1 && data.lend == 3) {
+                        var  status = "查看审批进度";
+                        $("#auth_confirm").html("查看");
+                        $("#auth_tip").html(status);
+                        $("#eduu").html(data.lend_count);
+                        $("#edu").html(50000 - data.lend_count);
+                        $("#auth_confirm").click(function(){
+                            window.location.href = "shenhe3.html";
+                        });
+                    }
 				}
 			},
 			error : function (XMLHttpRequest, textStatus, errorThrown) { 

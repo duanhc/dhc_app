@@ -5,18 +5,16 @@
 
 package com.fusibang.actions;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-
 import com.fusibang.services.IdentifyService;
 import com.fusibang.tables.Identify;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public class IdentifyAction extends ActionSupport implements ServletRequestAware, ServletResponseAware, ModelDriven<Identify> {
     private static final long serialVersionUID = 1L;
@@ -81,6 +79,40 @@ public class IdentifyAction extends ActionSupport implements ServletRequestAware
 
         try {
             this.response.getWriter().write(this.identifyService.getIdentify(this.request.getSession()));
+        } catch (IOException var2) {
+            var2.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * 修改identify，增加cash_password和签名字段
+     * @return
+     */
+    public String addCashPassword() {
+        this.response.setContentType("application/json; charset=utf-8");
+
+        try {
+            this.response.getWriter().write(this.identifyService.addCashPassword(this.identify,this.request.getSession()));
+        } catch (IOException var2) {
+            var2.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * 借款管理
+     * 查询授权额度、卡号、是否签字
+     *
+     * @return
+     */
+    public String jkgl() {
+        this.response.setContentType("application/json; charset=utf-8");
+
+        try {
+            this.response.getWriter().write(this.identifyService.jkgl(this.request.getSession()));
         } catch (IOException var2) {
             var2.printStackTrace();
         }

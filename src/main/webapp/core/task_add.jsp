@@ -6,10 +6,10 @@
 <head>
 	<meta charset="utf-8"> 
 	<title>消息推送</title>
-	<link rel="stylesheet" href="http://hkwj.v228.10000net.cn/css/bootstrap.min.css">
-	<script src="http://hkwj.v228.10000net.cn/js/jquery.min.js"></script>
-	<script src="http://hkwj.v228.10000net.cn/js/bootstrap.min.js"></script>
-	<script src="/js/jquery.form.js"  type="text/javascript"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.form.js"  type="text/javascript"></script>
 </head>
 <body>
 

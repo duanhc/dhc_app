@@ -5,9 +5,8 @@
 
 package com.fusibang.tables;
 
-import java.sql.Timestamp;
-
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(
@@ -43,6 +42,16 @@ public class Identify {
     private Timestamp pay_time;
     @Transient
     private Timestamp now;
+
+    /**
+     * 是否签字（0：否，1：是）
+     */
+    private int sign;
+
+    /**
+     * 提现密码
+     */
+    private String cash_password;
 
     public Identify() {
     }
@@ -173,5 +182,21 @@ public class Identify {
 
     public void setLend_time(String lend_time) {
         this.lend_time = lend_time;
+    }
+
+    public int getSign() {
+        return sign;
+    }
+
+    public void setSign(int sign) {
+        this.sign = sign;
+    }
+
+    public String getCash_password() {
+        return cash_password;
+    }
+
+    public void setCash_password(String cash_password) {
+        this.cash_password = cash_password;
     }
 }

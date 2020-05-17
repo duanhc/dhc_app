@@ -6,11 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>借款额度</title>
-<link rel="stylesheet" href="/css/weui.min.css">
-<link rel="stylesheet" href="/css/jquery-weui.min.css">
-<script src="/js/jquery.min.js"></script>
-<script src="/js/jquery-weui.min.js"></script>
-<script src="/js/jquery.form.js"  type="text/javascript"></script>
+<link rel="stylesheet" href="../css/weui.min.css">
+<link rel="stylesheet" href="../css/jquery-weui.min.css">
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery-weui.min.js"></script>
+<script src="../js/jquery.form.js"  type="text/javascript"></script>
 <style>
 	html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,
 	address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,

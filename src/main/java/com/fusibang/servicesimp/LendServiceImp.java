@@ -5,13 +5,6 @@
 
 package com.fusibang.servicesimp;
 
-import java.io.IOException;
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import com.fusibang.dao.IdentifyDao;
 import com.fusibang.dao.LendDao;
 import com.fusibang.dao.UserDao;
@@ -20,6 +13,12 @@ import com.fusibang.services.LendSercice;
 import com.fusibang.tables.Identify;
 import com.fusibang.tables.Lend;
 import com.fusibang.tables.User;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.Date;
 
 public class LendServiceImp extends ResponseStatus implements LendSercice {
     private UserDao userDao;
@@ -44,6 +43,22 @@ public class LendServiceImp extends ResponseStatus implements LendSercice {
                 this.lendDao.save(lend);
                 identify.setLend(1);
                 identify.setLend_count(lend.getLend_count());
+                identify.setLend_time(lend.getLend_time());
+                return "{\"hint\":\"success\"}";
+            } else {
+                return "{\"hint\":\"step_one_by_one\"}";
+            }
+        } else {
+            return "{\"hint\":\"un_login\"}";
+        }
+    }
+
+    public String altLendTime(Lend lend, HttpSession session) {
+        Integer id = (Integer)session.getAttribute("ui");
+        User user = null;
+        if(id != null && (user = this.userDao.findById(id.intValue())) != null) {
+            Identify identify = this.identifyDao.findByUserId(user.getId());
+            if(identify.getPut() == 1) {
                 identify.setLend_time(lend.getLend_time());
                 return "{\"hint\":\"success\"}";
             } else {

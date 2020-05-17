@@ -1,0 +1,648 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>可提现额度</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title">
+    <link rel="stylesheet" href="../css/weui.min.css">
+    <link rel="stylesheet" href="../css/jquery-weui.min.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery-weui.min.js"></script>
+    <script src="../js/jquery.form.js"  type="text/javascript"></script>
+    <style>
+        * {
+                -webkit-tap-highlight-color: transparent;
+            }
+            html{
+                font-size: 14px;
+
+                max-width: 640px;
+                margin: 0 auto;
+            }
+            .weui-btn_primary {
+              background-color: #5ABEFF;
+            }
+            .weui-btn_primary:not(.weui-btn_disabled):visited {
+              color: #000;
+            }
+            .weui-btn_primary:not(.weui-btn_disabled):active {
+              color: rgba(0, 0, 0, 0.6);
+              background-color: #D6B31D;
+            }
+            .weui-btn_disabled.weui-btn_primary {
+              color: rgba(0, 0, 0, 1);
+              background-color: #5ABEFF;
+            }
+            .weui-btn_loading.weui-btn_primary {
+              background-color: #5ABEFF;
+              color: rgba(0, 0, 0, 0.6);
+            }
+            .weui-btn_warn {
+              background-color: #000;
+            }
+            .weui-btn_warn:not(.weui-btn_disabled):visited {
+              color: #FFFFFF;
+            }
+            .weui-btn_warn:not(.weui-btn_disabled):active {
+              color: rgb(255, 255, 255);
+              background-color: #000;
+              /*opacity: 0.6;*/
+            }
+            .weui-tabbar__item.weui-bar__item_on .weui-tabbar__label {
+                color: #FFD72D;
+            }
+            .weui-tabbar__item{
+                padding: 8px 0 0;
+            }
+            .all-bg{
+                position: fixed;
+                z-index: -1;
+                background-color: #5ABEFF;
+                top: 0;
+                right: 0;
+                left: 0;
+                bottom: 0;
+            }
+            .btn-view{
+                width: 94%;
+                margin: 0 auto;
+                margin-top: 63px;
+                margin-top: 4.5rem;
+            }
+            .btn-view>a{
+                color: #fff;
+                font-weight: 300;
+                margin-bottom: 20px;
+                margin-bottom: 1rem;
+                border-radius: 0.5rem;
+            }
+            html,body,.weh_warp{
+                height: 100%;
+                background-color: #FFF;
+            }
+            .page {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+            #panel_1{
+                /*display: none;*/
+                background-color: #EAEEEF;
+            }
+            #panel_1 .top-view{
+                min-height: 8.57rem;
+                background-color: #5ABEFF;
+                text-align: center;
+            }
+            .weui-tabbar img{
+                height: 22.5px;
+                width: inherit;
+            }
+            #panel_1 .top-view p{
+                font-size: 1.35rem;
+                font-weight: 600;
+                color: #000;
+                line-height: 1.15rem;
+                padding-bottom: 1.36rem;
+                padding-top: 2.4rem;
+            }
+            #panel_1 .top-view h3{
+                font-size: 1.8rem;
+                color: #000000;
+                line-height: 1.8rem;
+                font-weight: 600;
+            }
+            #panel_1 .center-view{
+                background-color: #FFF;
+                margin-bottom: 0.75rem;
+                padding-bottom: 0.75rem;
+            }
+            #panel_1 .center-view .center-title{
+                width: 93.5%;
+                margin: 0 auto;
+                padding: 0.95rem 0 0.8rem;
+            }
+            #panel_1 .center-view .center-div{
+                width: 95%;
+                margin: 0 auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+            }
+            #panel_1 .center-view .center-div>div{
+                flex: 1;
+                display: flex;
+                align-items: center;
+            }
+            #panel_1 .center-view .center-div>div>a{
+                display: block;
+                border-radius: 0.5rem;
+                height: 2rem;
+                line-height: 2rem;
+                width: 90%;
+                margin: 0 auto;
+                font-size: 16px;
+                font-size: 1.15rem;
+                padding: 0.25rem 0;
+                background-color: #E5E6EC;
+                color: #4A4A4A;
+            }
+            #panel_1 .center-view .center-div>div>a.active{
+                background-color: #5ABEFF;
+                color: #000;
+            }
+            #panel_1 .list-view{
+                background-color: #FFF;
+            }
+            #panel_1 .list-center-div{
+                background-color: #FFF;
+                display: flex;
+                align-items: center;
+                padding: 16px;
+                padding: 1.1rem;
+                height: 60px;
+                box-sizing: border-box;
+                height: 4.288rem;
+                padding-left: 0;
+                margin-left: 1.1rem;
+            }
+            #panel_1 .list-center-div + .list-center-div{
+                border-top: 1px solid #D4D4D4;
+            }
+            #panel_1 .list-center-div>div:nth-child(1){
+                font-size: 14px;
+                color: #9B9B9B;
+                font-size: 1rem;
+                flex: 1;
+                justify-content: flex-start;
+            }
+            #panel_1 .list-center-div>div:nth-child(2){
+                display: flex;
+                flex: 1;
+                flex-direction: column;
+                justify-content: flex-end;
+                text-align: right;
+            }
+            #panel_1 .list-center-div>div:nth-child(2) p{
+                font-size: 14px;
+                color: #4A4A4A;
+                font-size: 1rem;
+                font-weight: 600;
+                line-height: 1rem;
+            }
+            #panel_1 .list-center-div>div:nth-child(2) h5{
+                font-size: 10px;
+                color: #9B9B9B;
+                font-size: 0.85rem;
+                font-weight: 300;
+            }
+            #panel_1 .weui-btn:after{
+                border: none;
+            }
+
+
+
+            /*条子*/
+            .weui-slider__track {
+                height: 0.75rem;
+                background-color: #000;
+                border-radius: 5px 0 0 5px;
+            }
+            .weui-slider__handler{
+                box-shadow: 0 0 5px 0 rgba(74,74,74,0.44);
+            }
+            .weui-slider__inner {
+                position: relative;
+                height: 0.75rem;
+                background-color: #FFF;
+                border-radius:5px;
+            }
+            .weui-slider__handler {
+                width: 42px;
+                height: 42px;
+                margin-top: -21px;
+                background: transparent;
+                box-shadow: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .the-slider{
+                width: 90%;
+                margin:0 auto;
+            }
+            .flex_1{
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .the-slider .flex_1 img {
+                height: 23px;
+                height: 1.75rem;
+                display: block;
+            }
+            .flex_5 {
+                flex: 5!important;
+                padding-left: 3px;
+                padding-right: 3px;
+            }
+            .users-info {
+                margin-top: 0;
+                background-color: #EAEEEF;
+            }
+            .users-info-top {
+                background-color: #FFF;
+                height: 90px;
+                height: 6.43rem;
+                box-sizing: border-box;
+            }
+            .users-info-content>div{
+                margin-top: 1rem!important;
+            }
+            #usersName{
+                margin-bottom: 0.3rem;
+                font-size: 16px;
+                font-size: 1.14rem;
+                font-weight: 600;
+                line-height: 2rem;
+            }
+            #usersMobile{
+                font-size: 14px;
+                color: #4A4A4A;
+                font-size: 1rem;
+            }
+            #usersImg{
+                width: 60px;
+                display: block;
+                height: 60px;
+                border-radius: 100%;
+                width: 4.28rem;
+                height: 4.28rem;
+            }
+            .weui-cell {
+                padding: 9px 15px;
+            }
+            .users-info-content a .weui-cell__hd img{
+                width:20px;width:1.43rem;margin-right:1.02rem;display:block;
+            }
+            .users-info-content .weui-cell__bd{
+                display: flex;
+            }
+            .users-info-content .weui-cell__bd p{
+                flex:1;
+                /*font-weight: 600;*/
+            }
+            .users-info-content .weui-cell__bd p:nth-child(2){
+                text-align: right;
+                color: #9B9B9B;
+            }
+
+            #sliderHandler>div{
+                height: 22px;
+                box-shadow: 0 0 5px 0 rgba(74,74,74,0.44);
+                width: 22px;
+                margin-left: -11px;
+                border-radius: 50%;
+                background-color: #FFFFFF;
+            }
+            * {
+                -webkit-tap-highlight-color: transparent;
+            }
+            @media screen and (-webkit-min-device-pixel-ratio: 2) {
+                #panel_1 .list-center-div + .list-center-div{
+                    border-top: 0.5px solid #D4D4D4;
+                }
+            }
+            @media screen and (-webkit-min-device-pixel-ratio: 3) {
+                #panel_1 .list-center-div + .list-center-div{
+                    border-top:  0.333333px solid #D4D4D4;
+                }
+            }
+            @media screen and (min-width: 768px) and (max-width: 959px) {
+                html,body{
+                    font-size:15px;
+                }
+            }
+            @media only screen and (min-width: 375px) and (max-width: 767px){
+                html,body{
+                    font-size:14px;
+                }
+            }
+            @media only screen and (min-width: 200px) and (max-width:374px) {
+                html,body{
+                    font-size:12px;
+                }
+
+            }
+    </style>
+</head>
+
+<body ontouchstart="" onload="addBackListener();">
+    <div class="all-bg"></div>
+	<div class="page tabbar js_show">
+	    <div class="page__bd" style="height: 100%;">
+	        <div class="weui-tab">
+	            <div id="panel_1" class="weui-tab__panel panel_1">
+					<div class="top-view">
+						<p>可提现额度(元)</p>
+						<h3 id="needMoney"></h3>
+					</div>
+					<div class="content-view">
+						<div class="center-view">
+							<div class="center-title">借款期限</div>
+							<div class="center-div" id="center-div">
+								<div class="month-btn"><a href="javascript:;" class="active" data-val="3">3个月</a></div>
+								<div class="month-btn"><a href="javascript:;" data-val="6">6个月</a></div>
+								<div class="month-btn"><a href="javascript:;" data-val="12">12个月</a></div>
+								<div class="month-btn"><a href="javascript:;" data-val="24">24个月</a></div>
+							</div>
+							
+						</div>
+						<!-- 总还款 -->
+						<div class="list-view">
+							<div class="list-center-div">
+								<div>总还款</div>
+								<div>
+									<p><span id="allMoney">5180.00</span>元</p>
+									<!-- <h5>(含服务费￥<span id="otherMoney">180.00</span>元)</h5> -->
+								</div>
+							</div>
+							<div class="list-center-div" id="goBlankView">
+								<div>待还款</div>
+								<div>
+									<p>0元</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				<!-- 立即借款 -->
+				<div class="btn-view">
+					<a href="javascript:void(0);"  id="getMoneyBtn" class="weui-btn weui-btn_primary">立即借款</a>
+				</div>
+
+	            </div>
+
+
+	        </div>
+	    </div>
+	</div>
+
+    <!-- weui toast -->
+    <div id="loadingToast" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-loading weui-icon_toast"></i>
+            <p class="weui-toast__content" id="loadInfo"></p>
+        </div>
+    </div>
+    <div id="toast" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content">发送成功</p>
+        </div>
+    </div>
+    <!-- 提示框 -->
+    <!-- iosDialog -->
+    <div class="js_dialog" id="iosDialog1" style="display: none;">
+        <div class="weui-mask"></div>
+        <div class="weui-dialog">
+            <div class="weui-dialog__hd"><strong class="weui-dialog__title">提示</strong></div>
+            <div class="weui-dialog__bd" id="dialog_1_info"></div>
+            <div class="weui-dialog__ft">
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default" onclick="iosDialog1Hide()"></a>
+                <a href="javascript:;" id="dialog_1_ok" class="weui-dialog__btn weui-dialog__btn_primary"></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        $.ajax({
+            url : "identify_get.action",
+            type : "GET",
+            dataType : "json",
+            success : function(data) {
+                if (data.hint == "un_login") {
+                    $.alert("尚未登录,是否登录", function (){
+                        window.location.href = "../login.html";
+                    });
+                } else {
+                    if (data.put == 1 && data.lend == 3) {
+                        $("#needMoney").html(data.lend_count);
+                        postInfo(needMoneyTime);//默认一个月
+                    } else if (data.put == 1 && data.lend == 0) {
+                        var  status = "选择借款期限";
+                        $("#auth_confirm").html("前往");
+                        $("#auth_tip").html(status);
+                        $("#edu").html(50000);
+                        $("#auth_confirm").click(function(){
+                            window.location.href = "lendmoney.html";
+                        });
+                    } else if (data.put == 1 && data.lend == 1) {
+                        var  status = "确认借款";
+                        $("#auth_confirm").html("前往");
+                        $("#auth_tip").html(status);
+                        $("#eduu").html(data.lend_count);
+                        $("#edu").html(50000 - data.lend_count);
+                        $("#auth_confirm").click(function(){
+                            window.location.href = "user_verify_view.action";
+                        });
+                    } else if (data.put == 1 && data.lend == 2) {
+                        var  status = "查看审批进度";
+                        $("#auth_confirm").html("查看");
+                        $("#auth_tip").html(status);
+                        $("#eduu").html(data.lend_count);
+                        $("#edu").html(50000 - data.lend_count);
+                        $("#auth_confirm").click(function(){
+                            window.location.href = "shenhe1.html";
+                        });
+                    }else if (data.put == 0 || data.user.top_three == 1) {
+                        var  status = "借款需要完成实名认证";
+                        $("#auth_confirm").html("认证");
+                        $("#auth_tip").html(status);
+                        $("#auth_confirm").click(function(){
+                            window.location.href = "auth_center.action";
+                        });
+                    }
+                }
+            },
+            error : function (XMLHttpRequest, textStatus, errorThrown) {
+                $.alert("尚未登录,是否登录", function (){
+                    window.location.href = "../login.html";
+                });
+            }
+        });
+
+        $("#getMoneyBtn").click(function(){
+            $.confirm({
+                title: '提示',
+                text: '确认借款需要签署协议',
+                onOK: function () {
+                    //window.location.href = "../dynamic/auth.jsp";
+                    var needMoney = $("#needMoney").text();
+                    var lendTime = $(".active").text();
+                    $.ajax({
+                        url: "altLendTime.action",
+                        type: "POST",
+                        dataType: "JSON",
+                        data: "lend_time=" + lendTime,
+                        success: function(data) {
+                            var hint = data.hint;
+                            if(hint == "success") {
+                                window.location.href = "canvas.html";
+                            } else if(hint == "un_login") {
+                                $.alert("登录超时，请重新登录",function(){
+                                    window.location.href = "../login.html";
+                                });
+                            } else if(hint == "step_one_by_one") {
+                                $.alert("尚未通过认证",function(){
+                                    window.location.href = "auth_center.action";
+                                });
+                            }
+                        }
+                    });
+                },
+                onCancel: function () {
+                }
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+
+        //返回键处理
+        function addBackListener() {
+                document.addEventListener('plusready', function() {
+                    var webview = plus.webview.currentWebview();
+                    plus.key.addEventListener('backbutton', function() {
+                        webview.canBack(function(e) {
+                            if(e.canBack) {
+                                webview.back();
+                            } else {
+                                //webview.close(); //hide,quit
+                                //plus.runtime.quit();
+                                //首页返回键处理
+                                //处理逻辑：1秒内，连续两次按返回键，则退出应用；
+                                var first = null;
+                                plus.key.addEventListener('backbutton', function() {
+                                    //首次按键，提示‘再按一次退出应用’
+                                    if (!first) {
+                                        first = new Date().getTime();
+                                        //console.log('再按一次退出应用');
+                                        setTimeout(function() {
+                                            first = null;
+                                        }, 1000);
+                                    } else {
+                                        if (new Date().getTime() - first < 1500) {
+                                            plus.runtime.quit();
+                                        }
+                                    }
+                                }, false);
+                            }
+                        })
+                    });
+                });
+            }
+
+        var isFirstLoads = true;
+        var apiArr = {
+
+        }
+        var needMoneyTime = 1;//默认一个月
+        var showLoadingToastTimer = "";//计时器
+        var showToastTimer = "";//计时器2
+        var ossurl = "../images";
+
+          //thisId : bar1 | bar2 | bar3
+          function goBarDetail(thisId){
+            //请求的时候加吧
+            if(isFirstLoads){
+                $("#loadInfo").html("正在加载");
+                showLoadingToast();
+                isFirstLoads = false;
+            }
+          }
+        var getMoneyInterest = 0.00025;//利率
+        var zongshubi = 10000;//总值
+        var allAcitveVal = 10000;//能活动的值
+        var minVals = 0;//最小值
+        $('#needMoney').html(allAcitveVal+minVals);
+        var bili =(zongshubi)/allAcitveVal;
+          //滑动拖拉
+        $(function(){
+            var $sliderTrack = $('#sliderTrack'),
+                $sliderHandler = $('#sliderHandler'),
+                $sliderValue = $('#needMoney');
+            var totalLen = $('#sliderInner').width(),
+                startLeft = 0,
+                startX = 0;
+            $sliderHandler
+                .on('touchstart', function (e) {
+                    startLeft = (parseInt($sliderHandler.css('left')) *  100)/100;
+                    startX = e.originalEvent.changedTouches[0].clientX;
+                })
+                .on('touchmove', function(e){
+                    if(totalLen==0){
+                        totalLen = $('#sliderInner').width()
+                    }
+                    var dist = startLeft + e.originalEvent.changedTouches[0].clientX - startX,
+                        percent;
+                        // dist = dist/2;
+                    dist = dist < 0 ? 0 : dist > totalLen ? totalLen : dist;
+                    percent =  parseInt(dist / totalLen * 100);
+                    $sliderTrack.css('width', percent + '%');
+                    $sliderHandler.css('left', percent + '%');
+                    $sliderValue.text(parseInt(percent/bili)*100+minVals);
+                    postInfo(needMoneyTime);//计算
+                    e.preventDefault();
+                })
+            ;
+        });
+        function setMonenyVal(val){
+            var $sliderTrack = $('#sliderTrack'),
+                $sliderHandler = $('#sliderHandler'),
+                $sliderValue = $('#needMoney');
+            var totalLen = $('#sliderInner').width(),
+                startLeft = 0,
+                startX = 0;
+                if(val=='-100' && $sliderValue.html()==minVals || val=='100' && $sliderValue.html()==allAcitveVal+minVals ){return;}
+                $sliderValue.html(parseInt($sliderValue.text())+val);
+                percent = parseInt(($sliderValue.text()-minVals)/allAcitveVal*100);
+                $sliderTrack.css('width', percent + '%');
+                $sliderHandler.css('left', percent + '%');
+                postInfo(needMoneyTime);//计算
+        }
+        //几个月的点击选择
+        $(".month-btn").click(function(){
+            var that = $(this);
+            if(that.find('a').hasClass('active')){return;}
+            // console.log('几个月呢？');
+            // console.log(that.find('a').attr('data-val'));
+            that.find('a').addClass('active').parent('.month-btn').siblings().find('a').removeClass('active');
+            needMoneyTime = that.find('a').attr('data-val');
+            postInfo(needMoneyTime);
+        });
+        function postInfo(needMoneyTime){
+            var needMoney =parseInt($("#needMoney").html());
+            // console.log((needMoney*needMoneyTime*getMoneyInterest).toFixed(2))
+            var lixi = needMoney*needMoneyTime*getMoneyInterest*30;
+            console.log("lixi");
+            console.log(lixi);
+            var otherMoney = needMoney*0.07;
+            $("#otherMoney").html(otherMoney);
+            $("#allMoney").html((needMoney+lixi).toFixed(2));
+            // needMoney
+        }
+
+    </script>
+</body>
+</html>

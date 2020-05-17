@@ -5,27 +5,31 @@
 
 package com.fusibang.servicesimp;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.fusibang.dao.IdentifyDao;
 import com.fusibang.dao.UserDao;
+import com.fusibang.dao.UserDetailDao;
 import com.fusibang.help.ResponseStatus;
 import com.fusibang.help.VersionInfo;
 import com.fusibang.help.Volaty;
 import com.fusibang.services.IdentifyService;
 import com.fusibang.tables.Identify;
 import com.fusibang.tables.User;
+import com.fusibang.tables.UserDetail;
+import org.springframework.util.StringUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class IdentifyServiceImp extends ResponseStatus implements IdentifyService {
     private UserDao userDao;
     private IdentifyDao identifyDao;
     private Volaty volaty;
     private VersionInfo versionInfo;
+    private UserDetailDao userDetailDao;
 
     public IdentifyServiceImp() {
     }
@@ -46,6 +50,32 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
             Identify identify = this.identifyDao.findByUserId(id.intValue());
             identify.setNow(new Timestamp((new Date()).getTime()));
             return JSON.toJSONString(identify);
+        } else {
+            return "{\"hint\":\"un_login\"}";
+        }
+    }
+
+    public String jkgl(HttpSession session) {
+        Integer id = (Integer)session.getAttribute("ui");
+        Object user = null;
+        if(id != null && this.userDao.findById(id.intValue()) != null) {
+            Identify identify = this.identifyDao.findByUserId(id.intValue());
+            UserDetail userDetail = this.userDetailDao.findByUserId(id.intValue());
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("lendCount",identify.getLend_count());
+            jsonObject.put("sign",identify.getSign());
+
+            String creditNumber = userDetail.getCredit_number();
+            if(!StringUtils.isEmpty(creditNumber) && creditNumber.length()>8){
+                //加密处理
+                String startNumber = creditNumber.substring(0, 4);
+                String endNumber = creditNumber.substring(creditNumber.length()-4);
+                creditNumber = startNumber+"********"+endNumber;
+            }
+            jsonObject.put("creditNumber",creditNumber);
+
+            return jsonObject.toJSONString();
         } else {
             return "{\"hint\":\"un_login\"}";
         }
@@ -101,6 +131,20 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
         return id != null && (user = this.userDao.findById(id.intValue())) != null?(this.identifyDao.showApp(user)?"success":"faild"):"faild";
     }
 
+    @Override
+    public String addCashPassword(Identify identifyParam, HttpSession session) {
+        Integer id = (Integer)session.getAttribute("ui");
+        User user = null;
+        if(id != null && (user = this.userDao.findById(id.intValue())) != null) {
+            Identify identify = this.identifyDao.findByUserId(user.getId());
+            identify.setCash_password(identifyParam.getCash_password());
+            identify.setSign(1);
+            return "{\"hint\":\"success\"}";
+        } else {
+            return "{\"hint\":\"un_login\"}";
+        }
+    }
+
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
@@ -115,5 +159,9 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
 
     public void setVersionInfo(VersionInfo versionInfo) {
         this.versionInfo = versionInfo;
+    }
+
+    public void setUserDetailDao(UserDetailDao userDetailDao) {
+        this.userDetailDao = userDetailDao;
     }
 }

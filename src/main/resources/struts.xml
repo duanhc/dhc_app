@@ -151,6 +151,8 @@
 		<action name="version_cheak" class="identifyAction" method="version"></action>
 		<action name="volaty_get" class="identifyAction" method="volaty"></action>
 		<action name="identify_get" class="identifyAction" method="getIdentify"></action>
+		<action name="addCashPassword" class="identifyAction" method="addCashPassword"></action>
+		<action name="jkgl" class="identifyAction" method="jkgl"></action>
 		<action name="identify_submit" class="identifyAction" method="submit"></action>
 		<action name="auth_center" class="identifyAction" method="authCenter">
 			<result name="success" type="">/pro/rzcenter.jsp</result>
@@ -188,6 +190,7 @@
 		<action name="user_contact_alt" class="userContactAction" method="altContact"></action>
 	<!-- 借款申请 -->	
 		<action name="user_lend_need" class="lendAction" method="addLend"></action>
+		<action name="altLendTime" class="lendAction" method="altLendTime"></action>
 		<action name="user_lend_verify" class="lendAction" method="verifyLend"></action>
 		<action name="user_verify_view" class="lendAction" method="verifyView">
 			<result name="success" >/pro/lend_verify.jsp</result>

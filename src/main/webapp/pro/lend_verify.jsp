@@ -312,8 +312,8 @@
     				success: function(data) {
     					var hint = data.hint;
     					if(hint == "success") {
-    						$.alert("申请成功，请关注微信公众号查看借款进度",function(){
-    							window.location.href = "atten.html";
+    						$.alert("申请成功，请关注审批进度",function(){
+    							window.location.href = "jssh.html";
     						});
     					} else if(hint == "un_login") {
     						$.alert("登录超时，请重新登录",function(){

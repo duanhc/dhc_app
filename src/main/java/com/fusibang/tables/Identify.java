@@ -53,6 +53,16 @@ public class Identify {
      */
     private String cash_password;
 
+    /**
+     * 订单编号
+     */
+    private String order_no;
+
+    /**
+     * 订单创建时间
+     */
+    private String order_time;
+
     public Identify() {
     }
 
@@ -198,5 +208,21 @@ public class Identify {
 
     public void setCash_password(String cash_password) {
         this.cash_password = cash_password;
+    }
+
+    public String getOrder_no() {
+        return order_no;
+    }
+
+    public void setOrder_no(String order_no) {
+        this.order_no = order_no;
+    }
+
+    public String getOrder_time() {
+        return order_time;
+    }
+
+    public void setOrder_time(String order_time) {
+        this.order_time = order_time;
     }
 }

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class LendServiceImp extends ResponseStatus implements LendSercice {
@@ -44,6 +45,12 @@ public class LendServiceImp extends ResponseStatus implements LendSercice {
                 identify.setLend(1);
                 identify.setLend_count(lend.getLend_count());
                 identify.setLend_time(lend.getLend_time());
+                //订单编号
+                identify.setOrder_no(String.valueOf(System.currentTimeMillis()));
+                //订单创建时间
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+                String format = sdf.format(new Date());
+                identify.setOrder_time(format);
                 return "{\"hint\":\"success\"}";
             } else {
                 return "{\"hint\":\"step_one_by_one\"}";

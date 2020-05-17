@@ -2,70 +2,60 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>借款管理</title>
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <link rel="stylesheet" href="../css/weui.min.css">
-        <link rel="stylesheet" href="../css/jquery-weui.min.css">
-        <script src="../js/jquery.min.js"></script>
-        <script src="../js/jquery-weui.min.js"></script>
+		<title>提现管理</title>	
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="../css/weui.min.css">
+		<link rel="stylesheet" href="../css/jquery-weui.min.css">
+		<script src="../js/jquery.min.js"></script>
+		<script src="../js/jquery-weui.min.js"></script>
+		<script src="../js/swiper.min.js"></script>
+		<script src="../js/city-picker.min.js"></script>
 	</head>	
 	<style type="text/css">
 		*{padding: 0;margin: 0;}
+		html{background: #f7f7f7;}
 		ul li{list-style: none;}
 		::-webkit-input-placeholder { color: #AAAAAA; } :-moz-placeholder { color: #AAAAAA; } ::-moz-placeholder { color: #AAAAAA; } :-ms-input-placeholder { color: #AAAAAA; }  
 		#top{width: 100vw;height: 13vw;background: #5F9BF1;}
-		.regButton{width: 90vw;margin-left: 5vw; background: #5F9BF1;height: 11vw;font-size: 5vw;text-align: center;line-height: 11vw;border-radius: 2vw;margin-top: 3vw;color: white;}
-		.edmess{width: 100vw;height: 40vw;background: url(../images/txed_top.jpg) no-repeat;background-size:100% auto;margin-top: 8vw;position: relative;}
-		.edmess .txed{font-weight: 700;font-size: 12vw;color: #fff;width: 80vw;height: 15vw;position: absolute;top: 8vw;left: 8vw;text-align: center;}
-		.edmess .kstx{width: 35vw;height: 10vw;background: #fff;text-align: center;border-radius: 5vw;line-height: 10vw;border: 2px solid #2b77c5;color: #2b77c5;position: absolute;bottom: -3vw;left: 33vw;font-size: 4vw;}
-		.item{width: 100vw;height: 10vw;border-bottom: 2px solid #E0E0E0;}	
-		.item .item_left{width: 25vw;float: left;height: 10vw;line-height: 10vw;font-size: 4vw;text-align: center;}	
-		.item .item_right{width: 60vw;float: right;text-align: right;height: 10vw;line-height: 10vw;font-size: 3.5vw;color: #2b77c5;margin-right: 5vw;}
-		.tx_button{width: 35vw;height: 10vw;background: #1776d4;border-radius: 5vw;font-size: 4vw;color: #fff;line-height: 10vw;text-align: center;margin-top: 10vw;margin-left: 10vw;float: left;}
-		.hk_button{width: 35vw;height: 10vw;background: #ff913f;border-radius: 5vw;font-size: 4vw;color: #fff;line-height: 10vw;text-align: center;margin-top: 10vw;margin-left: 10vw;float: left;}
+		.ednum{width: 100vw;height: 10vw;border-bottom: 1px solid #E0E0E0;line-height: 10vw;font-size: 3.5vw;color: #08beff;text-indent: 5vw;}
+		.ddnum{width: 100vw;height: 12vw;line-height: 12vw;font-size: 4vw;color: #08beff;text-indent: 20vw;color: #08beff;font-weight: 700;}
+		#content{width: 100vw;height: auto;}
+		#content ul li{width: 100vw;height: 25vw;background: white;}
+		#content ul li .item{width: 40vw;height: 25vw;border-radius: 3vw;background: #3fd154;margin-left: 3vw;float: left;}
+		#content ul li .item_right{width: 50vw;float: left;height: 25vw;margin-left: 5vw;}
+		#content ul li .item_right .right_time{text-align: left;font-size: 3.5vw;line-height: 10vw;}
+		#content ul li .item_right .right_tip{text-align: left;font-size: 3.5vw;line-height: 6vw;}
         #bottom{height: 12vw;width: 100vw;position: fixed;bottom: 0;left: 0;border-top: 1px solid #DEDEDE;background: white;}
         #bottom ul li{width: 30vw;float: left;height: 12vw;}
         #bottom ul li p{text-align: center;font-size: 3vw;margin-top: -1vw;height: 4vw;line-height: 4vw;color: #DEDEDE;}
 	</style>
 	<body onload="addBackListener();">
 		<div id="top">
-			<span style="width: 10vw;height: 12vw;display: block;float: left;"><img src="../images/tuihou.png" onclick="history.back();" style="width: 3vw;margin-left: 3vw;margin-top: 4vw;"/></span>
+			<span style="width: 10vw;height: 12vw;display: block;float: left;"><img onclick="history.back();" src="images/tuihou.png" style="width: 3vw;margin-left: 3vw;margin-top: 4vw;"/></span>
 			<p style="color: #fff;height: 13vw;text-align: center;width: 90vw;line-height: 13vw;font-size: 4.8vw;">借款管理</p>
 		</div>
-		
-		<div class="edmess">
-			<div class="txed">
-				￥<span id="lendCount"></span>
-			</div>
-			<div class="kstx">
-				快速提现
-			</div>
+		<div class="ednum">
+			信用额度￥ <span class="lendCount" style="color: #08beff;"></span>元
 		</div>
-		<p style="text-align: center;margin-top: 8vw;margin-bottom: 5vw;">风险评估过低，订单需绑定金融商业险</p>
-		
-		<div class="item">
-			<div class="item_left">
-				借款合同
-			</div>
-			<div class="item_right">
-				 <a href="" style="color: #2b77c5;">点击查看</a>
-			</div>
+		<div class="ddnum">
+			借款订单号：<span id="orderNo" style="color: #08beff;"></span>
 		</div>
-		<div class="item">
-			<div class="item_left">
-				提现卡号
-			</div>
-			<div id="creditNumber" class="item_right">
-
-			</div>
-		</div>
-		
-		
-		<div class="tx_button">
-			<a href="javascript:void(0);" style="color: #fff;">提现管理</a>
-		</div>
-		<div class="hk_button">
-			<a href="javascript:void(0);" style="color: #fff;">还款管理</a>
+		<div id="content">
+			<ul>
+				<li>
+					<div class="item">
+						<p style="text-align: center;font-size: 4.5vw;color: #fff;line-height: 12vw;">放款中</p>
+						<p style="text-align: center;font-size: 4vw;color: #fff;line-height: 8vw;">￥<span class="lendCount"></span>.00元</p>
+					</div>
+					<div class="item_right">
+						<div id="orderTime" class="right_time">
+						</div>
+						<div class="right_tip">
+							提现到账成功，已预约转账，请留意到账信息！
+						</div>
+					</div>
+				</li>
+			</ul>
 		</div>
 
         <div id="bottom">
@@ -132,11 +122,8 @@
                 });
             }
 
-            var sign = 0;
-
-            //查询授权额度、卡号
             $.ajax({
-                url : "../jkgl.action",
+                url : "identify_get.action",
                 type : "GET",
                 dataType : "json",
                 success : function(data) {
@@ -144,40 +131,11 @@
                         $.alert("登录超时,请重新登录", function (){
                             window.location.href = "../login.html";
                         });
-                    }else{
-                        //额度
-                        $("#lendCount").html(data.lendCount);
-                        //是否签字，0：否，1：是
-                        sign = data.sign;
-                        //卡号
-                        $("#creditNumber").html(data.creditNumber);
+                    }else if(data.put == 1 && data.lend == 3){
+                        $(".lendCount").html(data.lend_count);
+                        $("#orderNo").html(data.order_no);
+                        $("#orderTime").html(data.order_time);
                     }
-                }
-            });
-
-            //快速提现
-            $(".kstx").click(function () {
-                if(sign == 1){
-                    $.alert("不能重复提现",function(){});
-                    return;
-                }
-                window.location.href = "lendmoney2.html";
-            });
-
-            //提现管理
-            $(".tx_button").click(function () {
-                if(sign == 0){
-                    $.alert("请先点击快速提现",function(){});
-                    return;
-                }
-                window.location.href = "txgl.html";
-            });
-
-            //还款管理
-            $(".hk_button").click(function () {
-                if(sign == 0){
-                    $.alert("请先点击快速提现",function(){});
-                    return;
                 }
             });
 

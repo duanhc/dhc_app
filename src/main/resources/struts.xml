@@ -161,8 +161,10 @@
 		<action name="addCashPassword" class="identifyAction" method="addCashPassword"></action>
 		<action name="jkgl" class="identifyAction" method="jkgl"></action>
 		<action name="identify_submit" class="identifyAction" method="submit"></action>
-<!--        后台管理员通过并授额   -->
+        <!--        后台管理员通过并授额   -->
 		<action name="identify_modify" class="identifyAction" method="modifyLendAndCount"></action>
+        <!--        后台管理员不通过 lend=4   -->
+		<action name="identify_modify_lend" class="identifyAction" method="modifyLend"></action>
 		<action name="auth_center" class="identifyAction" method="authCenter">
 			<result name="success" type="">/pro/rzcenter.jsp</result>
 			<result name="un_login" type="redirect">/login.html</result>

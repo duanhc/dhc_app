@@ -30,4 +30,6 @@ public interface IdentifyService {
     String addCashPassword(Identify identify, HttpSession session);
 
     String modifyLendAndCount(Identify identify, HttpSession session);
+
+    String modifyLend(Identify identify, HttpSession session);
 }

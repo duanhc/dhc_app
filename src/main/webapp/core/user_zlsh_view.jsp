@@ -39,25 +39,32 @@
 
     }
 
-    //不同意
+    //不同过
     function disagree(id) {
-        $.ajax({
-            type: "POST",
-            url: "user_valid.do",
-            data: 'id=' + id,
-            dataType: "json",
-            success: function (data) {
-                if (data.hint == "success") {
-                    $(location).attr("href", "user_view.do?salt=${name}&id=${thisPage}");
-                } else if (data.hint == "illegal_request") {
-                    $(location).attr("href", "illegal_request.html");
-                } else if (data.hint == "un_login") {
-                    $(location).attr("href", "timeout.html");
-                } else if (data.hine == "not_permission") {
-                    $(location).attr("href", "nopermission.html");
+
+        layer.confirm('确定不通过?', {
+            btn: ['确定', '取消'],title:"审核结果"
+        },function () {
+            //审核不通过（lend=4）
+            $.ajax({
+                type: "POST",
+                url: "identify_modify_lend.do",
+                data: 'id=' + id,
+                dataType: "json",
+                success: function (data) {
+                    if (data.hint == "success") {
+                        $(location).attr("href", "user_zlsh_view.do?salt=${name}&id=${thisPage}");
+                    } else if (data.hint == "illegal_request") {
+                        $(location).attr("href", "illegal_request.html");
+                    } else if (data.hint == "un_login") {
+                        $(location).attr("href", "timeout.html");
+                    } else if (data.hine == "not_permission") {
+                        $(location).attr("href", "nopermission.html");
+                    }
                 }
-            }
+            });
         });
+
     }
 
     //通过并授额
@@ -140,7 +147,7 @@
                 <td>审批金额</td>
                 <td>提现状态</td>
                 <td>资料</td>
-                <td>备注信息</td>
+<%--                <td>备注信息</td>--%>
                 <td>操作</td>
             </tr>
 
@@ -149,15 +156,31 @@
                     <td>${userInfo.user.id}</td>
                     <td>${userInfo.user.phone_number}</td>
                     <td>${userInfo.userDetail.name}</td>
-                    <td>审核中</td>
-                    <td>${userInfo.lend.lend_count}</td>
-                    <td>${userInfo.identify.lend_count}</td>
-                    <td>提现中</td>
-                    <td>查看</td>
-                    <td>备注</td>
                     <td>
-                        <a class="upframe" onClick="agree(${userInfo.user.id})">通过并授额</a>
-                        <a class="upframe" onClick="disagree(${userInfo.user.id})">不通过</a>
+                        <c:if test="${userInfo.identify.lend == 2}">
+                            <span>审核中</span>
+                        </c:if>
+                        <c:if test="${userInfo.identify.lend == 3}">
+                            <span style="color:green">审核通过</span>
+                        </c:if>
+                        <c:if test="${userInfo.identify.lend == 4}">
+                            <span style="color:red">资料未完善</span>
+                        </c:if>
+                    </td>
+                    <td>${userInfo.lend.lend_count}</td>
+                    <td>${userInfo.identify.lend_count == 0 ? "":userInfo.identify.lend_count}</td>
+                    <td>
+                        <c:if test="${userInfo.identify.lend == 3 && userInfo.identify.sign == 1}">
+                            <span>提现中</span>
+                        </c:if>
+                    </td>
+                    <td><a onClick="agree(${userInfo.user.id})">点击查看</a></td>
+<%--                    <td></td>--%>
+                    <td>
+                        <c:if test="${userInfo.identify.lend >= 2}">
+                            <a class="upframe" onClick="agree(${userInfo.user.id})">通过并授额</a>
+                            <a class="upframe" onClick="disagree(${userInfo.user.id})">不通过</a>
+                        </c:if>
                     </td>
                 </tr>
             </c:forEach>

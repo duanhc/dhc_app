@@ -175,6 +175,7 @@
                                 window.location.href = "user_verify_view.action";
                             });
                         } else if (data.put == 1 && data.lend == 2) {
+                            //审核中
                             var  status = "查看审批进度";
                             $("#auth_confirm").html("查看");
                             $("#auth_tip").html(status);
@@ -184,6 +185,7 @@
                                 window.location.href = "shenhe1.html";
                             });
                         }else if (data.put == 1 && data.lend == 3) {
+                            //审核成功
                             var  status = "查看审批进度";
                             $("#auth_confirm").html("查看");
                             $("#auth_tip").html(status);
@@ -191,6 +193,16 @@
                             $("#edu").html(50000 - data.lend_count);
                             $("#auth_confirm").click(function(){
                                 window.location.href = "shenhe3.html";
+                            });
+                        }else if (data.put == 1 && data.lend == 4) {
+                            //审核失败
+                            var  status = "查看审批进度";
+                            $("#auth_confirm").html("查看");
+                            $("#auth_tip").html(status);
+                            $("#eduu").html(data.lend_count);
+                            $("#edu").html(50000 - data.lend_count);
+                            $("#auth_confirm").click(function(){
+                                window.location.href = "shenhe2.html";
                             });
                         }
                     }

@@ -140,6 +140,16 @@ public class IdentifyAction extends ActionSupport implements ServletRequestAware
         return null;
     }
 
+    public String modifyLend() {
+        try {
+            this.response.getWriter().write(this.identifyService.modifyLend(this.identify,this.request.getSession()));
+        } catch (IOException var2) {
+            var2.printStackTrace();
+        }
+
+        return null;
+    }
+
     public Identify getModel() {
         if(this.identify == null) {
             this.identify = new Identify();

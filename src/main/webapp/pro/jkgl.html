@@ -167,7 +167,7 @@
             //提现管理
             $(".tx_button").click(function () {
                 if(sign == 0){
-                    $.alert("请先点击快速提现",function(){});
+                    $.alert("请先快速提现",function(){});
                     return;
                 }
                 window.location.href = "txgl.html";
@@ -176,9 +176,10 @@
             //还款管理
             $(".hk_button").click(function () {
                 if(sign == 0){
-                    $.alert("请先点击快速提现",function(){});
+                    $.alert("请先快速提现",function(){});
                     return;
                 }
+                window.location.href = "hkgl.html";
             });
 
         </script>

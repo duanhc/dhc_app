@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>还款管理</title>	
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="../css/weui.min.css">
+		<link rel="stylesheet" href="../css/jquery-weui.min.css">
+		<script src="../js/jquery.min.js"></script>
+		<script src="../js/jquery-weui.min.js"></script>
+		<script src="../js/swiper.min.js"></script>
+		<script src="../js/city-picker.min.js"></script>
+	</head>	
+	<style type="text/css">
+		*{padding: 0;margin: 0;}
+		ul li{list-style: none;}
+		html{background: #f7f7f7;}
+		::-webkit-input-placeholder { color: #AAAAAA; } :-moz-placeholder { color: #AAAAAA; } ::-moz-placeholder { color: #AAAAAA; } :-ms-input-placeholder { color: #AAAAAA; }  
+		#top{width: 100vw;height: 13vw;background: #5F9BF1;}
+		.regButton{width: 90vw;margin-left: 5vw; background: #5F9BF1;height: 11vw;font-size: 5vw;text-align: center;line-height: 11vw;border-radius: 2vw;margin-top: 3vw;color: white;}
+		.edmess{width: 90vw;height: 35vw;background: #3699ec;background-size:100% auto;position: relative;margin-left: 5vw;border-radius: 3vw;}
+		.edmess .txed{font-weight: 400;font-size: 8vw;color: #fff;width: 90vw;height: 15vw;text-align: center;}
+		.edmess .ddnum{width: 90vw;height: 10vw;line-height: 10vw;font-size: 3.5vw;color: #fff;text-align: center;} 
+		.edmess .jkze{width: 90vw;height: 10vw;line-height: 10vw;font-size: 4vw;color: #fff;text-align: center;} 
+		.edmess .kstx{width: 35vw;height: 10vw;background: #fff;text-align: center;border-radius: 5vw;line-height: 10vw;border: 2px solid #2b77c5;color: #2b77c5;position: absolute;bottom: -3vw;left: 33vw;font-size: 4vw;}
+		.item{width: 100vw;height: 10vw;border-bottom: 2px solid #E0E0E0;}	
+		.item .item_left{width: 25vw;float: left;height: 10vw;line-height: 10vw;font-size: 4vw;text-align: center;}	
+		.item .item_right{width: 60vw;float: right;text-align: right;height: 10vw;line-height: 10vw;font-size: 3.5vw;color: #2b77c5;margin-right: 5vw;}
+		.dn{width:100vw ;height: 20vw;background: #fff;}
+		.dn .tx_button{width: 35vw;height: 14vw;background: #1776d4;border-radius: 5vw;font-size: 4vw;color: #fff;text-align: center;margin-top: 3vw;margin-left: 10vw;float: left;}
+		.dn .hk_button{width: 35vw;height: 14vw;background: #ff913f;border-radius: 5vw;font-size: 4vw;color: #fff;text-align: center;margin-top: 3vw;margin-left: 10vw;float: left;}
+		#content{width: 100vw;height: 70vw;overflow: auto;}
+		#content ul li{height: 12vw;width: 100vw;border-bottom: 1px solid #E0E0E0;background: #fff;}
+		
+		#content ul li .con_left{width: 30vw;float: left;height: 12vw;font-size: 3.5vw;margin-left: 3vw;}
+		#content ul li .con_mid{width: 25vw;float: left;height: 12vw;font-size: 4vw;margin-left: 3vw;line-height: 12vw;}
+		#content ul li .con_right{width: 25vw;float: left;height: 8vw;font-size: 4vw;margin-left: 3vw;line-height: 8vw;background: #f2f2f2;margin-top: 2vw;text-align: center;border: 1px solid #0867bb;color: #0867bb;}
+
+        #bottom{height: 12vw;width: 100vw;position: fixed;bottom: 0;left: 0;border-top: 1px solid #DEDEDE;background: white;}
+        #bottom ul li{width: 30vw;float: left;height: 12vw;}
+        #bottom ul li p{text-align: center;font-size: 3vw;margin-top: -1vw;height: 4vw;line-height: 4vw;color: #DEDEDE;}
+    </style>
+	<body onload="addBackListener();">
+		<div id="top">
+			<span style="width: 10vw;height: 12vw;display: block;float: left;"><img src="images/tuihou.png" onclick="history.back();" style="width: 3vw;margin-left: 3vw;margin-top: 4vw;"/></span>
+			<p style="color: #fff;height: 13vw;text-align: center;width: 90vw;line-height: 13vw;font-size: 4.8vw;">还款管理</p>
+		</div>
+		
+		<div class="edmess">
+			<div id="orderNo" class="ddnum">
+
+			</div>
+			<div class="jkze">
+				借款总额
+			</div>
+			<div class="txed">
+				￥<span id="lendCount"></span>
+			</div>
+			
+		</div>
+		
+		<div class="dn">
+			<div class="tx_button">
+				<p style="line-height: 8vw;">每期应还</p>
+				<p>￥<span id="monthPay"></span></p>
+				
+			</div>
+			
+			<div class="hk_button">
+				<p style="line-height: 8vw;">剩余结清</p>
+				<p>￥<span id="allPay"></span></p>
+			</div>
+		</div>
+		
+		<div class="space" style="background: #fff;border-bottom: 1px solid #E0E0E0;text-indent: 5vw;font-size: 4vw;">
+            共<span id="lendTimeNum"></span>期
+		</div>
+		
+		<div id="content">
+			<ul id="hklb">
+			</ul>
+		</div>
+
+        <div id="bottom">
+            <ul>
+                <a href="jssh.html">
+                    <li>
+                        <img src="images/sy01.png" style="width:5vw;margin-left: 12vw;margin-top: 1.5vw;"/>
+                        <p>首页</p>
+                    </li>
+                </a>
+                <a href="repay.html">
+                    <li>
+                        <img src="images/hk02.png" style="width:5vw;margin-left: 12vw;margin-top: 1.5vw;"/>
+                        <p style="color: #5F9BF1;">借款管理</p>
+                    </li>
+                </a>
+                <!--<a href="faxian.do">
+                <li>
+                    <img src="images/fx01.png" style="width:5vw;margin-left: 10vw;margin-top: 1.5vw;"/>
+                    <p>发现</p>
+                </li>
+                </a>-->
+                <a href="myMess.html">
+                    <li>
+                        <img src="images/wd01.png" style="width:5vw;margin-left: 12vw;margin-top: 1.5vw;"/>
+                        <p>我的</p>
+                    </li>
+                </a>
+            </ul>
+        </div>
+
+        <script>
+            //返回键处理
+            function addBackListener() {
+                document.addEventListener('plusready', function() {
+                    var webview = plus.webview.currentWebview();
+                    plus.key.addEventListener('backbutton', function() {
+                        webview.canBack(function(e) {
+                            if(e.canBack) {
+                                webview.back();
+                            } else {
+                                //webview.close(); //hide,quit
+                                //plus.runtime.quit();
+                                //首页返回键处理
+                                //处理逻辑：1秒内，连续两次按返回键，则退出应用；
+                                var first = null;
+                                plus.key.addEventListener('backbutton', function() {
+                                    //首次按键，提示‘再按一次退出应用’
+                                    if (!first) {
+                                        first = new Date().getTime();
+                                        //console.log('再按一次退出应用');
+                                        setTimeout(function() {
+                                            first = null;
+                                        }, 1000);
+                                    } else {
+                                        if (new Date().getTime() - first < 1500) {
+                                            plus.runtime.quit();
+                                        }
+                                    }
+                                }, false);
+                            }
+                        })
+                    });
+                });
+            }
+
+            //月份map
+            var monthMap = new Map();
+            //初始化月份map
+            initMonthMap();
+
+            //查询授权额度、订单号、借款期限、借款时间
+            $.ajax({
+                url : "identify_get.action",
+                type : "GET",
+                dataType : "json",
+                success : function(data) {
+                    if (data.hint == "un_login") {
+                        $.alert("登录超时,请重新登录", function (){
+                            window.location.href = "../login.html";
+                        });
+                    }else if(data.put == 1 && data.lend == 3){
+                        $("#lendCount").html(data.lend_count);
+                        $("#orderNo").html(data.order_no);
+                        //借款月数
+                        var lendTimeNum = data.lend_time.replace("个月","");
+                        //借款额度
+                        var needMoney =parseInt(data.lend_count);
+                        //利率
+                        var getMoneyInterest = 0.00025;
+                        //利息
+                        var lixi = needMoney*lendTimeNum*getMoneyInterest*30;
+                        //剩余总应还
+                        var allPay = (needMoney+lixi).toFixed(2);
+                        $("#allPay").html(allPay);
+                        //每月应还
+                        var monthPay = (allPay/lendTimeNum).toFixed(2);
+                        $("#monthPay").html(monthPay);
+                        //总期数
+                        $("#lendTimeNum").html(lendTimeNum);
+                        //订单创建时间
+                        var orderTime = data.order_time;
+
+                        //加载还款列表
+                        loadList(orderTime,lendTimeNum,monthPay);
+                    }
+                }
+            });
+
+            //渲染还款列表,订单创建时间：orderTime，借款期数：lendTimeNum，每月应还：monthPay
+            function loadList(orderTime,lendTimeNum,monthPay) {
+                var liHtml = "";
+                //切割时间2020.05.18
+                var orderTimeArray = orderTime.split(".");
+                var year = parseInt(orderTimeArray[0]);
+                var month = parseInt(orderTimeArray[1]);
+                var date = parseInt(orderTimeArray[2]);
+                for(i=1;i<=lendTimeNum;i++){
+                    month+=1;
+                    if(month > 12){
+                        year += 1;
+                        month -= 12;
+                    }
+
+                    liHtml += "<li>" +
+                                "<div class=\"con_left\">" +
+                                    "<p>"+year+"/"+month+"/"+date+"</p>" +
+                                    "<p>第"+monthMap.get(i)+"期</p>" +
+                                "</div>" +
+                                "<div class=\"con_mid\">" +
+                                    "￥" +monthPay+
+                                "</div>" +
+                                "<div class=\"con_right\">" +
+                                    "还款" +
+                                "</div>" +
+                              "</li>";
+                }
+
+                $("#hklb").html(liHtml);
+            }
+
+            function initMonthMap(){
+                monthMap.set(1,"一");
+                monthMap.set(2,"二");
+                monthMap.set(3,"三");
+                monthMap.set(4,"四");
+                monthMap.set(5,"五");
+                monthMap.set(6,"六");
+                monthMap.set(7,"七");
+                monthMap.set(8,"八");
+                monthMap.set(9,"九");
+                monthMap.set(10,"十");
+                monthMap.set(11,"十一");
+                monthMap.set(12,"十二");
+                monthMap.set(13,"十三");
+                monthMap.set(14,"十四");
+                monthMap.set(15,"十五");
+                monthMap.set(16,"十六");
+                monthMap.set(17,"十七");
+                monthMap.set(18,"十八");
+                monthMap.set(19,"十九");
+                monthMap.set(20,"二十");
+                monthMap.set(21,"二十一");
+                monthMap.set(22,"二十二");
+                monthMap.set(23,"二十三");
+                monthMap.set(24,"二十四");
+            }
+
+        </script>
+		
+	</body>
+</html>

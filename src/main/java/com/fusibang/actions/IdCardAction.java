@@ -135,7 +135,7 @@ public class IdCardAction extends ActionSupport implements ServletRequestAware, 
         String result;
         if(phone != null) {
             if(this.file.length() < 20971520L) {
-                String e = this.request.getRealPath("/") + "\\WEB-INF\\auth";
+                String e = this.request.getRealPath("/") + "WEB-INF/auth";
 
                 try {
                     FileInputStream e1 = new FileInputStream(this.file);
@@ -189,7 +189,7 @@ public class IdCardAction extends ActionSupport implements ServletRequestAware, 
         String result;
         if(phone != null) {
             if(this.file.length() < 20971520L) {
-                String e = this.request.getRealPath("/") + "\\WEB-INF\\auth";
+                String e = this.request.getRealPath("/") + "WEB-INF/auth";
 
                 try {
                     FileInputStream e1 = new FileInputStream(this.file);

@@ -139,79 +139,84 @@
             });
         }
 
-		$.ajax({
-			url : "identify_get.action",
-			type : "GET",
-			dataType : "json",
-			success : function(data) {
-				if (data.hint == "un_login") {
-					$.alert("尚未登录,是否登录", function (){
-                			window.location.href = "../login.html";
-                	});
-				} else {
-					if (data.put == 0 || data.user.top_three == 1) {
-						var  status = "借款需要完成实名认证";
-						$("#auth_confirm").html("认证");
-						$("#auth_tip").html(status);
-						$("#auth_confirm").click(function(){
-							window.location.href = "auth_center.action";
-						});
-					} else if (data.put == 1 && data.lend == 0) {
-						var  status = "选择借款期限";
-						$("#auth_confirm").html("前往");
-						$("#auth_tip").html(status);
-						$("#edu").html(50000);
-						$("#auth_confirm").click(function(){
-							window.location.href = "lendmoney.html";
-						});
-					} else if (data.put == 1 && data.lend == 1) {
-						var  status = "确认借款";
-						$("#auth_confirm").html("前往");
-						$("#auth_tip").html(status);
-						$("#eduu").html(data.lend_count);
-						$("#edu").html(50000 - data.lend_count);
-						$("#auth_confirm").click(function(){
-							window.location.href = "user_verify_view.action";
-						});
-					} else if (data.put == 1 && data.lend == 2) {
-						var  status = "查看审批进度";
-						$("#auth_confirm").html("查看");
-						$("#auth_tip").html(status);
-						$("#eduu").html(data.lend_count);
-						$("#edu").html(50000 - data.lend_count);
-						$("#auth_confirm").click(function(){
-							window.location.href = "shenhe1.html";
-						});
-					}else if (data.put == 1 && data.lend == 3) {
-                        var  status = "查看审批进度";
-                        $("#auth_confirm").html("查看");
-                        $("#auth_tip").html(status);
-                        $("#eduu").html(data.lend_count);
-                        $("#edu").html(50000 - data.lend_count);
-                        $("#auth_confirm").click(function(){
-                            window.location.href = "shenhe3.html";
+		function loadData() {
+            $.ajax({
+                url : "identify_get.action",
+                type : "GET",
+                dataType : "json",
+                success : function(data) {
+                    if (data.hint == "un_login") {
+                        $.alert("尚未登录,是否登录", function (){
+                            window.location.href = "../login.html";
                         });
+                    } else {
+                        if (data.put == 0 || data.user.top_three == 1) {
+                            var  status = "借款需要完成实名认证";
+                            $("#auth_confirm").html("认证");
+                            $("#auth_tip").html(status);
+                            $("#auth_confirm").click(function(){
+                                window.location.href = "auth_center.action";
+                            });
+                        } else if (data.put == 1 && data.lend == 0) {
+                            var  status = "选择借款期限";
+                            $("#auth_confirm").html("前往");
+                            $("#auth_tip").html(status);
+                            $("#edu").html(50000);
+                            $("#auth_confirm").click(function(){
+                                window.location.href = "lendmoney.html";
+                            });
+                        } else if (data.put == 1 && data.lend == 1) {
+                            var  status = "确认借款";
+                            $("#auth_confirm").html("前往");
+                            $("#auth_tip").html(status);
+                            $("#eduu").html(data.lend_count);
+                            $("#edu").html(50000 - data.lend_count);
+                            $("#auth_confirm").click(function(){
+                                window.location.href = "user_verify_view.action";
+                            });
+                        } else if (data.put == 1 && data.lend == 2) {
+                            var  status = "查看审批进度";
+                            $("#auth_confirm").html("查看");
+                            $("#auth_tip").html(status);
+                            $("#eduu").html(data.lend_count);
+                            $("#edu").html(50000 - data.lend_count);
+                            $("#auth_confirm").click(function(){
+                                window.location.href = "shenhe1.html";
+                            });
+                        }else if (data.put == 1 && data.lend == 3) {
+                            var  status = "查看审批进度";
+                            $("#auth_confirm").html("查看");
+                            $("#auth_tip").html(status);
+                            $("#eduu").html(data.lend_count);
+                            $("#edu").html(50000 - data.lend_count);
+                            $("#auth_confirm").click(function(){
+                                window.location.href = "shenhe3.html";
+                            });
+                        }
                     }
-				}
-			},
-			error : function (XMLHttpRequest, textStatus, errorThrown) { 
-				$.alert("尚未登录,是否登录", function (){
-                			window.location.href = "../login.html";
-                });
-			} 
-		});
+                },
+                error : function (XMLHttpRequest, textStatus, errorThrown) {
+                    $.alert("尚未登录,是否登录", function (){
+                        window.location.href = "../login.html";
+                    });
+                }
+            });
+        }
 		
 		function show()  //显示隐藏层和弹出层
 		{
-		   var hideobj=document.getElementById("hidebg");
-		   hidebg.style.display="block";  //显示隐藏层
-		   document.getElementById("hidebox").style.display="block";  //显示弹出层
+            loadData();
+		    var hideobj=document.getElementById("hidebg");
+		    hidebg.style.display="block";  //显示隐藏层
+		    document.getElementById("hidebox").style.display="block";  //显示弹出层
 		}
 		function hide()  //去除隐藏层和弹出层
 		{
 		   document.getElementById("hidebg").style.display="none";
 		   document.getElementById("hidebox").style.display="none";
 		}
+
+        loadData();
 		
 </script>
 </html>

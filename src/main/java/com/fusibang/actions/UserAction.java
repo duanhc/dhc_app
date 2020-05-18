@@ -5,20 +5,18 @@
 
 package com.fusibang.actions;
 
-import java.io.IOException;
+import com.fusibang.services.UserService;
+import com.fusibang.tables.User;
+import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-
-import com.fusibang.services.UserService;
-import com.fusibang.tables.User;
-import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
+import java.io.IOException;
 
 public class UserAction extends ActionSupport implements ServletRequestAware, ServletResponseAware, ModelDriven<User> {
     private static final long serialVersionUID = 1L;
@@ -187,6 +185,18 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
         }
 
         return this.userService.usersView(this.user, this.request);
+    }
+
+    public String usersDetailView() {
+        if(this.user.getId() == 0) {
+            this.user.setId(1);
+        }
+
+        if(this.user.getSalt() == null) {
+            this.user.setSalt("");
+        }
+
+        return this.userService.usersDetailView(this.user, this.request);
     }
 
     public String setValid() {

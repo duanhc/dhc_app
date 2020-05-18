@@ -134,6 +134,13 @@
 			<result name="un_login" type="redirect">/core/timeout.html</result>
 			<result name="illegal_request" type="redirect">/core/illegal_request.html</result>
 		</action>
+<!--        资料审核 -->
+        <action name="user_zlsh_view" class="userAction" method="usersDetailView">
+            <result name="success" type="">/core/user_zlsh_view.jsp</result>
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+            <result name="illegal_request" type="redirect">/core/illegal_request.html</result>
+        </action>
 		<action name="user_view_channel" class="userAction" method="getAll">
 			<result name="success">/core/channel-detail.jsp</result>
 			<result name="illegal_request" type="redirect">/core/illegal_request.html</result>
@@ -154,6 +161,8 @@
 		<action name="addCashPassword" class="identifyAction" method="addCashPassword"></action>
 		<action name="jkgl" class="identifyAction" method="jkgl"></action>
 		<action name="identify_submit" class="identifyAction" method="submit"></action>
+<!--        后台管理员通过并授额   -->
+		<action name="identify_modify" class="identifyAction" method="modifyLendAndCount"></action>
 		<action name="auth_center" class="identifyAction" method="authCenter">
 			<result name="success" type="">/pro/rzcenter.jsp</result>
 			<result name="un_login" type="redirect">/login.html</result>

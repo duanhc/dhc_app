@@ -82,7 +82,10 @@
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
     <bean id="userService" class="com.fusibang.servicesimp.UserServiceImp">
+        <property name="userDetailDao" ref="userDetailDao"></property>
         <property name="userDao" ref="userDao"></property>
+        <property name="identifyDao" ref="identifyDao"></property>
+        <property name="lendDao" ref="lendDao"></property>
         <property name="adminDao" ref="adminDao"></property>
         <property name="jedisFactory" ref="jedisFactory"></property>
         <property name="channelDao" ref="channelDao"></property>

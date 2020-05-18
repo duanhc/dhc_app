@@ -28,4 +28,6 @@ public interface IdentifyService {
     String faxian(HttpServletRequest var1);
 
     String addCashPassword(Identify identify, HttpSession session);
+
+    String modifyLendAndCount(Identify identify, HttpSession session);
 }

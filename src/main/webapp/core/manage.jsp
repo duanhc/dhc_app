@@ -123,8 +123,17 @@
 			<li class="layui-nav-item layui-this" >
 				<a href="user_view.do" target="right"><i class="layui-icon">&#xe609;</i>实时注册 </a>			
 			</li> 
-		</c:if>			                                                				
-		</ul>
+		</c:if>
+
+        <c:if test="${permission ne '00010'}">
+            <li class="layui-nav-item layui-this" >
+                <a href="user_zlsh_view.do" target="right"><i class="layui-icon">&#xe609;</i>资料审核 </a>
+            </li>
+            <li class="layui-nav-item layui-this" >
+                <a href="user_view.do" target="right"><i class="layui-icon">&#xe609;</i>借款管理 </a>
+            </li>
+        </c:if>
+        </ul>
 
 		<div class="site-tree-mobile layui-hide">
 			<i class="layui-icon">&#xe602;</i>
@@ -144,37 +153,36 @@
 	</div>
 	<script type="text/javascript" src="js/jquery-1.11.3.min.js" ></script>
 	<script type="text/javascript" src="myplugs/js/plugs.js" ></script>
-<script>
-		layui.use('element', function() {
-			var element = layui.element();
-		});
-</script>
-<script>
-
-layui.cache.page = '';
-layui.cache.user = {
-  username: '游客'
-  ,uid: -1
-  ,avatar: '../res/images/avatar/00.jpg'
-  ,experience: 83
-  ,sex: '男'
-};
-layui.config({
-  version: "2.0.0"
-  ,base: '../res/mods/'
-}).extend({
-  fly: 'index'
-}).use('fly');
-	//添加编辑弹出层
-			function updatePwd(title, id) {
-				$.jq_Panel({
-					title: title,
-					iframeWidth: 500,
-					iframeHeight: 300,
-					url: "updatePwd.html"
-				});
-			}
-</script>
+    <script>
+            layui.use('element', function() {
+                var element = layui.element();
+            });
+    </script>
+    <script>
+        layui.cache.page = '';
+        layui.cache.user = {
+          username: '游客'
+          ,uid: -1
+          ,avatar: '../res/images/avatar/00.jpg'
+          ,experience: 83
+          ,sex: '男'
+        };
+        layui.config({
+          version: "2.0.0"
+          ,base: '../res/mods/'
+        }).extend({
+          fly: 'index'
+        }).use('fly');
+            //添加编辑弹出层
+                    function updatePwd(title, id) {
+                        $.jq_Panel({
+                            title: title,
+                            iframeWidth: 500,
+                            iframeHeight: 300,
+                            url: "updatePwd.html"
+                        });
+                    }
+    </script>
 
 
 </body>

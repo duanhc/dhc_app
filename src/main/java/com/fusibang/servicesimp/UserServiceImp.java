@@ -5,30 +5,27 @@
 
 package com.fusibang.servicesimp;
 
+import com.fusibang.dao.*;
+import com.fusibang.help.*;
+import com.fusibang.services.UserService;
+import com.fusibang.tables.*;
+import org.apache.log4j.Logger;
+import redis.clients.jedis.Jedis;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.apache.log4j.Logger;
-
-import com.fusibang.dao.AdminDao;
-import com.fusibang.dao.ChannelDao;
-import com.fusibang.dao.UserDao;
-import com.fusibang.help.*;
-import com.fusibang.services.UserService;
-import com.fusibang.tables.Admin;
-import com.fusibang.tables.Channel;
-import com.fusibang.tables.User;
-
-import redis.clients.jedis.Jedis;
-
 public class UserServiceImp extends ResponseStatus implements UserService {
     private static final Logger logger = Logger.getLogger(UserServiceImp.class);
     private UserDao userDao;
+    private UserDetailDao userDetailDao;
+    private IdentifyDao identifyDao;
+    private LendDao lendDao;
     private ChannelDao channelDao;
     private AdminDao adminDao;
     private JedisFactory jedisFactory;
@@ -135,6 +132,50 @@ public class UserServiceImp extends ResponseStatus implements UserService {
                 List users = this.userDao.getUsers(user.getId(), user.getSalt(), admin_id.intValue(), permission);
                 int pageCount = (int)Math.ceil((double)count / 18.0D);
                 request.setAttribute("users", users);
+                request.setAttribute("count", Integer.valueOf(count));
+                request.setAttribute("pageCount", Integer.valueOf(pageCount));
+                request.setAttribute("thisPage", Integer.valueOf(user.getId()));
+                request.setAttribute("name", user.getSalt());
+                return "success";
+            }
+        } else {
+            return "un_login";
+        }
+    }
+
+    /**
+     * 资料审核
+     * @param user
+     * @param request
+     * @return
+     */
+    public String usersDetailView(User user, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Integer admin_id = (Integer)session.getAttribute("ai");
+        String permission = (String)session.getAttribute("ap");
+        if (permission != null) {
+            if (!permission.equals("00001") && !permission.equals("11111") && !permission.equals("00000")) {
+                return "not_permission";
+            } else {
+                int count = this.userDao.getCount(user.getSalt(), admin_id.intValue(), permission);
+                List<User> users = this.userDao.getUsers(user.getId(), user.getSalt(), admin_id.intValue(), permission);
+                int pageCount = (int)Math.ceil((double)count / 18.0D);
+
+                List<UserInfo> userInfoList = new ArrayList<>();
+                for (User tempUser : users) {
+                    UserInfo userInfo = new UserInfo();
+                    userInfo.setUser(tempUser);
+                    UserDetail userDetail = this.userDetailDao.findByUserId(tempUser.getId());
+                    userInfo.setUserDetail(userDetail);
+                    Identify identify = this.identifyDao.findByUserId(tempUser.getId());
+                    userInfo.setIdentify(identify);
+                    Lend lend = lendDao.findByUserId(tempUser.getId());
+                    userInfo.setLend(lend);
+
+                    userInfoList.add(userInfo);
+                }
+
+                request.setAttribute("userInfoList", userInfoList);
                 request.setAttribute("count", Integer.valueOf(count));
                 request.setAttribute("pageCount", Integer.valueOf(pageCount));
                 request.setAttribute("thisPage", Integer.valueOf(user.getId()));
@@ -296,6 +337,18 @@ public class UserServiceImp extends ResponseStatus implements UserService {
 
     public void setAdminDao(AdminDao adminDao) {
         this.adminDao = adminDao;
+    }
+
+    public void setUserDetailDao(UserDetailDao userDetailDao) {
+        this.userDetailDao = userDetailDao;
+    }
+
+    public void setIdentifyDao(IdentifyDao identifyDao) {
+        this.identifyDao = identifyDao;
+    }
+
+    public void setLendDao(LendDao lendDao) {
+        this.lendDao = lendDao;
     }
 
     public void setHost(String host) {

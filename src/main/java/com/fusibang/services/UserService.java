@@ -5,10 +5,10 @@
 
 package com.fusibang.services;
 
+import com.fusibang.tables.User;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import com.fusibang.tables.User;
 
 public interface UserService {
     String loginUser(String var1, String var2, HttpSession var3);
@@ -22,6 +22,8 @@ public interface UserService {
     String altUser(User var1, HttpSession var2);
 
     String usersView(User var1, HttpServletRequest var2);
+
+    String usersDetailView(User var1, HttpServletRequest var2);
 
     String setValid(User var1, HttpSession var2);
 

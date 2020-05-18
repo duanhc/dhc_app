@@ -111,6 +111,16 @@
 
     }
 
+    //打开用户详情页面
+    function userDetail(userId){
+        //要发送的参数
+        var params = {
+            "userId": userId
+        };
+        window["filter"] = params;
+        window.open('info.html')
+    }
+
     //是否是数字
     function isNumber(val) {
         var regPos = /^\d+(\.\d+)?$/; //非负浮点数
@@ -174,7 +184,7 @@
                             <span>提现中</span>
                         </c:if>
                     </td>
-                    <td><a onClick="agree(${userInfo.user.id})">点击查看</a></td>
+                    <td><a onClick="userDetail(${userInfo.user.id})">点击查看</a></td>
 <%--                    <td></td>--%>
                     <td>
                         <c:if test="${userInfo.identify.lend >= 2}">

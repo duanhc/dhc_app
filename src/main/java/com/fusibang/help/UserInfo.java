@@ -1,9 +1,6 @@
 package com.fusibang.help;
 
-import com.fusibang.tables.Identify;
-import com.fusibang.tables.Lend;
-import com.fusibang.tables.User;
-import com.fusibang.tables.UserDetail;
+import com.fusibang.tables.*;
 
 /**
 * 用户信息类，用来存放资料审核的相关信息
@@ -13,6 +10,8 @@ public class UserInfo{
     public UserDetail userDetail;
     public Identify identify;
     public Lend lend;
+    public UserDetailAppend userDetailAppend;
+    public UserContact userContact;
 
     public User getUser() {
         return user;
@@ -44,5 +43,21 @@ public class UserInfo{
 
     public void setLend(Lend lend) {
         this.lend = lend;
+    }
+
+    public UserDetailAppend getUserDetailAppend() {
+        return userDetailAppend;
+    }
+
+    public void setUserDetailAppend(UserDetailAppend userDetailAppend) {
+        this.userDetailAppend = userDetailAppend;
+    }
+
+    public UserContact getUserContact() {
+        return userContact;
+    }
+
+    public void setUserContact(UserContact userContact) {
+        this.userContact = userContact;
     }
 }

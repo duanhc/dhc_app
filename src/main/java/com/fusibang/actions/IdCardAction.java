@@ -29,6 +29,7 @@ public class IdCardAction extends ActionSupport implements ServletRequestAware, 
     private IdCardService idCardService;
     private String fileFileName;
     private File file;
+    private String phone;
 
     public IdCardAction() {
     }
@@ -40,12 +41,15 @@ public class IdCardAction extends ActionSupport implements ServletRequestAware, 
     public String frontImage() {
         HttpSession session = this.request.getSession();
         String phone = (String)session.getAttribute("u");
+        if(phone == null){
+            phone = this.phone;
+        }
         if(phone != null) {
             ServletOutputStream os = null;
             FileInputStream is = null;
 
             try {
-                String e = this.request.getRealPath("/") + "\\WEB-INF\\auth";
+                String e = this.request.getRealPath("/") + "WEB-INF/auth";
                 String fileName = phone + "front." + "jpg";
                 File file = new File(e, fileName);
                 if(file.exists()) {
@@ -91,7 +95,7 @@ public class IdCardAction extends ActionSupport implements ServletRequestAware, 
             FileInputStream is = null;
 
             try {
-                String e = this.request.getRealPath("/") + "\\WEB-INF\\auth";
+                String e = this.request.getRealPath("/") + "WEB-INF/auth";
                 String fileName = phone + "back." + "jpg";
                 File file = new File(e, fileName);
                 if(file.exists()) {
@@ -273,6 +277,14 @@ public class IdCardAction extends ActionSupport implements ServletRequestAware, 
 
         this.idCard = new IdCard();
         return this.idCard;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public void setServletResponse(HttpServletResponse arg0) {

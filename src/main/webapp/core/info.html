@@ -1,0 +1,218 @@
+<!DOCTYPE>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui">
+		<link rel="stylesheet" href="../css/bootstrap.css">
+		<link rel="stylesheet" href="../css/web-icons.css">
+		<link rel="stylesheet" href="../css/font-awesome.css">
+		<script src="../js/jquery.min.js"></script>
+		<script src="../js/jquery.form.js"></script>
+		<script src="../layer/layer.js"></script>
+		<link rel="stylesheet" href="../css/user.css" />
+		<title>用户资料详情</title>
+	</head>
+
+	<body>
+		<div class="nestable">
+			<div class="console-title console-title-border drds-detail-title clearfix">
+				<h5>用户资料详情</h5></div>
+			<div class="console-table-wapper margin-top">
+				<div class="flash-wrap">
+					<ul class="nav nav-tabs margin-t-20">
+						<li class="active">
+							<a href="javascript:void(0)">基本信息</a>
+						</li>
+					</ul>
+				</div>
+				<div class="tab-content margin-t-20 clearfix" id="tab">
+					<!--基本信息-->
+					<div class="tab-pane active">
+						<div class="public-infoTab public-tabBox margin-b-20">
+							<div class="title"><span class="font-s-16" style="width:100px">身份信息</span></div>
+							<div class="clearfix">
+								<div class="wp_box col-lg-4 col-xs-6">
+									<dl><dt>真实姓名：</dt>
+										<dd><span id="realName"></span></dd>
+									</dl>
+								</div>
+								<div class="wp_box col-lg-4 col-xs-6">
+									<dl><dt>身份证号：</dt>
+										<dd><span id="idcard"></span></dd>
+									</dl>
+								</div>
+								<div class="wp_box col-lg-4 col-xs-6">
+									<dl><dt>账户注册手机号：</dt>
+										<dd><span id="phoneNum"></span></dd>
+									</dl>
+								</div>
+								<div class="wp_box col-lg-4 col-xs-6">
+									<dl><dt>身份证正面照：</dt>
+										<dd>
+											<a href="/Public/Wchat/images/sc1.png" target="_blank"><img src="id_card_image_font.action?phone=13217023691" alt="点击查看大图" height="28px" /></a>
+										</dd>
+									</dl>
+								</div>
+								<div class="wp_box col-lg-4 col-xs-6">
+									<dl><dt>身份证反面照：</dt>
+										<dd>
+											<a href="/Public/Wchat/images/sc2.png" target="_blank"><img src="id_card_image_back.action" alt="点击查看大图" height="28px" /></a>
+										</dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+						<!--银行卡信息-->
+						<div class="public-infoTab public-tabBox margin-b-20">
+							<div class="title"><span class="font-s-16" style="width:100px">银行卡信息</span></div>
+							<div class="clearfix">
+								<div class="wp_box col-lg-4 col-xs-6">
+									<dl><dt>开户银行：</dt>
+										<dd><span id="creditName"></span></dd>
+									</dl>
+								</div>
+								<div class="wp_box col-lg-4 col-xs-6">
+									<dl><dt>提现密码：</dt>
+										<dd style="color:#f30213;font-weight:700">******</dd>
+									</dl>
+								</div>
+								<div class="wp_box col-lg-4 col-xs-6">
+									<dl><dt>银行卡号：</dt>
+										<dd><span id="creditNum"></span></dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+						<!--银行卡信息-->
+						<div class="public-infoTab public-tabBox margin-b-20">
+							<div class="title"><span class="font-s-16" style="width:100px">其他信息</span></div>
+							<div class="clearfix">
+								<div class="wp_box col-lg-4 col-xs-6" style="display:none;">
+									<dl><dt>婚姻状况：</dt>
+										<dd><span id="mirrage"></span></dd>
+									</dl>
+								</div>
+								<div class="wp_box col-lg-4 col-xs-6" style="display:none;">
+									<dl><dt>最高学历：</dt>
+										<dd><span id="eduDegree"></span></dd>
+									</dl>
+								</div>
+								<div class="wp_box col-lg-4 col-xs-6">
+									<dl><dt>预期金额：</dt>
+										<dd><span id="preLendCount"></span></dd>
+									</dl>
+								</div>
+								<div class="wp_box col-lg-4 col-xs-6">
+									<dl><dt>芝麻信用分：</dt>
+										<dd><span id="creditSorce"></span></dd>
+									</dl>
+								</div>
+								<div class="wp_box col-lg-4 col-xs-6">
+									<dl><dt>职业：</dt>
+										<dd><span id="profession"></span></dd>
+									</dl>
+								</div>
+								<div class="wp_box col-lg-4 col-xs-6">
+									<dl><dt>居住地址：</dt>
+										<dd><span id="city"></span></dd>
+									</dl>
+								</div>
+                                <div class="wp_box col-lg-4 col-xs-6">
+                                    <dl><dt>工作地：</dt>
+                                        <dd><span id="workCity"></span></dd>
+                                    </dl>
+                                </div>
+                                <div class="wp_box col-lg-4 col-xs-6">
+                                    <dl><dt>工作地址详细：</dt>
+                                        <dd><span id="workIncome"></span></dd>
+                                    </dl>
+                                </div>
+							</div>
+						</div>
+						<!--联系人信息-->
+						<div class="public-infoTab public-tabBox">
+							<div class="title"><span class="font-s-16" style="width:100px">联系人信息</span></div>
+						</div>
+						<div>
+							<table class="table table-hover table-bordered">
+								<thead>
+									<tr>
+										<th width="25%">姓名</th>
+										<th width="25%">与借款人关系</th>
+										<th width="25%">联系电话</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><span id="name1"></span></td>
+										<td><span id="relation1"></span></td>
+										<td><span id="phone1"></span></td>
+									</tr>
+									<tr>
+                                        <td><span id="name2"></span></td>
+                                        <td><span id="relation2"></span></td>
+                                        <td><span id="phone2"></span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!--联系人信息-->
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		$(".nav-tabs li").click(function() {
+			$(this).addClass("active")
+			$(this).siblings().removeClass("active")
+			var index = $(this).index();
+			$("#tab .tab-pane:eq(" + index + ")").siblings().removeClass("active");
+			$("#tab .tab-pane:eq(" + index + ")").addClass('active');
+		})
+
+        var receive = window.opener["filter"];
+        //获取接收到的数据
+        var userId = receive["userId"];
+
+        //查询用户详情
+        $.ajax({
+            type: "POST",
+            url: "user_zlsh_detail_view.do",
+            data: 'id=' + userId,
+            dataType: "json",
+            success: function (data) {
+                if (data.hint == null) {
+                    $("#realName").html(data.userDetail == null ? "" :(data.userDetail.name == null ? "" :data.userDetail.name));
+                    $("#idcard").html(data.userDetail == null ? "" :(data.userDetail.id_card == null ? "" :data.userDetail.id_card));
+                    $("#phoneNum").html(data.identify == null ? "" : (data.identify.user == null ? "" : data.identify.user.phone_number));
+                    $("#creditName").html(data.userDetail == null ? "" :(data.userDetail.credit_name == null ? "" :data.userDetail.credit_name));
+                    $("#creditNum").html(data.userDetail == null ? "" :(data.userDetail.credit_number == null ? "" :data.userDetail.credit_number));
+                    $("#mirrage").html(data.userDetailAppend == null ? "" :(data.userDetailAppend.mirrage == null ? "" : data.userDetailAppend.mirrage));
+                    $("#eduDegree").html(data.userDetail == null ? "" :(data.userDetail.edu_degree == null ? "" :data.userDetail.edu_degree));
+                    $("#preLendCount").html(data.lend == null ? "" : (data.lend.lend_count == null ? "" : data.lend.lend_count));
+                    $("#creditSorce").html(data.userDetail == null ? "" :(data.userDetail.credit_sorce == null ? "" :data.userDetail.credit_sorce));
+                    $("#profession").html(data.userDetailAppend == null ? "" :(data.userDetailAppend.profession == null ? "" : data.userDetailAppend.profession));
+                    $("#city").html(data.userDetail == null ? "" :(data.userDetail.city == null ? "" :data.userDetail.city));
+                    $("#workCity").html(data.userDetailAppend == null ? "" :(data.userDetailAppend.work_city == null ? "" : data.userDetailAppend.work_city));
+                    $("#workIncome").html(data.userDetailAppend == null ? "" :(data.userDetailAppend.work_income == null ? "" : data.userDetailAppend.work_income));
+                    $("#name1").html(data.userContact == null ? "" : (data.userContact.name1 == null ? "" : data.userContact.name1));
+                    $("#relation1").html(data.userContact == null ? "" : (data.userContact.relation1 == null ? "" : data.userContact.relation1));
+                    $("#phone1").html(data.userContact == null ? "" : (data.userContact.phone1 == null ? "" : data.userContact.phone1));
+                    $("#name2").html(data.userContact == null ? "" : (data.userContact.name2 == null ? "" : data.userContact.name2));
+                    $("#relation2").html(data.userContact == null ? "" : (data.userContact.relation2 == null ? "" : data.userContact.relation2));
+                    $("#phone2").html(data.userContact == null ? "" : (data.userContact.phone2 == null ? "" : data.userContact.phone2));
+
+                } else if (data.hint == "un_login") {
+                    $(location).attr("href", "timeout.html");
+                } else if (data.hine == "not_permission") {
+                    $(location).attr("href", "nopermission.html");
+                }
+            }
+        });
+
+	</script>
+
+</html>

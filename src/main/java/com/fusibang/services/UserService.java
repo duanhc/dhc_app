@@ -25,6 +25,8 @@ public interface UserService {
 
     String usersDetailView(User var1, HttpServletRequest var2);
 
+    String aUserDetailView(User user, HttpServletRequest request);
+
     String setValid(User var1, HttpSession var2);
 
     String getAll(HttpServletRequest var1);

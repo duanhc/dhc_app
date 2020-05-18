@@ -141,6 +141,8 @@
             <result name="un_login" type="redirect">/core/timeout.html</result>
             <result name="illegal_request" type="redirect">/core/illegal_request.html</result>
         </action>
+<!--        一个用户详情-->
+        <action name="user_zlsh_detail_view" class="userAction" method="aUserDetailView"></action>
 		<action name="user_view_channel" class="userAction" method="getAll">
 			<result name="success">/core/channel-detail.jsp</result>
 			<result name="illegal_request" type="redirect">/core/illegal_request.html</result>

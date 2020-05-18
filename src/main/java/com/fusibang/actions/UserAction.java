@@ -187,6 +187,10 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
         return this.userService.usersView(this.user, this.request);
     }
 
+    /**
+     * 所有用户信息
+     * @return
+     */
     public String usersDetailView() {
         if(this.user.getId() == 0) {
             this.user.setId(1);
@@ -197,6 +201,30 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
         }
 
         return this.userService.usersDetailView(this.user, this.request);
+    }
+
+    /**
+     * 一个用户信息
+     * @return
+     */
+    public String aUserDetailView() {
+        if(this.user.getId() == 0) {
+            this.user.setId(1);
+        }
+
+        if(this.user.getSalt() == null) {
+            this.user.setSalt("");
+        }
+
+        this.response.setContentType("application/json; charset=utf-8");
+
+        try {
+            this.response.getWriter().write(this.userService.aUserDetailView(this.user, this.request));
+        } catch (IOException var2) {
+            var2.printStackTrace();
+        }
+
+        return null;
     }
 
     public String setValid() {

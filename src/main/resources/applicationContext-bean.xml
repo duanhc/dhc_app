@@ -83,6 +83,8 @@
     </bean>
     <bean id="userService" class="com.fusibang.servicesimp.UserServiceImp">
         <property name="userDetailDao" ref="userDetailDao"></property>
+        <property name="userDetailAppendDao" ref="userDetailAppendDao"></property>
+        <property name="userContactDao" ref="userContactDao"></property>
         <property name="userDao" ref="userDao"></property>
         <property name="identifyDao" ref="identifyDao"></property>
         <property name="lendDao" ref="lendDao"></property>

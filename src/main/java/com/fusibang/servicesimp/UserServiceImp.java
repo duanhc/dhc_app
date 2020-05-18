@@ -5,6 +5,7 @@
 
 package com.fusibang.servicesimp;
 
+import com.alibaba.fastjson.JSON;
 import com.fusibang.dao.*;
 import com.fusibang.help.*;
 import com.fusibang.services.UserService;
@@ -24,6 +25,8 @@ public class UserServiceImp extends ResponseStatus implements UserService {
     private static final Logger logger = Logger.getLogger(UserServiceImp.class);
     private UserDao userDao;
     private UserDetailDao userDetailDao;
+    private UserDetailAppendDao userDetailAppendDao;
+    private UserContactDao userContactDao;
     private IdentifyDao identifyDao;
     private LendDao lendDao;
     private ChannelDao channelDao;
@@ -184,6 +187,42 @@ public class UserServiceImp extends ResponseStatus implements UserService {
             }
         } else {
             return "un_login";
+        }
+    }
+
+    /**
+     * 一个用户的信息
+     * @param user
+     * @param request
+     * @return
+     */
+    public String aUserDetailView(User user, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Integer admin_id = (Integer)session.getAttribute("ai");
+        String permission = (String)session.getAttribute("ap");
+
+        if (permission != null) {
+            if (permission.equals("11111")) {
+                User hold = this.userDao.findById(user.getId());
+                UserInfo userInfo = new UserInfo();
+                userInfo.setUser(hold);
+                UserDetail userDetail = this.userDetailDao.findByUserId(hold.getId());
+                userInfo.setUserDetail(userDetail);
+                Identify identify = this.identifyDao.findByUserId(hold.getId());
+                userInfo.setIdentify(identify);
+                Lend lend = this.lendDao.findByUserId(hold.getId());
+                userInfo.setLend(lend);
+                UserDetailAppend userDetailAppend = this.userDetailAppendDao.findByUserId(hold.getId());
+                userInfo.setUserDetailAppend(userDetailAppend);
+                UserContact userContact = this.userContactDao.findByUserId(hold.getId());
+                userInfo.setUserContact(userContact);
+
+                return JSON.toJSONString(userInfo);
+            } else {
+                return "{\"hint\":\"not_permission\"}";
+            }
+        } else {
+            return "{\"hint\":\"un_login\"}";
         }
     }
 
@@ -349,6 +388,14 @@ public class UserServiceImp extends ResponseStatus implements UserService {
 
     public void setLendDao(LendDao lendDao) {
         this.lendDao = lendDao;
+    }
+
+    public void setUserDetailAppendDao(UserDetailAppendDao userDetailAppendDao) {
+        this.userDetailAppendDao = userDetailAppendDao;
+    }
+
+    public void setUserContactDao(UserContactDao userContactDao) {
+        this.userContactDao = userContactDao;
     }
 
     public void setHost(String host) {

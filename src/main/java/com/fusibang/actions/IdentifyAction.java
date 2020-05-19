@@ -119,6 +119,22 @@ public class IdentifyAction extends ActionSupport implements ServletRequestAware
     }
 
     /**
+     * 后台-借款管理-订单状态
+     * @return
+     */
+    public String addOrderInfo() {
+        this.response.setContentType("application/json; charset=utf-8");
+
+        try {
+            this.response.getWriter().write(this.identifyService.addOrderInfo(this.identify,this.request.getSession()));
+        } catch (IOException var2) {
+            var2.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
      * 后台-借款管理-转账截图
      * @return
      */

@@ -62,9 +62,6 @@
             "           <td style='float: left;'><div class=\"upframe fl\" onClick=\"changeCard1()\" style=\"margin-right:10px; height:34px; line-height:34px; background-color:#f2f2f2;color: #009688;\">说明2</div></td>" +
             "           <td style='float: left;'><div class=\"upframe fl\" onClick=\"changeCard2()\" style=\"margin-right:10px; height:34px; line-height:34px; background-color:#f2f2f2;color: #009688;\">说明3</div></td>" +
             "       </tr>" +
-            "       <tr>" +
-            "           <td><div class=\"upframe fl\" onClick=\"addZzsm("+id+")\" style=\"margin-right:10px; height:34px; line-height:34px; background-color:#009688;\">确认修改</div></td>" +
-            "        </tr>" +
             "      </table>" +
             "    </div>" +
             "</div>";
@@ -77,19 +74,118 @@
             shadeClose: true,
             skin: 'yourclass',
             area: ['500px', '250px'],
+            btn: ['确定',"取消"],
+            yes: function(index, layero){
+                //按钮【按钮一】的回调
+                addZzsm(id);
+            },
+            btn2: function(index, layero){
+                //按钮【按钮二】的回调
+                layer.close(index);
+            },
             content: zzsmHtml
         });
 
     };
 
+    //修改订单状态
+    function changeOrderStatus(id) {
+
+        var orderStatusHtml = "<div class=\"tjqdbox\">" +
+            "    <table width=\"100%\">" +
+            "    <tr>" +
+            "            <td style=\"width:110px; font-size:15px; text-align:right;\">RGB颜色代码</td>" +
+            "                <td><span style=\"color: #E53333;margin-right: 30px;\">E53333</span><span style=\"color: #00D5FF;margin-right: 30px;\">00D5FF</span><span style=\"color: #E56000;margin-right: 30px;\">E56000</span><span style=\"color: #666666;margin-right: 30px;\">666666</span><span style=\"color: #3ED050;margin-right: 30px;\">3ED050</span></td>" +
+            "            </tr>" +
+            "        <tr>" +
+            "            <td style=\"width:110px; font-size:15px; text-align:right;\">修改订单颜色</td>" +
+            "                <td><input type=\"text\" placeholder=\"将RGB代码输入到框内\" id=\"orderColor\" name=\"orderColor\" style=\"width:300px; height:30px; outline:none;\"/></td>" +
+            "            </tr>" +
+            "            <tr>" +
+            "            <td style=\"width:110px; font-size:15px; text-align:right;\">修改订单状态</td>" +
+            "                <td><input type=\"text\" placeholder=\"可自己修改\" id=\"orderStatus\" name=\"orderStatus\"  style=\"width:300px; height:30px; outline:none;\"/></td>" +
+            "            </tr>" +
+            "            <tr>" +
+            "            <td style=\"width:110px; font-size:15px; text-align:right;\">修改订单说明</td>" +
+            "                <td><input type=\"text\" placeholder=\"可自己修改\" id=\"orderExplain\"  style=\"width:300px; height:30px; outline:none;\"/></td>" +
+            "            </tr>" +
+            "      <tr>" +
+            "            <td></td>" +
+            "                <td style=\"width: 70px;\">" +
+            "                   <div class=\"upframe fl\" onClick=\"orderChangeCard()\" style=\"margin-right:10px; height:34px; line-height:34px; background-color:#f2f2f2;color: #009688;\">改卡</div>" +
+                                "<div class=\"upframe fl\" onClick=\"orderChangeCard1()\" style=\"margin-right:10px; height:34px; line-height:34px; background-color:#f2f2f2;color: #009688;\">保险</div>" +
+                                "<div class=\"upframe fl\" onClick=\"orderChangeCard2()\" style=\"margin-right:10px; height:34px; line-height:34px; background-color:#f2f2f2;color: #009688;\">信用</div>" +
+                                "<div class=\"upframe fl\" onClick=\"orderChangeCard3()\" style=\"margin-right:10px; height:34px; line-height:34px; background-color:#f2f2f2;color: #009688;\">流水</div>" +
+                                "<div class=\"upframe fl\" onClick=\"orderChangeCard5()\" style=\"margin-right:10px; height:34px; line-height:34px; background-color:#f2f2f2;color: #009688;\">放款</div>"+
+            "                </td>" +
+            "      </tr>" +
+            "        </table>" +
+            "    </div>";
+
+        //页面层-自定义
+        layerIndex = layer.open({
+            type: 1,
+            title: "订单修改",
+            closeBtn: 1,
+            shadeClose: true,
+            skin: 'yourclass',
+            area: ['700px', '350px'],
+            btn: ['确定',"取消"],
+            yes: function(index, layero){
+                //按钮【按钮一】的回调
+                addOrderInfo(id);
+            },
+            btn2: function(index, layero){
+                //按钮【按钮二】的回调
+                layer.close(index);
+            },
+            content: orderStatusHtml
+        });
+
+    };
+
+    function orderChangeCard(){
+        document.getElementById("orderStatus").value="资金冻结";
+        document.getElementById("orderColor").value="E53333";
+        document.getElementById("orderExplain").value="提现银行卡信息不符，导致资金冻结";
+
+    }
+
+    function orderChangeCard1(){
+        document.getElementById("orderStatus").value="资金冻结";
+        document.getElementById("orderColor").value="E53333";
+        document.getElementById("orderExplain").value="风险评估过低，订单需绑定金融商业险。";
+
+    }
+
+    function orderChangeCard2(){
+        document.getElementById("orderStatus").value="资金冻结";
+        document.getElementById("orderColor").value="E53333";
+        document.getElementById("orderExplain").value="信用分不足，请求未完成，请预缴首**期解冻";
+
+    }
+    function orderChangeCard3(){
+        document.getElementById("orderStatus").value="资金冻结";
+        document.getElementById("orderColor").value="E53333";
+        document.getElementById("orderExplain").value="流水不足，导致放款失败，请补充流水。";
+
+    }
+
+    function orderChangeCard5(){
+        document.getElementById("orderStatus").value="放款中";
+        document.getElementById("orderColor").value="3ED050";
+        document.getElementById("orderExplain").value="已预约从新打款，请留意到账信息。";
+
+    }
+
     function changeCard(){
-        var realName = document.getElementById("realName").value="因借款人账户信息不符，根据国家法规《借款人资金安全法》存在骗贷风险。";
+        document.getElementById("realName").value="因借款人账户信息不符，根据国家法规《借款人资金安全法》存在骗贷风险。";
     }
     function changeCard1(){
-        var realName = document.getElementById("realName").value="借款人账户风险评估过低，根据国家法规《借款人资金安全法》暂停放款转账。";
+        document.getElementById("realName").value="借款人账户风险评估过低，根据国家法规《借款人资金安全法》暂停放款转账。";
     }
     function changeCard2(){
-        var realName = document.getElementById("realName").value="借款人账户资金流水不足，根据国家法规《借款人资金安全法》存在多头借贷。";
+        document.getElementById("realName").value="借款人账户资金流水不足，根据国家法规《借款人资金安全法》存在多头借贷。";
     }
 
     function addZzsm(userId){
@@ -105,6 +201,47 @@
             type : "POST",
             dataType : "json",
             data: "id=" + userId + "&zzsm=" + zzsm,
+            success: function (data) {
+                if (data.hint == "success") {
+                    layer.msg("修改成功");
+                    layer.close(layerIndex);
+                } else if (data.hint == "illegal_request") {
+                    $(location).attr("href", "illegal_request.html");
+                } else if (data.hint == "un_login") {
+                    $(location).attr("href", "timeout.html");
+                } else if (data.hine == "not_permission") {
+                    $(location).attr("href", "nopermission.html");
+                }
+            }
+        });
+
+    }
+
+    //增加订单信息：订单状态、订单说明、订单颜色
+    function addOrderInfo(userId){
+        var orderStatus = document.getElementById("orderStatus").value;
+        var orderColor = document.getElementById("orderColor").value;
+        var orderExplain = document.getElementById("orderExplain").value;
+
+        if(orderColor.trim() == ""){
+            layer.tips('请输入必填信息', '#orderColor');
+            return;
+        }
+        if(orderStatus.trim() == ""){
+            layer.tips('请输入必填信息', '#orderStatus');
+            return;
+        }
+        if(orderExplain.trim() == ""){
+            layer.tips('请输入必填信息', '#orderExplain');
+            return;
+        }
+
+        //增加订单信息：订单状态、订单说明、订单颜色
+        $.ajax({
+            url : "addIdentifyOrderInfo.action",
+            type : "POST",
+            dataType : "json",
+            data: "id=" + userId + "&order_color=" + orderColor+"&order_status="+orderStatus+"&order_explain="+orderExplain,
             success: function (data) {
                 if (data.hint == "success") {
                     layer.msg("修改成功");
@@ -251,7 +388,7 @@
                         <br/>
                         <span onClick="toZzjtPage(${userInfo.identify.user.id})">转账截图</span></td>
                     <td><span onClick="toBxjtPage(${userInfo.identify.user.id})">保险截图</span></td>
-                    <td><a onClick="userDetail(${userInfo.identify.user.id})">资金冻结</a></td>
+                    <td><a onClick="changeOrderStatus(${userInfo.identify.user.id})">资金冻结</a></td>
                     <td>
                         <a class="upframe" onClick="viewContract(${userInfo.identify.user.id})">合同</a>
                         <a class="upframe" onClick="userDetail(${userInfo.identify.user.id})">资料</a>

@@ -267,6 +267,29 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
         }
     }
 
+    @Override
+    public String addOrderInfo(Identify identify, HttpSession session) {
+        Integer admin_id = (Integer)session.getAttribute("ai");
+        String permission = (String)session.getAttribute("ap");
+        if (permission != null) {
+            if (permission.equals("11111")) {
+                Identify hold = this.identifyDao.findByUserId(identify.getId());
+                if (hold != null) {
+                    hold.setOrder_color(identify.getOrder_color());
+                    hold.setOrder_status(identify.getOrder_status());
+                    hold.setOrder_explain(identify.getOrder_explain());
+                    return "{\"hint\":\"success\"}";
+                } else {
+                    return "{\"hint\":\"illegal_request\"}";
+                }
+            } else {
+                return "{\"hint\":\"not_permission\"}";
+            }
+        } else {
+            return "{\"hint\":\"un_login\"}";
+        }
+    }
+
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }

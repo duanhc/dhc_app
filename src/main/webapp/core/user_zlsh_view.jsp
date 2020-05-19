@@ -74,12 +74,12 @@
         layer.prompt({title: '授款额度', formType: 0}, function(pass, index){
             if(isNumber(pass)){
                 if(parseInt(pass) < 0){
-                    layer.msg("授款额度不能为负数",{time:1000});
+                    layer.tips('授款额度不能为负数', '.layui-layer-input');
                     return;
                 }
 
                 if(parseInt(pass) > 50000){
-                    layer.msg("授款额度不能大于50000",{time:1000})
+                    layer.tips('授款额度不能大于50000', '.layui-layer-input');
                     return;
                 }
 
@@ -104,7 +104,7 @@
 
                 layer.close(index);
             }else{
-                layer.msg("请输入数字",{time:1000})
+                layer.tips('请输入数字', '.layui-layer-input');
             }
 
         });

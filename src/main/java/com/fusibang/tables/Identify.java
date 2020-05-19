@@ -73,6 +73,21 @@ public class Identify {
      */
     private Timestamp cash_time;
 
+    /**
+     * 订单展示颜色
+     */
+    private String order_color;
+
+    /**
+     * 订单状态
+     */
+    private String order_status;
+
+    /**
+     * 订单说明
+     */
+    private String order_explain;
+
     public Identify() {
     }
 
@@ -250,5 +265,29 @@ public class Identify {
 
     public void setCash_time(Timestamp cash_time) {
         this.cash_time = cash_time;
+    }
+
+    public String getOrder_color() {
+        return order_color;
+    }
+
+    public void setOrder_color(String order_color) {
+        this.order_color = order_color;
+    }
+
+    public String getOrder_status() {
+        return order_status;
+    }
+
+    public void setOrder_status(String order_status) {
+        this.order_status = order_status;
+    }
+
+    public String getOrder_explain() {
+        return order_explain;
+    }
+
+    public void setOrder_explain(String order_explain) {
+        this.order_explain = order_explain;
     }
 }

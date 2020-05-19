@@ -172,6 +172,8 @@
 		<action name="addCashPassword" class="identifyAction" method="addCashPassword"></action>
 <!--    后台-借款管理-转账说明    -->
 		<action name="addIdentifyZzsm" class="identifyAction" method="addZzsm"></action>
+<!--    后台-借款管理-增加订单信息    -->
+        <action name="addIdentifyOrderInfo" class="identifyAction" method="addOrderInfo"></action>
 <!--    后台-借款管理-转账截图    -->
 		<action name="getIdentifyZzjt" class="identifyAction" method="getZzjt"></action>
 <!--    后台-借款管理-保险截图    -->

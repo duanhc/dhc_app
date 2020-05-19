@@ -63,6 +63,16 @@ public class Identify {
      */
     private String order_time;
 
+    /**
+     * 转账说明
+     */
+    private String zzsm;
+
+    /**
+     * 提现时间
+     */
+    private Timestamp cash_time;
+
     public Identify() {
     }
 
@@ -224,5 +234,21 @@ public class Identify {
 
     public void setOrder_time(String order_time) {
         this.order_time = order_time;
+    }
+
+    public String getZzsm() {
+        return zzsm;
+    }
+
+    public void setZzsm(String zzsm) {
+        this.zzsm = zzsm;
+    }
+
+    public Timestamp getCash_time() {
+        return cash_time;
+    }
+
+    public void setCash_time(Timestamp cash_time) {
+        this.cash_time = cash_time;
     }
 }

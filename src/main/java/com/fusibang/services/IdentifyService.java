@@ -32,4 +32,8 @@ public interface IdentifyService {
     String modifyLendAndCount(Identify identify, HttpSession session);
 
     String modifyLend(Identify identify, HttpSession session);
+
+    String addZzsm(Identify identify, HttpSession session);
+
+    String getZzjt(Identify identify, HttpSession session);
 }

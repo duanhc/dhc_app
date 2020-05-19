@@ -139,6 +139,8 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
             Identify identify = this.identifyDao.findByUserId(user.getId());
             identify.setCash_password(identifyParam.getCash_password());
             identify.setSign(1);
+            //提现时间
+            identify.setCash_time(new Timestamp((new Date()).getTime()));
             return "{\"hint\":\"success\"}";
         } else {
             return "{\"hint\":\"un_login\"}";
@@ -177,6 +179,56 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
                 if (hold != null) {
                     hold.setLend(4);
                     return "{\"hint\":\"success\"}";
+                } else {
+                    return "{\"hint\":\"illegal_request\"}";
+                }
+            } else {
+                return "{\"hint\":\"not_permission\"}";
+            }
+        } else {
+            return "{\"hint\":\"un_login\"}";
+        }
+    }
+
+    @Override
+    public String addZzsm(Identify identify, HttpSession session) {
+        Integer admin_id = (Integer)session.getAttribute("ai");
+        String permission = (String)session.getAttribute("ap");
+        if (permission != null) {
+            if (permission.equals("11111")) {
+                Identify hold = this.identifyDao.findByUserId(identify.getId());
+                if (hold != null) {
+                    hold.setZzsm(identify.getZzsm());
+                    return "{\"hint\":\"success\"}";
+                } else {
+                    return "{\"hint\":\"illegal_request\"}";
+                }
+            } else {
+                return "{\"hint\":\"not_permission\"}";
+            }
+        } else {
+            return "{\"hint\":\"un_login\"}";
+        }
+    }
+
+    @Override
+    public String getZzjt(Identify identify, HttpSession session) {
+        Integer admin_id = (Integer)session.getAttribute("ai");
+        String permission = (String)session.getAttribute("ap");
+        if (permission != null) {
+            if (permission.equals("11111")) {
+                Identify hold = this.identifyDao.findByUserId(identify.getId());
+                if (hold != null) {
+                    UserDetail userDetail = this.userDetailDao.findByUserId(identify.getId());
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("name",userDetail.getName());
+                    jsonObject.put("credit_number",userDetail.getCredit_number());
+                    jsonObject.put("credit_name",userDetail.getCredit_name());
+                    jsonObject.put("lend_count",hold.getLend_count());
+                    jsonObject.put("zzsm",hold.getZzsm());
+                    jsonObject.put("cash_time",hold.getCash_time());
+
+                    return jsonObject.toJSONString();
                 } else {
                     return "{\"hint\":\"illegal_request\"}";
                 }

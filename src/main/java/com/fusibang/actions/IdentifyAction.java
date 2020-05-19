@@ -103,6 +103,38 @@ public class IdentifyAction extends ActionSupport implements ServletRequestAware
     }
 
     /**
+     * 后台-借款管理-转账说明
+     * @return
+     */
+    public String addZzsm() {
+        this.response.setContentType("application/json; charset=utf-8");
+
+        try {
+            this.response.getWriter().write(this.identifyService.addZzsm(this.identify,this.request.getSession()));
+        } catch (IOException var2) {
+            var2.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * 后台-借款管理-转账截图
+     * @return
+     */
+    public String getZzjt() {
+        this.response.setContentType("application/json; charset=utf-8");
+
+        try {
+            this.response.getWriter().write(this.identifyService.getZzjt(this.identify,this.request.getSession()));
+        } catch (IOException var2) {
+            var2.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
      * 借款管理
      * 查询授权额度、卡号、是否签字
      *

@@ -34,4 +34,6 @@ public interface UserService {
     String getAllRt(HttpServletRequest var1);
 
     String delUser(User var1, HttpSession var2);
+
+    String identifyDetailView(User user, HttpServletRequest request);
 }

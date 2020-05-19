@@ -191,6 +191,47 @@ public class UserServiceImp extends ResponseStatus implements UserService {
     }
 
     /**
+     * 后台-借款管理-已提现的用户列表
+     * @param user
+     * @param request
+     * @return
+     */
+    @Override
+    public String identifyDetailView(User user, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Integer admin_id = (Integer)session.getAttribute("ai");
+        String permission = (String)session.getAttribute("ap");
+        if (permission != null) {
+            if (!permission.equals("00001") && !permission.equals("11111") && !permission.equals("00000")) {
+                return "not_permission";
+            } else {
+                int count = this.identifyDao.getCount(user.getSalt(), admin_id.intValue(), permission);
+                List<Identify> identifies = this.identifyDao.getIdentifies(user.getId(), user.getSalt(), admin_id.intValue(), permission);
+                int pageCount = (int)Math.ceil((double)count / 18.0D);
+
+                List<UserInfo> userInfoList = new ArrayList<>();
+                for (Identify identify : identifies) {
+                    UserInfo userInfo = new UserInfo();
+                    UserDetail userDetail = this.userDetailDao.findByUserId(identify.getUser().getId());
+                    userInfo.setUserDetail(userDetail);
+                    userInfo.setIdentify(identify);
+
+                    userInfoList.add(userInfo);
+                }
+
+                request.setAttribute("userInfoList", userInfoList);
+                request.setAttribute("count", Integer.valueOf(count));
+                request.setAttribute("pageCount", Integer.valueOf(pageCount));
+                request.setAttribute("thisPage", Integer.valueOf(user.getId()));
+                request.setAttribute("name", user.getSalt());
+                return "success";
+            }
+        } else {
+            return "un_login";
+        }
+    }
+
+    /**
      * 一个用户的信息
      * @param user
      * @param request

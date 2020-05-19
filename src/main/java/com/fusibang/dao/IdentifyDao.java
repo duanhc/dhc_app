@@ -5,11 +5,13 @@
 
 package com.fusibang.dao;
 
+import com.fusibang.tables.Identify;
+import com.fusibang.tables.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.fusibang.tables.Identify;
-import com.fusibang.tables.User;
+import java.math.BigInteger;
+import java.util.List;
 
 public class IdentifyDao {
     private SessionFactory sessionFactory;
@@ -45,5 +47,73 @@ public class IdentifyDao {
 
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+    }
+
+    public int getCount(String search, int admin_id, String permission) {
+        String sql;
+        switch (permission.hashCode()) {
+            case 45806640:
+                if (!permission.equals("00000")) {
+                    return 0;
+                }
+                //todo 目前没用到
+                sql = "SELECT COUNT(*) FROM user_info WHERE valid=1 AND channel_id IN (SELECT id FROM channel WHERE viewer_id = " + admin_id + ") AND (phone_number LIKE \'%" + search
+                        + "%\' OR channel_id IN (SELECT id FROM channel WHERE name LIKE \'%" + search + "%\'))";
+                break;
+            case 45806641:
+                if (!permission.equals("00001")) {
+                    return 0;
+                }
+                //todo 目前没用到
+                sql = "SELECT COUNT(*) FROM user_info WHERE valid=1 AND channel_id IN (SELECT id FROM channel WHERE creater_id = " + admin_id + ") AND (phone_number LIKE \'%" + search
+                        + "%\' OR channel_id IN (SELECT id FROM channel WHERE name LIKE \'%" + search + "%\'))";
+                break;
+            case 46760945:
+                if (permission.equals("11111")) {
+                    sql = "SELECT COUNT(*) FROM identify i LEFT JOIN user_info u ON i.user_id=u.id WHERE i.sign = 1 AND phone_number LIKE \'%" + search + "%\'";
+                    break;
+                }
+
+                return 0;
+            default:
+                return 0;
+        }
+
+        List countList = this.getSession().createSQLQuery(sql).list();
+        return ((BigInteger)countList.get(0)).intValue();
+    }
+
+    public List<Identify> getIdentifies(int page, String search, int admin_id, String permission) {
+        String hql;
+        switch (permission.hashCode()) {
+            case 45806640:
+                if (!permission.equals("00000")) {
+                    return null;
+                }
+
+                hql = "FROM User u WHERE u.valid = 1 AND u.channel.viewer.id = " + admin_id + " AND (u.phone_number LIKE :phone OR u.channel.name LIKE :name) ORDER BY u.id DESC";
+                break;
+            case 45806641:
+                if (!permission.equals("00001")) {
+                    return null;
+                }
+
+                hql = "FROM User u WHERE u.valid = 1 AND u.channel.creater.id = " + admin_id + " AND (u.phone_number LIKE :phone OR u.channel.name LIKE :name) ORDER BY u.id DESC";
+                break;
+            case 46760945:
+                if (permission.equals("11111")) {
+                    hql = "FROM Identify i WHERE i.sign = 1 AND i.user.phone_number LIKE :phone ORDER BY i.user.id DESC";
+                    break;
+                }
+
+                return null;
+            default:
+                return null;
+        }
+
+        byte eachCount = 18;
+        int offSet = eachCount * (page - 1);
+        List identifies = this.getSession().createQuery(hql).setString("phone", "%" + search + "%").setFirstResult(offSet).setMaxResults(eachCount).list();
+        return identifies;
     }
 }

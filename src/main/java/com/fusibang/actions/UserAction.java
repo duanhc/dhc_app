@@ -227,6 +227,22 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
         return null;
     }
 
+    /**
+     * 后台-借款管理-所有已提现的用户信息
+     * @return
+     */
+    public String identifyDetailView() {
+        if(this.user.getId() == 0) {
+            this.user.setId(1);
+        }
+
+        if(this.user.getSalt() == null) {
+            this.user.setSalt("");
+        }
+
+        return this.userService.identifyDetailView(this.user, this.request);
+    }
+
     public String setValid() {
         try {
             this.response.getWriter().write(this.userService.setValid(this.user, this.request.getSession()));

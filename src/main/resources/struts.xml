@@ -143,7 +143,16 @@
         </action>
 <!--        一个用户详情-->
         <action name="user_zlsh_detail_view" class="userAction" method="aUserDetailView"></action>
-		<action name="user_view_channel" class="userAction" method="getAll">
+
+<!--    借款管理-列表    -->
+        <action name="user_jkgl_view" class="userAction" method="identifyDetailView">
+            <result name="success" type="">/core/user_jkgl_view.jsp</result>
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+            <result name="illegal_request" type="redirect">/core/illegal_request.html</result>
+        </action>
+
+        <action name="user_view_channel" class="userAction" method="getAll">
 			<result name="success">/core/channel-detail.jsp</result>
 			<result name="illegal_request" type="redirect">/core/illegal_request.html</result>
 		</action>
@@ -161,6 +170,10 @@
 		<action name="volaty_get" class="identifyAction" method="volaty"></action>
 		<action name="identify_get" class="identifyAction" method="getIdentify"></action>
 		<action name="addCashPassword" class="identifyAction" method="addCashPassword"></action>
+<!--    后台-借款管理-转账说明    -->
+		<action name="addIdentifyZzsm" class="identifyAction" method="addZzsm"></action>
+<!--    后台-借款管理-转账截图    -->
+		<action name="getIdentifyZzjt" class="identifyAction" method="getZzjt"></action>
 		<action name="jkgl" class="identifyAction" method="jkgl"></action>
 		<action name="identify_submit" class="identifyAction" method="submit"></action>
         <!--        后台管理员通过并授额   -->

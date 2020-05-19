@@ -39,7 +39,7 @@
 
     }
 
-    //不同过
+    //不通过
     function disagree(id) {
 
         layer.confirm('确定不通过?', {
@@ -200,12 +200,6 @@
     </div>
 
 
-    <div class="jumpbox" id="jumpbox" style="display:none">
-        <div class="tipsay">复制成功</div>
-        <div style="padding:12px 0;">
-            <div class="sure" onClick="document.getElementById('jumpbox').style.display='none';">确定</div>
-        </div>
-    </div>
 </div>
 
 <!-- 分页 -->

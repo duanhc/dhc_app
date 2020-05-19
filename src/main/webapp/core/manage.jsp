@@ -130,7 +130,7 @@
                 <a href="user_zlsh_view.do" target="right"><i class="layui-icon">&#xe609;</i>资料审核 </a>
             </li>
             <li class="layui-nav-item layui-this" >
-                <a href="user_view.do" target="right"><i class="layui-icon">&#xe609;</i>借款管理 </a>
+                <a href="user_jkgl_view.do" target="right"><i class="layui-icon">&#xe609;</i>借款管理 </a>
             </li>
         </c:if>
         </ul>

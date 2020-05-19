@@ -177,18 +177,38 @@
 
         });
 
-        //是否是数字
-        function isNumber(val) {
-            var regPos = /^\d+(\.\d+)?$/; //非负浮点数
-            var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
-            if(regPos.test(val) || regNeg.test(val)) {
-                return true;
-            } else {
-                return false;
-            }
-        }
     }
 
+    //资料页面
+    function userDetail(userId){
+        //要发送的参数
+        var params = {
+            "userId": userId
+        };
+        window["filter"] = params;
+        window.open('info.html')
+    }
+
+    //合同页面
+    function viewContract(userId){
+        //要发送的参数
+        var params = {
+            "userId": userId
+        };
+        window["filter"] = params;
+        window.open('viewContract.html')
+    }
+
+    //是否是数字
+    function isNumber(val) {
+        var regPos = /^\d+(\.\d+)?$/; //非负浮点数
+        var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
+        if(regPos.test(val) || regNeg.test(val)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 </script>
 
 <div class="navcon">
@@ -233,7 +253,7 @@
                     <td><span onClick="toBxjtPage(${userInfo.identify.user.id})">保险截图</span></td>
                     <td><a onClick="userDetail(${userInfo.identify.user.id})">资金冻结</a></td>
                     <td>
-                        <a class="upframe" onClick="agree(${userInfo.identify.user.id})">合同</a>
+                        <a class="upframe" onClick="viewContract(${userInfo.identify.user.id})">合同</a>
                         <a class="upframe" onClick="userDetail(${userInfo.identify.user.id})">资料</a>
                         <a class="upframe" onClick="changeBankCard(${userInfo.identify.user.id})">改卡</a>
                     </td>
@@ -322,16 +342,6 @@
     $(window).resize(function () {          //当浏览器大小变化时
         $(".navcon").height($(window).height() - 44);
     });
-
-    //资料页面
-    function userDetail(userId){
-        //要发送的参数
-        var params = {
-            "userId": userId
-        };
-        window["filter"] = params;
-        window.open('info.html')
-    }
 </script>
 <script>
 

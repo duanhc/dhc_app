@@ -36,4 +36,6 @@ public interface IdentifyService {
     String addZzsm(Identify identify, HttpSession session);
 
     String getZzjt(Identify identify, HttpSession session);
+
+    String getBxjt(Identify identify, HttpSession session);
 }

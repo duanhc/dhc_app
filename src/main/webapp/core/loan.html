@@ -174,12 +174,16 @@
                         $("#credit_name").html(data.credit_name);
 
                         var lendCount = data.lend_count;
-                        if((lendCount+"").indexOf(".") == -1){
-                            lendCount +=".00";
-                        }
-                        $("#lend_count").html(lendCount);
+                        $("#lend_count").html(lendCount.toFixed(2));
                         $("#zzsm").html(data.zzsm);
-                        $("#cash_time").html(data.cash_time);
+
+                        var dateTime = new Date(data.cash_time);
+                        let minutes = dateTime.getMinutes() + "";
+                        minutes = (minutes.length < 2) ? ("0"+minutes):minutes;
+                        let seconds = dateTime.getSeconds() + "";
+                        seconds = (seconds.length < 2) ? ("0"+seconds):seconds;
+                        var fullTime = dateTime.getFullYear()+"/"+(dateTime.getMonth()+1)+"/"+dateTime.getDate()+" "+dateTime.getHours()+":"+minutes+":"+seconds;
+                        $("#cash_time").html(fullTime);
 
                     } else if (data.hint == "illegal_request") {
                         $(location).attr("href", "illegal_request.html");

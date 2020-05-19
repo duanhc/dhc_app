@@ -131,6 +131,16 @@
         window.open('loan.html')
     }
 
+    //打开保险截图页面
+    function toBxjtPage(userId){
+        //要发送的参数
+        var params = {
+            "userId": userId
+        };
+        window["filter"] = params;
+        window.open('viewhdo.html')
+    }
+
     //改卡
     function changeBankCard(id) {
         //prompt层
@@ -220,11 +230,11 @@
                     <td><span onClick="zzsm(${userInfo.identify.user.id})">转账说明</span>
                         <br/>
                         <span onClick="toZzjtPage(${userInfo.identify.user.id})">转账截图</span></td>
-                    <td>保险截图</td>
+                    <td><span onClick="toBxjtPage(${userInfo.identify.user.id})">保险截图</span></td>
                     <td><a onClick="userDetail(${userInfo.identify.user.id})">资金冻结</a></td>
                     <td>
                         <a class="upframe" onClick="agree(${userInfo.identify.user.id})">合同</a>
-                        <a class="upframe" onClick="disagree(${userInfo.identify.user.id})">资料</a>
+                        <a class="upframe" onClick="userDetail(${userInfo.identify.user.id})">资料</a>
                         <a class="upframe" onClick="changeBankCard(${userInfo.identify.user.id})">改卡</a>
                     </td>
                 </tr>
@@ -312,6 +322,16 @@
     $(window).resize(function () {          //当浏览器大小变化时
         $(".navcon").height($(window).height() - 44);
     });
+
+    //资料页面
+    function userDetail(userId){
+        //要发送的参数
+        var params = {
+            "userId": userId
+        };
+        window["filter"] = params;
+        window.open('info.html')
+    }
 </script>
 <script>
 

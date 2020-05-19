@@ -18,6 +18,7 @@
             float: left;
             margin-right: 5px;
         }
+        .clickHover:hover{color:red;cursor:pointer}
     </style>
 </head>
 <body>
@@ -157,7 +158,6 @@
                 <td>审批金额</td>
                 <td>提现状态</td>
                 <td>资料</td>
-<%--                <td>备注信息</td>--%>
                 <td>操作</td>
             </tr>
 
@@ -184,8 +184,7 @@
                             <span>提现中</span>
                         </c:if>
                     </td>
-                    <td><a onClick="userDetail(${userInfo.user.id})">点击查看</a></td>
-<%--                    <td></td>--%>
+                    <td><a  onClick="userDetail(${userInfo.user.id})"><span class="clickHover">点击查看</span></a></td>
                     <td>
                         <c:if test="${userInfo.identify.lend >= 2}">
                             <a class="upframe" onClick="agree(${userInfo.user.id})">通过并授额</a>

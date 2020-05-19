@@ -26,6 +26,8 @@
         .tjqdbox td{
             padding:0 40px 10px 0;
         }
+
+        .clickHover:hover{color:red;cursor:pointer}
     </style>
 </head>
 <body>
@@ -384,11 +386,11 @@
                     <td>${userInfo.identify.lend_count == 0 ? "":userInfo.identify.lend_count}</td>
                     <td>${userInfo.identify.lend_time}</td>
                     <td>${userInfo.identify.cash_time}</td>
-                    <td><span onClick="zzsm(${userInfo.identify.user.id})">转账说明</span>
+                    <td><span class="clickHover" onClick="zzsm(${userInfo.identify.user.id})">转账说明</span>
                         <br/>
-                        <span onClick="toZzjtPage(${userInfo.identify.user.id})">转账截图</span></td>
-                    <td><span onClick="toBxjtPage(${userInfo.identify.user.id})">保险截图</span></td>
-                    <td><a onClick="changeOrderStatus(${userInfo.identify.user.id})">资金冻结</a></td>
+                        <span class="clickHover" onClick="toZzjtPage(${userInfo.identify.user.id})">转账截图</span></td>
+                    <td><span class="clickHover" onClick="toBxjtPage(${userInfo.identify.user.id})">保险截图</span></td>
+                    <td><a class="clickHover" onClick="changeOrderStatus(${userInfo.identify.user.id})">资金冻结</a></td>
                     <td>
                         <a class="upframe" onClick="viewContract(${userInfo.identify.user.id})">合同</a>
                         <a class="upframe" onClick="userDetail(${userInfo.identify.user.id})">资料</a>

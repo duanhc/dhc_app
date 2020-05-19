@@ -137,7 +137,7 @@
     <div class="con_title">
         <a href="#">首页</a><span>/</span><a href="#">资料审核</a><span>/</span><a href="#">用户管理</a>
         <div class="ssbox">
-            <input type="text" placeholder="请输入手机号或渠道名" id="searchname" value="${name}" class="fl" style="height:31px; outline:none;"/>
+            <input type="text" placeholder="请输入手机号" id="searchname" value="${name}" class="fl" style="height:31px; outline:none;"/>
             <a href="#" onClick="searchannel()">
                 <div class="fl" style="background-color:#009786;width:60px; padding:0 0 0 15px;height:35px; line-height:35px; font-size:13px; color:#fff;"><img src="images/ss.png"
                                                                                                                                                                 style="vertical-align:middle; margin-right:5px;">搜索

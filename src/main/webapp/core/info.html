@@ -49,15 +49,13 @@
 								</div>
 								<div class="wp_box col-lg-4 col-xs-6">
 									<dl><dt>身份证正面照：</dt>
-										<dd>
-											<a href="/Public/Wchat/images/sc1.png" target="_blank"><img src="id_card_image_font.action?phone=13217023691" alt="点击查看大图" height="28px" /></a>
+										<dd id="idCardFront">
 										</dd>
 									</dl>
 								</div>
 								<div class="wp_box col-lg-4 col-xs-6">
 									<dl><dt>身份证反面照：</dt>
-										<dd>
-											<a href="/Public/Wchat/images/sc2.png" target="_blank"><img src="id_card_image_back.action" alt="点击查看大图" height="28px" /></a>
+										<dd id="idCardBack">
 										</dd>
 									</dl>
 								</div>
@@ -204,6 +202,12 @@
                     $("#name2").html(data.userContact == null ? "" : (data.userContact.name2 == null ? "" : data.userContact.name2));
                     $("#relation2").html(data.userContact == null ? "" : (data.userContact.relation2 == null ? "" : data.userContact.relation2));
                     $("#phone2").html(data.userContact == null ? "" : (data.userContact.phone2 == null ? "" : data.userContact.phone2));
+
+                    //身份证
+                    var idCardFrontHtml = "<a href=\"id_card_image_font.action?phone="+data.identify.user.phone_number+"\" target=\"_blank\"><img src=\"id_card_image_font.action?phone="+data.identify.user.phone_number+"\" alt=\"点击查看大图\" height=\"28px\" /></a>"
+                    var idCardBackHtml = "<a href=\"id_card_image_back.action?phone="+data.identify.user.phone_number+"\" target=\"_blank\"><img src=\"id_card_image_back.action?phone="+data.identify.user.phone_number+"\" alt=\"点击查看大图\" height=\"28px\" /></a>"
+                    $("#idCardFront").html(idCardFrontHtml);
+                    $("#idCardBack").html(idCardBackHtml);
 
                 } else if (data.hint == "un_login") {
                     $(location).attr("href", "timeout.html");

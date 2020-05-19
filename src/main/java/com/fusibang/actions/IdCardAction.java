@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 package com.fusibang.actions;
 
 import com.fusibang.services.IdCardService;
@@ -40,9 +35,8 @@ public class IdCardAction extends ActionSupport implements ServletRequestAware, 
 
     public String frontImage() {
         HttpSession session = this.request.getSession();
-        String phone = (String)session.getAttribute("u");
-        if(phone == null){
-            phone = this.phone;
+        if(this.phone == null){
+            phone = (String)session.getAttribute("u");
         }
         if(phone != null) {
             ServletOutputStream os = null;
@@ -89,7 +83,9 @@ public class IdCardAction extends ActionSupport implements ServletRequestAware, 
 
     public String backImage() {
         HttpSession session = this.request.getSession();
-        String phone = (String)session.getAttribute("u");
+        if(this.phone == null){
+            phone = (String)session.getAttribute("u");
+        }
         if(phone != null) {
             ServletOutputStream os = null;
             FileInputStream is = null;

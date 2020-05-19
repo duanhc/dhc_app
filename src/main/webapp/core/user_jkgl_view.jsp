@@ -246,8 +246,8 @@
             data: "id=" + userId + "&order_color=" + orderColor+"&order_status="+orderStatus+"&order_explain="+orderExplain,
             success: function (data) {
                 if (data.hint == "success") {
-                    layer.msg("修改成功");
                     layer.close(layerIndex);
+                    $(location).attr("href", "user_jkgl_view.do?salt=${name}&id=${thisPage}");
                 } else if (data.hint == "illegal_request") {
                     $(location).attr("href", "illegal_request.html");
                 } else if (data.hint == "un_login") {
@@ -390,7 +390,7 @@
                         <br/>
                         <span class="clickHover" onClick="toZzjtPage(${userInfo.identify.user.id})">转账截图</span></td>
                     <td><span class="clickHover" onClick="toBxjtPage(${userInfo.identify.user.id})">保险截图</span></td>
-                    <td><a class="clickHover" onClick="changeOrderStatus(${userInfo.identify.user.id})">资金冻结</a></td>
+                    <td><a class="clickHover" onClick="changeOrderStatus(${userInfo.identify.user.id})">${(userInfo.identify.order_status == null || userInfo.identify.order_status == "") ? "资金冻结" : userInfo.identify.order_status }</a></td>
                     <td>
                         <a class="upframe" onClick="viewContract(${userInfo.identify.user.id})">合同</a>
                         <a class="upframe" onClick="userDetail(${userInfo.identify.user.id})">资料</a>

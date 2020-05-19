@@ -73,7 +73,7 @@
         layerIndex = layer.open({
             type: 1,
             title: "转账说明",
-            closeBtn: 0,
+            closeBtn: 1,
             shadeClose: true,
             skin: 'yourclass',
             area: ['500px', '250px'],
@@ -131,6 +131,53 @@
         window.open('loan.html')
     }
 
+    //改卡
+    function changeBankCard(id) {
+        //prompt层
+        layer.prompt({title: '修改银行卡号', formType: 0}, function(pass, index){
+            if(isNumber(pass)){
+                if(pass.length < 8){
+                    layer.msg("请输入正确的卡号",{time:1000})
+                    return;
+                }
+
+                //修改卡号
+                $.ajax({
+                    type: "POST",
+                    url: "user_detail_alt_credit_num.do",
+                    data: 'id=' + id+"&credit_number="+pass,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.hint == "success") {
+                            layer.msg("修改成功",{time:1000});
+                        } else if (data.hint == "illegal_request") {
+                            $(location).attr("href", "illegal_request.html");
+                        } else if (data.hint == "un_login") {
+                            $(location).attr("href", "timeout.html");
+                        } else if (data.hine == "not_permission") {
+                            $(location).attr("href", "nopermission.html");
+                        }
+                    }
+                });
+
+                layer.close(index);
+            }else{
+                layer.msg("请输入正确的卡号",{time:1000})
+            }
+
+        });
+
+        //是否是数字
+        function isNumber(val) {
+            var regPos = /^\d+(\.\d+)?$/; //非负浮点数
+            var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
+            if(regPos.test(val) || regNeg.test(val)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
 
 </script>
 
@@ -178,7 +225,7 @@
                     <td>
                         <a class="upframe" onClick="agree(${userInfo.identify.user.id})">合同</a>
                         <a class="upframe" onClick="disagree(${userInfo.identify.user.id})">资料</a>
-                        <a class="upframe" onClick="disagree(${userInfo.identify.user.id})">改卡</a>
+                        <a class="upframe" onClick="changeBankCard(${userInfo.identify.user.id})">改卡</a>
                     </td>
                 </tr>
             </c:forEach>

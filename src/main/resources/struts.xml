@@ -204,6 +204,8 @@
 		</action>
 		<action name="user_detail_add" class="userDetailAction" method="addDetail"></action>
 		<action name="user_detail_alt" class="userDetailAction" method="altDetail"></action>
+<!--    后台-借款管理-修改卡号    -->
+		<action name="user_detail_alt_credit_num" class="userDetailAction" method="modifyCreditNumber"></action>
 	<!-- 补充资料 -->
 		<action name="user_detail_append_add" class="detailAppendAction" method="appendDetail"></action>
 		<action name="user_detail_append_alt" class="detailAppendAction" method="altDetail"></action>

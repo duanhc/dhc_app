@@ -94,6 +94,27 @@ public class UserDetailServiceImp extends ResponseStatus implements UserDetailSe
         }
     }
 
+    @Override
+    public String modifyCreditNumber(UserDetail userDetail, HttpSession session) {
+        Integer admin_id = (Integer)session.getAttribute("ai");
+        String permission = (String)session.getAttribute("ap");
+        if (permission != null) {
+            if (permission.equals("11111")) {
+                UserDetail hold = this.userDetailDao.findByUserId(userDetail.getId());
+                if (hold != null) {
+                    hold.setCredit_number(userDetail.getCredit_number());
+                    return "{\"hint\":\"success\"}";
+                } else {
+                    return "{\"hint\":\"illegal_request\"}";
+                }
+            } else {
+                return "{\"hint\":\"not_permission\"}";
+            }
+        } else {
+            return "{\"hint\":\"un_login\"}";
+        }
+    }
+
     public void setUserDetailDao(UserDetailDao userDetailDao) {
         this.userDetailDao = userDetailDao;
     }

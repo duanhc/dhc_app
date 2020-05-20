@@ -48,7 +48,7 @@
 				借款合同
 			</div>
 			<div class="item_right">
-				 <a href="" style="color: #2b77c5;">点击查看</a>
+				 <a onClick="viewContract()" href="javascript:void(0);" style="color: #2b77c5;">点击查看</a>
 			</div>
 		</div>
 		<div class="item">
@@ -131,8 +131,10 @@
                     });
                 });
             }
-
+            //是否签字
             var sign = 0;
+            //用户id
+            var userId;
 
             //查询授权额度、卡号
             $.ajax({
@@ -149,6 +151,7 @@
                         $("#lendCount").html(data.lendCount);
                         //是否签字，0：否，1：是
                         sign = data.sign;
+                        userId = data.userId;
                         //卡号
                         $("#creditNumber").html(data.creditNumber);
                     }
@@ -181,6 +184,16 @@
                 }
                 window.location.href = "hkgl.html";
             });
+
+            //合同页面
+            function viewContract(){
+                //要发送的参数
+                var params = {
+                    "userId": userId
+                };
+                window["filter"] = params;
+                window.open('../core/viewContract.html')
+            }
 
         </script>
 	</body>

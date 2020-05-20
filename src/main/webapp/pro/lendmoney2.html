@@ -71,7 +71,7 @@
                 width: 94%;
                 margin: 0 auto;
                 margin-top: 63px;
-                margin-top: 4.5rem;
+                margin-top: 2.5rem;
             }
             .btn-view>a{
                 color: #fff;
@@ -362,9 +362,12 @@
 								<div class="month-btn"><a href="javascript:;" class="active" data-val="3">3个月</a></div>
 								<div class="month-btn"><a href="javascript:;" data-val="6">6个月</a></div>
 								<div class="month-btn"><a href="javascript:;" data-val="12">12个月</a></div>
-								<div class="month-btn"><a href="javascript:;" data-val="24">24个月</a></div>
 							</div>
-							
+                            <div class="center-div" style="margin-top: 10px">
+                                <div class="month-btn"><a href="javascript:;" data-val="18">18个月</a></div>
+                                <div class="month-btn"><a href="javascript:;" data-val="24">24个月</a></div>
+                                <div class="month-btn"><a href="javascript:;" data-val="36">36个月</a></div>
+                            </div>
 						</div>
 						<!-- 总还款 -->
 						<div class="list-view">
@@ -627,7 +630,9 @@
             if(that.find('a').hasClass('active')){return;}
             // console.log('几个月呢？');
             // console.log(that.find('a').attr('data-val'));
-            that.find('a').addClass('active').parent('.month-btn').siblings().find('a').removeClass('active');
+            // that.find('a').addClass('active').parent('.month-btn').siblings().find('a').removeClass('active');
+            that.parents(".center-view").find('a').removeClass('active');
+            that.find('a').addClass('active');
             needMoneyTime = that.find('a').attr('data-val');
             postInfo(needMoneyTime);
         });

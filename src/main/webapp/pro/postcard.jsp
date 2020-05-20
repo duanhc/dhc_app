@@ -146,9 +146,13 @@
                 		});
                 		$("#front_image").attr("src","id_card_image_font.action");
                 	}else if (data.hint == "already_exist") {
-                		$.alert("该身份证已在另一个帐号申请过借款！", function (){
-                			
-                		});
+                		// $.alert("该身份证已在另一个帐号申请过借款！", function (){
+                        //
+                        // });
+                        step1 = 1;
+                        $.alert("识别成功，请继续上传国徽面", function (){
+                        });
+                        $("#front_image").attr("src","id_card_image_font.action");
                 	}else if(data.hint == "file_too_large"){
                 		$.alert("图片不能超过20M", function (){
                 			

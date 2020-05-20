@@ -77,6 +77,10 @@ public class IdCardServiceImp extends ResponseStatus implements IdCardService {
                 if(e.getStatus().equals("success")) {
                     IdCard hold = this.idCardDao.existNum(e.getCar_id());
                     if(hold != null && hold.getUser().getId() != user.getId()) {
+                        IdCard idCard = new IdCard();
+                        idCard.setUser(user);
+                        idCard.setFont(1);
+                        this.idCardDao.save(idCard);
                         this.identifyDao.findByUserId(user.getId()).setStep1(1);
                         return "{\"hint\":\"already_exist\"}";
                     } else {

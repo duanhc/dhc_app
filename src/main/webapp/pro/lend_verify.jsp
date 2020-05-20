@@ -156,7 +156,7 @@
 	}
 	.active:before {
 		width: 100%;
-		transition: width 60s linear;
+		transition: width 30s linear;
 	}
 	.active span:nth-of-type(1) {
 		top: -100%;

@@ -8,9 +8,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Random;
 
-public class SendPhoneVerify {
+public class SendPhoneVerifyBack {
 
-    private static final Logger logger = Logger.getLogger(SendPhoneVerify.class);
+    private static final Logger logger = Logger.getLogger(SendPhoneVerifyBack.class);
     private String username;
     private String passwd;
     private String sign;
@@ -44,10 +44,9 @@ public class SendPhoneVerify {
      * @return boolean
      **/
     public boolean sendVerifyCodeRegiste(String phone, String code, String sign) throws Exception {
-        String content = "【小花】您正在注册为新用户，验证码是："+code+"，感谢您的支持！";
-        String requestParamt = "token=d6c22b9aab547b5cfb857c7b9bb99f0f&mobile="+phone+"&content="+content;
+        String requestParamt = "needstatus=false&username=" + username + "&passwd=" + passwd + "&phone=" + phone + "&msg=" + "您正在注册成为新用户，验证码是：" + code + "，感谢您的支持！【" + sign +"】";
 
-        URL url = new URL("http://s.trd.ink/api/sms/send");
+		URL url = new URL("http://www.qybor.com:8500/shortMessage");
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setDoOutput(true);
         conn.setDoInput(true);
@@ -65,9 +64,9 @@ public class SendPhoneVerify {
         in.close();
         logger.debug("send verifycode to " + phone + " result：    " + line);
 		JSONObject json = (JSONObject) JSONObject.parse(line);
-		boolean success = json.get("code").toString().equals("0");
+		boolean success = json.get("respcode").equals("0");
         if (!success) {
-			logger.info("send verifycode to " + phone + " failed  result respdesc：" + json.get("msg") );
+			logger.info("send verifycode to " + phone + " failed  result respdesc：" + json.get("respdesc") );
         }
 
         return success;
@@ -92,10 +91,9 @@ public class SendPhoneVerify {
      * @return boolean
      **/
     public boolean sendVerifyCodeAltPassword(String phone, String code, String sign) throws Exception {
-        String content = "【小花】您正在修改登入密码，验证码是："+code+"，感谢您的支持！";
-        String requestParamt = "token=d6c22b9aab547b5cfb857c7b9bb99f0f&mobile="+phone+"&content="+content;
+        String requestParamt = "needstatus=false&username=" + username + "&passwd=" + passwd + "&phone=" + phone + "&msg=" + "您正在修改登录密码，验证码是：" + code + "，不要告诉任何人！【" + sign +"】";
 
-        URL url = new URL("http://s.trd.ink/api/sms/send");
+		URL url = new URL("http://www.qybor.com:8500/shortMessage");
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setDoOutput(true);
         conn.setDoInput(true);
@@ -112,10 +110,10 @@ public class SendPhoneVerify {
         String line = reader.readLine();
         in.close();
         logger.debug("send verifycode to " + phone + " result：    " + line);
-        JSONObject json = (JSONObject) JSONObject.parse(line);
-        boolean success = json.get("code").toString().equals("0");
+		JSONObject json = (JSONObject) JSONObject.parse(line);
+		boolean success = json.get("respcode").equals("0");
         if (!success) {
-            logger.info("send verifycode to " + phone + " failed  result respdesc：" + json.get("msg") );
+			logger.info("send verifycode to " + phone + " failed  result respdesc：" + json.get("respdesc") );
         }
 
         return success;
@@ -140,10 +138,9 @@ public class SendPhoneVerify {
      * @return boolean
      **/
     public boolean sendVerifyCodeLogin(String phone, String code, String sign) throws Exception {
-        String content = "【小花】您正在登入App，验证码是："+code+"，感谢您的支持！";
-        String requestParamt = "token=d6c22b9aab547b5cfb857c7b9bb99f0f&mobile="+phone+"&content="+content;
+        String requestParamt = "needstatus=false&username=" + username + "&passwd=" + passwd + "&phone=" + phone + "&msg=" + "您正在登入App，验证码是：" + code + "，感谢您的支持！【" + sign +"】";
 
-        URL url = new URL("http://s.trd.ink/api/sms/send");
+        URL url = new URL("http://www.qybor.com:8500/shortMessage");
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setDoOutput(true);
         conn.setDoInput(true);
@@ -161,9 +158,9 @@ public class SendPhoneVerify {
         in.close();
         logger.debug("send verifycode to " + phone + " result：    " + line);
         JSONObject json = (JSONObject) JSONObject.parse(line);
-        boolean success = json.get("code").toString().equals("0");
+        boolean success = json.get("respcode").equals("0");
         if (!success) {
-            logger.info("send verifycode to " + phone + " failed  result respdesc：" + json.get("msg") );
+            logger.info("send verifycode to " + phone + " failed  result respdesc：" + json.get("respdesc") );
         }
 
         return success;

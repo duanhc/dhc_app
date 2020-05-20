@@ -138,7 +138,7 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
         User user = null;
         if(id != null && (user = this.userDao.findById(id.intValue())) != null) {
             Identify identify = this.identifyDao.findByUserId(user.getId());
-            identify.setCash_password(identifyParam.getCash_password());
+//            identify.setCash_password(identifyParam.getCash_password());
             identify.setSign(1);
             //提现时间
             identify.setCash_time(new Timestamp((new Date()).getTime()));

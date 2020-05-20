@@ -24,7 +24,7 @@
 		.tx_button{width: 35vw;height: 10vw;background: #1776d4;border-radius: 5vw;font-size: 4vw;color: #fff;line-height: 10vw;text-align: center;margin-top: 10vw;margin-left: 10vw;float: left;}
 		.hk_button{width: 35vw;height: 10vw;background: #ff913f;border-radius: 5vw;font-size: 4vw;color: #fff;line-height: 10vw;text-align: center;margin-top: 10vw;margin-left: 10vw;float: left;}
         #bottom{height: 12vw;width: 100vw;position: fixed;bottom: 0;left: 0;border-top: 1px solid #DEDEDE;background: white;}
-        #bottom ul li{width: 30vw;float: left;height: 12vw;}
+        #bottom ul li{width: 33.3vw;float: left;height: 12vw;}
         #bottom ul li p{text-align: center;font-size: 3vw;margin-top: -1vw;height: 4vw;line-height: 4vw;color: #DEDEDE;}
 	</style>
 	<body onload="addBackListener();">
@@ -41,7 +41,7 @@
 				快速提现
 			</div>
 		</div>
-		<p style="text-align: center;margin-top: 8vw;margin-bottom: 5vw;">风险评估过低，订单需绑定金融商业险</p>
+		<p id="fxpg" style="text-align: center;margin-top: 8vw;margin-bottom: 5vw;"></p>
 		
 		<div class="item">
 			<div class="item_left">
@@ -72,13 +72,13 @@
             <ul>
                 <a href="jssh.html">
                     <li>
-                        <img src="images/sy01.png" style="width:5vw;margin-left: 12vw;margin-top: 1.5vw;"/>
+                        <img src="images/sy01.png" style="width:5vw;margin-left: 14vw;margin-top: 1.5vw;"/>
                         <p>首页</p>
                     </li>
                 </a>
                 <a href="repay.html">
                     <li>
-                        <img src="images/hk02.png" style="width:5vw;margin-left: 12vw;margin-top: 1.5vw;"/>
+                        <img src="images/hk02.png" style="width:5vw;margin-left: 14vw;margin-top: 1.5vw;"/>
                         <p style="color: #5F9BF1;">借款管理</p>
                     </li>
                 </a>
@@ -90,7 +90,7 @@
                 </a>-->
                 <a href="myMess.html">
                     <li>
-                        <img src="images/wd01.png" style="width:5vw;margin-left: 12vw;margin-top: 1.5vw;"/>
+                        <img src="images/wd01.png" style="width:5vw;margin-left: 14vw;margin-top: 1.5vw;"/>
                         <p>我的</p>
                     </li>
                 </a>
@@ -133,8 +133,6 @@
             }
             //是否签字
             var sign = 0;
-            //用户id
-            var userId;
 
             //查询授权额度、卡号
             $.ajax({
@@ -151,7 +149,10 @@
                         $("#lendCount").html(data.lendCount);
                         //是否签字，0：否，1：是
                         sign = data.sign;
-                        userId = data.userId;
+                        if(sign == 1){
+                            //展示风险评估
+                            $("#fxpg").html("风险评估过低，订单需绑定金融商业险");
+                        }
                         //卡号
                         $("#creditNumber").html(data.creditNumber);
                     }
@@ -187,12 +188,7 @@
 
             //合同页面
             function viewContract(){
-                //要发送的参数
-                var params = {
-                    "userId": userId
-                };
-                window["filter"] = params;
-                window.open('../core/viewContract.html')
+                window.location.href = "appViewContract.html";
             }
 
         </script>

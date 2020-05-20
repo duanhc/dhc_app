@@ -267,6 +267,35 @@ public class UserServiceImp extends ResponseStatus implements UserService {
         }
     }
 
+    /**
+     * app端查看合同信息
+     * @param user
+     * @param session
+     * @return
+     */
+    public String heTongDetailView(User user, HttpSession session) {
+        Integer id = (Integer)session.getAttribute("ui");
+        if(id != null && this.userDao.findById(id.intValue()) != null) {
+            User hold = this.userDao.findById(id.intValue());
+            UserInfo userInfo = new UserInfo();
+            userInfo.setUser(hold);
+            UserDetail userDetail = this.userDetailDao.findByUserId(hold.getId());
+            userInfo.setUserDetail(userDetail);
+            Identify identify = this.identifyDao.findByUserId(hold.getId());
+            userInfo.setIdentify(identify);
+            Lend lend = this.lendDao.findByUserId(hold.getId());
+            userInfo.setLend(lend);
+            UserDetailAppend userDetailAppend = this.userDetailAppendDao.findByUserId(hold.getId());
+            userInfo.setUserDetailAppend(userDetailAppend);
+            UserContact userContact = this.userContactDao.findByUserId(hold.getId());
+            userInfo.setUserContact(userContact);
+
+            return JSON.toJSONString(userInfo);
+        } else {
+            return "{\"hint\":\"un_login\"}";
+        }
+    }
+
     public String setValid(User user, HttpSession session) {
         Integer admin_id = (Integer)session.getAttribute("ai");
         String permission = (String)session.getAttribute("ap");

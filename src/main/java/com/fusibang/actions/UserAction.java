@@ -228,6 +228,22 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
     }
 
     /**
+     * app端查看合同信息
+     * @return
+     */
+    public String heTongDetailView() {
+        this.response.setContentType("application/json; charset=utf-8");
+
+        try {
+            this.response.getWriter().write(this.userService.heTongDetailView(this.user, this.request.getSession()));
+        } catch (IOException var2) {
+            var2.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
      * 后台-借款管理-所有已提现的用户信息
      * @return
      */

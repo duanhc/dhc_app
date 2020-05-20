@@ -143,6 +143,8 @@
         </action>
 <!--        一个用户详情-->
         <action name="user_zlsh_detail_view" class="userAction" method="aUserDetailView"></action>
+<!--        app合同信息-->
+        <action name="hetong_detail_view" class="userAction" method="heTongDetailView"></action>
 
 <!--    借款管理-列表    -->
         <action name="user_jkgl_view" class="userAction" method="identifyDetailView">

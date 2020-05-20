@@ -11,6 +11,7 @@
     <script src="../js/jquery.min.js"></script>
     <script src="../js/jquery-weui.min.js"></script>
     <style type="text/css">
+        body{overflow:hidden}
 		#myCanvas{
 			border: 1px dashed gray;
 			background: #B3B3B3;
@@ -32,7 +33,7 @@
 	<div id="image"></div>
 
     <button onclick="handleClear()" style="width: 30vw;height: 8vw;margin-bottom: 3vw;margin-left: 0;margin-top: 2vw;">清除</button>
-    <input id="cashPassword" type="number" name="" value="" placeholder="请输入提现密码"  style="width: 300px;height: 6vw;"/>
+<!--    <input id="cashPassword" type="number" name="" value="" placeholder="请输入提现密码"  style="width: 300px;height: 6vw;"/>-->
     
     <div class="regButton">
         提交
@@ -136,25 +137,25 @@
         }
 
         //校验提现密码
-        var cashPassword = $("#cashPassword").val();
-
-        if(cashPassword == null || cashPassword == ""){
-            $.alert("提现密码不能为空", function (){
-            });
-            return;
-        }
-
-        if(cashPassword.length > 10){
-            $.alert("提现密码长度不能超过10位", function (){
-            });
-            return;
-        }
+        // var cashPassword = $("#cashPassword").val();
+        //
+        // if(cashPassword == null || cashPassword == ""){
+        //     $.alert("提现密码不能为空", function (){
+        //     });
+        //     return;
+        // }
+        //
+        // if(cashPassword.length > 10){
+        //     $.alert("提现密码长度不能超过10位", function (){
+        //     });
+        //     return;
+        // }
 
         $.ajax({
             url : "addCashPassword.action",
             type : "GET",
             dataType : "json",
-            data: "cash_password=" + cashPassword,
+            // data: "cash_password=" + cashPassword,
             success : function(data) {
                 if (data.hint == "un_login") {
                     $.alert("尚未登录,是否登录", function (){

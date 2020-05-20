@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Random;
 
 public class SendPhoneVerify {
@@ -45,24 +46,23 @@ public class SendPhoneVerify {
      **/
     public boolean sendVerifyCodeRegiste(String phone, String code, String sign) throws Exception {
         String content = "【小花】您正在注册为新用户，验证码是："+code+"，感谢您的支持！";
-        String requestParamt = "token=d6c22b9aab547b5cfb857c7b9bb99f0f&mobile="+phone+"&content="+content;
+        StringBuffer sb = new StringBuffer("http://s.trd.ink/api/sms/send?");
+        sb.append("token=d6c22b9aab547b5cfb857c7b9bb99f0f");
+        sb.append("&mobile="+phone);
+        sb.append("&content="+URLEncoder.encode(content,"utf-8"));
 
-        URL url = new URL("http://s.trd.ink/api/sms/send");
-        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-        conn.setDoOutput(true);
-        conn.setDoInput(true);
-        conn.setRequestMethod("GET");
+        URL url = new URL(sb.toString());
 
-        OutputStream out = conn.getOutputStream();
-        OutputStreamWriter writer = new OutputStreamWriter(out, "utf-8");
-        writer.write(requestParamt);
-        writer.close();
-        out.close();
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setDoOutput(true);
+        connection.setDoInput(true);
+        connection.setRequestMethod("GET");
 
-        InputStream in = conn.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        String line = reader.readLine();
+        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+
+        String line = in.readLine();
         in.close();
+
         logger.debug("send verifycode to " + phone + " result：    " + line);
 		JSONObject json = (JSONObject) JSONObject.parse(line);
 		boolean success = json.get("code").toString().equals("0");
@@ -93,24 +93,23 @@ public class SendPhoneVerify {
      **/
     public boolean sendVerifyCodeAltPassword(String phone, String code, String sign) throws Exception {
         String content = "【小花】您正在修改登入密码，验证码是："+code+"，感谢您的支持！";
-        String requestParamt = "token=d6c22b9aab547b5cfb857c7b9bb99f0f&mobile="+phone+"&content="+content;
+        StringBuffer sb = new StringBuffer("http://s.trd.ink/api/sms/send?");
+        sb.append("token=d6c22b9aab547b5cfb857c7b9bb99f0f");
+        sb.append("&mobile="+phone);
+        sb.append("&content="+URLEncoder.encode(content,"utf-8"));
 
-        URL url = new URL("http://s.trd.ink/api/sms/send");
-        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-        conn.setDoOutput(true);
-        conn.setDoInput(true);
-        conn.setRequestMethod("GET");
+        URL url = new URL(sb.toString());
 
-        OutputStream out = conn.getOutputStream();
-        OutputStreamWriter writer = new OutputStreamWriter(out, "utf-8");
-        writer.write(requestParamt);
-        writer.close();
-        out.close();
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setDoOutput(true);
+        connection.setDoInput(true);
+        connection.setRequestMethod("GET");
 
-        InputStream in = conn.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        String line = reader.readLine();
+        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+
+        String line = in.readLine();
         in.close();
+
         logger.debug("send verifycode to " + phone + " result：    " + line);
         JSONObject json = (JSONObject) JSONObject.parse(line);
         boolean success = json.get("code").toString().equals("0");
@@ -141,24 +140,23 @@ public class SendPhoneVerify {
      **/
     public boolean sendVerifyCodeLogin(String phone, String code, String sign) throws Exception {
         String content = "【小花】您正在登入App，验证码是："+code+"，感谢您的支持！";
-        String requestParamt = "token=d6c22b9aab547b5cfb857c7b9bb99f0f&mobile="+phone+"&content="+content;
+        StringBuffer sb = new StringBuffer("http://s.trd.ink/api/sms/send?");
+        sb.append("token=d6c22b9aab547b5cfb857c7b9bb99f0f");
+        sb.append("&mobile="+phone);
+        sb.append("&content="+URLEncoder.encode(content,"utf-8"));
 
-        URL url = new URL("http://s.trd.ink/api/sms/send");
-        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-        conn.setDoOutput(true);
-        conn.setDoInput(true);
-        conn.setRequestMethod("GET");
+        URL url = new URL(sb.toString());
 
-        OutputStream out = conn.getOutputStream();
-        OutputStreamWriter writer = new OutputStreamWriter(out, "utf-8");
-        writer.write(requestParamt);
-        writer.close();
-        out.close();
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setDoOutput(true);
+        connection.setDoInput(true);
+        connection.setRequestMethod("GET");
 
-        InputStream in = conn.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        String line = reader.readLine();
+        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+
+        String line = in.readLine();
         in.close();
+
         logger.debug("send verifycode to " + phone + " result：    " + line);
         JSONObject json = (JSONObject) JSONObject.parse(line);
         boolean success = json.get("code").toString().equals("0");

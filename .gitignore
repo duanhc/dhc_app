@@ -1,17 +1,6 @@
-# Compiled class file
+# 通用配置
 # *.class
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-#*.jar
+# *.jar
 *.war
 *.nar
 *.ear
@@ -19,9 +8,7 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-
-#为了方便迭代，上传部署文件
+# 此项目配置
 target/classes
 target/generated-sources
+

@@ -6,6 +6,7 @@
 package com.fusibang.servicesimp;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.fusibang.dao.*;
 import com.fusibang.help.*;
 import com.fusibang.services.UserService;
@@ -50,7 +51,12 @@ public class UserServiceImp extends ResponseStatus implements UserService {
                 jedis.expire(phone + "id", Config.tokenTime);
                 jedis.expire(phone, Config.tokenTime);
                 jedis.close();
-                return token;
+
+                int show_market = user.getShow_market();
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("show_market",show_market);
+                jsonObject.put("token",token);
+                return jsonObject.toJSONString();
             } else {
                 return "{\"hint\":\"password_error\"}";
             }
@@ -71,7 +77,12 @@ public class UserServiceImp extends ResponseStatus implements UserService {
                 jedis.expire(phone + "id", Config.tokenTime);
                 jedis.expire(phone, Config.tokenTime);
                 jedis.close();
-                return token;
+
+                int show_market = user.getShow_market();
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("show_market",show_market);
+                jsonObject.put("token",token);
+                return jsonObject.toJSONString();
             } else {
                 return "{\"hint\":\"phone_code_error\"}";
             }
@@ -106,6 +117,13 @@ public class UserServiceImp extends ResponseStatus implements UserService {
         Channel channel = this.channelDao.findById(user.getSource());
         if (channel == null) {
             channel = this.channelDao.findById(0);
+        }
+
+        int should_show_market = channel.getShould_show_market();
+        if(should_show_market > 0){
+            //首页展示代超
+            channel.setShould_show_market(should_show_market-1);
+            user.setShow_market(1);
         }
 
         user.setChannel(channel);

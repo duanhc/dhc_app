@@ -68,7 +68,7 @@
 		</div>
 		<div id="bottom">
             <ul>
-                <a href="jssh.html">
+                <a id="goToMarket" href="jssh.html">
                     <li>
                         <img src="images/sy01.png" style="width:5vw;margin-left: 14vw;margin-top: 1.5vw;"/>
                         <p>首页</p>
@@ -139,8 +139,12 @@
                         $.alert("登录超时,请重新登录", function (){
                             window.location.href = "../login.html";
                         });
-                    }else if(data.put == 1 && data.lend == 3){
-                            window.location.href = "jkgl.html";
+                    }else {
+                        var showMarket = data.user.show_market;
+                        if(showMarket == 1){
+                            //首页是否展示超时，0：不展示，1：展示
+                            $("#goToMarket").attr("href","app_jieguo.do");
+                        }
                     }
                 }
             });

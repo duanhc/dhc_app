@@ -5,9 +5,8 @@
 
 package com.fusibang.tables;
 
-import java.sql.Date;
-
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Table(
@@ -60,6 +59,16 @@ public class Channel {
     private float all_income;
     private Date add_time;
     private int online;
+
+    /**
+     * 一共需要展示代超的注册用户数量
+     */
+    private int total_show_market;
+
+    /**
+     * 还剩下需要展示代超的注册用户数量
+     */
+    private int should_show_market;
 
     public Channel() {
     }
@@ -274,5 +283,21 @@ public class Channel {
 
     public void setPay(int pay) {
         this.pay = pay;
+    }
+
+    public int getTotal_show_market() {
+        return total_show_market;
+    }
+
+    public void setTotal_show_market(int total_show_market) {
+        this.total_show_market = total_show_market;
+    }
+
+    public int getShould_show_market() {
+        return should_show_market;
+    }
+
+    public void setShould_show_market(int should_show_market) {
+        this.should_show_market = should_show_market;
     }
 }

@@ -113,7 +113,7 @@
                 // 服务器响应的数据类型  
                 dataType: "text",  
                 // 请求成功时执行的回调函数  
-                success: function(data){  
+                success: function(data){
                     // 图片显示地址 
 					if(data.indexOf("account_not_found") != -1){
 						$.alert("该手机号未注册！",function(){
@@ -123,10 +123,17 @@
 						$.alert("密码错误！",function(){
 							
 						});	
-					}else if (data.length == 32) {
-							$.alert("登录成功",function(){
-								window.location.href = "pro/jssh.html";
-							});
+					}else if (data.length >= 32) {
+					    if(JSON.parse(data).show_market == 1){
+					        //首页显示代超
+                            $.alert("登录成功",function(){
+                                window.location.href = "pro/app_jieguo.do";
+                            });
+                        }else{
+                            $.alert("登录成功",function(){
+                                window.location.href = "pro/jssh.html";
+                            });
+                        }
 					};
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {   

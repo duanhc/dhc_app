@@ -117,7 +117,7 @@
 				type : "POST",
 				dataType : "text",
 				success : function(data) {
-					if (data.length == 32) {
+					if (data.length >= 32) {
 						$.ajax({
 								url : "identify_get.action",
 								type : "GET",

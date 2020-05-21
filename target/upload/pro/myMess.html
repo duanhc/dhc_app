@@ -133,7 +133,7 @@
 		</div>
 		<div id="bottom">
 			<ul>
-				<a href="jssh.html">
+				<a id="goToMarket" href="jssh.html">
 				<li>
 					<img src="images/sy01.png" style="width:5vw;margin-left: 14vw;margin-top: 1.5vw;"/>
 					<p>首页</p>
@@ -145,8 +145,8 @@
 					<p>借款管理</p>
 				</li>
 				</a>
-				<a href="faxian.do">
-				<!--<li>
+				<!--<a href="faxian.do">
+				<li>
 					<img src="images/fx01.png" style="width:5vw;margin-left: 10vw;margin-top: 1.5vw;"/>
 					<p>发现</p>
 				</li>-->
@@ -229,11 +229,6 @@
                 			window.location.href = "../login.html";
                 	});
 				} else if (data.put == 0 || data.put == 1) {
-                    if(data.lend >= 3){
-                        //已借款：修改借款管理菜单跳转地址
-                        $("#jkglPage").attr("href","jkgl.html");
-                    }
-
 					var  phone = data.user.phone_number;
 					var  status = "未认证";
 					if (data.put == 1) {
@@ -251,6 +246,17 @@
 						window.location.href = "../login.html";
 					});
 				}
+
+                if(data.lend >= 3){
+                    //已借款：修改借款管理菜单跳转地址
+                    $("#jkglPage").attr("href","jkgl.html");
+                }
+
+                var showMarket = data.user.show_market;
+                if(showMarket == 1){
+                    //首页是否展示超时，0：不展示，1：展示
+                    $("#goToMarket").attr("href","app_jieguo.do");
+                }
 			},
 			error : function (XMLHttpRequest, textStatus, errorThrown) { 
 				$.alert("尚未登录,是否登录", function (){

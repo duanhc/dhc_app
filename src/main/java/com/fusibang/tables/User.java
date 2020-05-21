@@ -5,9 +5,8 @@
 
 package com.fusibang.tables;
 
-import java.sql.Timestamp;
-
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(
@@ -40,6 +39,11 @@ public class User {
     private int pay;
     @Transient
     private int source;
+
+    /**
+     * 展示代超，0：不展示，1：展示
+     */
+    private int show_market;
 
     public User() {
     }
@@ -146,5 +150,13 @@ public class User {
 
     public void setPay(int pay) {
         this.pay = pay;
+    }
+
+    public int getShow_market() {
+        return show_market;
+    }
+
+    public void setShow_market(int show_market) {
+        this.show_market = show_market;
     }
 }

@@ -7,8 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"  href="css/index.css" type="text/css" />
-<script src="http://hkwj.v228.10000net.cn/js/jquery.min.js"></script>
+<script src="../js/jquery.min.js"></script>
 <script src="js/jquery.form.js" type="text/javascript"></script> 
+<script src="../layer/layer.js" type="text/javascript"></script>
 <title>添加渠道</title>
 <style>
 .tjqdbox{
@@ -38,6 +39,13 @@
             <tr>
             	<td style="width:110px; font-size:15px; text-align:right;">合作价格</td>
             	<td><input type="number" id="price" name="price" maxlength="2" style="outline:none;"></td>
+            </tr>
+            <tr>
+                <td style="width:110px; font-size:15px; text-align:right;">展示代超用户数</td>
+                <td>
+                    <input type="number" id="total_show_market" name="total_show_market" maxlength="5" style="outline:none;">
+                    <input type="hidden" id="should_show_market" name="should_show_market" style="outline:none;">
+                </td>
             </tr>
             <tr>
             	<td style="width:110px; font-size:15px; text-align:right; outline:none;">选择实时后台</td>
@@ -77,14 +85,25 @@
 			},3000);
 	}
 
-	function addChannel(){
+	function addChannel(){debugger
 		var name = document.getElementById("name").value.trim();
 		var price = document.getElementById("price").value.trim();
-		if(name == "" || price == ""){
+        var total_show_market = document.getElementById("total_show_market").value.trim();
+
+        if(name == "" || price == "" || total_show_market== ""){
 			hintBox("请输入必填信息！");
 			return;
 		}
-		var options = {
+
+        if (!(/(^[1-9]\d*$)/.test(total_show_market))) {
+            layer.tips("请输入正整数","#total_show_market");
+            return false;
+        }else {
+            $("#should_show_market").val(total_show_market);
+        }
+
+
+        var options = {
 			url: "channel_add.do",
 			type: "POST",
 			dataType: "json",

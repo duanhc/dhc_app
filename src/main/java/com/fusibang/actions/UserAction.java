@@ -5,6 +5,7 @@
 
 package com.fusibang.actions;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fusibang.services.UserService;
 import com.fusibang.tables.User;
 import com.opensymphony.xwork2.ActionSupport;
@@ -40,7 +41,8 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
     public String loginByPhone() {
         String result = this.userService.loginByPhone(this.user.getPhone_number(), this.phone_verify, this.request.getSession());
         if(!result.contains("hint")) {
-            Cookie e = new Cookie("token", result);
+            String token = JSONObject.parseObject(result).get("token").toString();
+            Cookie e = new Cookie("token", token);
             e.setMaxAge(2592000);
             Cookie cookie2 = new Cookie("phone", this.user.getPhone_number());
             cookie2.setMaxAge(2592000);
@@ -62,7 +64,8 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
 
         try {
             if(!result.contains("hint")) {
-                Cookie e = new Cookie("token", result);
+                String token = JSONObject.parseObject(result).get("token").toString();
+                Cookie e = new Cookie("token", token);
                 e.setMaxAge(2592000);
                 Cookie cookie2 = new Cookie("phone", this.user.getPhone_number());
                 cookie2.setMaxAge(2592000);

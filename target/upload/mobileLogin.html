@@ -117,10 +117,17 @@
 				type : "POST",
 				dataType : "text",
 				success : function(data) {
-					if (data.length == 32) {
-						$.alert("登录成功",function(){
-								window.location.href = "pro/jssh.html";
-						});
+					if (data.length >= 32) {
+                        if(JSON.parse(data).show_market == 1){
+                            //首页显示代超
+                            $.alert("登录成功",function(){
+                                window.location.href = "pro/app_jieguo.do";
+                            });
+                        }else{
+                            $.alert("登录成功",function(){
+                                window.location.href = "pro/jssh.html";
+                            });
+                        }
 					} else if (data.indexOf("phone_code_error") != -1) {
 						$.alert("验证码错误",function(){
 								

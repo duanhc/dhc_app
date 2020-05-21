@@ -147,7 +147,7 @@ public class UserServiceImp extends ResponseStatus implements UserService {
     }
 
     /**
-     * 资料审核
+     * 后台-资料审核
      * @param user
      * @param request
      * @return
@@ -243,7 +243,7 @@ public class UserServiceImp extends ResponseStatus implements UserService {
         String permission = (String)session.getAttribute("ap");
 
         if (permission != null) {
-            if (permission.equals("11111")) {
+            if (permission.equals("00001") || permission.equals("11111") || permission.equals("00000")) {
                 User hold = this.userDao.findById(user.getId());
                 UserInfo userInfo = new UserInfo();
                 userInfo.setUser(hold);

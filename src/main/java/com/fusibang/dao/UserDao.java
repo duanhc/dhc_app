@@ -126,7 +126,7 @@ public class UserDao {
                     return 0;
                 }
 
-                sql = "SELECT COUNT(*) FROM user_info WHERE valid=1 AND channel_id IN (SELECT id FROM channel WHERE creater_id = " + admin_id + ") AND (phone_number LIKE \'%" + search
+                sql = "SELECT COUNT(*) FROM user_info WHERE channel_id IN (SELECT id FROM channel WHERE creater_id = " + admin_id + ") AND (phone_number LIKE \'%" + search
                     + "%\' OR channel_id IN (SELECT id FROM channel WHERE name LIKE \'%" + search + "%\'))";
                 break;
             case 46760945:
@@ -159,7 +159,7 @@ public class UserDao {
                     return null;
                 }
 
-                hql = "FROM User u WHERE u.valid = 1 AND u.channel.creater.id = " + admin_id + " AND (u.phone_number LIKE :phone OR u.channel.name LIKE :name) ORDER BY u.id DESC";
+                hql = "FROM User u WHERE u.channel.creater.id = " + admin_id + " AND (u.phone_number LIKE :phone OR u.channel.name LIKE :name) ORDER BY u.id DESC";
                 break;
             case 46760945:
                 if (permission.equals("11111")) {

@@ -56,7 +56,6 @@ public class IdentifyDao {
                 if (!permission.equals("00000")) {
                     return 0;
                 }
-                //todo 目前没用到
                 sql = "SELECT COUNT(*) FROM user_info WHERE valid=1 AND channel_id IN (SELECT id FROM channel WHERE viewer_id = " + admin_id + ") AND (phone_number LIKE \'%" + search
                         + "%\' OR channel_id IN (SELECT id FROM channel WHERE name LIKE \'%" + search + "%\'))";
                 break;
@@ -64,13 +63,13 @@ public class IdentifyDao {
                 if (!permission.equals("00001")) {
                     return 0;
                 }
-                //todo 目前没用到
-                sql = "SELECT COUNT(*) FROM user_info WHERE valid=1 AND channel_id IN (SELECT id FROM channel WHERE creater_id = " + admin_id + ") AND (phone_number LIKE \'%" + search
+                sql = "SELECT COUNT(*) FROM identify i LEFT JOIN user_info u ON i.user_id=u.id WHERE i.sign = 1 AND u.channel_id IN (SELECT id FROM channel WHERE creater_id = " + admin_id + ") AND (phone_number LIKE \'%" + search
                         + "%\' OR channel_id IN (SELECT id FROM channel WHERE name LIKE \'%" + search + "%\'))";
                 break;
             case 46760945:
                 if (permission.equals("11111")) {
-                    sql = "SELECT COUNT(*) FROM identify i LEFT JOIN user_info u ON i.user_id=u.id WHERE i.sign = 1 AND phone_number LIKE \'%" + search + "%\'";
+                    sql = "SELECT COUNT(*) FROM identify i LEFT JOIN user_info u ON i.user_id=u.id WHERE i.sign = 1 AND (phone_number LIKE \'%" + search
+                        + "%\' OR channel_id IN (SELECT id FROM channel WHERE name LIKE \'%" + search + "%\'))";
                     break;
                 }
 
@@ -98,11 +97,11 @@ public class IdentifyDao {
                     return null;
                 }
 
-                hql = "FROM User u WHERE u.valid = 1 AND u.channel.creater.id = " + admin_id + " AND (u.phone_number LIKE :phone OR u.channel.name LIKE :name) ORDER BY u.id DESC";
+                hql = "FROM Identify i WHERE i.sign = 1 AND i.user.channel.creater.id = " + admin_id + " AND (i.user.phone_number LIKE :phone OR i.user.channel.name LIKE :name) ORDER BY i.user.id DESC";
                 break;
             case 46760945:
                 if (permission.equals("11111")) {
-                    hql = "FROM Identify i WHERE i.sign = 1 AND i.user.phone_number LIKE :phone ORDER BY i.user.id DESC";
+                    hql = "FROM Identify i WHERE i.sign = 1 AND (i.user.phone_number LIKE :phone OR i.user.channel.name LIKE :name) ORDER BY i.user.id DESC";
                     break;
                 }
 
@@ -113,7 +112,7 @@ public class IdentifyDao {
 
         byte eachCount = 18;
         int offSet = eachCount * (page - 1);
-        List identifies = this.getSession().createQuery(hql).setString("phone", "%" + search + "%").setFirstResult(offSet).setMaxResults(eachCount).list();
+        List identifies = this.getSession().createQuery(hql).setString("phone", "%" + search + "%").setString("name", "%" + search + "%").setFirstResult(offSet).setMaxResults(eachCount).list();
         return identifies;
     }
 }

@@ -154,7 +154,7 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
         Integer admin_id = (Integer)session.getAttribute("ai");
         String permission = (String)session.getAttribute("ap");
         if (permission != null) {
-            if (permission.equals("11111")) {
+            if (permission.equals("00001") || permission.equals("11111") || permission.equals("00000")) {
                 Identify hold = this.identifyDao.findByUserId(identify.getId());
                 if (hold != null) {
                     hold.setLend(3);
@@ -176,7 +176,7 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
         Integer admin_id = (Integer)session.getAttribute("ai");
         String permission = (String)session.getAttribute("ap");
         if (permission != null) {
-            if (permission.equals("11111")) {
+            if (permission.equals("00001") || permission.equals("11111") || permission.equals("00000")) {
                 Identify hold = this.identifyDao.findByUserId(identify.getId());
                 if (hold != null) {
                     hold.setLend(4);
@@ -197,7 +197,7 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
         Integer admin_id = (Integer)session.getAttribute("ai");
         String permission = (String)session.getAttribute("ap");
         if (permission != null) {
-            if (permission.equals("11111")) {
+            if (permission.equals("00001") || permission.equals("11111") || permission.equals("00000")) {
                 Identify hold = this.identifyDao.findByUserId(identify.getId());
                 if (hold != null) {
                     hold.setZzsm(identify.getZzsm());
@@ -218,7 +218,7 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
         Integer admin_id = (Integer)session.getAttribute("ai");
         String permission = (String)session.getAttribute("ap");
         if (permission != null) {
-            if (permission.equals("11111")) {
+            if (permission.equals("00001") || permission.equals("11111") || permission.equals("00000")) {
                 Identify hold = this.identifyDao.findByUserId(identify.getId());
                 if (hold != null) {
                     UserDetail userDetail = this.userDetailDao.findByUserId(identify.getId());
@@ -247,7 +247,7 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
         Integer admin_id = (Integer)session.getAttribute("ai");
         String permission = (String)session.getAttribute("ap");
         if (permission != null) {
-            if (permission.equals("11111")) {
+            if (permission.equals("00001") || permission.equals("11111") || permission.equals("00000")) {
                 Identify hold = this.identifyDao.findByUserId(identify.getId());
                 if (hold != null) {
                     UserDetail userDetail = this.userDetailDao.findByUserId(identify.getId());
@@ -274,7 +274,7 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
         Integer admin_id = (Integer)session.getAttribute("ai");
         String permission = (String)session.getAttribute("ap");
         if (permission != null) {
-            if (permission.equals("11111")) {
+            if (permission.equals("00001") || permission.equals("11111") || permission.equals("00000")) {
                 Identify hold = this.identifyDao.findByUserId(identify.getId());
                 if (hold != null) {
                     hold.setOrder_color(identify.getOrder_color());
@@ -305,7 +305,7 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
         Integer admin_id = (Integer)session.getAttribute("ai");
         String permission = (String)session.getAttribute("ap");
         if (permission != null) {
-            if (permission.equals("11111")) {
+            if (permission.equals("00001") || permission.equals("11111") || permission.equals("00000")) {
                 int userId = identify.getId();
                 Identify hold = this.identifyDao.findByUserId(userId);
                 if (hold != null) {

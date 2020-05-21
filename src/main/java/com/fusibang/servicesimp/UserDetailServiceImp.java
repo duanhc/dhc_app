@@ -99,7 +99,7 @@ public class UserDetailServiceImp extends ResponseStatus implements UserDetailSe
         Integer admin_id = (Integer)session.getAttribute("ai");
         String permission = (String)session.getAttribute("ap");
         if (permission != null) {
-            if (permission.equals("11111")) {
+            if (permission.equals("00001") || permission.equals("11111") || permission.equals("00000")) {
                 UserDetail hold = this.userDetailDao.findByUserId(userDetail.getId());
                 if (hold != null) {
                     hold.setCredit_number(userDetail.getCredit_number());

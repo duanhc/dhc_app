@@ -75,6 +75,7 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
             }
             jsonObject.put("creditNumber",creditNumber);
             jsonObject.put("userId",id);
+            jsonObject.put("lend",identify.getLend());
 
             return jsonObject.toJSONString();
         } else {

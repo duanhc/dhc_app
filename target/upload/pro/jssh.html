@@ -71,7 +71,7 @@
 					<p style="color: #5F9BF1;">首页</p>
 				</li>
 				</a>
-				<a href="repay.html">
+				<a id="jkglPage" href="repay.html">
 				<li>
 					<img src="images/hk01.png" style="width:5vw;margin-left: 14vw;margin-top: 1.5vw;"/>
 					<p>借款管理</p>
@@ -150,6 +150,12 @@
                             window.location.href = "../login.html";
                         });
                     } else {
+
+                        if(data.lend >= 3){
+                           //已借款：修改借款管理菜单跳转地址
+                            $("#jkglPage").attr("href","jkgl.html");
+                        }
+
                         if (data.put == 0 || data.user.top_three == 1) {
                             var  status = "借款需要完成实名认证";
                             $("#auth_confirm").html("认证");

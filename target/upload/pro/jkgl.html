@@ -76,7 +76,7 @@
                         <p>首页</p>
                     </li>
                 </a>
-                <a href="repay.html">
+                <a id="jkglPage" href="repay.html">
                     <li>
                         <img src="images/hk02.png" style="width:5vw;margin-left: 14vw;margin-top: 1.5vw;"/>
                         <p style="color: #5F9BF1;">借款管理</p>
@@ -145,6 +145,11 @@
                             window.location.href = "../login.html";
                         });
                     }else{
+                        if(data.lend >= 3){
+                            //已借款：修改借款管理菜单跳转地址
+                            $("#jkglPage").attr("href","jkgl.html");
+                        }
+
                         //额度
                         $("#lendCount").html(data.lendCount);
                         //是否签字，0：否，1：是

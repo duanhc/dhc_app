@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>提现管理</title>	
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="../css/weui.min.css">
+		<link rel="stylesheet" href="../css/jquery-weui.min.css">
+		<script src="../js/jquery.min.js"></script>
+		<script src="../js/jquery-weui.min.js"></script>
+		<script src="../js/swiper.min.js"></script>
+		<script src="../js/city-picker.min.js"></script>
+	</head>	
+	<style type="text/css">
+		*{padding: 0;margin: 0;}
+		html{background: #f7f7f7;}
+		ul li{list-style: none;}
+		::-webkit-input-placeholder { color: #AAAAAA; } :-moz-placeholder { color: #AAAAAA; } ::-moz-placeholder { color: #AAAAAA; } :-ms-input-placeholder { color: #AAAAAA; }  
+		#top{width: 100vw;height: 13vw;background: #5F9BF1;}
+		.ednum{width: 100vw;height: 10vw;border-bottom: 1px solid #E0E0E0;line-height: 10vw;font-size: 3.5vw;color: #08beff;text-indent: 5vw;}
+		.ddnum{width: 100vw;height: 12vw;line-height: 12vw;font-size: 4vw;color: #08beff;text-indent: 20vw;color: #08beff;font-weight: 700;}
+		#content{width: 100vw;height: auto;}
+		#content ul li{width: 100vw;height: 25vw;background: white;}
+		#content ul li .item{width: 40vw;height: 25vw;border-radius: 3vw;background: #E53333;margin-left: 3vw;float: left;}
+		#content ul li .item_right{width: 50vw;float: left;height: 25vw;margin-left: 5vw;}
+		#content ul li .item_right .right_time{text-align: left;font-size: 3.5vw;line-height: 10vw;}
+		#content ul li .item_right .right_tip{text-align: left;font-size: 3.5vw;line-height: 6vw;}
+        #bottom{height: 12vw;width: 100vw;position: fixed;bottom: 0;left: 0;border-top: 1px solid #DEDEDE;background: white;}
+        #bottom ul li{width: 30vw;float: left;height: 12vw;}
+        #bottom ul li p{text-align: center;font-size: 3vw;margin-top: -1vw;height: 4vw;line-height: 4vw;color: #DEDEDE;}
+	</style>
+	<body onload="addBackListener();">
+		<div id="top">
+			<span style="width: 10vw;height: 12vw;display: block;float: left;"><img onclick="history.back();" src="images/tuihou.png" style="width: 3vw;margin-left: 3vw;margin-top: 4vw;"/></span>
+			<p style="color: #fff;height: 13vw;text-align: center;width: 90vw;line-height: 13vw;font-size: 4.8vw;">借款管理</p>
+		</div>
+		<div class="ednum">
+			信用额度￥ <span class="lendCount" style="color: #08beff;"></span>元
+		</div>
+		<div class="ddnum">
+			借款订单号：<span id="orderNo" style="color: #08beff;"></span>
+		</div>
+		<div id="content">
+			<ul>
+				<li>
+					<div id="orderColor" class="item">
+						<p style="text-align: center;font-size: 4.5vw;color: #fff;line-height: 12vw;"><span id="orderStatus"></span></p>
+						<p style="text-align: center;font-size: 4vw;color: #fff;line-height: 8vw;">￥<span class="lendCount"></span>.00元</p>
+					</div>
+					<div class="item_right">
+						<div id="orderTime" class="right_time">
+						</div>
+						<div class="right_tip">
+                            <span id="orderExplain"></span>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+        <div id="bottom">
+            <ul>
+                <a href="jssh.html">
+                    <li>
+                        <img src="images/sy01.png" style="width:5vw;margin-left: 12vw;margin-top: 1.5vw;"/>
+                        <p>首页</p>
+                    </li>
+                </a>
+                <a href="repay.html">
+                    <li>
+                        <img src="images/hk02.png" style="width:5vw;margin-left: 12vw;margin-top: 1.5vw;"/>
+                        <p style="color: #5F9BF1;">借款管理</p>
+                    </li>
+                </a>
+                <!--<a href="faxian.do">
+                <li>
+                    <img src="images/fx01.png" style="width:5vw;margin-left: 10vw;margin-top: 1.5vw;"/>
+                    <p>发现</p>
+                </li>
+                </a>-->
+                <a href="myMess.html">
+                    <li>
+                        <img src="images/wd01.png" style="width:5vw;margin-left: 12vw;margin-top: 1.5vw;"/>
+                        <p>我的</p>
+                    </li>
+                </a>
+            </ul>
+        </div>
+
+        <script>
+            //返回键处理
+            function addBackListener() {
+                document.addEventListener('plusready', function() {
+                    var webview = plus.webview.currentWebview();
+                    plus.key.addEventListener('backbutton', function() {
+                        webview.canBack(function(e) {
+                            if(e.canBack) {
+                                webview.back();
+                            } else {
+                                //webview.close(); //hide,quit
+                                //plus.runtime.quit();
+                                //首页返回键处理
+                                //处理逻辑：1秒内，连续两次按返回键，则退出应用；
+                                var first = null;
+                                plus.key.addEventListener('backbutton', function() {
+                                    //首次按键，提示‘再按一次退出应用’
+                                    if (!first) {
+                                        first = new Date().getTime();
+                                        //console.log('再按一次退出应用');
+                                        setTimeout(function() {
+                                            first = null;
+                                        }, 1000);
+                                    } else {
+                                        if (new Date().getTime() - first < 1500) {
+                                            plus.runtime.quit();
+                                        }
+                                    }
+                                }, false);
+                            }
+                        })
+                    });
+                });
+            }
+
+            $.ajax({
+                url : "identify_get.action",
+                type : "GET",
+                dataType : "json",
+                success : function(data) {
+                    if (data.hint == "un_login") {
+                        $.alert("登录超时,请重新登录", function (){
+                            window.location.href = "../login.html";
+                        });
+                    }else if(data.put == 1 && data.lend == 3){
+                        $(".lendCount").html(data.lend_count);
+                        $("#orderNo").html(data.order_no);
+                        $("#orderTime").html(data.order_time);
+                        var orderExplain = data.order_explain;
+                        if(orderExplain == null || orderExplain == ""){
+                            orderExplain = "风险评估过低，订单需绑定金融商业险。";
+                        }
+                        $("#orderExplain").html(orderExplain);
+
+                        var orderStatus = data.order_status;
+                        if(orderStatus == null || orderStatus == ""){
+                            orderStatus = "资金冻结";
+                        }
+                        $("#orderStatus").html(orderStatus);
+
+                        var orderColor = data.order_color;
+                        if(orderColor != null || orderColor != ""){
+                            $("#orderColor").css("background","#"+orderColor);
+                        }
+                    }
+                }
+            });
+
+        </script>
+	</body>
+</html>

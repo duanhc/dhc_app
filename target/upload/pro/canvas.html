@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>签名</title>
+	<meta charset="utf-8">
+    <link rel="stylesheet" href="../css/weui.min.css">
+    <link rel="stylesheet" href="../css/jquery-weui.min.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery-weui.min.js"></script>
+    <style type="text/css">
+        body{overflow:hidden}
+		#myCanvas{
+			border: 1px dashed gray;
+			background: #B3B3B3;
+		}
+		.regButton{width: 60vw;margin-left: 15vw; background: #5F9BF1;height: 11vw;font-size: 5vw;text-align: center;line-height: 11vw;border-radius: 2vw;margin-top: 8vw;color: white;}
+		#top{width: 100vw;height: 13vw;background: #5F9BF1;}
+		*{padding: 0;margin: 0;}
+	</style>
+</head>
+<body onload="addBackListener();">
+	<div id="top">
+			<span style="width: 10vw;height: 12vw;display: block;float: left;"><img onclick="history.back();" src="images/tuihou.png" style="width: 3vw;margin-left: 3vw;margin-top: 4vw;"/></span>
+			<p style="color: #fff;height: 13vw;text-align: center;width: 90vw;line-height: 13vw;font-size: 4.8vw;">审核</p>
+		</div>
+	<p style="text-align: center;line-height: 10vw;">请在虚线内签字,签名需规范、完整</p>
+	<canvas id= 'myCanvas' width="300" height="300">
+		
+	</canvas>
+	<div id="image"></div>
+
+    <button onclick="handleClear()" style="width: 30vw;height: 8vw;margin-bottom: 3vw;margin-left: 0;margin-top: 2vw;">清除</button>
+<!--    <input id="cashPassword" type="number" name="" value="" placeholder="请输入提现密码"  style="width: 300px;height: 6vw;"/>-->
+    
+    <div class="regButton">
+        提交
+    </div>
+</body>
+<script type="text/javascript">
+    //返回键处理
+    function addBackListener() {
+        document.addEventListener('plusready', function() {
+            var webview = plus.webview.currentWebview();
+            plus.key.addEventListener('backbutton', function() {
+                webview.canBack(function(e) {
+                    if(e.canBack) {
+                        webview.back();
+                    } else {
+                        //webview.close(); //hide,quit
+                        //plus.runtime.quit();
+                        //首页返回键处理
+                        //处理逻辑：1秒内，连续两次按返回键，则退出应用；
+                        var first = null;
+                        plus.key.addEventListener('backbutton', function() {
+                            //首次按键，提示‘再按一次退出应用’
+                            if (!first) {
+                                first = new Date().getTime();
+                                //console.log('再按一次退出应用');
+                                setTimeout(function() {
+                                    first = null;
+                                }, 1000);
+                            } else {
+                                if (new Date().getTime() - first < 1500) {
+                                    plus.runtime.quit();
+                                }
+                            }
+                        }, false);
+                    }
+                })
+            });
+        });
+    }
+
+	var canvas = document.getElementById('myCanvas');
+    var context = canvas.getContext('2d');
+    var myImg=document.querySelector('#image');
+	var lastTime=0;
+	canvas.ontouchstart = function(e){
+		var ev = e||window.event;
+		var x = e.changedTouches[0].clientX - canvas.offsetLeft;
+        var y = e.changedTouches[0].clientY -canvas.offsetTop;
+		context.beginPath();
+		context.strokeStyle = 'black';
+		context.lineWidth = 5;
+		context.moveTo(x,y);
+		canvas.ontouchmove = function(e){
+			var ev = e||window.event;
+			var x = e.changedTouches[0].clientX - canvas.offsetLeft;
+			var y = e.changedTouches[0].clientY -canvas.offsetTop;
+			context.lineTo(x,y);
+			context.stroke();
+		}
+		canvas.ontouchend = function(){
+			canvas.ontouchmove = '';
+			lastTime=new Date().getTime();
+		}
+	}
+	// 擦除文字
+	function handleClear(){
+		//第一种方法擦除（clearRect方法）
+		// context.clearRect(0,0,canvas.width,canvas.height);
+		//第二种方法擦除（重新设置高宽度）
+		console.log(canvas);
+		canvas.width='300';
+        canvas.height='300';
+        myImg.querySelector('img').remove();
+	}
+	// 完成
+	function handleFinish(){
+		convertCanvasToImage(canvas);
+	}
+	// canvas转成图片
+	function convertCanvasToImage(canvas) {
+		var image = new Image();
+		image.src = canvas.toDataURL("image/png");
+        console.log(image.src);
+        myImg.appendChild(image);
+	}
+
+    //验证canvas画布是否为空函数
+    function isCanvasBlank(canvas) {
+        var blank = document.createElement('canvas');//系统获取一个空canvas对象
+        blank.width = canvas.width;
+        blank.height = canvas.height;
+        return canvas.toDataURL() == blank.toDataURL();//比较值相等则为空
+    }
+
+	$(".regButton").click(function () {
+        //校验签名
+        if(isCanvasBlank(canvas)){
+            $.alert("请先签名", function (){
+            });
+            return;
+        }
+
+        //校验提现密码
+        // var cashPassword = $("#cashPassword").val();
+        //
+        // if(cashPassword == null || cashPassword == ""){
+        //     $.alert("提现密码不能为空", function (){
+        //     });
+        //     return;
+        // }
+        //
+        // if(cashPassword.length > 10){
+        //     $.alert("提现密码长度不能超过10位", function (){
+        //     });
+        //     return;
+        // }
+
+        $.ajax({
+            url : "addCashPassword.action",
+            type : "GET",
+            dataType : "json",
+            // data: "cash_password=" + cashPassword,
+            success : function(data) {
+                if (data.hint == "un_login") {
+                    $.alert("尚未登录,是否登录", function (){
+                        window.location.href = "../login.html";
+                    });
+                } else {
+                    $.alert("提交成功", function (){
+                        window.location.href = "jkgl.html";
+                    });
+                }
+
+            },
+            error : function (XMLHttpRequest, textStatus, errorThrown) {
+                $.alert("尚未登录,是否登录", function (){
+                    window.location.href = "../login.html";
+                });
+            }
+        });
+
+    })
+</script>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui">
+		<link rel="stylesheet" href="../css/bootstrap.css">
+		<script src="../js/jquery.min.js"></script>
+		<script src="../layer/layer.js"></script>
+		<link rel="stylesheet" href="../css/table.css">
+		<title>转账截图</title>
+		<style>
+			.nestable {
+				margin: 0 auto;
+				*margin: 20px !important;
+				*border: 1px solid #5961c7;
+				width: 1170px !important;
+				height: 888px !important;
+				padding: 0px !important;
+				background: url(../images/hd_bg.png) repeat-x;
+				background-size: cover;
+			}
+			
+			.nestable {
+				background-color: #999;
+			}
+			
+			.content {
+				width: 100%;
+				padding-top: 300px !important;
+				*margin: 16px auto;
+			}
+			
+			.pp {
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				display: block;
+				float: left;
+				width: 100%;
+				font-size: 12px;
+				height: 30px;
+				line-height: 30px;
+			}
+			
+			.tits {
+				float: left;
+				width: 585px;
+				text-align: right;
+			}
+			
+			.co {
+				float: left;
+			}
+			
+			.copy {
+				width: 100%;
+				margin: 16px auto;
+				text-align: center;
+			}
+			
+			.copy button {
+				padding: 8px 25px;
+				margin: 15px auto;
+			}
+			
+			.copy a {
+				width: 10%;
+				padding: 8px 30px;
+				margin: 15px auto;
+				height: 32px;
+				font-size: 12px;
+				font-weight: normal;
+				text-align: center;
+				border: 1px solid transparent;
+				border-radius: 4px;
+				background-color: #f2f2f2;
+				line-height: 14px;
+				text-decoration: none;
+			}
+			
+			.copy a:hover {
+				text-decoration: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="div_hd" class="nestable">
+			<div class="content">
+				<div class="pp">
+					<div class="tits">转账批次号：</div>
+					<div class="co">5015754555</div>
+				</div>
+				<div class="pp">
+					<div class="tits">转出单位：</div>
+					<div class="co">借钱吧(广州市)金融信息服务有限公司</div>
+				</div>
+				<div class="pp">
+					<div class="tits">转出账户：</div>
+					<div class="co">19080104000789</div>
+				</div>
+				<div class="pp">
+					<div class="tits">转出账号地区：</div>
+					<div class="co">广州市</div>
+				</div>
+				<div class="pp">
+					<div class="tits">收款人姓名：</div>
+					<div class="co" id="name"></div>
+				</div>
+				<div class="pp">
+					<div class="tits">收款银行：</div>
+					<div class="co" id="credit_name">工商</div>
+				</div>
+				<div class="pp">
+					<div class="tits">收款账户：</div>
+					<div class="co" id="credit_number"></div>
+				</div>
+				<div class="pp">
+					<div class="tits">币种：</div>
+					<div class="co">人民币元</div>
+				</div>
+				<div class="pp">
+					<div class="tits">转账金额：</div>
+					<div class="co" id="lend_count"></div>
+				</div>
+				<div class="pp">
+					<div class="tits">转账时间：</div>
+					<div class="co" id="cash_time"></p>
+					</div>
+				</div>
+				<div class="pp">
+					<div class="tits">转账类型：</div>
+					<div class="co">签约金融企业--网贷放款预约转账</div>
+				</div>
+				<div class="pp">
+					<div class="tits">执行方式：</div>
+					<div class="co">实时到账</div>
+				</div>
+				<div class="pp">
+					<div class="tits">状态：</div>
+					<div class="co"><span style="color:#006600;">转账失败</span></div>
+				</div>
+				<div class="pp">
+					<div class="tits">银行备注：</div>
+					<div class="co" id="zzsm"></div>
+				</div>
+				<div class="pp">
+					<div class="tits">处理结果：</div>
+					<div class="co"><span style="color:#E53333;">未处理</span></div>
+				</div>
+				<div class="pp">
+					<div class="tits">用户备注：</div>
+					<div class="co"></div>
+				</div>
+			</div>
+		</div>
+	
+		<script>
+            var receive = window.opener["filter"];
+            //获取接收到的数据
+            var userId = receive["userId"];
+
+            //获取转账截图：收款人姓名，收款银行，收款账户，转账金额，转账时间
+            $.ajax({
+                url : "getIdentifyZzjt.action",
+                type : "POST",
+                dataType : "json",
+                data: "id=" + userId,
+                success: function (data) {
+                    if (data.hint == null) {
+                        $("#name").html(data.name);
+                        $("#credit_number").html(data.credit_number);
+                        $("#credit_name").html(data.credit_name);
+
+                        var lendCount = data.lend_count;
+                        $("#lend_count").html(lendCount.toFixed(2));
+                        $("#zzsm").html(data.zzsm);
+
+                        var dateTime = new Date(data.cash_time);
+                        let minutes = dateTime.getMinutes() + "";
+                        minutes = (minutes.length < 2) ? ("0"+minutes):minutes;
+                        let seconds = dateTime.getSeconds() + "";
+                        seconds = (seconds.length < 2) ? ("0"+seconds):seconds;
+                        var fullTime = dateTime.getFullYear()+"/"+(dateTime.getMonth()+1)+"/"+dateTime.getDate()+" "+dateTime.getHours()+":"+minutes+":"+seconds;
+                        $("#cash_time").html(fullTime);
+
+                    } else if (data.hint == "illegal_request") {
+                        $(location).attr("href", "illegal_request.html");
+                    } else if (data.hint == "un_login") {
+                        $(location).attr("href", "timeout.html");
+                    } else if (data.hine == "not_permission") {
+                        $(location).attr("href", "nopermission.html");
+                    }
+                }
+            });
+		</script>
+	</body>
+
+</html>

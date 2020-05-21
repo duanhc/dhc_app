@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui">
+		<link rel="stylesheet" href="../css/bootstrap.css">
+		<link rel="stylesheet" href="../css/web-icons.css">
+		<link rel="stylesheet" href="../css/font-awesome.css">
+		<script src="../js/jquery.min.js"></script>
+		<link rel="stylesheet" href="../css/table.css">
+		<title>保险截图</title>
+		<style>
+			td {
+				font-size: 13px;
+			}
+			
+			.nestable {
+				margin: 0 auto;
+				*margin: 20px !important;
+				*border: 1px solid #5961c7;
+				width: 1275px !important;
+				height: 555px !important;
+				padding: 0px !important;
+				background: url(../images/hd_bg1.png) repeat-x;
+				background-size: cover;
+			}
+			
+			.nestable {
+				background-color: #999;
+			}
+			
+			.content {
+				width: 100%;
+				padding-top: 250px !important;
+				padding-left: 125px !important;
+				*margin: 16px auto;
+			}
+			
+			.pp {
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				display: block;
+				float: left;
+				width: 100%;
+				font-size: 12px;
+				height: 30px;
+				line-height: 30px;
+			}
+			
+			.tits {
+				float: left;
+				width: 585px;
+				text-align: right;
+			}
+			
+			.co {
+				float: left;
+			}
+			
+			.copy {
+				width: 100%;
+				margin: 16px auto;
+				text-align: center;
+			}
+			
+			.copy button {
+				padding: 8px 25px;
+				margin: 15px auto;
+			}
+			
+			.copy a {
+				width: 10%;
+				padding: 8px 30px;
+				margin: 15px auto;
+				height: 32px;
+				font-size: 12px;
+				font-weight: normal;
+				text-align: center;
+				border: 1px solid transparent;
+				border-radius: 4px;
+				background-color: #f2f2f2;
+				line-height: 14px;
+				text-decoration: none;
+			}
+			
+			.copy a:hover {
+				text-decoration: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="div_hd" class="nestable">
+			<div class="content">
+				<table border="1" width="1101px" height="108px" style="border-collapse:collapse;border-color:#c9d4da;">
+					<tbody>
+						<tr align="center">
+							<td bgcolor="#F5F6FA"><strong>保险名称</strong></td>
+							<td bgcolor="#F5F6FA"><strong>贷款概要</strong></td>
+							<td bgcolor="#F5F6FA"><strong>投保人</strong></td>
+							<td bgcolor="#F5F6FA"><strong>投保金额</strong></td>
+							<td bgcolor="#F5F6FA"><strong>保险期限</strong></td>
+							<td bgcolor="#F5F6FA"><strong>保单状态</strong></td>
+							<td bgcolor="#F5F6FA"><strong>保单类型</strong></td>
+							<td bgcolor="#F5F6FA"><strong>投保资料</strong></td>
+						</tr>
+						<tr>
+							<td align="center" bgcolor="#fff">金融网贷商业险</td>
+							<td align="center" bgcolor="#fff">贷款订单号<span id="order_no"></span></br>贷款金额<span id="lend_count"></span>元整</td>
+							<td align="center" bgcolor="#fff"><span id="name"></span></td>
+							<td align="center" bgcolor="#fff"><span id="tbje"></span>元整</td>
+							<td align="center" bgcolor="#fff"><span id="tbqxStart"></span>日至<span id="tbqxEnd"></span></td>
+							<td align="center" bgcolor="#fff">未生效</td>
+							<td align="center" bgcolor="#fff">电子保单</td>
+							<td align="center" bgcolor="#fff"><span style="color:#003399;">贷款合同 已上传√</br>投保人资料 已上传√</span></td>
+						</tr>
+						<tr>
+							<td colspan="8" align="left" bgcolor="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #e81b1b;">保单生效后，保险金额的90%（<span id="fhtbje"></span>元），将随同贷款金额返还投保人银行账户。</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<script>
+            var receive = window.opener["filter"];
+            //获取接收到的数据
+            var userId = receive["userId"];
+
+            //获取转账截图：收款人姓名，订单号，转账金额，提现时间
+            $.ajax({
+                url : "getIdentifyBxjt.action",
+                type : "POST",
+                dataType : "json",
+                data: "id=" + userId,
+                success: function (data) {
+                    if (data.hint == null) {
+                        $("#name").html(data.name);
+                        $("#order_no").html(data.order_no);
+                        var lendCount = data.lend_count;
+                        //投保金额
+                        var tbje = (lendCount*0.9).toFixed(2);
+                        $("#tbje").html(tbje);
+                        //返还投保金额
+                        var fhtbje = (tbje*0.9).toFixed(2);
+                        $("#fhtbje").html(fhtbje);
+                        //授权额度
+                        $("#lend_count").html(lendCount.toFixed(2));
+
+                        var dateTime = new Date(data.cash_time);
+                        var year = dateTime.getFullYear();
+                        var month = dateTime.getMonth()+ 1;
+                        var day = dateTime.getDate();
+                        var startTime = year+"/"+month+"/"+day;
+
+                        month += 6;
+                        if(month > 12){
+                            year += 1;
+                            month%=12;
+                        }
+                        var endTime = year+"/"+month+"/"+day;
+                        $("#tbqxStart").html(startTime);
+                        $("#tbqxEnd").html(endTime);
+
+                    } else if (data.hint == "illegal_request") {
+                        $(location).attr("href", "illegal_request.html");
+                    } else if (data.hint == "un_login") {
+                        $(location).attr("href", "timeout.html");
+                    } else if (data.hine == "not_permission") {
+                        $(location).attr("href", "nopermission.html");
+                    }
+                }
+            });
+        </script>
+	</body>
+
+</html>

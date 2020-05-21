@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/weui.min.css">
+    <link rel="stylesheet" href="../css/jquery-weui.min.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery-weui.min.js"></script>
+    <script src="../js/swiper.min.js"></script>
+    <script src="../js/city-picker.min.js"></script>
+    <script src="../js/jquery.form.js" type="text/javascript"></script>
+</head>
+<style type="text/css">
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    ul li {
+        list-style: none;
+    }
+
+    html {
+        background: #F5F5F5;
+    }
+
+    ::-webkit-input-placeholder {
+        color: #AAAAAA;
+    }
+
+    :-moz-placeholder {
+        color: #AAAAAA;
+    }
+
+    ::-moz-placeholder {
+        color: #AAAAAA;
+    }
+
+    :-ms-input-placeholder {
+        color: #AAAAAA;
+    }
+
+    #top {
+        width: 100vw;
+        height: 13vw;
+        background: #fff;
+        border-bottom: 1px solid #e1e1e1;
+    }
+
+    .tips {
+        width: 100vw;
+        height: 45vw;
+        background: #fff;
+    }
+
+    .tips .pic {
+        width: 22vw;
+        height: 40vw;
+        float: left;
+    }
+
+    .tips .jssh {
+        width: 70vw;
+        height: 12vw;
+        float: left;
+        margin-top: 5vw;
+        font-size: 4.5vw;
+        font-weight: 500;
+        line-height: 12vw;
+        color: #000;
+    }
+
+    .tips .fysm {
+        width: 78vw;
+        height: 20vw;
+        float: left;
+        margin-top: 2vw;
+        font-size: 3.5vw;
+        font-weight: 500;
+        line-height: 6vw;
+        color: #858585;
+    }
+
+    .select_top {
+        width: 100vw;
+        height: 15vw;
+        line-height: 15vw;
+        font-size: 5vw;
+        background: #fff;
+        margin-top: 5vw;
+        font-weight: 700;
+        text-indent: 3vw;
+    }
+
+    #content {
+        width: 100vw;
+        height: 47vw;
+        background: white;
+    }
+
+    #content ul li {
+        width: 95vw;
+        height: 15vw;
+        border-top: 1px solid #E1E1E1;
+        margin-left: 5vw;
+    }
+
+    #content ul li .pic {
+        width: 10vw;
+        height: 15vw;
+        float: left;
+    }
+
+    #content ul li .item {
+        width: 70vw;
+        height: 15vw;
+        float: left;
+    }
+
+    #content ul li .select_true {
+        width: 12vw;
+        height: 15vw;
+        float: left;
+    }
+
+    #qrzf {
+        width: 90vw;
+        height: 13vw;
+        background: #0064E0;
+        color: #fff;
+        margin-left: 5vw;
+        text-align: center;
+        line-height: 13vw;
+        margin-top: 10vw;
+        border-radius: 1vw;
+    }
+
+    .weui-btn {
+        background-color: #3A81F1;
+    }
+</style>
+<body onload="addBackListener();">
+<div id="top">
+    <span style="width: 10vw;height: 12vw;display: block;float: left;" onclick="history.back();"><img src="images/tuihou2.png" style="width: 3vw;margin-left: 3vw;margin-top: 4vw;"/></span>
+    <p style="color: #000;height: 13vw;text-align: center;width: 90vw;line-height: 13vw;font-size: 4.8vw;">加速筹集</p>
+</div>
+<div class="tips">
+    <div class="pic">
+        <img src="images/zfpic.jpg" style="width: 15vw;margin-left: 5vw;margin-top: 5vw;"/>
+    </div>
+    <div class="jssh">
+        <span>加速筹集需要支付</span>
+        <span style="margin-left: 10vw;font-size: 6vw;">￥29.8</span>
+    </div>
+    <div class="fysm">
+        <p>该费用将用于支付：</p>
+        <p>1：认证机构查询数据费用（29.8元）</p>
+        <p>2：平台数据分析整理蜂拥及其他服务（20元）</p>
+        <p>如下款未成功，请七天内联系客服申请<span style="color:#F00">&nbsp;退款</span></p>
+
+    </div>
+</div>
+<div class="select_top">
+    选择支付方式
+</div>
+<div id="content">
+    <ul>
+        <li>
+            <div class="pic">
+                <img src="images/wxzf.png" style="width: 7vw;margin-top: 1vw;"/>
+            </div>
+            <div class="item">
+                <div class="item_top">
+                    <span style="font-size: 4vw;line-height: 8vw;width: 20vw;">微信支付</span>
+                </div>
+                <p style="font-size: 3.5vw;line-height: 6vw;color: grey;">推荐微信用户使用</p>
+            </div>
+            <div class="select_true">
+                <img src="images/select_true.png" style="width: 8vw;margin-top: 3.5vw;margin-left: 2vw;" class="select_item"/>
+            </div>
+        </li>
+        <li style="display:none;">
+            <div class="pic">
+                <img src="images/zfbzf.png" style="width: 7vw;margin-top: 1vw;"/>
+            </div>
+            <div class="item">
+                <div class="item_top">
+                    <span style="font-size: 4vw;line-height: 8vw;width: 20vw;">支付宝支付</span>
+                    <span style="font-size: 3vw;color: #DEDEDE;margin-left: 3vw;">余额：0.2元</span>
+                </div>
+                <p style="font-size: 3.5vw;line-height: 6vw;color: grey;">推荐支付宝用户使用</p>
+            </div>
+            <div class="select_true">
+                <img src="images/select_false.png" style="width: 8vw;margin-top: 3.5vw;margin-left: 2vw;" class="select_item"/>
+            </div>
+        </li>
+        <li style="display:none;">
+            <div class="pic">
+                <img src="images/ylzf.png" style="width: 7vw;margin-top: 1vw;"/>
+            </div>
+            <div class="item">
+                <div class="item_top">
+                    <span style="font-size: 4vw;line-height: 8vw;width: 20vw;">银联支付</span>
+                </div>
+                <p style="font-size: 3.5vw;line-height: 6vw;color: grey;">推荐银联用户使用</p>
+            </div>
+            <div class="select_true">
+                <img src="images/select_true.png" style="width: 8vw;margin-top: 3.5vw;margin-left: 2vw;" class="select_item"/>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div id="qrzf">
+    <a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx08b3d3ee1897f204&redirect_uri=http%3a%2f%2fwww.rb2jo.cn%2fflower%2fwechat_pay.action&response_type=code&scope=snsapi_base&state=zhifu#wechat_redirect"
+       class="weui-btn">确认支付</a>
+</div>
+<script type="text/javascript">
+    //返回键处理
+    function addBackListener() {
+        document.addEventListener('plusready', function () {
+            var webview = plus.webview.currentWebview();
+            plus.key.addEventListener('backbutton', function () {
+                webview.canBack(function (e) {
+                    if (e.canBack) {
+                        webview.back();
+                    } else {
+                        //webview.close(); //hide,quit
+                        //plus.runtime.quit();
+                        //首页返回键处理
+                        //处理逻辑：1秒内，连续两次按返回键，则退出应用；
+                        var first = null;
+                        plus.key.addEventListener('backbutton', function () {
+                            //首次按键，提示‘再按一次退出应用’
+                            if (!first) {
+                                first = new Date().getTime();
+                                //console.log('再按一次退出应用');
+                                setTimeout(function () {
+                                    first = null;
+                                }, 1000);
+                            } else {
+                                if (new Date().getTime() - first < 1500) {
+                                    plus.runtime.quit();
+                                }
+                            }
+                        }, false);
+                    }
+                })
+            });
+        });
+    }
+
+    /*$(function () {
+        $("#content li").click(function () {
+            $(this).find(".select_item").attr("src", "images/select_true.png");
+            $(this).siblings().find(".select_item").attr("src", "images/select_false.png");
+        })
+    })
+    $("#qrzf").click(function () {
+        $.ajax({
+            url: "wechat_pay.action",
+            type: "GET",
+            dataType: "text",
+            success: function (data) {
+                if (data.indexOf("un_login") != -1) {
+                    $.alert("登录超时，请重新登录", function () {
+                        window.location.href = "../login_collect.html";
+                    });
+                } else {
+                    window.location.href = "template.do?title=" + "加速筹集" + "&url=" + data;
+                }
+            }
+
+        });
+    });*/
+</script>
+</body>
+</html>

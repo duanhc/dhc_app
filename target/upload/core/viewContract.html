@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui">
+		<link rel="stylesheet" href="../css/bootstrap.css">
+		<script src="../js/jquery.min.js"></script>
+		<link rel="stylesheet" href="../css/table.css">
+		<title>合同</title>
+		<style>
+			.title {
+				font-size: 24px;
+				text-align: center;
+				background-color: #78ea81;
+				line-height: 48px;
+			}
+			
+			.content {
+				width: 90%;
+				margin: 16px auto;
+			}
+			
+			.nestable {
+				margin: 20px !important;
+				border: 1px solid #5961c7;
+				padding: 0px !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="nestable">
+			<div class="title">借款订单：<span id="order_no"></span>合同</div>
+			<div class="public-selectArea public-selectArea1 margin_10 content">
+				<p>&nbsp; &nbsp; &nbsp; &nbsp;甲方(出借人)：借钱吧(广州市)金融信息服务有限公司</p>
+				<p>　　住所：广州市天河区中山大道科韵路102号三楼302</p>
+				<p>　　乙方(借款人)：<span id="realName"></span></p>
+				<p>　　住所：<span id="city"></span></p>
+				<p>&nbsp; &nbsp; &nbsp; &nbsp;身份证号：<span id="idcard"></span></p>
+				<p>&nbsp; &nbsp; &nbsp; &nbsp;手机号：<span id="phoneNum"></span></p>
+				<p>　　甲乙双方本着平等自愿、诚实信用的原则，经协商一致，达成本小额贷款合同，并保证共同遵守执行。</p>
+                <p>　　一、借款金额&nbsp;：乙方向甲方借款人民币(大写：<span id="lendCountToCN"></span>)&nbsp;(小写：<span id="lendCount"></span>元 )。</p>
+				<p>　　二、借款利息：借款利率为月利息 0.006 %。</p>
+				<p>　　三、借款期限：借款期限为&nbsp;，从 <span id="startTime"></span> 起至 &nbsp;<span id="endTime"></span> 止。如实际放款日与该日期不符，以实际借款日期为准。乙方收到借款后应当出具收据，乙方所出具的借据为本小额贷款合同的附件，与本小额贷款合同具有同等法律效力。</p>
+				<p>　　四、甲方以转账的方式将所借款项打入乙方账户。</p>
+				<p><span style="background-color: rgb(249, 150, 59);">　　借款人手机号：<span id="phoneNum2"></span></p>
+				<p><span style="background-color: rgb(249, 150, 59);">&nbsp; &nbsp; &nbsp; &nbsp; 收款银行：<span id="creditName"></span></span></p>
+				<p><span style="background-color: rgb(249, 150, 59);">　　账号：<span id="creditNum"></span></span></p>
+				<p><span style="background-color: rgb(249, 150, 59);">&nbsp; &nbsp; &nbsp; &nbsp; 姓名：<span id="realName2"></span></span></p>
+				<p>　　五、保证条款：</p>
+				<p>　　1、借款方不得用借款进行违法活动。否则，甲方有权要求乙方立即还本付息，所产生的法律后果由乙方自负。</p>
+				<p>　　2、借款方必须按合同规定的期限还本付息。逾期不还的部分，借款方有权限期追回借款并收取每天借款总金额的 0.1% 逾期费用 。</p>
+				<p>&nbsp;　　六、违约责任</p>
+				<p>　　1、乙方如未按合同规定归还借款，乙方应当承担违约金以及因诉讼发生的律师费、诉讼费、差旅费等费用。</p>
+				<p>　　2、当甲方认为借款人发生或可能发生影响偿还能力之情形时，甲方有权提前收回借款，借款人应及时返还，借款人及保证人不得以任何理由抗辩。</p>
+				<p>　　七、合同争议的解决方式：本合同在履行过程中发生的争议，由当事人双方友好协商解决，也可由第三人调解。协商或调解不成的，可依法向甲方所在地人民法院提起诉讼。</p>
+				<p>　　八、借款方在审核通过后由于各种因素导致放款失败如：虚假身份证、虚假银行卡、虚假联系人。此虚假信息会造成系统检测骗贷嫌疑，借款方必须积极配合甲方处理。如不配合，甲方有权向人民法院提起诉讼，并上报中国人民银行征信中心，限制其亲人、子女高消费，体制、教育等。<span>&nbsp;</span><br></p>
+				<p>
+					<!--StartFragment-->
+					<!--EndFragment-->
+				</p>
+				<p>　　九、本小额贷款合同自各方签字（含电子签名）之日起生效。合同文本具有同等法律效力。</p>
+				<p><br></p>
+				<p>　　甲方(签字、盖章)：<img src="../images/1.png" style="max-width: 100%;" class=""></p>
+				<p>&nbsp; &nbsp; &nbsp; &nbsp;乙方&nbsp;(签字)：</p>
+				<p>&nbsp; &nbsp; &nbsp; &nbsp;<img src="../images/2.png" style="max-width: 100%;"></p>
+				<p>
+					<!--StartFragment-->
+					<!--EndFragment-->
+				</p>
+				<p>　　签订日期：<span id="cashTime"></span></p>
+				<p><br></p>
+			</div>
+		</div>
+
+        <script>
+            var receive = window.opener["filter"];
+            //获取接收到的数据
+            var userId = receive["userId"];
+            //查询合同息
+            $.ajax({
+                type: "POST",
+                url: "user_zlsh_detail_view.do",
+                data: 'id=' + userId,
+                dataType: "json",
+                success: function (data) {
+                    if (data.hint == null) {
+                        $("#order_no").html(data.identify == null ? "" : (data.identify.order_no == null ? "" : data.identify.order_no));
+                        $("#realName").html(data.userDetail == null ? "" :(data.userDetail.name == null ? "" :data.userDetail.name));
+                        $("#realName2").html(data.userDetail == null ? "" :(data.userDetail.name == null ? "" :data.userDetail.name));
+                        $("#idcard").html(data.userDetail == null ? "" :(data.userDetail.id_card == null ? "" :data.userDetail.id_card));
+                        $("#phoneNum").html(data.identify == null ? "" : (data.identify.user == null ? "" : data.identify.user.phone_number));
+                        $("#phoneNum2").html(data.identify == null ? "" : (data.identify.user == null ? "" : data.identify.user.phone_number));
+                        $("#lendCount").html(data.identify == null ? "" : (data.identify.lend_count == null ? "" : (data.identify.lend_count).toFixed(2)));
+                        $("#lendCountToCN").html(data.identify == null ? "" : (data.identify.lend_count == null ? "" : numberToChiness(data.identify.lend_count)));
+                        $("#creditName").html(data.userDetail == null ? "" :(data.userDetail.credit_name == null ? "" :data.userDetail.credit_name));
+                        $("#creditNum").html(data.userDetail == null ? "" :(data.userDetail.credit_number == null ? "" :data.userDetail.credit_number));
+
+                        var numtime = data.identify == null ? "" : (data.identify.cash_time == null ? "" : data.identify.cash_time);
+                        var dateTime = new Date(numtime);
+                        var year = dateTime.getFullYear();//年
+                        var month = dateTime.getMonth()+1;//月
+                        var day = dateTime.getDate();//日
+                        //签订日期:提现日期
+                        $("#cashTime").html(year+" 年 "+month+" 月 "+day);
+                        //借款期限
+                        $("#startTime").html(year+"年 "+month+"月"+day);
+                        var lendTime = data.identify == null ? "" : (data.identify.lend_time == null ? "" : data.identify.lend_time);
+                        //借款月数
+                        var lendTimeNum = parseInt(lendTime.replace("个月",""));
+                        var newMonth = (month + lendTimeNum)%12 == 0 ? 12 : (month + lendTimeNum)%12;
+                        if((month + lendTimeNum)>36){
+                            year += 3;
+                        }else if((month + lendTimeNum)>24){
+                            year += 2;
+                        }else if((month + lendTimeNum)>12){
+                            year += 1;
+                        }
+
+                        $("#endTime").html(year+"年 "+newMonth+"月"+day);
+                        $("#city").html(data.userDetail == null ? "" :(data.userDetail.city == null ? "" :data.userDetail.city));
+
+                    } else if (data.hint == "un_login") {
+                        $(location).attr("href", "timeout.html");
+                    } else if (data.hine == "not_permission") {
+                        $(location).attr("href", "nopermission.html");
+                    }
+                }
+            });
+
+            //数字金额转中文大写
+            function numberToChiness(n) {
+                if (n == 0) {
+                    return "零";
+                }
+                if (!/^(\+|-)?(0|[1-9]\d*)(\.\d+)?$/.test(n))
+                    return "数据非法";
+                var unit = "仟佰拾亿仟佰拾万仟佰拾元角分", str = "";
+                n += "00";
+                var a = parseFloat(n);
+                if (a < 0) {
+                    n = n.substr(1);
+                }
+                var p = n.indexOf('.');
+                if (p >= 0) {
+                    n = n.substring(0, p) + n.substr(p + 1, 2);
+                }
+
+                unit = unit.substr(unit.length - n.length);
+
+                for (var i = 0; i < n.length; i++)
+                    str += '零壹贰叁肆伍陆柒捌玖'.charAt(n.charAt(i)) + unit.charAt(i);
+                if (a > 0) {
+                    return str.replace(/零(仟|佰|拾|角)/g, "零").replace(/(零)+/g, "零").replace(/零(万|亿|元)/g, "$1").replace(/(亿)万|壹(拾)/g, "$1$2").replace(/^元零?|零分/g, "").replace(/元$/g, "元整");
+
+                } else {
+
+                    return "负" + str.replace(/零(仟|佰|拾|角)/g, "零").replace(/(零)+/g, "零").replace(/零(万|亿|元)/g, "$1").replace(/(亿)万|壹(拾)/g, "$1$2").replace(/^元零?|零分/g, "").replace(/元$/g, "元整");
+                }
+            }
+
+        </script>
+	</body>
+
+</html>

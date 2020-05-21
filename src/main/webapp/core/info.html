@@ -71,15 +71,15 @@
 									</dl>
 								</div>
 								<div class="wp_box col-lg-4 col-xs-6">
-									<dl><dt>提现密码：</dt>
-										<dd style="color:#f30213;font-weight:700">******</dd>
-									</dl>
-								</div>
-								<div class="wp_box col-lg-4 col-xs-6">
 									<dl><dt>银行卡号：</dt>
 										<dd><span id="creditNum"></span></dd>
 									</dl>
 								</div>
+                                <!--<div class="wp_box col-lg-4 col-xs-6">
+                                    <dl><dt>提现密码：</dt>
+                                        <dd style="color:#f30213;font-weight:700">******</dd>
+                                    </dl>
+                                </div>-->
 							</div>
 						</div>
 						<!--银行卡信息-->
@@ -204,10 +204,15 @@
                     $("#phone2").html(data.userContact == null ? "" : (data.userContact.phone2 == null ? "" : data.userContact.phone2));
 
                     //身份证
-                    var idCardFrontHtml = "<a id='bigIdCardFront' href='javascript:void(0);'><img src=\"id_card_image_font.action?phone="+data.identify.user.phone_number+"\" alt=\"点击查看大图\" height=\"28px\" /></a>"
-                    var idCardBackHtml = "<a id='bigIdCardBack' href='javascript:void(0);'><img src=\"id_card_image_back.action?phone="+data.identify.user.phone_number+"\" alt=\"点击查看大图\" height=\"28px\" /></a>"
-                    $("#idCardFront").html(idCardFrontHtml);
-                    $("#idCardBack").html(idCardBackHtml);
+                    if(data.identify.step1 != 0){
+                        var idCardFrontHtml = "<a id='bigIdCardFront' href='javascript:void(0);'><img src=\"id_card_image_font.action?phone="+data.identify.user.phone_number+"\" alt=\"点击查看大图\" height=\"28px\" /></a>"
+                        $("#idCardFront").html(idCardFrontHtml);
+                    }
+                    if(data.identify.step2 != 0){
+                        var idCardBackHtml = "<a id='bigIdCardBack' href='javascript:void(0);'><img src=\"id_card_image_back.action?phone="+data.identify.user.phone_number+"\" alt=\"点击查看大图\" height=\"28px\" /></a>"
+                        $("#idCardBack").html(idCardBackHtml);
+                    }
+
 
                     $("#bigIdCardFront").click(function () {
                         //页面层-身份证图片

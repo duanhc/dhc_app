@@ -5,12 +5,11 @@
 
 package com.fusibang.dao;
 
-import java.util.List;
-
+import com.fusibang.tables.IdCard;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.fusibang.tables.IdCard;
+import java.util.List;
 
 public class IdCardDao {
     private SessionFactory sessionFactory;
@@ -49,6 +48,10 @@ public class IdCardDao {
     public IdCard existNum(String num) {
         List cards = this.getSession().createQuery("FROM IdCard i WHERE i.num = :num").setString("num", num).list();
         return cards.size() > 0?(IdCard)cards.get(0):null;
+    }
+
+    public void delIdCard(IdCard idcard) {
+        this.getSession().delete(idcard);
     }
 
     private Session getSession() {

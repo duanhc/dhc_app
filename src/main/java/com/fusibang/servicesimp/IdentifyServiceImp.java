@@ -7,16 +7,12 @@ package com.fusibang.servicesimp;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.fusibang.dao.IdentifyDao;
-import com.fusibang.dao.UserDao;
-import com.fusibang.dao.UserDetailDao;
+import com.fusibang.dao.*;
 import com.fusibang.help.ResponseStatus;
 import com.fusibang.help.VersionInfo;
 import com.fusibang.help.Volaty;
 import com.fusibang.services.IdentifyService;
-import com.fusibang.tables.Identify;
-import com.fusibang.tables.User;
-import com.fusibang.tables.UserDetail;
+import com.fusibang.tables.*;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +26,10 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
     private Volaty volaty;
     private VersionInfo versionInfo;
     private UserDetailDao userDetailDao;
+    private UserDetailAppendDao userDetailAppendDao;
+    private UserContactDao userContactDao;
+    private IdCardDao idCardDao;
+    private LendDao lendDao;
 
     public IdentifyServiceImp() {
     }
@@ -291,6 +291,85 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
         }
     }
 
+    /**
+     * 重置资料操作表：删除id_card、lend_status、user_contact、user_detail、user_detail_append，
+     * 更新identify表中的所有字段
+     *
+     * @param identify
+     * @param session
+     * @return
+     */
+    @Override
+    public String resetInfo(Identify identify, HttpSession session) {
+        Integer admin_id = (Integer)session.getAttribute("ai");
+        String permission = (String)session.getAttribute("ap");
+        if (permission != null) {
+            if (permission.equals("11111")) {
+                int userId = identify.getId();
+                Identify hold = this.identifyDao.findByUserId(userId);
+                if (hold != null) {
+                    hold.setStep1(0);
+                    hold.setStep2(0);
+                    hold.setStep3(0);
+                    hold.setStep4(0);
+                    hold.setStep5(0);
+                    hold.setStep6(0);
+                    hold.setLend_time(null);
+                    hold.setLend_count(0);
+                    hold.setLend(0);
+                    hold.setPut(0);
+                    hold.setPut_time(null);
+                    hold.setSign(0);
+                    hold.setOrder_no("");
+                    hold.setOrder_time("");
+                    hold.setCash_time(null);
+                    hold.setZzsm("");
+                    hold.setOrder_color("");
+                    hold.setOrder_status("");
+                    hold.setOrder_explain("");
+
+                    IdCard idcard = this.idCardDao.findByUserid(userId);
+                    if (idcard != null) {
+                        idcard.setUser(null);
+                        this.idCardDao.delIdCard(idcard);
+                    }
+
+                    UserDetail userDetail = this.userDetailDao.findByUserId(userId);
+                    if (userDetail != null) {
+                        userDetail.setUser(null);
+                        this.userDetailDao.delUserDetail(userDetail);
+                    }
+
+                    UserDetailAppend userDetailAppend = userDetailAppendDao.findByUserId(userId);
+                    if (userDetailAppend != null) {
+                        userDetailAppend.setUser(null);
+                        this.userDetailAppendDao.delUserDetailAppend(userDetailAppend);
+                    }
+
+                    UserContact userContact = userContactDao.findByUserId(userId);
+                    if (userContact != null) {
+                        userContact.setUser(null);
+                        this.userContactDao.delUserContact(userContact);
+                    }
+
+                    Lend lend = lendDao.findByUserId(userId);
+                    if (lend != null) {
+                        lend.setUser(null);
+                        this.lendDao.delLend(lend);
+                    }
+
+                    return "{\"hint\":\"success\"}";
+                } else {
+                    return "{\"hint\":\"illegal_request\"}";
+                }
+            } else {
+                return "{\"hint\":\"not_permission\"}";
+            }
+        } else {
+            return "{\"hint\":\"un_login\"}";
+        }
+    }
+
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
@@ -309,5 +388,21 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
 
     public void setUserDetailDao(UserDetailDao userDetailDao) {
         this.userDetailDao = userDetailDao;
+    }
+
+    public void setUserDetailAppendDao(UserDetailAppendDao userDetailAppendDao) {
+        this.userDetailAppendDao = userDetailAppendDao;
+    }
+
+    public void setUserContactDao(UserContactDao userContactDao) {
+        this.userContactDao = userContactDao;
+    }
+
+    public void setIdCardDao(IdCardDao idCardDao) {
+        this.idCardDao = idCardDao;
+    }
+
+    public void setLendDao(LendDao lendDao) {
+        this.lendDao = lendDao;
     }
 }

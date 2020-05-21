@@ -5,13 +5,12 @@
 
 package com.fusibang.dao;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
+import com.fusibang.tables.Lend;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.fusibang.tables.Lend;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class LendDao {
     private SessionFactory sessionFactory;
@@ -44,5 +43,9 @@ public class LendDao {
 
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+    }
+
+    public void delLend(Lend lend) {
+        this.getSession().delete(lend);
     }
 }

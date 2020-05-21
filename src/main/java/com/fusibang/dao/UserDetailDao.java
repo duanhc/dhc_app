@@ -5,12 +5,11 @@
 
 package com.fusibang.dao;
 
-import java.util.List;
-
+import com.fusibang.tables.UserDetail;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.fusibang.tables.UserDetail;
+import java.util.List;
 
 public class UserDetailDao {
     private SessionFactory sessionFactory;
@@ -38,6 +37,14 @@ public class UserDetailDao {
         }
 
         return userDetail;
+    }
+
+    /**
+     * 删除用户详情
+     * @param userDetail
+     */
+    public void delUserDetail(UserDetail userDetail) {
+        this.getSession().delete(userDetail);
     }
 
     private Session getSession() {

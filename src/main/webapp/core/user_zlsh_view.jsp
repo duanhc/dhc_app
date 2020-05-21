@@ -122,6 +122,33 @@
         window.open('info.html')
     }
 
+    //重置用户资料
+    function resetUserInfo(userId){
+        layer.confirm('确定重置用户所有资料?', {
+            btn: ['确定', '取消'],title:"重置资料"
+        },function () {
+            // 重置资料操作表：删除id_card、lend_status、user_contact、user_detail、user_detail_append，
+            // 更新identify表中的所有字段
+            $.ajax({
+                type: "POST",
+                url: "identify_reset_info.do",
+                data: 'id=' + userId,
+                dataType: "json",
+                success: function (data) {
+                    if (data.hint == "success") {
+                        $(location).attr("href", "user_zlsh_view.do?salt=${name}&id=${thisPage}");
+                    } else if (data.hint == "illegal_request") {
+                        $(location).attr("href", "illegal_request.html");
+                    } else if (data.hint == "un_login") {
+                        $(location).attr("href", "timeout.html");
+                    } else if (data.hine == "not_permission") {
+                        $(location).attr("href", "nopermission.html");
+                    }
+                }
+            });
+        });
+    }
+
     //是否是数字
     function isNumber(val) {
         var regPos = /^\d+(\.\d+)?$/; //非负浮点数
@@ -178,7 +205,11 @@
                         </c:if>
                     </td>
                     <td>${userInfo.lend.lend_count}</td>
-                    <td>${userInfo.identify.lend_count == 0 ? "":userInfo.identify.lend_count}</td>
+                    <td>
+                        <c:if test="${userInfo.identify.lend == 3}">
+                            ${userInfo.identify.lend_count == 0 ? "":userInfo.identify.lend_count}
+                        </c:if>
+                    </td>
                     <td>
                         <c:if test="${userInfo.identify.lend == 3 && userInfo.identify.sign == 1}">
                             <span>提现中</span>
@@ -190,6 +221,7 @@
                             <a class="upframe" onClick="agree(${userInfo.user.id})">通过并授额</a>
                             <a class="upframe" onClick="disagree(${userInfo.user.id})">不通过</a>
                         </c:if>
+                        <a class="upframe" onClick="resetUserInfo(${userInfo.user.id})">重置资料</a>
                     </td>
                 </tr>
             </c:forEach>

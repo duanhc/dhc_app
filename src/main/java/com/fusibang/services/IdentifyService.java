@@ -40,4 +40,6 @@ public interface IdentifyService {
     String getBxjt(Identify identify, HttpSession session);
 
     String addOrderInfo(Identify identify, HttpSession session);
+
+    String resetInfo(Identify identify, HttpSession session);
 }

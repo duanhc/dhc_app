@@ -5,12 +5,11 @@
 
 package com.fusibang.dao;
 
-import java.util.List;
-
+import com.fusibang.tables.UserDetailAppend;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.fusibang.tables.UserDetailAppend;
+import java.util.List;
 
 public class UserDetailAppendDao {
     private SessionFactory sessionFactory;
@@ -30,6 +29,10 @@ public class UserDetailAppendDao {
         }
 
         return userDetailAppend;
+    }
+
+    public void delUserDetailAppend(UserDetailAppend userDetailAppend) {
+        this.getSession().delete(userDetailAppend);
     }
 
     public void alt(UserDetailAppend userDetailAppend) {

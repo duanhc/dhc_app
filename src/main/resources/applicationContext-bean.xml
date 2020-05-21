@@ -108,6 +108,10 @@
         <property name="userDao" ref="userDao"></property>
         <property name="volaty" ref="volaty"></property>
         <property name="versionInfo" ref="versionInfo"></property>
+        <property name="idCardDao" ref="IdCardDao"></property>
+        <property name="lendDao" ref="lendDao"></property>
+        <property name="userDetailAppendDao" ref="userDetailAppendDao"></property>
+        <property name="userContactDao" ref="userContactDao"></property>
     </bean>
     <bean id="identifyAction" class="com.fusibang.actions.IdentifyAction" scope="prototype">
         <property name="identifyService" ref="identifyService"></property>

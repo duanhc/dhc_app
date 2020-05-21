@@ -5,12 +5,11 @@
 
 package com.fusibang.dao;
 
-import java.util.List;
-
+import com.fusibang.tables.UserContact;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.fusibang.tables.UserContact;
+import java.util.List;
 
 public class UserContactDao {
     private SessionFactory sessionFactory;
@@ -42,5 +41,9 @@ public class UserContactDao {
 
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+    }
+
+    public void delUserContact(UserContact userContact) {
+        this.getSession().delete(userContact);
     }
 }

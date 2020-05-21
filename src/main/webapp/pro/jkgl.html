@@ -188,6 +188,10 @@
 
             //合同页面
             function viewContract(){
+                if(sign == 0){
+                    $.alert("请先快速提现",function(){});
+                    return;
+                }
                 window.location.href = "appViewContract.html";
             }
 

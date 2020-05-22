@@ -11,4 +11,5 @@
 # 此项目配置
 target/classes
 target/generated-sources
+*.MF
 

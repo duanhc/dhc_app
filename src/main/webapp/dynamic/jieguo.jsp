@@ -91,10 +91,12 @@
                     <p>发现</p>
                 </li>-->
                 </a>
-                <li>
-                    <img src="../pro/images/wd01.png" style="width:5vw;margin-left: 14vw;margin-top: 1.5vw;"/>
-                    <p>我的</p>
-                </li>
+                <a href="myMess.html">
+                    <li>
+                        <img src="../pro/images/wd01.png" style="width:5vw;margin-left: 14vw;margin-top: 1.5vw;"/>
+                        <p>我的</p>
+                    </li>
+                </a>
             </ul>
         </div>
 

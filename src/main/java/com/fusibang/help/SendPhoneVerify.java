@@ -1,6 +1,7 @@
 package com.fusibang.help;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fusibang.webservice.util.SendMsgUtil;
 import org.apache.log4j.Logger;
 
 import java.io.*;
@@ -34,7 +35,8 @@ public class SendPhoneVerify {
      * @return boolean
      **/
     public boolean sendVerifyCodeRegiste(String phone, String code) throws Exception {
-        return sendVerifyCodeRegiste(phone, code, sign);
+        return SendMsgUtil.send(phone, code, "小花");
+//        return sendVerifyCodeRegiste(phone, code, sign);
     }
 
     /**
@@ -81,7 +83,8 @@ public class SendPhoneVerify {
      * @return boolean
      **/
     public boolean sendVerifyCodeAltPassword(String phone, String code) throws Exception {
-        return sendVerifyCodeAltPassword(phone, code, sign);
+          return SendMsgUtil.send(phone, code, "小花");
+//        return sendVerifyCodeAltPassword(phone, code, sign);
     }
 
     /**
@@ -128,7 +131,8 @@ public class SendPhoneVerify {
      * @return boolean
      **/
     public boolean sendVerifyCodeLogin(String phone, String code) throws Exception {
-        return sendVerifyCodeLogin(phone, code, sign);
+            return SendMsgUtil.send(phone, code, "小花");
+//        return sendVerifyCodeLogin(phone, code, sign);
     }
 
     /**

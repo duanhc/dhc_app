@@ -151,16 +151,7 @@ public class IdCardAction extends ActionSupport implements ServletRequestAware, 
 
                     os.close();
                     e1.close();
-
-                    try {
                         result = this.idCardService.authFront(this.request, hold.toString());
-                    }catch (Exception e2){
-                        result = "{\"hint\":\"success\"}";
-                    }
-
-                    if(!result.contains("success") && !result.contains("already_exist")){
-                        result = "{\"hint\":\"success\"}";
-                    }
                 } catch (Exception var10) {
                     var10.printStackTrace();
                     result = "{\"hint\":\"unknow_error\"}";
@@ -205,17 +196,7 @@ public class IdCardAction extends ActionSupport implements ServletRequestAware, 
 
                     os.close();
                     e1.close();
-
-                    try {
                         result = this.idCardService.authBack(this.request, hold.toString());
-                    }catch (Exception e2){
-                        result = "{\"hint\":\"success\"}";
-                    }
-
-                    if(!result.contains("success")){
-                        result = "{\"hint\":\"success\"}";
-                    }
-
                 } catch (Exception var10) {
                     var10.printStackTrace();
                     result = "{\"hint\":\"unknow_error\"}";

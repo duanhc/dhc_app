@@ -53,84 +53,9 @@
 		</div>
 		
 		<div id="content">
-			<ul>
-				<li onclick="window.open('auth_center.action', '_self')">
-					<div class="pic">
-						<img src="images/rzzx.png" style="width: 5vw;margin-top: 3.5vw;margin-left: 4vw;"/>
-					</div>
-					<div class="item" style="width: 60vw;">
-						认证中心
-					</div>
-					<div class="is_rz" id="identify_status">
-						未认证
-					</div>
-					
-					<div class="more">
-						<img src="images/more.png" style="width: 6vw;margin-top: 3.2vw;margin-left: 2vw"/>
-					</div>
-				</li>
-				<!--<li onclick="window.open('rateQuery.html', '_self')">
-					<div class="pic">
-						<img src="images/chaxun.png" style="width: 6vw;margin-top: 3vw;margin-left: 3.5vw;"/>
-					</div>
-					<div class="item">
-						费率查询
-					</div>
-					<div class="more">
-						<img src="images/more.png" style="width: 6vw;margin-top: 3.2vw;margin-left: 2vw"/>
-					</div>
-				</li>-->
-				<!-- 
-					<li onclick="window.open('qa.html', '_self')">
-					<div class="pic">
-						<img src="images/qa.png" style="width: 6vw;margin-top: 3vw;margin-left: 3.5vw;"/>
-					</div>
-					<div class="item">
-						常见问题
-					</div>
-					<div class="more">
-						<img src="images/more.png" style="width: 6vw;margin-top: 3.2vw;margin-left: 2vw"/>
-					</div>
-				</li>
-				 -->
-				<!--<li onclick="window.open('about.html', '_self')">
-					<div class="pic">
-						<img src="images/gywm.png" style="width: 6vw;margin-top: 3vw;margin-left: 3.5vw;"/>
-					</div>
-					<div class="item">
-						关于我们
-					</div>
-					<div class="more">
-						<img src="images/more.png" style="width: 6vw;margin-top: 3.2vw;margin-left: 2vw"/>
-					</div>
-				</li>-->
-			
-				<li onclick="show();">
-					<div class="pic">
-						<img src="images/dianhua.png" style="width: 6vw;margin-top: 3vw;margin-left: 3.5vw;"/>
-					</div>
-					<div class="item">
-						联系我们
-					</div>
-					<div class="more">
-						<img src="images/more.png" style="width: 6vw;margin-top: 3.2vw;margin-left: 2vw"/>
-					</div>
-				</li>
-					
-		
-				<li onclick="window.open('setting.html', '_self')">
-					<div class="pic">
-						<img src="images/shezhi.png" style="width: 6vw;margin-top: 3vw;margin-left: 3.5vw;"/>
-					</div>
-					<div class="item">
-						设置
-					</div>
-					<div class="more">
-						<img src="images/more.png" style="width: 6vw;margin-top: 3.2vw;margin-left: 2vw"/>
-					</div>
-				</li>
-			</ul>
+
 		</div>
+
 		<div id="bottom">
 			<ul>
 				<a id="goToMarket" href="jssh.html">
@@ -219,11 +144,62 @@
             });
         }
 
+        var contentHtml = "<ul>"+
+            "				<li id=\"rzzxItem\" style='display: block;' onclick=\"window.open(\'auth_center.action\', \'_self\')\">"+
+            "					<div class=\"pic\">"+
+            "						<img src=\"images/rzzx.png\" style=\"width: 5vw;margin-top: 3.5vw;margin-left: 4vw;\"/>"+
+            "					</div>"+
+            "					<div class=\"item\" style=\"width: 60vw;\">"+
+            "						认证中心"+
+            "					</div>"+
+            "					<div class=\"is_rz\" id=\"identify_status\">"+
+            "						未认证"+
+            "					</div>"+
+            "					"+
+            "					<div class=\"more\">"+
+            "						<img src=\"images/more.png\" style=\"width: 6vw;margin-top: 3.2vw;margin-left: 2vw\"/>"+
+            "					</div>"+
+            "				</li>"+
+            "				<li onclick=\"show();\">"+
+            "					<div class=\"pic\">"+
+            "						<img src=\"images/dianhua.png\" style=\"width: 6vw;margin-top: 3vw;margin-left: 3.5vw;\"/>"+
+            "					</div>"+
+            "					<div class=\"item\">"+
+            "						联系我们"+
+            "					</div>"+
+            "					<div class=\"more\">"+
+            "						<img src=\"images/more.png\" style=\"width: 6vw;margin-top: 3.2vw;margin-left: 2vw\"/>"+
+            "					</div>"+
+            "				</li>"+
+            "				<li onclick=\"window.open(\'setting.html\', \'_self\')\">"+
+            "					<div class=\"pic\">"+
+            "						<img src=\"images/shezhi.png\" style=\"width: 6vw;margin-top: 3vw;margin-left: 3.5vw;\"/>"+
+            "					</div>"+
+            "					<div class=\"item\">"+
+            "						设置"+
+            "					</div>"+
+            "					<div class=\"more\">"+
+            "						<img src=\"images/more.png\" style=\"width: 6vw;margin-top: 3.2vw;margin-left: 2vw\"/>"+
+            "					</div>"+
+            "				</li>"+
+            "			</ul>";
+
 		$.ajax({
 			url : "identify_get.action",
 			type : "GET",
 			dataType : "json",
 			success : function(data) {
+                var showMarket = data.user == null ? 0 : ( data.user.show_market == null ? 0 :  data.user.show_market);
+                if(showMarket == 1){
+                    //我的页面不展示认证中心
+                    contentHtml = contentHtml.replace("style='display: block;'","style='display: none;'");
+                    $("#content").html(contentHtml);
+                    //首页是否展示超市，0：不展示，1：展示
+                    $("#goToMarket").attr("href","app_jieguo.do");
+                }else{
+                    $("#content").html(contentHtml);
+                }
+
 				if (data.hint == "un_login") {
 					$.alert("登录app", function (){
                 			window.location.href = "../login.html";
@@ -252,11 +228,6 @@
                     $("#jkglPage").attr("href","jkgl.html");
                 }
 
-                var showMarket = data.user.show_market;
-                if(showMarket == 1){
-                    //首页是否展示超时，0：不展示，1：展示
-                    $("#goToMarket").attr("href","app_jieguo.do");
-                }
 			},
 			error : function (XMLHttpRequest, textStatus, errorThrown) { 
 				$.alert("尚未登录,是否登录", function (){

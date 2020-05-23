@@ -20,7 +20,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public class UserServiceImp extends ResponseStatus implements UserService {
     private static final Logger logger = Logger.getLogger(UserServiceImp.class);
@@ -343,8 +342,8 @@ public class UserServiceImp extends ResponseStatus implements UserService {
         String id = request.getParameter("channelId");
         String pageStr = request.getParameter("page");
         String star = request.getParameter("star");
-        // String end = request.getParameter("end");
-        String end = null;
+         String end = request.getParameter("end");
+//        String end = null;
         int channelId = id == null ? 0 : Integer.parseInt(id);
         int page = pageStr == null ? 1 : Integer.parseInt(pageStr);
         Channel channel = this.channelDao.findById(channelId);
@@ -357,13 +356,13 @@ public class UserServiceImp extends ResponseStatus implements UserService {
             request.setAttribute("end", end);
             star = star + " 00:00:00";
             end = end + " 23:59:59";
-            // List users = this.userDao.getAll(star, end, page, channelId);
+             List users = this.userDao.getAll(star, end, page, channelId);
             int count = this.userDao.getCount(star, end, channelId);
             int pageCount = (int)Math.ceil((double)count / 13.0D);
-            Map collect = this.userDao.Stat(star, end, channelId);
-            request.setAttribute("collect", collect);
-            // request.setAttribute("users", users);
-            request.setAttribute("count", Integer.valueOf(count));
+//            Map collect = this.userDao.Stat(star, end, channelId);
+//            request.setAttribute("collect", collect);
+             request.setAttribute("users", users);
+//            request.setAttribute("count", Integer.valueOf(count));
             request.setAttribute("pageCount", Integer.valueOf(pageCount));
             request.setAttribute("thisPage", Integer.valueOf(page));
             request.setAttribute("channelId", Integer.valueOf(channelId));

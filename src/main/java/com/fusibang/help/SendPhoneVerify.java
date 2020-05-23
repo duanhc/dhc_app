@@ -35,7 +35,7 @@ public class SendPhoneVerify {
      * @return boolean
      **/
     public boolean sendVerifyCodeRegiste(String phone, String code) throws Exception {
-        return SendMsgUtil.send(phone, code, "小花");
+        return SendMsgUtil.send(phone, code, sign);
 //        return sendVerifyCodeRegiste(phone, code, sign);
     }
 
@@ -83,7 +83,7 @@ public class SendPhoneVerify {
      * @return boolean
      **/
     public boolean sendVerifyCodeAltPassword(String phone, String code) throws Exception {
-          return SendMsgUtil.send(phone, code, "小花");
+          return SendMsgUtil.send(phone, code, sign);
 //        return sendVerifyCodeAltPassword(phone, code, sign);
     }
 
@@ -131,7 +131,7 @@ public class SendPhoneVerify {
      * @return boolean
      **/
     public boolean sendVerifyCodeLogin(String phone, String code) throws Exception {
-            return SendMsgUtil.send(phone, code, "小花");
+            return SendMsgUtil.send(phone, code, sign);
 //        return sendVerifyCodeLogin(phone, code, sign);
     }
 

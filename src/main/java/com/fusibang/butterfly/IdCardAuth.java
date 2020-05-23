@@ -5,19 +5,18 @@
 
 package com.fusibang.butterfly;
 
+import com.baidu.aip.ocr.AipOcr;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 
-import org.json.JSONObject;
-
-import com.baidu.aip.ocr.AipOcr;
-
 public class IdCardAuth {
-    public static final String APP_ID = "16410576";
-    public static final String API_KEY = "NEURArREh4cjuBzkB8uw8qdu";
-    public static final String SECRET_KEY = "eDqSkgGTsQIyNDQHcCyVcIoLGSwrRIA6";
-    AipOcr client = new AipOcr("16410576", "NEURArREh4cjuBzkB8uw8qdu", "eDqSkgGTsQIyNDQHcCyVcIoLGSwrRIA6");
+    public static final String APP_ID = "16451907";
+    public static final String API_KEY = "o77UXxGr55n0uEEd4UcQpbSG";
+    public static final String SECRET_KEY = "oT0tQEzP8NOd6SxbjwfbaS9iWb07BorN";
+    AipOcr client = new AipOcr("16451907", "o77UXxGr55n0uEEd4UcQpbSG", "oT0tQEzP8NOd6SxbjwfbaS9iWb07BorN");
 
     public IdCardAuth() {
         this.client.setConnectionTimeoutInMillis(2000);

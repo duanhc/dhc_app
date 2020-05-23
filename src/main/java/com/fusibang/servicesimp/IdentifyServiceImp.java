@@ -108,9 +108,9 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
             identify.setNow(new Timestamp((new Date()).getTime()));
             int count = identify.getStep2() == 0?0:(identify.getStep4() == 0?1:(identify.getStep5() == 0?2:(identify.getStep6() == 0?3:4)));
             byte check = 0;
-            if((user.getTop_three() == 1 || user.getChannel().getId() == 0) && (identify.getPut_time() == null || (new Date()).getTime() - identify.getPut_time().getTime() < 18000000L)) {
-                check = 1;
-            }
+//            if((user.getTop_three() == 1 || user.getChannel().getId() == 0) && (identify.getPut_time() == null || (new Date()).getTime() - identify.getPut_time().getTime() < 18000000L)) {
+//                check = 1;
+//            }
 
             request.setAttribute("check", Integer.valueOf(check));
             request.setAttribute("count", Integer.valueOf(count));

@@ -12,4 +12,5 @@
 target/classes
 target/generated-sources
 *.MF
+WEB-INF/auth/*.jpg
 

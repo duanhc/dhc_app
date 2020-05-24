@@ -12,5 +12,4 @@
 target/classes
 target/generated-sources
 *.MF
-WEB-INF/auth/*.jpg
-
+/src/main/webapp/WEB-INF/auth/*.jpg

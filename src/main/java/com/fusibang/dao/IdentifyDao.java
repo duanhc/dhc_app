@@ -32,13 +32,13 @@ public class IdentifyDao {
     }
 
     public boolean showApp(User user) {
-        if(user.getChannel().getId() != 0 && user.getTop_three() != 1) {
+//        if(user.getChannel().getId() != 0 && user.getTop_three() != 1) {
             int suc = this.getSession().createQuery("FROM Identify i WHERE i.user.channel.id = :id AND i.step1 = 1").setInteger("id", user.getChannel().getId()).setMaxResults(5).list().size();
             Identify identify = this.findByUserId(user.getId());
             return identify.getStep1() == 1 && suc > 2;
-        } else {
-            return false;
-        }
+//        } else {
+//            return false;
+//        }
     }
 
     public Session getSession() {

@@ -128,7 +128,7 @@ public class UserServiceImp extends ResponseStatus implements UserService {
         user.setChannel(channel);
         if (this.payHelp.updateChannel(channel)) {
             user.setValid(1);
-            user.setTop_three(1);
+//            user.setTop_three(1);
         }
 
         String token = this.userDao.addUser(user);

@@ -472,7 +472,7 @@
                         $("#auth_confirm").click(function(){
                             window.location.href = "shenhe1.html";
                         });
-                    }else if (data.put == 0 || data.user.top_three == 1) {
+                    }else if (data.put == 0) {
                         var  status = "借款需要完成实名认证";
                         $("#auth_confirm").html("认证");
                         $("#auth_tip").html(status);

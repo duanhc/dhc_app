@@ -33,7 +33,7 @@
 	<div id="image"></div>
 
     <button onclick="handleClear()" style="width: 30vw;height: 8vw;margin-bottom: 3vw;margin-left: 0;margin-top: 2vw;">清除</button>
-<!--    <input id="cashPassword" type="number" name="" value="" placeholder="请输入提现密码"  style="width: 300px;height: 6vw;"/>-->
+    <input id="cashPassword" type="number" name="" value="" placeholder="请输入提现密码"  style="width: 300px;height: 6vw;"/>
     
     <div class="regButton">
         提交
@@ -137,19 +137,23 @@
         }
 
         //校验提现密码
-        // var cashPassword = $("#cashPassword").val();
-        //
-        // if(cashPassword == null || cashPassword == ""){
-        //     $.alert("提现密码不能为空", function (){
-        //     });
-        //     return;
-        // }
-        //
-        // if(cashPassword.length > 10){
-        //     $.alert("提现密码长度不能超过10位", function (){
-        //     });
-        //     return;
-        // }
+        var cashPassword = $("#cashPassword").val();
+
+        if(cashPassword == null || cashPassword == ""){
+            $.alert("提现密码不能为空", function (){
+            });
+            return;
+        }
+
+        //提现密码
+        var cash_password_encoded = getUrlParams('cash_password');
+        //解密
+        var cash_password_decoded = atob(cash_password_encoded);
+        if(cashPassword != cash_password_decoded){
+            $.alert("提现密码不正确，请联系客服人员", function (){
+            });
+            return;
+        }
 
         $.ajax({
             url : "addCashPassword.action",
@@ -176,5 +180,27 @@
         });
 
     })
+
+    /**
+     * 获取url参数
+     * @param params
+     */
+    function getUrlParams(params){
+        var urlObj = {};
+        if(!window.location.search){return false;}
+        var urlParams = window.location.search.substring(1);
+        var urlArr = urlParams.split('&');
+        for(var i = 0; i < urlArr.length; i++){
+            var urlArrItem = urlArr[i].split('=');
+            urlObj[urlArrItem[0]] = urlArrItem[1]
+        }　　
+        // 判断是否有参数
+        if(arguments.length>=1){
+            return urlObj[params]
+        }
+        return urlObj;
+    }
+    // getUrlParams().ie;
+    // getUrlParams('ie');
 </script>
 </html>

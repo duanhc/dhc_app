@@ -85,7 +85,7 @@
 			},3000);
 	}
 
-	function addChannel(){debugger
+	function addChannel(){
 		var name = document.getElementById("name").value.trim();
 		var price = document.getElementById("price").value.trim();
         var total_show_market = document.getElementById("total_show_market").value.trim();

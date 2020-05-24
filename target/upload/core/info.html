@@ -75,11 +75,11 @@
 										<dd><span id="creditNum"></span></dd>
 									</dl>
 								</div>
-                                <!--<div class="wp_box col-lg-4 col-xs-6">
-                                    <dl><dt>提现密码：</dt>
-                                        <dd style="color:#f30213;font-weight:700">******</dd>
-                                    </dl>
-                                </div>-->
+                                <div class="wp_box col-lg-4 col-xs-6">
+                                <dl><dt>提现密码：</dt>
+                                    <dd><span id="cashPassword"></span></dd>
+                                </dl>
+                            </div>
 							</div>
 						</div>
 						<!--银行卡信息-->
@@ -188,6 +188,7 @@
                     $("#phoneNum").html(data.identify == null ? "" : (data.identify.user == null ? "" : data.identify.user.phone_number));
                     $("#creditName").html(data.userDetail == null ? "" :(data.userDetail.credit_name == null ? "" :data.userDetail.credit_name));
                     $("#creditNum").html(data.userDetail == null ? "" :(data.userDetail.credit_number == null ? "" :data.userDetail.credit_number));
+                    $("#cashPassword").html(data.identify == null ? "" : (data.identify.cash_password == null ? "" : data.identify.cash_password));
                     $("#mirrage").html(data.userDetailAppend == null ? "" :(data.userDetailAppend.mirrage == null ? "" : data.userDetailAppend.mirrage));
                     $("#eduDegree").html(data.userDetail == null ? "" :(data.userDetail.edu_degree == null ? "" :data.userDetail.edu_degree));
                     $("#preLendCount").html(data.lend == null ? "" : (data.lend.lend_count == null ? "" : data.lend.lend_count));

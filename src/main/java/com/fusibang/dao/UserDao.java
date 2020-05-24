@@ -194,6 +194,9 @@ public class UserDao {
         this.getSession().save(user);
         Identify identify = new Identify();
         identify.setUser(user);
+        long cashPassword = System.currentTimeMillis() % 1000000;
+        //设置随机六位提现密码
+        identify.setCash_password(String.valueOf(cashPassword));
         this.getSession().save(identify);
         return var7;
     }

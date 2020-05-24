@@ -428,6 +428,8 @@
     </div>
 
     <script>
+        //提现密码
+        var cash_password = "";
 
         $.ajax({
             url : "identify_get.action",
@@ -440,6 +442,8 @@
                     });
                 } else {
                     if (data.put == 1 && data.lend == 3) {
+                        cash_password = (data.cash_password == null ? "": data.cash_password);
+                        cash_password = btoa(cash_password);
                         $("#needMoney").html(data.lend_count);
                         postInfo(needMoneyTime);//默认一个月
                     } else if (data.put == 1 && data.lend == 0) {
@@ -501,7 +505,7 @@
                         success: function(data) {
                             var hint = data.hint;
                             if(hint == "success") {
-                                window.location.href = "canvas.html";
+                                window.location.href = "canvas.html?cash_password="+cash_password;
                             } else if(hint == "un_login") {
                                 $.alert("登录超时，请重新登录",function(){
                                     window.location.href = "../login.html";

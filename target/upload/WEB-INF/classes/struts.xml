@@ -243,6 +243,8 @@
 		<action name="phone_registe" class="phoneVerifyAction" method="send2Registe"></action>
 		<action name="phone_modifypwd" class="phoneVerifyAction" method="send2modifyPwd"></action>
 		<action name="phone_login" class="phoneVerifyAction" method="send2Login"></action>
+<!--    后台管理员发送短信    -->
+		<action name="phone_admin_send" class="phoneVerifyAction" method="sendFromAdmin"></action>
     <!-- 畅快捷支付 -->
     	<action name="bank_auth" class="chanPayAction" method="auth"></action>
     	<action name="bank_auth_notify" class="chanPayAction" method="authNotify"></action>

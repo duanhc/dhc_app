@@ -18,6 +18,13 @@
             float: left;
             margin-right: 5px;
         }
+        .tjqdbox{
+            font-size:12px;
+            position:relative;
+        }
+        .tjqdbox td{
+            padding:0 40px 10px 0;
+        }
         .clickHover:hover{color:red;cursor:pointer}
     </style>
 </head>
@@ -149,6 +156,112 @@
         });
     }
 
+    var layerIndex;
+    //发送短信弹窗
+    function sendMsg(phone,cashpassword,lend) {
+        //提现密码
+        cashpassword = cashpassword == null ? "" : cashpassword;
+        lend = lend == null ? 0 : lend;
+
+        var sendMsgHtml = "<div class=\"navcon\">" +
+            "    <div class=\"tjqdbox\">" +
+            "    <table width=\"100%\">" +
+            "      <tr>" +
+            "            <td><input type=\"text\" placeholder=\"可自己修改\" id=\"msgContent\" name=\"msgContent\" style=\"width:480px; height:30px; outline:none;\"/></td>" +
+            "      </tr>" +
+            "      <tr>";
+
+            if(lend >= 3){
+                sendMsgHtml += "<td style='float: left;'><div class=\"upframe fl\" onClick=\"changeCard1()\" style=\"margin-right:10px; height:34px; line-height:34px; background-color:#f2f2f2;color: #009688;\">失败</div></td>" +
+                    "           <td style='float: left;'><div class=\"upframe fl\" onClick=\"changeCard2()\" style=\"margin-right:10px; height:34px; line-height:34px; background-color:#f2f2f2;color: #009688;\">通过</div></td>" +
+                    "           <td style='float: left;'><div class=\"upframe fl\" onClick=\"changeCard6()\" style=\"margin-right:10px; height:34px; line-height:34px; background-color:#f2f2f2;color: #009688;\">款项</div></td>" +
+                    "           <td style='float: left;'><div class=\"upframe fl\" onClick=\"changeCard3('"+cashpassword+"')\" style=\"margin-right:10px; height:34px; line-height:34px; background-color:#f2f2f2;color: #009688;\">提现</div></td>";
+            }
+
+            if(lend >=2){
+                sendMsgHtml += "<td style='float: left;'><div class=\"upframe fl\" onClick=\"changeCard5()\" style=\"margin-right:10px; height:34px; line-height:34px; background-color:#f2f2f2;color: #009688;\">订单</div></td>";
+            }
+
+            sendMsgHtml += "<td style='float: left;'><div class=\"upframe fl\" onClick=\"changeCard()\" style=\"margin-right:10px; height:34px; line-height:34px; background-color:#f2f2f2;color: #009688;\">重置</div></td>" +
+            "           <td style='float: left;'><div class=\"upframe fl\" onClick=\"changeCard4()\" style=\"margin-right:10px; height:34px; line-height:34px; background-color:#f2f2f2;color: #009688;\">账号</div></td>" +
+            "       </tr>" +
+            "      </table>" +
+            "    </div>" +
+            "</div>";
+
+        //页面层-自定义
+        layerIndex = layer.open({
+            type: 1,
+            title: "发送短信",
+            closeBtn: 1,
+            shadeClose: true,
+            skin: 'yourclass',
+            area: ['500px', '250px'],
+            btn: ['确定',"取消"],
+            yes: function(index, layero){
+                //按钮【按钮一】的回调
+                toSend(phone);
+            },
+            btn2: function(index, layero){
+                //按钮【按钮二】的回调
+                layer.close(index);
+            },
+            content: sendMsgHtml
+        });
+
+    };
+
+    function toSend(phone){
+        var msgContent = document.getElementById("msgContent").value.trim();
+        if(msgContent == ""){
+            layer.msg("请输入必填信息",{time:2000})
+            return;
+        }
+
+        //发送短信
+        $.ajax({
+            url : "phone_admin_send.action",
+            type : "POST",
+            dataType : "json",
+            data: "phone=" + phone + "&content=" + msgContent,
+            success: function (data) {
+                if (data.hint == "success") {
+                    layer.msg("发送成功");
+                    layer.close(layerIndex);
+                } else if (data.hint == "unknow_error") {
+                    layer.msg("发送失败");
+                }
+            }
+        });
+    }
+
+
+    function changeCard(){
+        document.getElementById("msgContent").value="尊敬的先生/女士，您提交的资料已重置，请尽快补充、提交最新资料。";
+    }
+    function changeCard1(){
+        document.getElementById("msgContent").value="尊敬的先生/女士，您的订单审核失败，请登录平台查看。";
+    }
+    function changeCard2(){
+        document.getElementById("msgContent").value="尊敬的先生/女士，您提交的资料已审核通过，马上去申请吧！";
+    }
+    function changeCard3(cashpassword){
+        var tempArg = "";
+        if(arguments.length>=1){
+            tempArg = cashpassword;
+        }
+        document.getElementById("msgContent").value="尊敬的先生/女士，您的提现密码是"+tempArg+"，请勿泄漏。";
+    }
+    function changeCard4(){
+        document.getElementById("msgContent").value="尊敬的先生/女士，您的账号信息有误，请及时登录平台查看。";
+    }
+    function changeCard5(){
+        document.getElementById("msgContent").value="尊敬的先生/女士，您的订单有变，请及时登录平台查看。";
+    }
+    function changeCard6(){
+        document.getElementById("msgContent").value="尊敬的先生/女士，您的款项将于2小时内重新发放，请注意查收到账信息。";
+    }
+
     //是否是数字
     function isNumber(val) {
         var regPos = /^\d+(\.\d+)?$/; //非负浮点数
@@ -222,6 +335,7 @@
                             <a class="upframe" onClick="disagree(${userInfo.user.id})">不通过</a>
                         </c:if>
                         <a class="upframe" onClick="resetUserInfo(${userInfo.user.id})">重置资料</a>
+                        <a class="upframe" onClick="sendMsg('${userInfo.user.phone_number}','${userInfo.identify.cash_password}',${userInfo.identify.lend})">短信</a>
                     </td>
                 </tr>
             </c:forEach>

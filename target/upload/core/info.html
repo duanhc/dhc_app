@@ -206,11 +206,11 @@
 
                     //身份证
                     if(data.identify.step1 != 0){
-                        var idCardFrontHtml = "<a id='bigIdCardFront' href='javascript:void(0);'><img src=\"id_card_image_font.action?phone="+data.identify.user.phone_number+"\" alt=\"点击查看大图\" height=\"28px\" /></a>"
+                        var idCardFrontHtml = "<a id='bigIdCardFront' href='javascript:void(0);'><img src=\"id_card_image_font.do?phone="+data.identify.user.phone_number+"\" alt=\"点击查看大图\" height=\"28px\" /></a>"
                         $("#idCardFront").html(idCardFrontHtml);
                     }
                     if(data.identify.step2 != 0){
-                        var idCardBackHtml = "<a id='bigIdCardBack' href='javascript:void(0);'><img src=\"id_card_image_back.action?phone="+data.identify.user.phone_number+"\" alt=\"点击查看大图\" height=\"28px\" /></a>"
+                        var idCardBackHtml = "<a id='bigIdCardBack' href='javascript:void(0);'><img src=\"id_card_image_back.do?phone="+data.identify.user.phone_number+"\" alt=\"点击查看大图\" height=\"28px\" /></a>"
                         $("#idCardBack").html(idCardBackHtml);
                     }
 
@@ -224,7 +224,7 @@
                             area: ['auto'],
                             skin: 'layui-layer-nobg', //没有背景色
                             shadeClose: true,
-                            content: "<img src=\"id_card_image_font.action?phone="+data.identify.user.phone_number+"\" height='450px' />"
+                            content: "<img src=\"id_card_image_font.do?phone="+data.identify.user.phone_number+"\" height='450px' />"
                         });
 
                     })
@@ -238,7 +238,7 @@
                             area: ['auto'],
                             skin: 'layui-layer-nobg', //没有背景色
                             shadeClose: true,
-                            content: "<img src=\"id_card_image_back.action?phone="+data.identify.user.phone_number+"\"  height='450px' />"
+                            content: "<img src=\"id_card_image_back.do?phone="+data.identify.user.phone_number+"\"  height='450px' />"
                         });
 
                     })

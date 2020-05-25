@@ -193,6 +193,14 @@
 			<result name="success" type="">/pro/rzcenter.jsp</result>
 			<result name="un_login" type="redirect">/login.html</result>
 		</action>
+
+<!--    APP唤醒页接口，判断跳转页面：未登录、极速审核首页、代超首页(渠道前几)    -->
+        <action name="app_start" class="identifyAction" method="appStart">
+            <result name="jssh" type="redirect">/pro/jssh.html</result>
+            <result name="jieguo" type="redirect">/pro/app_jieguo.do</result>
+            <result name="un_login" type="redirect">/login.html</result>
+        </action>
+
 	<!-- 身份证 -->
 		<action name="id_card_font" class="idCardAction" method="addFont"></action>
 		<action name="id_card_back" class="idCardAction" method="addBack"></action>

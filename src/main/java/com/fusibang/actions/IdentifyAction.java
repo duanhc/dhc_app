@@ -52,6 +52,10 @@ public class IdentifyAction extends ActionSupport implements ServletRequestAware
         return this.identifyService.authCenter(this.request);
     }
 
+    public String appStart() {
+        return this.identifyService.appStart(this.request);
+    }
+
     public String version() {
         try {
             this.response.setContentType("application/json; charset=utf-8");

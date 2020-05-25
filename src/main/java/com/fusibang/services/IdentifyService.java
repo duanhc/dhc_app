@@ -42,4 +42,6 @@ public interface IdentifyService {
     String addOrderInfo(Identify identify, HttpSession session);
 
     String resetInfo(Identify identify, HttpSession session);
+
+    String appStart(HttpServletRequest request);
 }

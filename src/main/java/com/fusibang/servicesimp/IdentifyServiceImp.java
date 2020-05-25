@@ -121,6 +121,22 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
         }
     }
 
+    @Override
+    public String appStart(HttpServletRequest request) {
+        Integer id = (Integer)request.getSession().getAttribute("ui");
+        User user = null;
+        if(id != null && (user = this.userDao.findById(id.intValue())) != null) {
+            Identify identify = this.identifyDao.findByUserId(user.getId());
+            int show_market = identify.getUser().getShow_market();
+            if(show_market == 1){
+                return "jieguo";
+            }
+            return "jssh";
+        } else {
+            return "un_login";
+        }
+    }
+
     public String showApp(HttpServletRequest request) {
         Integer id = (Integer)request.getSession().getAttribute("ui");
         User user = null;

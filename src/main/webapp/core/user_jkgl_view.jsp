@@ -199,7 +199,7 @@
 
         //增加转账说明
         $.ajax({
-            url : "addIdentifyZzsm.action",
+            url : "addIdentifyZzsm.do",
             type : "POST",
             dataType : "json",
             data: "id=" + userId + "&zzsm=" + zzsm,
@@ -240,7 +240,7 @@
 
         //增加订单信息：订单状态、订单说明、订单颜色
         $.ajax({
-            url : "addIdentifyOrderInfo.action",
+            url : "addIdentifyOrderInfo.do",
             type : "POST",
             dataType : "json",
             data: "id=" + userId + "&order_color=" + orderColor+"&order_status="+orderStatus+"&order_explain="+orderExplain,

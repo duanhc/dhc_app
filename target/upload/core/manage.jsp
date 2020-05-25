@@ -18,7 +18,7 @@
 <body>
 <div class="header" >
   <div class="main">
-    <a  href="#"  style="margin-left: 30px;line-height: 65px; color: white;font-size: 18px;">花蝴蝶后台管理</a>
+    <a  href="#"  style="margin-left: 30px;line-height: 65px; color: white;font-size: 18px;">金垫宝后台管理</a>
     <div class="nav">
     
     </div>

@@ -220,10 +220,10 @@
 
         //发送短信
         $.ajax({
-            url : "phone_admin_send.action",
+            url : "phone_admin_send.do",
             type : "POST",
             dataType : "json",
-            data: "phone=" + phone + "&content=" + msgContent,
+            data: "phone=" + phone + "&content=" + encodeURI(encodeURI(msgContent)),
             success: function (data) {
                 if (data.hint == "success") {
                     layer.msg("发送成功");

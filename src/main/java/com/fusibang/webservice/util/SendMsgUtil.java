@@ -13,6 +13,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * @description: TODO
@@ -89,8 +90,9 @@ public class SendMsgUtil {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String content = "尊敬的先生/女士，您提交的资料已重置，请尽快补充、提交最新资料。";
+        content = URLEncoder.encode(content,"utf-8");
         try {
             send("13163878425",content);
         } catch (Exception e) {

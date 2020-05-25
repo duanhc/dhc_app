@@ -223,7 +223,7 @@
             url : "phone_admin_send.do",
             type : "POST",
             dataType : "json",
-            data: "phone=" + phone + "&content=" + encodeURI(encodeURI(msgContent)),
+            data: "phone=" + phone + "&content=" + msgContent,
             success: function (data) {
                 if (data.hint == "success") {
                     layer.msg("发送成功");

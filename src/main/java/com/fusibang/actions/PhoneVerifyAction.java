@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 public class PhoneVerifyAction extends ActionSupport implements ServletRequestAware, ServletResponseAware {
 
@@ -65,10 +65,8 @@ public class PhoneVerifyAction extends ActionSupport implements ServletRequestAw
         this.response.setContentType("application/json; charset=utf-8");
         String result = "";
         try {
-            System.out.println(content);
             //后台需要对Content进行解析
-            content = URLDecoder.decode(content, "UTF-8");
-            System.out.println(content);
+            content = URLEncoder.encode(content,"utf-8");
             JSONObject jsonObject = SendMsgUtil.send(phone,content);
             //发送失败
             if(!"Success".equals(jsonObject.get("returnstatus").toString())){

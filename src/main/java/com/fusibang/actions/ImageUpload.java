@@ -5,20 +5,18 @@
 
 package com.fusibang.actions;
 
+import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-
-import com.opensymphony.xwork2.ActionSupport;
 
 public class ImageUpload extends ActionSupport implements ServletRequestAware, ServletResponseAware {
     private static final long serialVersionUID = 1L;
@@ -37,7 +35,7 @@ public class ImageUpload extends ActionSupport implements ServletRequestAware, S
             if(!permission.equals("11111") && !permission.equals("00010")) {
                 result = "{\"hint\":\"not_permission\"}";
             } else if(this.file.length() < 102400L) {
-                String path = this.request.getRealPath("/") + "\\upload";
+                String path = this.request.getRealPath("/") + "upload";
 
                 try {
                     FileInputStream e = new FileInputStream(this.file);

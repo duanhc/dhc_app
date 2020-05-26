@@ -5,11 +5,6 @@
 
 package com.fusibang.servicesimp;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import com.fusibang.dao.AppStoreDao;
 import com.fusibang.help.AppStoreHelp;
 import com.fusibang.help.Config;
@@ -17,6 +12,11 @@ import com.fusibang.help.QRCodeUtil;
 import com.fusibang.help.ResponseStatus;
 import com.fusibang.services.AppStoreService;
 import com.fusibang.tables.AppStore;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class AppStoreServiceImp extends ResponseStatus implements AppStoreService {
     private AppStoreDao appStoreDao;

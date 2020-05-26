@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"  href="css/index.css" type="text/css" />
-<script src="http://hkwj.v228.10000net.cn/js/jquery.min.js"></script>
+<script src="js/jquery.min.js"></script>
 <script src="js/jquery.form.js" type="text/javascript"></script> 
 <title>添加渠道</title>
 <style>

@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet"  href="core/css/index.css" type="text/css" />
-<script src="http://hkwj.v228.10000net.cn/js/jquery.min.js"></script>
+<script src="js/jquery.min.js"></script>
 <script src="core/js/jquery.form.js" type="text/javascript"></script> 
 <title>添加产品</title>
 <style>

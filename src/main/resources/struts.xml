@@ -74,6 +74,10 @@
 		<action name="app_jieguo" class="appStoreAction" method="jieguoView">
 			<result>/dynamic/jieguo.jsp</result>
 		</action>
+<!--    后来注册的用户，jssh页面下展示超市    -->
+        <action name="app_jieguo2" class="appStoreAction" method="jieguoView2">
+            <result>/dynamic/jieguo2.jsp</result>
+        </action>
 		<action name="app_market" class="appStoreAction" method="marketView">
 			<result>/dynamic/kouzi.jsp</result>
 		</action>

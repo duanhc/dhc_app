@@ -111,10 +111,38 @@
 	<script>
 
         //返回键处理
-        function addBackListener()
-
-        //是否展示客服
-        var showCustomService = false;
+        function addBackListener(){
+            document.addEventListener('plusready', function() {
+                var webview = plus.webview.currentWebview();
+                plus.key.addEventListener('backbutton', function() {
+                    webview.canBack(function(e) {
+                        if(e.canBack) {
+                            webview.back();
+                        } else {
+                            //webview.close(); //hide,quit
+                            //plus.runtime.quit();
+                            //首页返回键处理
+                            //处理逻辑：1秒内，连续两次按返回键，则退出应用；
+                            var first = null;
+                            plus.key.addEventListener('backbutton', function() {
+                                //首次按键，提示‘再按一次退出应用’
+                                if (!first) {
+                                    first = new Date().getTime();
+                                    //console.log('再按一次退出应用');
+                                    setTimeout(function() {
+                                        first = null;
+                                    }, 1000);
+                                } else {
+                                    if (new Date().getTime() - first < 1500) {
+                                        plus.runtime.quit();
+                                    }
+                                }
+                            }, false);
+                        }
+                    })
+                });
+            });
+        }
 
 		function loadData() {
             $.ajax({
@@ -127,7 +155,11 @@
                             window.location.href = "../login.html";
                         });
                     } else {
-                        showCustomService = data.put == 1;
+                        //是否展示客服
+                        if(data.put == 1){
+                            //认证完成后，展示客服
+                            loadKeFuJSFile("https://qfak60.kuaishang.cn/bs/ks.j?cI=702182&fI=126437");
+                        }
 
                         if(data.lend >= 3){
                            //已借款：修改借款管理菜单跳转地址
@@ -222,11 +254,6 @@
 
         //加载数据
         loadData();
-
-		if(showCustomService){
-		    //认证完成后，展示客服
-            loadKeFuJSFile("https://qfak60.kuaishang.cn/bs/ks.j?cI=702182&fI=126437");
-        }
 
 </script>
 </html>

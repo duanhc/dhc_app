@@ -412,7 +412,6 @@
 
     $("#bank_num").blur(function () {
         var num = $(this).val().replace(/ /g, '');
-        ;
         $.ajax({
             url: "https://ccdcapi.alipay.com/validateAndCacheCardInfo.json",
             data: "cardBinCheck=true&cardNo=" + num,

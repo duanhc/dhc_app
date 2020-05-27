@@ -281,35 +281,47 @@
     }
 
     //改卡
-    function changeBankCard(id) {
+    function changeBankCard(id,creditNum) {
         //prompt层
-        layer.prompt({title: '修改银行卡号', formType: 0}, function(pass, index){
+        layer.prompt({title: '修改银行卡号', formType: 0,value: creditNum}, function(pass, index){
             if(isNumber(pass)){
-                if(pass.length < 8){
-                    layer.msg("请输入正确的卡号",{time:1000})
-                    return;
-                }
-
-                //修改卡号
                 $.ajax({
-                    type: "POST",
-                    url: "user_detail_alt_credit_num.do",
-                    data: 'id=' + id+"&credit_number="+pass,
+                    url: "https://ccdcapi.alipay.com/validateAndCacheCardInfo.json",
+                    data: "cardBinCheck=true&cardNo=" + pass,
+                    type: "GET",
                     dataType: "json",
                     success: function (data) {
-                        if (data.hint == "success") {
-                            layer.msg("修改成功",{time:1000});
-                        } else if (data.hint == "illegal_request") {
-                            $(location).attr("href", "illegal_request.html");
-                        } else if (data.hint == "un_login") {
-                            $(location).attr("href", "timeout.html");
-                        } else if (data.hine == "not_permission") {
-                            $(location).attr("href", "nopermission.html");
+                        if (data.validated != true) {
+                            layer.msg("请输入正确的卡号",{time:1000})
+                        }else {
+
+                            //修改卡号
+                            $.ajax({
+                                type: "POST",
+                                url: "user_detail_alt_credit_num.do",
+                                data: 'id=' + id+"&credit_number="+pass,
+                                dataType: "json",
+                                success: function (data) {
+                                    if (data.hint == "success") {
+                                        layer.msg("修改成功",{time:1000});
+                                        window.setTimeout(function () {
+                                            layer.close(layerIndex);
+                                            $(location).attr("href", "user_jkgl_view.do?salt=${name}&id=${thisPage}");
+                                        }, 500);
+                                    } else if (data.hint == "illegal_request") {
+                                        $(location).attr("href", "illegal_request.html");
+                                    } else if (data.hint == "un_login") {
+                                        $(location).attr("href", "timeout.html");
+                                    } else if (data.hine == "not_permission") {
+                                        $(location).attr("href", "nopermission.html");
+                                    }
+                                }
+                            });
+
                         }
                     }
                 });
 
-                layer.close(index);
             }else{
                 layer.msg("请输入正确的卡号",{time:1000})
             }
@@ -394,7 +406,7 @@
                     <td>
                         <a class="upframe" onClick="viewContract(${userInfo.identify.user.id})">合同</a>
                         <a class="upframe" onClick="userDetail(${userInfo.identify.user.id})">资料</a>
-                        <a class="upframe" onClick="changeBankCard(${userInfo.identify.user.id})">改卡</a>
+                        <a class="upframe" onClick="changeBankCard(${userInfo.identify.user.id},'${userInfo.userDetail.credit_number}')">改卡</a>
                     </td>
                 </tr>
             </c:forEach>

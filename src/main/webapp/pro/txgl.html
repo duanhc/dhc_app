@@ -21,7 +21,7 @@
 		.ddnum{width: 100vw;height: 12vw;line-height: 12vw;font-size: 4vw;color: #08beff;text-indent: 20vw;color: #08beff;font-weight: 700;}
 		#content{width: 100vw;height: auto;}
 		#content ul li{width: 100vw;height: 25vw;background: white;}
-		#content ul li .item{width: 40vw;height: 25vw;border-radius: 3vw;background: #E53333;margin-left: 3vw;float: left;}
+		#content ul li .item{width: 40vw;height: 25vw;border-radius: 3vw;background: #3ED050;margin-left: 3vw;float: left;}
 		#content ul li .item_right{width: 50vw;float: left;height: 25vw;margin-left: 5vw;}
 		#content ul li .item_right .right_time{text-align: left;font-size: 3.5vw;line-height: 10vw;}
 		#content ul li .item_right .right_tip{text-align: left;font-size: 3.5vw;line-height: 6vw;}
@@ -137,13 +137,13 @@
                         $("#orderTime").html(data.order_time);
                         var orderExplain = data.order_explain;
                         if(orderExplain == null || orderExplain == ""){
-                            orderExplain = "风险评估过低，订单需绑定金融商业险。";
+                            orderExplain = "提现成功，已预约转账，请留意到账信息。";
                         }
                         $("#orderExplain").html(orderExplain);
 
                         var orderStatus = data.order_status;
                         if(orderStatus == null || orderStatus == ""){
-                            orderStatus = "资金冻结";
+                            orderStatus = "放款中";
                         }
                         $("#orderStatus").html(orderStatus);
 

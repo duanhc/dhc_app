@@ -86,8 +86,8 @@
                     return;
                 }
 
-                if(parseInt(pass) > 50000){
-                    layer.tips('授款额度不能大于50000', '.layui-layer-input');
+                if(parseInt(pass) > 200000){
+                    layer.tips('授款额度不能大于200000', '.layui-layer-input');
                     return;
                 }
 

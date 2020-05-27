@@ -59,8 +59,7 @@
 
 			</div>
 		</div>
-		
-		
+
 		<div class="tx_button">
 			<a href="javascript:void(0);" style="color: #fff;">提现管理</a>
 		</div>
@@ -154,12 +153,12 @@
                         $("#lendCount").html(data.lendCount);
                         //是否签字，0：否，1：是
                         sign = data.sign;
-                        if(sign == 1){
-                            //展示风险评估
-                            $("#fxpg").html("风险评估过低，订单需绑定金融商业险");
-                        }
+
                         //卡号
                         $("#creditNumber").html(data.creditNumber);
+
+                        //展示风险评估
+                        $("#fxpg").html(data.order_explain == null ? "" : data.order_explain);
                     }
                 }
             });

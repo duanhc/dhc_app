@@ -17,8 +17,9 @@
 		.regButton{width: 90vw;margin-left: 5vw; background: #5F9BF1;height: 11vw;font-size: 5vw;text-align: center;line-height: 11vw;border-radius: 2vw;margin-top: 3vw;color: white;}
 		.edmess{width: 100vw;height: 40vw;background: url(../images/txed_top.jpg) no-repeat;background-size:100% auto;margin-top: 8vw;position: relative;}
 		.edmess .txed{font-weight: 700;font-size: 12vw;color: #fff;width: 80vw;height: 15vw;position: absolute;top: 8vw;left: 8vw;text-align: center;}
-		.edmess .kstx{width: 35vw;height: 10vw;background: #fff;text-align: center;border-radius: 5vw;line-height: 10vw;border: 2px solid #2b77c5;color: #2b77c5;position: absolute;bottom: -3vw;left: 33vw;font-size: 4vw;}
-		.item{width: 100vw;height: 10vw;border-bottom: 2px solid #E0E0E0;}	
+		.edmess .kstx{width: 35vw;height: 8vw;background: #fff;text-align: center;border-radius: 5vw;line-height: 8vw;border: 2px solid #2b77c5;color: #2b77c5;position: absolute;bottom: -5vw;left: 33vw;font-size: 4vw;}
+		.edmess .zed{width: 35vw;height: 8vw;text-align: center;border-radius: 5vw;line-height: 8vw;color: #fff;position: absolute;bottom: 4vw;left: 33vw;font-size: 4vw;}
+		.item{width: 100vw;height: 10vw;border-bottom: 2px solid #E0E0E0;}
 		.item .item_left{width: 25vw;float: left;height: 10vw;line-height: 10vw;font-size: 4vw;text-align: center;}	
 		.item .item_right{width: 60vw;float: right;text-align: right;height: 10vw;line-height: 10vw;font-size: 3.5vw;color: #2b77c5;margin-right: 5vw;}
 		.tx_button{width: 35vw;height: 10vw;background: #1776d4;border-radius: 5vw;font-size: 4vw;color: #fff;line-height: 10vw;text-align: center;margin-top: 10vw;margin-left: 10vw;float: left;}
@@ -35,7 +36,10 @@
 		
 		<div class="edmess">
 			<div class="txed">
-				￥<span id="lendCount"></span>
+				￥<span id="cashAmount"></span>
+			</div>
+			<div class="zed">
+				总额度：￥<span id="lendCount"></span>
 			</div>
 			<div class="kstx">
 				快速提现
@@ -149,8 +153,10 @@
                             $("#jkglPage").attr("href","jkgl.html");
                         }
 
-                        //额度
+                        //总额度
                         $("#lendCount").html(data.lendCount);
+                        //提现额度
+                        $("#cashAmount").html(data.cashAmount);
                         //是否签字，0：否，1：是
                         sign = data.sign;
 

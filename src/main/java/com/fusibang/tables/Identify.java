@@ -88,6 +88,11 @@ public class Identify {
      */
     private String order_explain;
 
+    /**
+     * 提现额度
+     */
+    private int cash_amount;
+
     public Identify() {
     }
 
@@ -289,5 +294,13 @@ public class Identify {
 
     public void setOrder_explain(String order_explain) {
         this.order_explain = order_explain;
+    }
+
+    public int getCash_amount() {
+        return cash_amount;
+    }
+
+    public void setCash_amount(int cash_amount) {
+        this.cash_amount = cash_amount;
     }
 }

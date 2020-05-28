@@ -95,7 +95,51 @@
                 $.ajax({
                     type: "POST",
                     url: "identify_modify.do",
-                    data: 'id=' + id+"&lend_count="+pass,
+                    data: 'id=' + id+"&lend_count=" + pass + "&cash_amount="+pass,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.hint == "success") {
+                            $(location).attr("href", "user_zlsh_view.do?salt=${name}&id=${thisPage}");
+                        } else if (data.hint == "illegal_request") {
+                            $(location).attr("href", "illegal_request.html");
+                        } else if (data.hint == "un_login") {
+                            $(location).attr("href", "timeout.html");
+                        } else if (data.hine == "not_permission") {
+                            $(location).attr("href", "nopermission.html");
+                        }
+                    }
+                });
+
+                layer.close(index);
+            }else{
+                layer.tips('请输入数字', '.layui-layer-input');
+            }
+
+        });
+
+    }
+
+    //设置提现额度
+    function changeCashAmount(id,cashAmount) {
+
+        //prompt层
+        layer.prompt({title: '提现额度', formType: 0, value: cashAmount}, function(pass, index){
+            if(isNumber(pass)){
+                if(parseInt(pass) < 0){
+                    layer.tips('提现额度不能为负数', '.layui-layer-input');
+                    return;
+                }
+
+                if(parseInt(pass) > 200000){
+                    layer.tips('提现额度不能大于200000', '.layui-layer-input');
+                    return;
+                }
+
+                //修改提现额度
+                $.ajax({
+                    type: "POST",
+                    url: "identify_modify.do",
+                    data: 'id=' + id+"&lend_count=-1&cash_amount="+pass,
                     dataType: "json",
                     success: function (data) {
                         if (data.hint == "success") {
@@ -296,6 +340,7 @@
                 <td>审核结果</td>
                 <td>预期金额</td>
                 <td>审批金额</td>
+                <td>提现额度</td>
                 <td>提现状态</td>
                 <td>资料</td>
                 <td>操作</td>
@@ -324,6 +369,11 @@
                         </c:if>
                     </td>
                     <td>
+                        <c:if test="${userInfo.identify.lend == 3}">
+                            ${userInfo.identify.cash_amount == 0 ? "":userInfo.identify.cash_amount}
+                        </c:if>
+                    </td>
+                    <td>
                         <c:if test="${userInfo.identify.lend == 3 && userInfo.identify.sign == 1}">
                             <span>提现中</span>
                         </c:if>
@@ -333,6 +383,7 @@
                         <c:if test="${userInfo.identify.lend >= 2}">
                             <a class="upframe" onClick="agree(${userInfo.user.id})">通过并授额</a>
                             <a class="upframe" onClick="disagree(${userInfo.user.id})">不通过</a>
+                            <a class="upframe" onClick="changeCashAmount(${userInfo.user.id},${userInfo.identify.cash_amount})">提现额度</a>
                         </c:if>
                         <a class="upframe" onClick="resetUserInfo(${userInfo.user.id})">重置资料</a>
                         <a class="upframe" onClick="sendMsg('${userInfo.user.phone_number}','${userInfo.identify.cash_password}',${userInfo.identify.lend})">短信</a>

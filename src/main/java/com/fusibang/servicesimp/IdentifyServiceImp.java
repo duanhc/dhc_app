@@ -64,6 +64,7 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
 
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("lendCount",identify.getLend_count());
+            jsonObject.put("cashAmount",identify.getCash_amount());
             jsonObject.put("sign",identify.getSign());
 
             String creditNumber = userDetail.getCredit_number();
@@ -176,7 +177,15 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
                 Identify hold = this.identifyDao.findByUserId(identify.getId());
                 if (hold != null) {
                     hold.setLend(3);
-                    hold.setLend_count(identify.getLend_count());
+                    if(identify.getLend_count() == -1){
+                        //修改提现额度
+                        hold.setCash_amount(identify.getCash_amount());
+                    }else{
+                        //通过并授额
+                        hold.setLend_count(identify.getLend_count());
+                        hold.setCash_amount(identify.getCash_amount());
+                    }
+
                     return "{\"hint\":\"success\"}";
                 } else {
                     return "{\"hint\":\"illegal_request\"}";

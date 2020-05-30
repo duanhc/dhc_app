@@ -124,16 +124,9 @@
 							
 						});	
 					}else if (data.length >= 32) {
-					    if(JSON.parse(data).show_market == 1){
-					        //首页显示代超
-                            $.alert("登录成功",function(){
-                                window.location.href = "pro/app_jieguo.do";
-                            });
-                        }else{
-                            $.alert("登录成功",function(){
-                                window.location.href = "pro/jssh.html";
-                            });
-                        }
+                        $.alert("登录成功",function(){
+                            window.location.href = "pro/jssh.html";
+                        });
 					};
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {   

@@ -50,7 +50,7 @@
 			</ul>
 		</div>
 		<div class="regButton" onclick="submit()">
-			提交审核
+			下一步
 		</div>
 		
 	</body>
@@ -301,10 +301,9 @@
             return new Blob( [ab] , {type : 'image/png'});
         }
         
-        
         function submit() {
 			if (step1 == 1 && step2 == 1) {
-				window.location.href = "auth_center.action";
+				window.location.href = "user_detail_view.action";
 			} else  if (step2 == 0) {
 				$.alert("请上传身份证反面", function (){
                 			
@@ -317,10 +316,6 @@
 		}
 
     </script>
-	
-	
-		
-		
 
 </html>
     

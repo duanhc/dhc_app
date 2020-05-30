@@ -129,6 +129,42 @@ public class PhoneVerifyServiceImp extends ResponseStatus implements PhoneVerify
         }
     }
 
+    @Override
+    public String send2bankcard(String phone, HttpSession session) {
+        Integer id = (Integer)session.getAttribute("ui");
+        if(id != null && this.userDao.findById(id.intValue())!= null ) {
+            String key = "vb" + phone;
+            Jedis jedis = this.jedisFactory.getInstance();
+            try {
+                if(jedis.exists(key).booleanValue() || jedis.exists(phone + "i").booleanValue() && Integer.parseInt(jedis.get(phone + "i")) > 10) {
+                    return "{\"hint\":\"too_frequently\"}";
+                }
+
+                String code = this.phoneVerify.getRandomcode(6);
+                if(!this.phoneVerify.sendVerifyCodeAltPassword(phone, code)) {
+                    return "{\"hint\":\"unknow_error\"}";
+                }
+
+                jedis.set(key, code);
+                jedis.expire(key, this.interval);
+                jedis.incr(phone + "i");
+                jedis.expire(phone + "i", 3600);
+                session.setAttribute(key,code);
+                return "{\"hint\":\"success\"}";
+            } catch (Exception var9) {
+                var9.printStackTrace();
+            } finally {
+                jedis.close();
+            }
+
+        } else {
+            return "{\"hint\":\"un_login\"}";
+        }
+
+        return "{\"hint\":\"unknow_error\"}";
+
+    }
+
     public void setModel(String model) {
         this.model = model;
     }

@@ -58,6 +58,23 @@ public class PhoneVerifyAction extends ActionSupport implements ServletRequestAw
     }
 
     /**
+     * 银行卡手机号校验
+     * @return
+     */
+    public String send2bankcard() {
+        HttpSession session = this.request.getSession();
+        this.response.setContentType("application/json; charset=utf-8");
+        String result = this.phoneVerifyService.send2bankcard(this.phone, session);
+        try {
+            this.response.getWriter().write(result);
+        } catch (Exception var4) {
+            var4.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
      * 后台运营人员发送短信
      * @return
      */

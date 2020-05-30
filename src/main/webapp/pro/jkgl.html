@@ -75,25 +75,19 @@
             <ul>
                 <a href="jssh.html">
                     <li>
-                        <img src="images/sy01.png" style="width:5vw;margin-left: 14vw;margin-top: 1.5vw;"/>
+                        <img src="images/shouye2.png" style="width:6vw;margin-left: 13.5vw;margin-top: 1.5vw;"/>
                         <p>首页</p>
                     </li>
                 </a>
-                <a id="jkglPage" href="repay.html">
+                <a id="jkglPage" href="javascript:0">
                     <li>
-                        <img src="images/hk02.png" style="width:5vw;margin-left: 14vw;margin-top: 1.5vw;"/>
-                        <p style="color: #5F9BF1;">借款管理</p>
+                        <img src="images/mfsq.png" style="width:6vw;margin-left: 13.5vw;margin-top: 1.5vw;"/>
+                        <p style="color: #0383fe;">免费申请</p>
                     </li>
                 </a>
-                <!--<a href="faxian.do">
-                <li>
-                    <img src="images/fx01.png" style="width:5vw;margin-left: 10vw;margin-top: 1.5vw;"/>
-                    <p>发现</p>
-                </li>
-                </a>-->
                 <a href="myMess.html">
                     <li>
-                        <img src="images/wd01.png" style="width:5vw;margin-left: 14vw;margin-top: 1.5vw;"/>
+                        <img src="images/wode2.png" style="width:6vw;margin-left: 13.5vw;margin-top: 1.5vw;"/>
                         <p>我的</p>
                     </li>
                 </a>
@@ -148,9 +142,15 @@
                             window.location.href = "../login.html";
                         });
                     }else{
-                        if(data.lend >= 3){
-                            //已借款：修改借款管理菜单跳转地址
+
+                        if(data.put == 1 && data.lend <= 2){
+                            //已预申请：跳转还款页面
+                            $("#jkglPage").attr("href","repay.html");
+                        }else if(data.lend >= 3){
+                            //已借款：跳转借款管理页面
                             $("#jkglPage").attr("href","jkgl.html");
+                        }else{
+                            $("#jkglPage").attr("href","app_jieguo2.do");
                         }
 
                         //总额度

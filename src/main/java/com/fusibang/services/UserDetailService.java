@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 public interface UserDetailService {
     String addDetail(UserDetail var1, HttpSession var2);
 
-    String altDetail(UserDetail var1, HttpSession var2);
+    String altDetail(String code,UserDetail var1, HttpSession var2);
 
     String view(HttpServletRequest var1);
 

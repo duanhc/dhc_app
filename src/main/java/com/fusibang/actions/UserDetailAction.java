@@ -23,6 +23,8 @@ public class UserDetailAction extends ActionSupport implements ServletRequestAwa
     private HttpServletRequest request;
     private UserDetail userDetail;
     private UserDetailService userDetailService;
+    //手机验证码
+    private String code;
 
     public UserDetailAction() {
     }
@@ -58,7 +60,7 @@ public class UserDetailAction extends ActionSupport implements ServletRequestAwa
         HttpSession session = this.request.getSession();
 
         try {
-            this.response.getWriter().write(this.userDetailService.altDetail(this.userDetail, session));
+            this.response.getWriter().write(this.userDetailService.altDetail(this.code,this.userDetail, session));
         } catch (IOException var3) {
             var3.printStackTrace();
         }
@@ -100,5 +102,9 @@ public class UserDetailAction extends ActionSupport implements ServletRequestAwa
 
     public void setServletRequest(HttpServletRequest arg0) {
         this.request = arg0;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

@@ -13,4 +13,6 @@ public interface PhoneVerifyService {
     String send2ChmodPwd(String var1, HttpSession var2);
 
     String send2Login(String var1, HttpSession var2);
+
+    String send2bankcard(String phone, HttpSession session);
 }

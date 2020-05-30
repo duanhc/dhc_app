@@ -76,7 +76,7 @@
 		</action>
 <!--    后来注册的用户，jssh页面下展示超市    -->
         <action name="app_jieguo2" class="appStoreAction" method="jieguoView2">
-            <result>/dynamic/jieguo2.jsp</result>
+            <result>/pro/mfsq.jsp</result>
         </action>
 		<action name="app_market" class="appStoreAction" method="marketView">
 			<result>/dynamic/kouzi.jsp</result>
@@ -228,7 +228,7 @@
 		<action name="user_detail_view" class="userDetailAction" method="view">
 			<result name="step3" >/pro/jcmess.jsp</result>
 			<result name="step4" >/pro/bcMess.html</result>
-			<result name="step6" >/pro/bank_auth.jsp</result>
+			<result name="step6" >/pro/addCard.jsp</result>
 			<result name="un_login" type="redirect">/login.html</result>
 		</action>
 		<action name="user_detail_add" class="userDetailAction" method="addDetail"></action>
@@ -260,6 +260,7 @@
 			<result name="illegal_request" type="redirect">/pro/myMess.html</result>
 		</action>
 	<!-- 手机验证码 -->
+		<action name="phone_bankcard" class="phoneVerifyAction" method="send2bankcard"></action>
 		<action name="phone_registe" class="phoneVerifyAction" method="send2Registe"></action>
 		<action name="phone_modifypwd" class="phoneVerifyAction" method="send2modifyPwd"></action>
 		<action name="phone_login" class="phoneVerifyAction" method="send2Login"></action>

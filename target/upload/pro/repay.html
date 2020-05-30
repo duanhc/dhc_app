@@ -68,30 +68,25 @@
 		</div>
 		<div id="bottom">
             <ul>
-                <a id="goToMarket" href="jssh.html">
+                <a href="jssh.html">
                     <li>
-                        <img src="images/sy01.png" style="width:5vw;margin-left: 14vw;margin-top: 1.5vw;"/>
+                        <img src="images/shouye2.png" style="width:6vw;margin-left: 13.5vw;margin-top: 1.5vw;"/>
                         <p>首页</p>
                     </li>
                 </a>
-                <a href="repay.html">
+                <a id="jkglPage" href="repay.html">
                     <li>
-                        <img src="images/hk02.png" style="width:5vw;margin-left: 14vw;margin-top: 1.5vw;"/>
-                        <p style="color: #5F9BF1;">借款管理</p>
+                        <img src="images/mfsq.png" style="width:6vw;margin-left: 13.5vw;margin-top: 1.5vw;"/>
+                        <p style="color: #0383fe;">免费申请</p>
                     </li>
                 </a>
-                <!--<a href="faxian.do">
-                <li>
-                    <img src="images/fx01.png" style="width:5vw;margin-left: 10vw;margin-top: 1.5vw;"/>
-                    <p>发现</p>
-                </li>
-                </a>-->
                 <a href="myMess.html">
                     <li>
-                        <img src="images/wd01.png" style="width:5vw;margin-left: 14vw;margin-top: 1.5vw;"/>
+                        <img src="images/wode2.png" style="width:6vw;margin-left: 13.5vw;margin-top: 1.5vw;"/>
                         <p>我的</p>
                     </li>
                 </a>
+
             </ul>
 		</div>
 
@@ -129,26 +124,6 @@
                     });
                 });
             }
-
-            $.ajax({
-                url : "identify_get.action",
-                type : "GET",
-                dataType : "json",
-                success : function(data) {
-                    if (data.hint == "un_login") {
-                        $.alert("登录超时,请重新登录", function (){
-                            window.location.href = "../login.html";
-                        });
-                    }else {
-                        var showMarket = data.user.show_market;
-                        if(showMarket == 1){
-                            //首页是否展示超时，0：不展示，1：展示
-                            $("#goToMarket").attr("href","app_jieguo.do");
-                        }
-                    }
-                }
-            });
-
         </script>
 	</body>
 </html>

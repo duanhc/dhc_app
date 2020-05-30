@@ -15,6 +15,7 @@ import com.fusibang.tables.IdCard;
 import com.fusibang.tables.Identify;
 import com.fusibang.tables.User;
 import com.fusibang.tables.UserDetail;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -50,26 +51,32 @@ public class UserDetailServiceImp extends ResponseStatus implements UserDetailSe
         }
     }
 
-    public String altDetail(UserDetail userDetail, HttpSession session) {
+    public String altDetail(String code,UserDetail userDetail, HttpSession session) {
         Integer id = (Integer)session.getAttribute("ui");
         if (id != null) {
             User user = this.userDao.findById(id.intValue());
-            UserDetail hold = this.userDetailDao.findByUserId(user.getId());
-            if (hold != null) {
-                // userDetail.setId(hold.getId());
-                // userDetail.setUser(hold.getUser());
-                // userDetail.setPut_time(new Timestamp((new Date()).getTime()));
-//                this.userDetailDao.altDetail(userDetail);
-                hold.setPut_time(new Timestamp((new Date()).getTime()));
-                hold.setCredit_number(userDetail.getCredit_number());
-                hold.setCredit_name(userDetail.getCredit_name());
-                hold.setReserved_number(userDetail.getReserved_number());
-                this.userDetailDao.altDetail(hold);
-                this.identifyDao.findByUserId(user.getId()).setStep6(1);
-                return "{\"hint\":\"success\"}";
-            } else {
-                return "{\"hint\":\"account_not_found\"}";
+            String phone_number = user.getPhone_number();
+            if(code != null && code.equals(session.getAttribute("vb" + phone_number))) {
+                if (!this.userDetailDao.exist(user.getId())) {
+                    IdCard idCard = this.idCardDao.findByUserid(id.intValue());
+                    userDetail.setId_card(idCard.getNum());
+                    userDetail.setName(idCard.getName());
+                    userDetail.setCity(idCard.getAddress());
+                    userDetail.setUser(user);
+                    userDetail.setPut_time(new Timestamp((new Date()).getTime()));
+                    this.userDetailDao.addDetail(userDetail);
+                    Identify identify = this.identifyDao.findByUserId(user.getId());
+                    identify.setStep6(1);
+                    identify.setPut(1);
+                    session.removeAttribute("vm" + phone_number);
+                    return "{\"hint\":\"success\"}";
+                } else {
+                    return "{\"hint\":\"already_exist\"}";
+                }
+            }else {
+                return  "{\"hint\":\"phone_code_error\"}";
             }
+
         } else {
             return "{\"hint\":\"un_login\"}";
         }
@@ -80,14 +87,26 @@ public class UserDetailServiceImp extends ResponseStatus implements UserDetailSe
         User user = this.userDao.findById(id.intValue());
         IdCard idCard = this.idCardDao.findByUserid(id.intValue());
         if (user != null && idCard != null) {
-            Identify identify = this.identifyDao.findByUserId(user.getId());
-            if (identify.getStep3() == 0) {
-                request.setAttribute("name", idCard.getName());
-                request.setAttribute("idcard", idCard.getNum());
-                return "step3";
-            } else {
-                return identify.getStep4() == 0 ? "step4" : (identify.getStep6() == 0) ? "step6" : "success";
+            String name = idCard.getName();
+            name = (name == null ? "" : name);
+            if(name.length() > 1){
+                String lastName = name.substring(0, 1);
+                String starName = "";
+                for(int i=1;i<name.length();i++){
+                    starName += "*";
+                }
+                name = lastName+starName;
             }
+            String num = idCard.getNum();
+            num = (num == null ? "" : num);
+            if(num.length() > 10){
+                StringBuilder sb = new StringBuilder(num);
+                sb.replace(6, 14, StringUtils.repeat("*", 8));
+                num = sb.toString();
+            }
+            request.setAttribute("name", name);
+            request.setAttribute("idcard", num);
+            return "step6";
         } else {
             return "un_login";
         }

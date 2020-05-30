@@ -8,253 +8,461 @@
 		<script src="../js/jquery.min.js"></script>
 		<script src="../js/jquery-weui.min.js"></script>
 		<script src="../js/jquery.form.js"  type="text/javascript"></script>
-	</head>	
-	<style type="text/css">
-		*{padding: 0;margin: 0;}
-		ul li{list-style: none;}
-		::-webkit-input-placeholder { color: #AAAAAA; } :-moz-placeholder { color: #AAAAAA; } ::-moz-placeholder { color: #AAAAAA; } :-ms-input-placeholder { color: #AAAAAA; }  
-		#top{width: 100vw;height: 45vw;}
-		#content{width: 100vw;height: 60vw;margin-top: 5vw;position: relative;}
-		#content .xyed{width: 100vw;height: 5vw;font-size: 3vw;color: #949494;position: absolute;top: 28vw;text-align: center;}
-		#content .edNum{width: 100vw;height: 5vw;font-size: 7vw;color: #FF8755;position: absolute;top: 35vw;left: 0;text-align: center;font-weight: 700;}
-		#edsz{width: 100vw;height: 12vw;margin-bottom: 0vw}
-		#edsz .yjed,#edsz .syed{width: 50vw;float: left;height: 12vw;}
-		#edsz .yjed p,#edsz .syed p{font-size: 3.5vw;text-align: center;color: #949494;}
-		#edsz .yjed span,#edsz .syed span{font-size: 3.5vw;text-align: center;color: #FF8755;display: block;width: 50vw;font-weight: 700;}
-		.regButton{width: 90vw;margin-left: 5vw;margin-top:3vw; background: #5F9BF1;height: 11vw;font-size: 4vw;text-align: center;line-height: 11vw;border-radius: 5vw;color: white;}
-		#bottom{height: 12vw;width: 100vw;position: fixed;bottom: 0;left: 0;border-top: 1px solid #DEDEDE;background: white;}
-		#bottom ul li{width: 33.3vw;float: left;height: 12vw;}
-		#bottom ul li p{text-align: center;font-size: 3vw;margin-top: -1vw;height: 4vw;line-height: 4vw;color: #DEDEDE;}
-   		#hidebg { position:absolute;left:0px;top:0px;
-	      background-color:#000;
-	      width:100%;  
-	      filter:alpha(opacity=40);  
-	      opacity:0.4;  
-	      display:none; 
-	      z-Index:2;
-	      height: 100%;}
-      #hidebox{width: 70vw;height: 40vw;background: white;position: fixed;top: 70vw;z-index: 100;left: 15vw;border-radius: 5vw;display: none;}
-      #hidebox p{height: 8vw;text-align: center;line-height: 10vw;}
-      #hidebox .quxiao,#hidebox .queding{width: 34.8vw;height: 13vw;float: left;margin-top: 6vw;line-height: 13vw;text-align: center;color: #468FFF;border-top: 1px solid #DEDEDE;}
-	</style>
+	</head>
+    <style type="text/css">
+        *{padding: 0;margin: 0;}
+        ul li{list-style: none;}
+        html{background: #FAFAFA;}
+        ::-webkit-input-placeholder { color: #EEEEEE; } :-moz-placeholder { color: #EEEEEE; } ::-moz-placeholder { color: #EEEEEE; } :-ms-input-placeholder { color: #EEEEEE; }
+        #top{width: 100vw;position: relative;z-index: 5;}
+        #top .top_mess{width: 92vw;height: 8vw;background: #fff;position: absolute;bottom: -3vw;left: 3vw;box-shadow: 0 2px 3px #eee;border-radius: 1vw;}
+        #top .top_mess .tips{width: 10vw;height: 8vw;float: left;}
+        #top .top_mess .mess_cont{line-height: 8vw;font-size: 3.5vw;width: 80vw;float: left;text-indent: 1vw;}
+
+        #item{width: 100vw;height: 21vw;margin-top: 6vw;}
+        #item ul li{width: 33vw;float: left;height: 21vw;}
+        #item ul li .item_pic{width: 33vw;height: 13vw;}
+        #item ul li .item_cont{width: 18vw;height: 8vw;margin-left: 7.5vw;text-align: center;font-size: 3.5vw;line-height: 8vw;}
+
+        #regbutton{width: 66vw;height: 11vw;line-height: 11vw;margin-left: 17vw;font-size: 3.5vw;background: #0383fe;color: #fff;text-align: center;border-radius: 5vw;margin-top: 4vw;}
+
+        .space{width: 100vw;height: 2vw;background: #f8f9f9;margin-top: 2vw;}
+
+        .item_head{width: 100vw;height: 8vw;}
+        .item_head .head_left{width: 5vw;height: 4vw;float: left;}
+        .item_head .head_right{width: 50vw;height: 8vw;float: left;line-height: 8vw;font-size: 3.5vw;font-weight: 700;text-indent: 2vw;}
+
+        .item_pro{width: 100vw;height: 30vw;margin-top: 3vw;}
+        .item_pro ul li{width: 50vw;height: 15vw;float: left;}
+        .item_pro .pro_pic{width: 18vw;float: left;height: 15vw;}
+        .item_pro .pro_cont{width: 32vw;float: left;height: 15vw;}
+
+        .item_pre{width: 92vw;height: 40vw;margin-top: 3vw;margin-left: 3vw;}
+        .item_pre .item_pre_1,.item_pre .item_pre_2{float: left;}
+
+        .ktvip{width: 92vw;margin-left: 3vw;height: 10vw;border-radius: 2vw;background: #3f434b;margin-top: 2vw;}
+
+        .gift{width: 100vw;height: 40vw;margin-bottom: 15vw;margin-top: 3vw;}
+        .gift ul li{width: 33vw;height: 20vw;float: left;}
+        .gift ul li .gift_pic{}
+        .gift ul li .gift_name{text-align: center;font-size: 3.5vw;color: #959595;}
+
+        #bottom{height: 12vw;width: 100vw;position: fixed;bottom: 0;left: 0;border-top: 1px solid #DEDEDE;background: white;}
+        #bottom ul li{width: 33.3vw;float: left;height: 13vw;}
+        #bottom ul li p{text-align: center;font-size: 3vw;height: 4vw;line-height: 4vw;color: #DEDEDE;margin-top: -0.5vw;}
+
+        #hidebg { position:absolute;left:0px;top:0px;
+            background-color:#000;
+            width:100%;
+            filter:alpha(opacity=40);
+            opacity:0.4;
+            display:none;
+            z-Index:2;
+            height: 100%;}
+        #hidebox{width: 70vw;height: 40vw;background: white;position: fixed;top: 70vw;z-index: 100;left: 15vw;border-radius: 5vw;display: none;}
+        #hidebox p{height: 8vw;text-align: center;line-height: 10vw;}
+        #hidebox .quxiao,#hidebox .queding{width: 34.8vw;height: 13vw;float: left;margin-top: 6vw;line-height: 13vw;text-align: center;color: #468FFF;border-top: 1px solid #DEDEDE;}
+    </style>
 	<body onload="addBackListener();">
-		<div id="top">
-			<img src="images/jssh_top.png" style="width: 100vw;"/>
-		</div>
-		<div id="content">
-			<img src="images/edke.png" style="width: 50vw;margin-left: 25vw;margin-top: 15vw;"/>
-			<div class="xyed">
-				信用额度(元)
-			</div>
-			<div class="edNum">
-				100000.00
-			</div>
-		</div>
-		<div id="edsz">
-			<div class="yjed">
-				<p>已借额度(元)</p>
-				<span id="eduu">0.00</span>
-			</div>
-			<div class="syed">
-				<p>剩余额度(元)</p>
-				<span id="edu">未认证</span>
-			</div>
-		</div>
-		<div class="regButton" onClick="show();">
-				我要借款
-		</div>
-		<div id="bottom">
-			<ul>
-				<a href="jssh.html">
-				<li>
-					<img src="images/sy02.png" style="width:5vw;margin-left: 14vw;margin-top: 1.5vw;"/>
-					<p style="color: #5F9BF1;">首页</p>
-				</li>
-				</a>
-				<a id="jkglPage" href="repay.html">
-				<li>
-					<img src="images/hk01.png" style="width:5vw;margin-left: 14vw;margin-top: 1.5vw;"/>
-					<p>借款管理</p>
-				</li>
-				</a>
-				<!--<a href="faxian.do">
-				<li>
-					<img src="images/fx01.png" style="width:5vw;margin-left: 10vw;margin-top: 1.5vw;"/>
-					<p>发现</p>
-				</li>
-				</a>-->
-				<a href="myMess.html">
-				<li>
-					<img src="images/wd01.png" style="width:5vw;margin-left: 14vw;margin-top: 1.5vw;"/>
-					<p>我的</p>
-				</li>
-				</a>
-			</ul>
-		</div>
-		<div id="hidebg"></div>
-		<div id="hidebox">
-			<p style="margin-top: 5vw;font-weight: 700;font-size: 5vw;">借款</p>
-			<p style="font-size: 4vw;" id="auth_tip">借款需要完成实名认证</p>
-			<div class="quxiao" style="border-right: 1px solid #DEDEDE;" onClick="hide();">
-				取消
-			</div>
-			<div class="queding" id="auth_confirm">
-				认证
-			</div>
-		</div>
+        <div id="top">
+            <img src="images/banner.jpg" style="width: 100vw;height: 50vw;" >
+            <div id="item">
+                <ul>
+                    <li>
+                        <div class="item_pic">
+                            <img src="images/item1.png" style="width: 10vw;margin-left: 11.5vw;margin-top: 2vw;"/>
+                        </div>
+                        <div class="item_cont">
+                            三步评估
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item_pic">
+                            <img src="images/jssh.png" style="width: 10vw;margin-left: 11.5vw;margin-top: 2vw;"/>
+                        </div>
+                        <div class="item_cont">
+                            极速审核
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item_pic">
+                            <img src="images/wmlq.png" style="width: 10vw;margin-left: 11.5vw;margin-top: 2vw;"/>
+                        </div>
+                        <div class="item_cont">
+                            五秒领钱
+                        </div>
+                    </li>
+                </ul>
+            </div>
 
-        <!--   代超     -->
-        <div>
-            <iframe src="app_jieguo2.do" width="100%" style="border: none;" height="800" border="none"></iframe>
+            <div id="regbutton" onClick="show();">
+                立即申请
+            </div>
+
+            <div class="space"></div>
+
+            <div class="item_head">
+                <div class="head_left">
+                    <img src="images/tips.png" style="width: 1.2vw;margin-left: 4.5vw;margin-top: 2.2vw;"/>
+                </div>
+                <div class="head_right">
+                    产品优势
+                </div>
+            </div>
+
+            <div class="item_pro">
+                <ul>
+                    <li>
+                        <div class="pro_pic">
+                            <img src="images/hgcp.png" style="width: 9vw;margin-left: 6.5vw;"/>
+                        </div>
+                        <div class="pro_cont">
+                            <p style="font-size: 4vw;font-weight: 400;line-height: 5vw;">合规产品</p>
+                            <p style="font-size: 3.5vw;color: #999;line-height: 5vw;">日息0.02%起</p>
+
+                        </div>
+
+                    </li>
+                    <li>
+                        <div class="pro_pic">
+                            <img src="images/jklh.png" style="width: 9vw;margin-left: 6.5vw;"/>
+                        </div>
+                        <div class="pro_cont">
+                            <p style="font-size: 4vw;font-weight: 400;line-height: 5vw;">借款灵活</p>
+                            <p style="font-size: 3.5vw;color: #999;line-height: 5vw;">贷款期限1-36个月</p>
+
+                        </div>
+
+                    </li>
+                    <li>
+                        <div class="pro_pic">
+                            <img src="images/jxsh.png" style="width: 9vw;margin-left: 6.5vw;"/>
+                        </div>
+                        <div class="pro_cont">
+                            <p style="font-size: 4vw;font-weight: 400;line-height: 5vw;">极限审核</p>
+                            <p style="font-size: 3.5vw;color: #999;line-height: 5vw;">最快半小时到账</p>
+
+                        </div>
+
+                    </li>
+                    <li>
+                        <div class="pro_pic">
+                            <img src="images/fqfk.png" style="width: 9vw;margin-left: 6.5vw;"/>
+                        </div>
+                        <div class="pro_cont">
+                            <p style="font-size: 4vw;font-weight: 400;line-height: 5vw;">分期付款</p>
+                            <p style="font-size: 3.5vw;color: #999;line-height: 5vw;">分期付款无压力</p>
+
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+
+            <div class="space"></div>
+
+            <div class="item_head">
+                <div class="head_left">
+                    <img src="images/tips.png" style="width: 1.2vw;margin-left: 4.5vw;margin-top: 2.2vw;"/>
+                </div>
+                <div class="head_right">
+                    新老会员权益
+                </div>
+            </div>
+
+
+            <div class="item_pre">
+                <div class="item_pre_1" style="margin-right: 2vw;">
+                    <img src="images/hfyh.png" style="width: 46vw;"/>
+                </div>
+                <div class="item_pre_2" style="margin-bottom: 1vw;">
+                    <img src="images/dyyh.png" style="width: 42vw;"/>
+                </div>
+                <div class="item_pre_2">
+                    <img src="images/wpyh.png" style="width: 42vw;"/>
+                </div>
+            </div>
+
+            <div class="ktvip">
+                <img src="images/vip.png" style="margin-top: 1vw;margin-left: 28vw;display: block;float: left;margin-top: 2vw;width: 15vw;"/>
+                <p style="color: #fff;line-height: 10vw;float: left;text-indent: -1vw;font-size: 3.5vw;">开通会员</p>
+            </div>
+
+            <div class="gift" >
+                <ul>
+                    <li>
+                        <div class="gift_pic">
+                            <img src="images/cxdlb.png" style="width: 9.5vw;margin-left: 12vw;margin-top: 2vw;"/>
+                        </div>
+                        <div class="gift_name">
+                            出行大礼包
+                        </div>
+                    </li>
+                    <li>
+                        <div class="gift_pic">
+                            <img src="images/jddlb.png" style="width: 9.5vw;margin-left: 12vw;margin-top: 2vw;"/>
+                        </div>
+                        <div class="gift_name">
+                            酒店大礼包
+                        </div>
+                    </li>
+                    <li>
+                        <div class="gift_pic">
+                            <img src="images/zzcemy.png" style="width: 9.5vw;margin-left: 12vw;margin-top: 2vw;"/>
+                        </div>
+                        <div class="gift_name">
+                            自助餐二免一
+                        </div>
+                    </li>
+                    <li>
+                        <div class="gift_pic">
+                            <img src="images/shfw.png" style="width: 9.5vw;margin-left: 12vw;margin-top: 2vw;"/>
+                        </div>
+                        <div class="gift_name">
+                            生活服务卷包
+                        </div>
+                    </li>
+                    <li>
+                        <div class="gift_pic">
+                            <img src="images/lsms.png" style="width: 9.5vw;margin-left: 12vw;margin-top: 2vw;"/>
+                        </div>
+                        <div class="gift_name">
+                            零食9.9元秒杀*3
+                        </div>
+                    </li>
+                    <li>
+                        <div class="gift_pic">
+                            <img src="images/rybh.png" style="width: 9.5vw;margin-left: 12vw;margin-top: 2vw;"/>
+                        </div>
+                        <div class="gift_name">
+                            日用百货9.9元*3
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="hidebg"></div>
+            <div id="hidebox">
+                <p style="margin-top: 5vw;font-weight: 700;font-size: 5vw;">借款</p>
+                <p style="font-size: 4vw;" id="auth_tip">借款需要完成实名认证</p>
+                <div class="quxiao" style="border-right: 1px solid #DEDEDE;" onClick="hide();">
+                    取消
+                </div>
+                <div class="queding" id="auth_confirm">
+                    认证
+                </div>
+            </div>
+
+            <div id="bottom">
+                <ul>
+                    <a href="shouye.html">
+                        <li>
+                            <img src="images/shouye.png" style="width:6vw;margin-left: 13.5vw;margin-top: 1.5vw;"/>
+                            <p style="color: #0383fe;">首页</p>
+                        </li>
+                    </a>
+                    <a href="mfsq.html">
+                        <li>
+                            <img src="images/mfsq2.png" style="width:6vw;margin-left: 13.5vw;margin-top: 1.5vw;"/>
+                            <p>免费申请</p>
+                        </li>
+                    </a>
+                    <a href="wode.html">
+                        <li>
+                            <img src="images/wode2.png" style="width:6vw;margin-left: 13.5vw;margin-top: 1.5vw;"/>
+                            <p>我的</p>
+                        </li>
+                    </a>
+
+                </ul>
+            </div>
+
+            <div id="bottom">
+                <ul>
+                    <a href="jssh.html">
+                        <li>
+                            <img src="images/shouye.png" style="width:6vw;margin-left: 13.5vw;margin-top: 1.5vw;"/>
+                            <p style="color: #0383fe;">首页</p>
+                        </li>
+                    </a>
+                    <a id="jkglPage" href="javascript:0">
+                        <li>
+                            <img src="images/mfsq2.png" style="width:6vw;margin-left: 13.5vw;margin-top: 1.5vw;"/>
+                            <p>免费申请</p>
+                        </li>
+                    </a>
+                    <a href="myMess.html">
+                        <li>
+                            <img src="images/wode2.png" style="width:6vw;margin-left: 13.5vw;margin-top: 1.5vw;"/>
+                            <p>我的</p>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+
+            <div id="hidebg"></div>
+            <div id="hidebox">
+                <p style="margin-top: 5vw;font-weight: 700;font-size: 5vw;">借款</p>
+                <p style="font-size: 4vw;" id="auth_tip">借款需要完成实名认证</p>
+                <div class="quxiao" style="border-right: 1px solid #DEDEDE;" onClick="hide();">
+                    取消
+                </div>
+                <div class="queding" id="auth_confirm">
+                    认证
+                </div>
+            </div>
         </div>
-	</body>
-	<script>
 
-        //返回键处理
-        function addBackListener(){
-            document.addEventListener('plusready', function() {
-                var webview = plus.webview.currentWebview();
-                plus.key.addEventListener('backbutton', function() {
-                    webview.canBack(function(e) {
-                        if(e.canBack) {
-                            webview.back();
-                        } else {
-                            //webview.close(); //hide,quit
-                            //plus.runtime.quit();
-                            //首页返回键处理
-                            //处理逻辑：1秒内，连续两次按返回键，则退出应用；
-                            var first = null;
-                            plus.key.addEventListener('backbutton', function() {
-                                //首次按键，提示‘再按一次退出应用’
-                                if (!first) {
-                                    first = new Date().getTime();
-                                    //console.log('再按一次退出应用');
-                                    setTimeout(function() {
-                                        first = null;
-                                    }, 1000);
-                                } else {
-                                    if (new Date().getTime() - first < 1500) {
-                                        plus.runtime.quit();
+        <script>
+            //返回键处理
+            function addBackListener(){
+                document.addEventListener('plusready', function() {
+                    var webview = plus.webview.currentWebview();
+                    plus.key.addEventListener('backbutton', function() {
+                        webview.canBack(function(e) {
+                            if(e.canBack) {
+                                webview.back();
+                            } else {
+                                //webview.close(); //hide,quit
+                                //plus.runtime.quit();
+                                //首页返回键处理
+                                //处理逻辑：1秒内，连续两次按返回键，则退出应用；
+                                var first = null;
+                                plus.key.addEventListener('backbutton', function() {
+                                    //首次按键，提示‘再按一次退出应用’
+                                    if (!first) {
+                                        first = new Date().getTime();
+                                        //console.log('再按一次退出应用');
+                                        setTimeout(function() {
+                                            first = null;
+                                        }, 1000);
+                                    } else {
+                                        if (new Date().getTime() - first < 1500) {
+                                            plus.runtime.quit();
+                                        }
                                     }
-                                }
-                            }, false);
-                        }
-                    })
+                                }, false);
+                            }
+                        })
+                    });
                 });
-            });
-        }
+            }
 
-		function loadData() {
-            $.ajax({
-                url : "identify_get.action",
-                type : "GET",
-                dataType : "json",
-                success : function(data) {
-                    if (data.hint == "un_login") {
+            function loadData() {
+                $.ajax({
+                    url : "identify_get.action",
+                    type : "GET",
+                    dataType : "json",
+                    success : function(data) {
+                        if (data.hint == "un_login") {
+                            $.alert("尚未登录,是否登录", function (){
+                                window.location.href = "../login.html";
+                            });
+                        } else {
+                            if(data.put == 1 && data.lend <= 2){
+                                //已预申请：跳转还款页面
+                                $("#jkglPage").attr("href","repay.html");
+                            }else if(data.lend >= 3){
+                                //已借款：跳转借款管理页面
+                                $("#jkglPage").attr("href","jkgl.html");
+                            }else{
+                                $("#jkglPage").attr("href","app_jieguo2.do");
+                            }
+
+                            //是否展示客服
+                            if(data.put == 1){
+                                //认证完成后，展示客服
+                                loadKeFuJSFile("https://qfak60.kuaishang.cn/bs/ks.j?cI=702182&fI=126437");
+                            }
+
+                            if (data.put == 0) {
+
+                                if(data.step2 == 0){
+                                    var  status = "借款需要完成实名认证";
+                                    $("#auth_confirm").html("认证");
+                                    $("#auth_tip").html(status);
+                                    $("#auth_confirm").click(function(){
+                                        window.location.href = "id_card_view.action";
+                                    });
+                                }else{
+                                    var  status = "借款需要完成银行卡认证";
+                                    $("#auth_confirm").html("认证");
+                                    $("#auth_tip").html(status);
+                                    $("#auth_confirm").click(function(){
+                                        window.location.href = "user_detail_view.action";
+                                    });
+                                }
+
+                            } else if (data.put == 1 && data.lend == 0) {
+                                var  status = "选择借款期限";
+                                $("#auth_confirm").html("前往");
+                                $("#auth_tip").html(status);
+                                $("#auth_confirm").click(function(){
+                                    window.location.href = "lendmoney.html";
+                                });
+                            } else if (data.put == 1 && data.lend == 1) {
+                                var  status = "确认借款";
+                                $("#auth_confirm").html("前往");
+                                $("#auth_tip").html(status);
+                                $("#auth_confirm").click(function(){
+                                    window.location.href = "user_verify_view.action";
+                                });
+                            } else if (data.put == 1 && data.lend == 2) {
+                                //审核中
+                                var  status = "查看审批进度";
+                                $("#auth_confirm").html("查看");
+                                $("#auth_tip").html(status);
+                                $("#auth_confirm").click(function(){
+                                    window.location.href = "shenhe1.html";
+                                });
+                            }else if (data.put == 1 && data.lend == 3) {
+                                //审核成功
+                                var  status = "查看审批进度";
+                                $("#auth_confirm").html("查看");
+                                $("#auth_tip").html(status);
+                                $("#auth_confirm").click(function(){
+                                    window.location.href = "shenhe3.html";
+                                });
+                            }else if (data.put == 1 && data.lend == 4) {
+                                //审核失败
+                                var  status = "查看审批进度";
+                                $("#auth_confirm").html("查看");
+                                $("#auth_tip").html(status);
+                                $("#auth_confirm").click(function(){
+                                    window.location.href = "shenhe2.html";
+                                });
+                            }
+                        }
+                    },
+                    error : function (XMLHttpRequest, textStatus, errorThrown) {
                         $.alert("尚未登录,是否登录", function (){
                             window.location.href = "../login.html";
                         });
-                    } else {
-                        //是否展示客服
-                        if(data.put == 1){
-                            //认证完成后，展示客服
-                            loadKeFuJSFile("https://qfak60.kuaishang.cn/bs/ks.j?cI=702182&fI=126437");
-                        }
-
-                        if(data.lend >= 3){
-                           //已借款：修改借款管理菜单跳转地址
-                            $("#jkglPage").attr("href","jkgl.html");
-                        }
-
-                        if (data.put == 0) {
-                            var  status = "借款需要完成实名认证";
-                            $("#auth_confirm").html("认证");
-                            $("#auth_tip").html(status);
-                            $("#auth_confirm").click(function(){
-                                window.location.href = "auth_center.action";
-                            });
-                        } else if (data.put == 1 && data.lend == 0) {
-                            var  status = "选择借款期限";
-                            $("#auth_confirm").html("前往");
-                            $("#auth_tip").html(status);
-                            $("#edu").html(100000);
-                            $("#auth_confirm").click(function(){
-                                window.location.href = "lendmoney.html";
-                            });
-                        } else if (data.put == 1 && data.lend == 1) {
-                            var  status = "确认借款";
-                            $("#auth_confirm").html("前往");
-                            $("#auth_tip").html(status);
-                            $("#eduu").html(data.lend_count);
-                            $("#edu").html(100000 - data.lend_count);
-                            $("#auth_confirm").click(function(){
-                                window.location.href = "user_verify_view.action";
-                            });
-                        } else if (data.put == 1 && data.lend == 2) {
-                            //审核中
-                            var  status = "查看审批进度";
-                            $("#auth_confirm").html("查看");
-                            $("#auth_tip").html(status);
-                            $("#eduu").html(data.lend_count);
-                            $("#edu").html(100000 - data.lend_count);
-                            $("#auth_confirm").click(function(){
-                                window.location.href = "shenhe1.html";
-                            });
-                        }else if (data.put == 1 && data.lend == 3) {
-                            //审核成功
-                            var  status = "查看审批进度";
-                            $("#auth_confirm").html("查看");
-                            $("#auth_tip").html(status);
-                            $("#eduu").html(data.lend_count);
-                            $("#edu").html(100000 - data.lend_count);
-                            $("#auth_confirm").click(function(){
-                                window.location.href = "shenhe3.html";
-                            });
-                        }else if (data.put == 1 && data.lend == 4) {
-                            //审核失败
-                            var  status = "查看审批进度";
-                            $("#auth_confirm").html("查看");
-                            $("#auth_tip").html(status);
-                            $("#eduu").html(data.lend_count);
-                            $("#edu").html(100000 - data.lend_count);
-                            $("#auth_confirm").click(function(){
-                                window.location.href = "shenhe2.html";
-                            });
-                        }
                     }
-                },
-                error : function (XMLHttpRequest, textStatus, errorThrown) {
-                    $.alert("尚未登录,是否登录", function (){
-                        window.location.href = "../login.html";
-                    });
-                }
-            });
-        }
-		
-		function show()  //显示隐藏层和弹出层
-		{
+                });
+            }
+
+            function show()  //显示隐藏层和弹出层
+            {
+                loadData();
+                document.getElementById("hidebox").style.display="block";  //显示弹出层
+            }
+            function hide()  //去除隐藏层和弹出层
+            {
+                document.getElementById("hidebox").style.display="none";
+            }
+
+            //加载客服js文件
+            function loadKeFuJSFile(filename) {
+                var scriptElement = document.createElement('script');
+                scriptElement.setAttribute("type", "text/javascript");
+                scriptElement.setAttribute("src", filename);
+                document.getElementsByTagName("body")[0].appendChild(scriptElement);
+            }
+
+            //加载数据
             loadData();
-		    var hideobj=document.getElementById("hidebg");
-		    hidebg.style.display="block";  //显示隐藏层
-		    document.getElementById("hidebox").style.display="block";  //显示弹出层
-		}
-		function hide()  //去除隐藏层和弹出层
-		{
-		   document.getElementById("hidebg").style.display="none";
-		   document.getElementById("hidebox").style.display="none";
-		}
+        </script>
 
-		//加载客服js文件
-		function loadKeFuJSFile(filename) {
-            var scriptElement = document.createElement('script');
-            scriptElement.setAttribute("type", "text/javascript");
-            scriptElement.setAttribute("src", filename);
-            document.getElementsByTagName("body")[0].appendChild(scriptElement);
-        }
-
-        //加载数据
-        loadData();
-
-</script>
+	</body>
 </html>
-<!--<script type="text/javascript" src="https://qfak60.kuaishang.cn/bs/ks.j?cI=702182&fI=126437" charset="utf-8"></script>-->

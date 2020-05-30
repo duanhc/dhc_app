@@ -158,6 +158,14 @@
             <result name="illegal_request" type="redirect">/core/illegal_request.html</result>
         </action>
 
+<!--    工作台-列表    -->
+        <action name="operating_platform" class="userAction" method="operatingPlatform">
+            <result name="success" type="">/core/operating-platform.jsp</result>
+            <result name="not_permission" type="redirect">/core/nopermission.html</result>
+            <result name="un_login" type="redirect">/core/timeout.html</result>
+            <result name="illegal_request" type="redirect">/core/illegal_request.html</result>
+        </action>
+
         <action name="user_view_channel" class="userAction" method="getAll">
 			<result name="success">/core/channel-detail.jsp</result>
 			<result name="illegal_request" type="redirect">/core/illegal_request.html</result>

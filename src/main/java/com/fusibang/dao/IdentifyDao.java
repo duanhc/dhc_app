@@ -82,6 +82,18 @@ public class IdentifyDao {
         return ((BigInteger)countList.get(0)).intValue();
     }
 
+    /**
+     * 查询申请用户数（已签字）
+     * @param star
+     * @param end
+     * @return
+     */
+    public int getCount(String star, String end) {
+        String hql = "SELECT COUNT(*) FROM Identify i where i.sign = 1 AND i.user.registe_time > :star AND i.user.registe_time < :end";
+        Long count = (Long)this.getSession().createQuery(hql).setString("star", star).setString("end", end).uniqueResult();
+        return count.intValue();
+    }
+
     public List<Identify> getIdentifies(int page, String search, int admin_id, String permission) {
         String hql;
         switch (permission.hashCode()) {

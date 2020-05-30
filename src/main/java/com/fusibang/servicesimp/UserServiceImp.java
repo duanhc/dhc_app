@@ -313,6 +313,43 @@ public class UserServiceImp extends ResponseStatus implements UserService {
         }
     }
 
+    /**
+     * 查询总的注册数和申请数（已签字）
+     * @param request
+     * @return
+     */
+    @Override
+    public String operatingPlatform(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String permission = (String)session.getAttribute("ap");
+        if (permission != null) {
+            if (!permission.equals("11111")) {
+                return "not_permission";
+            } else {
+                String star = request.getParameter("star");
+                String end = request.getParameter("end");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String str = sdf.format(new Date());
+                star = star == null ? str : star;
+                end = end == null ? star : end;
+                request.setAttribute("star", star);
+                request.setAttribute("end", end);
+                star = star + " 00:00:00";
+                end = end + " 23:59:59";
+                //注册数
+                int registerCount = this.userDao.getCount(star, end);
+                //申请数（已签字）
+                int signCount = this.identifyDao.getCount(star, end);
+                request.setAttribute("registerCount", registerCount);
+                request.setAttribute("signCount", signCount);
+
+                return "success";
+            }
+        } else {
+            return "un_login";
+        }
+    }
+
     public String setValid(User user, HttpSession session) {
         Integer admin_id = (Integer)session.getAttribute("ai");
         String permission = (String)session.getAttribute("ap");

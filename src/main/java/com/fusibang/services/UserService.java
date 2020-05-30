@@ -38,4 +38,6 @@ public interface UserService {
     String identifyDetailView(User user, HttpServletRequest request);
 
     String heTongDetailView(User user, HttpSession session);
+
+    String operatingPlatform(HttpServletRequest request);
 }

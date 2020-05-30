@@ -27,6 +27,12 @@ public class UserDao {
 
     public UserDao() {}
 
+    public int getCount(String star, String end) {
+        String hql = "SELECT count(*) FROM User u WHERE u.registe_time > :star AND u.registe_time < :end";
+        Long count = (Long)this.getSession().createQuery(hql).setString("star", star).setString("end", end).uniqueResult();
+        return count.intValue();
+    }
+
     public int getCount(String star, String end, int id) {
         String hql = "SELECT count(*) FROM User u WHERE  u.channel.id = :id AND u.registe_time > :star AND u.registe_time < :end";
         Long count = (Long)this.getSession().createQuery(hql).setInteger("id", id).setString("star", star).setString("end", end).uniqueResult();

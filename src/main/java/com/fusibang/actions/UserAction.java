@@ -262,6 +262,14 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
         return this.userService.identifyDetailView(this.user, this.request);
     }
 
+    /**
+     * 后台-工作台-统计当日注册数和申请数（已签字）
+     * @return
+     */
+    public String operatingPlatform() {
+        return this.userService.operatingPlatform(this.request);
+    }
+
     public String setValid() {
         try {
             this.response.getWriter().write(this.userService.setValid(this.user, this.request.getSession()));

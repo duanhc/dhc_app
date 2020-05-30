@@ -133,6 +133,12 @@
                 <a href="user_jkgl_view.do" target="right"><i class="layui-icon">&#xe609;</i>借款管理 </a>
             </li>
         </c:if>
+
+        <c:if test="${permission eq '11111'}">
+            <li class="layui-nav-item layui-this" >
+                <a href="operating_platform.do" target="right"><i class="layui-icon">&#xe609;</i>工作台 </a>
+            </li>
+        </c:if>
         </ul>
 
 		<div class="site-tree-mobile layui-hide">

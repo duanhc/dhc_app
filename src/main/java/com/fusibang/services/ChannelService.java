@@ -5,10 +5,10 @@
 
 package com.fusibang.services;
 
+import com.fusibang.tables.Channel;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import com.fusibang.tables.Channel;
 
 public interface ChannelService {
     String addChannel(Channel var1, HttpSession var2);
@@ -20,4 +20,6 @@ public interface ChannelService {
     String altChannel(Channel var1, HttpSession var2);
 
     String altView(int var1, HttpServletRequest var2);
+
+    String channelViewCountUv(Channel channel, HttpServletRequest request);
 }

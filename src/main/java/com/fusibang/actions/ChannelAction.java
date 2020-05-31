@@ -5,19 +5,17 @@
 
 package com.fusibang.actions;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-
 import com.fusibang.services.ChannelService;
 import com.fusibang.tables.Channel;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 public class ChannelAction extends ActionSupport implements ServletRequestAware, ServletResponseAware, ModelDriven<Channel> {
     private static final long serialVersionUID = 1L;
@@ -29,6 +27,10 @@ public class ChannelAction extends ActionSupport implements ServletRequestAware,
     public ChannelAction() {
     }
 
+    /**
+     * 渠道视图
+     * @return
+     */
     public String channelView() {
         System.out.println(this.channel.getName());
         if(this.channel.getId() == 0) {
@@ -40,6 +42,14 @@ public class ChannelAction extends ActionSupport implements ServletRequestAware,
         }
 
         return this.channelService.channelView(this.channel, this.request);
+    }
+
+    /**
+     * 注册页面-统计uv
+     * @return
+     */
+    public String channelViewCountUv() {
+        return this.channelService.channelViewCountUv(this.channel, this.request);
     }
 
     public String addChannel() {

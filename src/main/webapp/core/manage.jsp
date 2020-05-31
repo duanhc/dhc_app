@@ -50,7 +50,7 @@
 			</li> 
 			
 			 <li class="layui-nav-item layui-this" >
-				<a href="../app_jieguo.do" target="right"><i class="layui-icon">&#xe609;</i>审核结果 </a>			
+				<a href="../pro/app_jieguo.do" target="right"><i class="layui-icon">&#xe609;</i>审核结果 </a>
 			</li>      
                 
             <li class="layui-nav-item layui-this" >
@@ -75,9 +75,9 @@
  		<c:if test="${permission eq '11111' or permission eq '00001'}">
              
             <li class="layui-nav-item layui-this" >
-				<a href="channel_view.do?name=" target="right"><i class="layui-icon">&#xe609;</i>渠道视图 </a>			
+				<a href="channel_view.do?name=" target="right"><i class="layui-icon">&#xe609;</i>渠道视图 </a>
 			</li>
-			
+
 			<li class="layui-nav-item layui-this" >
 				<a href="channel_add_view.do" target="right"><i class="layui-icon">&#xe609;</i>添加渠道 </a>			
 			</li>

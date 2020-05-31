@@ -5,14 +5,6 @@
 
 package com.fusibang.servicesimp;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import com.fusibang.dao.AdminDao;
 import com.fusibang.dao.ChannelDao;
 import com.fusibang.help.Config;
@@ -20,6 +12,13 @@ import com.fusibang.help.ResponseStatus;
 import com.fusibang.services.ChannelService;
 import com.fusibang.tables.Admin;
 import com.fusibang.tables.Channel;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class ChannelServiceImp extends ResponseStatus implements ChannelService {
     private AdminDao adminDao;
@@ -107,6 +106,20 @@ public class ChannelServiceImp extends ResponseStatus implements ChannelService 
             request.setAttribute("days", days);
             return "success";
         }
+    }
+
+    @Override
+    public String channelViewCountUv(Channel channel, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        int id = channel.getId();
+        if(id != -1 && session.getAttribute("cv" + id) == null) {
+            Channel hold = this.channelDao.findById(id);
+            hold.setToday_click(hold.getToday_click()+1);
+            hold.setAll_click(hold.getAll_click()+1);
+            session.setAttribute("cv" + id, "");
+        }
+
+        return "success";
     }
 
     public String altChannel(Channel channel, HttpSession session) {

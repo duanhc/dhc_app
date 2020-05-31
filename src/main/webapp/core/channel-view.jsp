@@ -56,16 +56,19 @@
             <tr>
                 <td>渠道ID</td>
                 <td>渠道名称</td>
-                <td>合作价格</td>
+<%--                <td>合作价格</td>--%>
                 <td>今日UV</td>
+                <td>昨日UV</td>
                 <td>总UV</td>
-                <c:forEach items="${days}" var="day">
+                <td>今日UA</td>
+                <td>总UA</td>
+                <%--<c:forEach items="${days}" var="day">
                     <td>${day}</td>
-                </c:forEach>
+                </c:forEach>--%>
                 <c:if test="${permission eq '11111'}">
-                    <td>今日收入</td>
-                    <td>昨日收入</td>
-                    <td>总收入</td>
+<%--                    <td>今日收入</td>--%>
+<%--                    <td>昨日收入</td>--%>
+<%--                    <td>总收入</td>--%>
                     <td>创建者</td>
                 </c:if>
                 <td>操作</td>
@@ -74,20 +77,22 @@
                 <tr>
                     <td>${channel.id}</td>
                     <td>${channel.name}</td>
-                    <td>${channel.price}</td>
+                    <td>${channel.today_click}</td>
+                    <td>${channel.yester_click}</td>
+                    <td>${channel.all_click}</td>
                     <td>${channel.today_ua}</td>
                     <td>${channel.all_ua}</td>
-                    <td>${channel.pay1}</td>
-                    <td>${channel.pay2}</td>
-                    <td>${channel.pay3}</td>
-                    <td>${channel.pay4}</td>
-                    <td>${channel.pay5}</td>
-                    <td>${channel.pay6}</td>
-                    <td>${channel.pay7}</td>
+<%--                    <td>${channel.pay1}</td>--%>
+<%--                    <td>${channel.pay2}</td>--%>
+<%--                    <td>${channel.pay3}</td>--%>
+<%--                    <td>${channel.pay4}</td>--%>
+<%--                    <td>${channel.pay5}</td>--%>
+<%--                    <td>${channel.pay6}</td>--%>
+<%--                    <td>${channel.pay7}</td>--%>
                     <c:if test="${permission eq '11111'}">
-                        <td>${channel.today_income}</td>
-                        <td>${channel.yester_income}</td>
-                        <td>${channel.all_income}</td>
+<%--                        <td>${channel.today_income}</td>--%>
+<%--                        <td>${channel.yester_income}</td>--%>
+<%--                        <td>${channel.all_income}</td>--%>
                         <td>${channel.creater.real_name}</td>
                     </c:if>
                     <td>

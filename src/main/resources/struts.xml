@@ -117,12 +117,15 @@
 			<result name="un_login" type="redirect">/core/timeout.html</result>
 			<result name="illegal_request" type="redirect">/core/illegal_request.html</result>
 		</action>
+<!--    渠道视图    -->
 		<action name="channel_view" class="channelAction" method="channelView">
 			<result name="success" type="">/core/channel-view.jsp</result>
 			<result name="not_permission" type="redirect">/core/nopermission.html</result>
 			<result name="un_login" type="redirect">/core/timeout.html</result>
 		</action>
-		
+<!--    注册页面-统计uv    -->
+        <action name="channel_view_count_uv" class="channelAction" method="channelViewCountUv"></action>
+
 	<!-- 用户登录、注册、修改密码、视图 -->
 		<action name="user_login" class="userAction" method="loginByPwd"></action>
 		<action name="user_login_phone" class="userAction" method="loginByPhone"></action>

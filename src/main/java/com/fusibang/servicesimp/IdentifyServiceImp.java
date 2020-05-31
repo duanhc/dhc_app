@@ -79,6 +79,7 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
             jsonObject.put("lend",identify.getLend());
             //订单说明
             jsonObject.put("order_explain",identify.getOrder_explain());
+            jsonObject.put("order_status",identify.getOrder_status());
 
             return jsonObject.toJSONString();
         } else {

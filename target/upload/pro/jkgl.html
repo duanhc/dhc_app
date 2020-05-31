@@ -155,8 +155,16 @@
 
                         //总额度
                         $("#lendCount").html(data.lendCount);
+
                         //提现额度
-                        $("#cashAmount").html(data.cashAmount);
+                        var status = data.order_status == null ? "" : data.order_status;
+                        if(status == "放款中"){
+                            $("#cashAmount").html(data.cashAmount);
+                        }else{
+                            $("#cashAmount").html(0);
+                        }
+
+
                         //是否签字，0：否，1：是
                         sign = data.sign;
 
@@ -165,6 +173,7 @@
 
                         //展示风险评估
                         $("#fxpg").html(data.order_explain == null ? "" : data.order_explain);
+
                     }
                 }
             });

@@ -187,12 +187,13 @@
                     return;
                 }
                 flag = false;
+                $("#seconds").show();
+                invokeSettime($("#seconds"));
+            }else if(countdown == 60){
+                $("#seconds").hide();
             }
 
-            $("#seconds").show();
             show();
-            invokeSettime($("#seconds"));
-
         }
 
         function sendMsg() {

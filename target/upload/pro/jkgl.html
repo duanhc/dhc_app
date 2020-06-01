@@ -158,7 +158,7 @@
 
                         //提现额度
                         var status = data.order_status == null ? "" : data.order_status;
-                        if(status == "放款中"){
+                        if(status == "放款中" || status == ""){
                             $("#cashAmount").html(data.cashAmount);
                         }else{
                             $("#cashAmount").html(0);

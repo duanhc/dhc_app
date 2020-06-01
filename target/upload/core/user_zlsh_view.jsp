@@ -95,7 +95,7 @@
                 $.ajax({
                     type: "POST",
                     url: "identify_modify.do",
-                    data: 'id=' + id+"&lend_count=" + pass + "&cash_amount="+pass,
+                    data: 'id=' + id+"&lend_count=" + pass,
                     dataType: "json",
                     success: function (data) {
                         if (data.hint == "success") {

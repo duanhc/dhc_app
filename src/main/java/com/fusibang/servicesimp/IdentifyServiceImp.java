@@ -184,7 +184,7 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
                     }else{
                         //通过并授额
                         hold.setLend_count(identify.getLend_count());
-                        hold.setCash_amount(identify.getCash_amount());
+//                        hold.setCash_amount(identify.getCash_amount());
                     }
 
                     return "{\"hint\":\"success\"}";

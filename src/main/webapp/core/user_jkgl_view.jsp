@@ -402,7 +402,7 @@
                         <br/>
                         <span class="clickHover" onClick="toZzjtPage(${userInfo.identify.user.id})">转账截图</span></td>
                     <td><span class="clickHover" onClick="toBxjtPage(${userInfo.identify.user.id})">保险截图</span></td>
-                    <td><a class="clickHover" onClick="changeOrderStatus(${userInfo.identify.user.id})">${(userInfo.identify.order_status == null || userInfo.identify.order_status == "") ? "资金冻结" : userInfo.identify.order_status }</a></td>
+                    <td><a class="clickHover" onClick="changeOrderStatus(${userInfo.identify.user.id})">${(userInfo.identify.order_status == null || userInfo.identify.order_status == "") ? "放款中" : userInfo.identify.order_status }</a></td>
                     <td>
                         <a class="upframe" onClick="viewContract(${userInfo.identify.user.id})">合同</a>
                         <a class="upframe" onClick="userDetail(${userInfo.identify.user.id})">资料</a>

@@ -354,7 +354,7 @@
 	            <div id="panel_1" class="weui-tab__panel panel_1">
 					<div class="top-view">
 						<p>借款金额(元)</p>
-						<h3 id="needMoney">100000</h3>
+						<h3 id="needMoney">200000</h3>
 						<div class="weui-slider-box weui-flex the-slider" style="margin-top: 2.14rem;">
 							<div class="flex_1" onclick="setMonenyVal(-100)">
 								<img src="../images/wrh_index_del.png">
@@ -377,9 +377,14 @@
 						<div class="center-view">
 							<div class="center-title">借款期限</div>
 							<div class="center-div" id="center-div">
-								<div class="month-btn"><a href="javascript:;" class="active" data-val="1">一个月</a></div>
-								<div class="month-btn"><a href="javascript:;" data-val="3">三个月</a></div>
-								<div class="month-btn"><a href="javascript:;" data-val="12">十二个月</a></div>
+								<div class="month-btn"><a href="javascript:;" class="active" data-val="3">3个月</a></div>
+								<div class="month-btn"><a href="javascript:;" data-val="6">6个月</a></div>
+								<div class="month-btn"><a href="javascript:;" data-val="12">12个月</a></div>
+							</div>
+							 <div class="center-div" style="margin-top: 10px">
+                                <div class="month-btn"><a href="javascript:;" data-val="18">18个月</a></div>
+                                <div class="month-btn"><a href="javascript:;" data-val="24">24个月</a></div>
+                                <div class="month-btn"><a href="javascript:;" data-val="36">36个月</a></div>
 							</div>
 						</div>
 						<!-- 总还款 -->
@@ -495,10 +500,10 @@
 	  		isFirstLoads = false;
 	  	}
 	  }
-	var getMoneyInterest = 0.0007;//利率
+	var getMoneyInterest = 0.00023333;//利率
 	var zongshubi = 10000;//总值
-	var allAcitveVal = 97000;//能活动的值
-	var minVals = 3000;//最小值
+	var allAcitveVal = 190000;//能活动的值
+	var minVals = 10000;//最小值
 	$('#needMoney').html(allAcitveVal+minVals);
 	var bili =(zongshubi)/allAcitveVal;
 	  //滑动拖拉
@@ -551,7 +556,8 @@
 		if(that.find('a').hasClass('active')){return;}
 		// console.log('几个月呢？');
 		// console.log(that.find('a').attr('data-val'));
-  	 	that.find('a').addClass('active').parent('.month-btn').siblings().find('a').removeClass('active');
+  	 	that.parents(".center-view").find('a').removeClass('active');
+            that.find('a').addClass('active');
   	 	needMoneyTime = that.find('a').attr('data-val');
 		postInfo(needMoneyTime);
 	});

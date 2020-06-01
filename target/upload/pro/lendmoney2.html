@@ -450,7 +450,7 @@
                         var  status = "选择借款期限";
                         $("#auth_confirm").html("前往");
                         $("#auth_tip").html(status);
-                        $("#edu").html(50000);
+                        $("#edu").html(200000);
                         $("#auth_confirm").click(function(){
                             window.location.href = "lendmoney.html";
                         });
@@ -459,7 +459,7 @@
                         $("#auth_confirm").html("前往");
                         $("#auth_tip").html(status);
                         $("#eduu").html(data.lend_count);
-                        $("#edu").html(50000 - data.lend_count);
+                        $("#edu").html(200000 - data.lend_count);
                         $("#auth_confirm").click(function(){
                             window.location.href = "user_verify_view.action";
                         });
@@ -468,7 +468,7 @@
                         $("#auth_confirm").html("查看");
                         $("#auth_tip").html(status);
                         $("#eduu").html(data.lend_count);
-                        $("#edu").html(50000 - data.lend_count);
+                        $("#edu").html(200000 - data.lend_count);
                         $("#auth_confirm").click(function(){
                             window.location.href = "shenhe1.html";
                         });
@@ -578,7 +578,7 @@
                 isFirstLoads = false;
             }
           }
-        var getMoneyInterest = 0.00025;//利率
+        var getMoneyInterest = 0.00023333;//利率
         var zongshubi = 10000;//总值
         var allAcitveVal = 10000;//能活动的值
         var minVals = 0;//最小值

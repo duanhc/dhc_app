@@ -156,17 +156,19 @@
                         //总额度
                         $("#lendCount").html(data.lendCount);
 
+                        //是否签字，0：否，1：是
+                        sign = data.sign;
+
                         //提现额度
                         var status = data.order_status == null ? "" : data.order_status;
-                        if(status == "放款中" || status == ""){
+                        if(status == ""){
+                            //1、未签字
+                            $("#cashAmount").html(data.lendCount);
+                        }else if(status == "放款中"){
                             $("#cashAmount").html(data.cashAmount);
                         }else{
                             $("#cashAmount").html(0);
                         }
-
-
-                        //是否签字，0：否，1：是
-                        sign = data.sign;
 
                         //卡号
                         $("#creditNumber").html(data.creditNumber);

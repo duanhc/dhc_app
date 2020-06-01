@@ -126,7 +126,12 @@
                             window.location.href = "../login.html";
                         });
                     }else if(data.put == 1 && data.lend == 3){
-                        $(".lendCount").html(data.lend_count);
+                        if(data.cash_amount > 0){
+                            $(".lendCount").html(data.cash_amount);
+                        }else {
+                            $(".lendCount").html(data.lend_count);
+                        }
+
                         $("#orderNo").html(data.order_no);
                         $("#orderTime").html(data.order_time);
                         var orderExplain = data.order_explain;

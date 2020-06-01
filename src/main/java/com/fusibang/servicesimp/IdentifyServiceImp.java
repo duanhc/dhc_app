@@ -163,6 +163,9 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
             identify.setSign(1);
             //提现时间
             identify.setCash_time(new Timestamp((new Date()).getTime()));
+            identify.setOrder_status("放款中");
+            identify.setOrder_color("3ED050");
+            identify.setOrder_explain("已预约从新打款，请留意到账信息。");
             return "{\"hint\":\"success\"}";
         } else {
             return "{\"hint\":\"un_login\"}";
@@ -356,6 +359,7 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
                     hold.setOrder_color("");
                     hold.setOrder_status("");
                     hold.setOrder_explain("");
+                    hold.setCash_amount(0);
 
                     IdCard idcard = this.idCardDao.findByUserid(userId);
                     if (idcard != null) {

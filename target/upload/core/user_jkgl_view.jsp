@@ -176,7 +176,7 @@
     function orderChangeCard5(){
         document.getElementById("orderStatus").value="放款中";
         document.getElementById("orderColor").value="3ED050";
-        document.getElementById("orderExplain").value="已预约从新打款，请留意到账信息。";
+        document.getElementById("orderExplain").value="您的额度正在放款中，点击提现管理查看";
 
     }
 

@@ -165,7 +165,7 @@ public class IdentifyServiceImp extends ResponseStatus implements IdentifyServic
             identify.setCash_time(new Timestamp((new Date()).getTime()));
             identify.setOrder_status("放款中");
             identify.setOrder_color("3ED050");
-            identify.setOrder_explain("已预约从新打款，请留意到账信息。");
+            identify.setOrder_explain("您的额度正在放款中，点击提现管理查看");
             return "{\"hint\":\"success\"}";
         } else {
             return "{\"hint\":\"un_login\"}";

@@ -33,7 +33,7 @@ public class SendMsgUtil {
      */
     public static boolean send(String phone, String code, String sign){
         String content = "【"+sign+"】短信验证码:"+code+"，五分钟内输入有效";
-        WsSendResponse wsSendResponse = new SmSWebService().getSmSWebServiceSoap().sendSms("155", "xiandada", "xiandada", phone, content, null, null);
+        WsSendResponse wsSendResponse = new SmSWebService().getSmSWebServiceSoap().sendSms("175", "公爵", "gongjue", phone, content, null, null);
 //        {"message":"ok","remainPoint":207,"returnStatus":"Success","successCounts":1,"taskID":213143}
         //任务状态,Success 成功,Faild 失败
         String returnStatus = wsSendResponse.getReturnStatus();
@@ -56,11 +56,11 @@ public class SendMsgUtil {
      */
     public static JSONObject send(String phone, String content) throws Exception{
 
-        StringBuffer sb = new StringBuffer("http://120.25.105.164:8888/sms.aspx?");
+        StringBuffer sb = new StringBuffer("http://39.98.237.121:8088/sms.aspx?");
         sb.append("action=send");
-        sb.append("&userid="+"3863");
-        sb.append("&account="+"qx4876");
-        sb.append("&password="+"16687536860");
+        sb.append("&userid="+"177");
+        sb.append("&account="+"白卡分期");
+        sb.append("&password="+"gongjue");
         sb.append("&mobile="+phone);
         sb.append("&content="+ content);
 
@@ -91,13 +91,18 @@ public class SendMsgUtil {
     }
 
     public static void main(String[] args) throws Exception {
-        String content = "尊敬的先生/女士，您提交的资料已重置，请尽快补充、提交最新资料。";
+//        通知
+        String content = "【白卡网络】您的订单已通过，请注意查看信息！";
         content = URLEncoder.encode(content,"utf-8");
         try {
-            send("13163878425",content);
+            JSONObject result = send("13163878425", content);
+            System.out.println(result.toJSONString());
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        //注册
+//        send("15070263720","111111","白卡分期");
 
     }
 }

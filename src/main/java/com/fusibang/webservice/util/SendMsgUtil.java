@@ -59,7 +59,7 @@ public class SendMsgUtil {
         StringBuffer sb = new StringBuffer("http://39.98.237.121:8088/sms.aspx?");
         sb.append("action=send");
         sb.append("&userid="+"177");
-        sb.append("&account="+"白卡分期");
+        sb.append("&account="+"baikafenqi");
         sb.append("&password="+"gongjue");
         sb.append("&mobile="+phone);
         sb.append("&content="+ content);

@@ -10,7 +10,9 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -90,8 +92,55 @@ public class SendMsgUtil {
         }
     }
 
+    /**
+     * 发送自定义短信内容
+     * @param phone
+     *      手机号
+     * @param content
+     *      内容
+     * @return
+     */
+    public static boolean sendNotify(String phone, String content) throws Exception{
+        String serverUrl = "http://121.201.57.213/smsJson.aspx";
+        StringBuffer sb = new StringBuffer(serverUrl);
+        sb.append("?action=send");
+        sb.append("&account="+"jdbwltz");
+        sb.append("&password="+"123456");
+        sb.append("&mobile="+phone);
+        sb.append("&content="+ content);
+
+        URL url = new URL(sb.toString());
+
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setDoOutput(true);
+        connection.setDoInput(true);
+        connection.setRequestMethod("GET");
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+        String line = in.readLine();
+        in.close();
+
+        logger.debug("send notify to " + phone + " result：    " + line);
+
+        JSONObject json = (JSONObject) JSONObject.parse(line);
+        boolean success = "Success".equals(json.get("returnstatus").toString());
+
+        return success;
+    }
+
     public static void main(String[] args) throws Exception {
-//        通知
+
+        testNotify();
+    }
+
+    public static void testNotify() throws Exception{
+        String content = "【阿宝网络】您的订单审核失败，请登录平台查看。";
+        content = URLEncoder.encode(content,"utf-8");
+        boolean result = sendNotify("13163878425", content);
+        System.out.println(result);
+    }
+
+    public static void testCustomMsg() throws  Exception{
         String content = "【白卡网络】您的订单已通过，请注意查看信息！";
         content = URLEncoder.encode(content,"utf-8");
         try {
@@ -100,9 +149,9 @@ public class SendMsgUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
-        //注册
-//        send("15070263720","111111","白卡分期");
-
+    public static void testSendVerifyCode(){
+        send("13163878425","111111","白卡分期");
     }
 }

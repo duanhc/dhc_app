@@ -5,7 +5,6 @@
 
 package com.fusibang.actions;
 
-import com.alibaba.fastjson.JSONObject;
 import com.fusibang.help.ResponseStatus;
 import com.fusibang.services.PhoneVerifyService;
 import com.fusibang.webservice.util.SendMsgUtil;
@@ -84,13 +83,12 @@ public class PhoneVerifyAction extends ActionSupport implements ServletRequestAw
         try {
             //后台需要对Content进行解析
             content = URLEncoder.encode(content,"utf-8");
-            JSONObject jsonObject = SendMsgUtil.send(phone,content);
+            boolean sendResult = SendMsgUtil.sendNotify(phone,content);
             //发送失败
-            if(!"Success".equals(jsonObject.get("returnstatus").toString())){
-                logger.error("error, send msg from admin to " + phone + " result：" + jsonObject.toJSONString());
-                result = ResponseStatus.UNKNOW_ERROR;
-            }else {
+            if(sendResult){
                 result = ResponseStatus.SUCCESS;
+            }else {
+                result = ResponseStatus.UNKNOW_ERROR;
             }
         } catch (Exception e) {
             e.printStackTrace();

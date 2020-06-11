@@ -13,10 +13,10 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 public class IdCardAuth {
-    public static final String APP_ID = "16451907";
-    public static final String API_KEY = "o77UXxGr55n0uEEd4UcQpbSG";
-    public static final String SECRET_KEY = "oT0tQEzP8NOd6SxbjwfbaS9iWb07BorN";
-    AipOcr client = new AipOcr("16451907", "o77UXxGr55n0uEEd4UcQpbSG", "oT0tQEzP8NOd6SxbjwfbaS9iWb07BorN");
+    public static final String APP_ID = "20205317";
+    public static final String API_KEY = "CeoG3ZSYVSPqTwoWdYj5j56E";
+    public static final String SECRET_KEY = "23YafT7eHGoMsy9hFWztF8854OEhj5Oe";
+    AipOcr client = new AipOcr("20205317", "CeoG3ZSYVSPqTwoWdYj5j56E", "23YafT7eHGoMsy9hFWztF8854OEhj5Oe");
 
     public IdCardAuth() {
         this.client.setConnectionTimeoutInMillis(2000);

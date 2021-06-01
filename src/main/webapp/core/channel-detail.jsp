@@ -36,7 +36,7 @@
     <div class="sider___rHZmy ant-layout-sider ant-layout-sider-dark" style="flex: 0 0 200px; max-width: 200px; min-width: 200px; width: 200px;">
      <div class="ant-layout-sider-children">
       <div class="logo___2ajOE">
-       <p class="logo_name___1R-S0">花蝴蝶</p>
+       <p class="logo_name___1R-S0">白花66</p>
        <p class="logo_name___1R-S0">渠道管理后台</p>
       </div>
       <ul class="ant-menu ant-menu-dark ant-menu-root ant-menu-inline" role="menu">
@@ -152,18 +152,13 @@
                      <tr>
                       <th class="" style="text-align: center;"><span>累计注册人数</span></th>
                       <th class="" style="text-align: center;"><span>累计申请人数</span></th>
-                      <th class="" style="text-align: center;"><span>累计放款人数</span></th>
-                      <th class="" style="text-align: center;"><span><span>申请转化率<br />(申请人数/注册人数)</span></span></th>
-                      <th class="" style="text-align: center;"><span><span>放款转化率<br />(放款人数/注册人数)</span></span></th>
                      </tr>
                     </thead>
                     <tbody class="ant-table-tbody">
                      <tr class="ant-table-row  ant-table-row-level-0" data-row-key="979">
                       <td class="" style="text-align: center;"><span class="ant-table-row-indent indent-level-0" style="padding-left: 0px;"></span>${collect.ua}</td>
                       <td class="" style="text-align: center;">${collect.apply}</td>
-                      <td class="" style="text-align: center;">${collect.loan}</td>
-                      <td class="" style="text-align: center;">${collect.applyrate}%</td>
-                      <td class="" style="text-align: center;">${collect.loanrate}%</td>
+          
                      </tr>
                     </tbody>
                    </table>
@@ -193,7 +188,7 @@
                    <thead class="ant-table-thead">
                     <tr>
                      <th class=""><span>序号</span></th>
-                     <th class=""><span>姓名</span></th>
+                     
                      <th class=""><span>手机号</span></th>
                      <th class="" style="text-align: center;"><span>注册时间</span></th>
                     </tr>
@@ -206,7 +201,7 @@
 				   %>		
                     <tr class="ant-table-row  ant-table-row-level-0" data-row-key="<%=user.get("phone")%>">
                      <td class=""><span class="ant-table-row-indent indent-level-0" style="padding-left: 0px;"></span><%=user.get("id")%></td>
-                     <td class=""><%=user.get("name")%></td>
+                    
                      <td class=""><%=user.get("phone")%></td>
                      <td class="" style="text-align: center;"><%=user.get("time")%></td>
                     </tr>

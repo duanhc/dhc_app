@@ -44,9 +44,15 @@ public class UserDao {
         while(var11.hasNext()) {
             User nf = (User)var11.next();
             ++ua;
-            if(nf.getOpenid() != null && !nf.getOpenid().equals("")) {
+            /*if(nf.getOpenid() != null && !nf.getOpenid().equals("")) {
                 ++apply;
             }
+*/
+
+            if(nf.getSend() == 1) {
+                ++apply;
+            }
+
 
             if(nf.getPay() == 1) {
                 ++loan;

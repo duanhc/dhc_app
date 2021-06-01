@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <script src="./js/jquery.min.js"></script>
+        <script src="./js/jquery-weui.min.js"></script>
+        <script src="./js/jquery.form.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="./css/weui.min.css">
+        <link rel="stylesheet" href="./css/jquery-weui.min.css">
+    </head>
+	<style type="text/css">
+		*{padding: 0;margin: 0;}
+		ul li{list-style: none;}
+		html{background: #FAFAFA;}
+		::-webkit-input-placeholder { color: #EEEEEE; } :-moz-placeholder { color: #EEEEEE; } ::-moz-placeholder { color: #EEEEEE; } :-ms-input-placeholder { color: #EEEEEE; }  
+		#top{width: 100vw;height: 14vw;position: relative;z-index: 5;background: #14adc1;}
+		#top .houtui{width: 10vw;height: 14vw;float: left;}
+		#top p{line-height: 14vw;font-size: 4vw;color: #fff;text-indent: 35vw;}
+		
+		#content{width: 92vw;margin-left: 4vw;margin-top: 5vw;height: 60vw;}
+		#content ul li{width: 92vw;float: left;height: 12vw;background: #fff;border-top: 3px solid #f5f5f5;}
+		#content ul li .item{width: 8vw;height: 12vw;float: left;}
+		#content ul li p{font-size: 4vw;line-height: 12vw;color: #878787;text-align: center;color: #ffb48c;}
+		#content ul li .more{width: 25vw;height: 12vw;float: right;line-height: 12vw;font-size: 3.5vw;text-align: center;color: #878787;}
+		#content ul li .name{width: 50vw;height: 12vw;float: left;font-size: 4vw;line-height: 12vw;}
+		
+		#quitButton{width: 94vw;margin-left: 3vw;height: 12vw;line-height: 12vw;font-size: 4vw;text-align: center;background: #04BAC0;color: #fff;border-radius: 2vw;margin-top: 30vw;}
+   		
+
+	</style>
+	<body>
+		<div id="top">
+			<div class="houtui" onclick="history.back();">
+				<img src="images/irow_left.png" style="width: 8vw;margin-top: 3vw;margin-left: 3vw;"/>
+			</div>
+			<p>设置</p>
+		</div>
+		
+		
+		
+		<div id="content">
+			<ul>
+				<li onclick="flush()">
+					<div class="item">
+
+					</div>
+					<div class="name">
+						清理缓存
+					</div>
+<!--					<div class="more">-->
+<!--						152.40KB-->
+<!--					</div>-->
+				</li>
+				<li>
+					<div class="item">
+
+					</div>
+					<div class="name">
+						消息通知
+					</div>
+					<div class="more">
+						<img src="images/test3.jpg" style="width: 8vw;margin-left: 10vw;margin-top: 3vw;"/>
+					</div>
+				</li>
+<!--				<li style="margin-top: 5vw;">-->
+<!--					<p>修改密码</p>-->
+<!--				</li>-->
+			</ul>
+		</div>
+		
+		
+		<div id="quitButton" onclick="logout();">
+			退出
+		</div>
+
+        <script>
+            var on = true;
+            function siwtch() {
+                if (on) {
+                    $("#switch").attr("src", "images/off.png");
+                    on = false;
+                } else {
+                    $("#switch").attr("src", "images/on.png");
+                    on = true;
+                }
+            }
+            function flush() {
+                $.alert("清理成功",function(){});
+            }
+            function logout() {
+                $.confirm({
+                    title: '提示',
+                    text: '确认退出？',
+                    onOK: function () {
+                        $.ajax({
+                            url : "user_logout.action",
+                            type : "GET",
+                            dataType : "json",
+                            success : function(data) {
+                                if (data.hint == "success") {
+                                    $.alert("退出成功",function(){
+                                        window.location.href="../login.html";
+                                    });
+                                }
+                            }
+                        });
+                    },
+                    onCancel: function () {
+
+                    }
+
+                });
+            }
+        </script>
+	</body>
+	
+</html>

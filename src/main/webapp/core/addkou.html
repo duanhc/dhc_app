@@ -3,8 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet"  href="css/index.css" type="text/css" />
-<script src="http://hkwj.v228.10000net.cn/js/jquery.min.js"></script>
+<script src="js/jquery.min.js"></script>
 <script src="js/jquery.form.js" type="text/javascript"></script> 
+<script src="laydate/laydate.js" type="text/javascript"></script>
 <title>添加产品</title>
 <style>
 /*右边css*/
@@ -55,67 +56,6 @@
 	}
 </style>
 </head>
-<script>
-	function uploadPic() { 
-        var options = {		  
-                url: "../image_upload.do",  
-                type: "post",  
-                dataType: "json",  
-                success: function(data) {
-                	if(data.hint == "file_too_large"){
-                		alert("Logo不得超过100kb");
-                	}else if(data.hint == "un_login"){
-                		alert("登录超时，请重新登录！");
-                	}else if (data.hint == "not_permission"){
-                		alert("抱歉，你没有权限");
-                	} else if (data.hint == "unknow_error"){
-                		alert("错误-1，如多次出现，请联系管理员");
-                	}else{
-                    	$("#allUrl").attr("src", "../upload/" + data.fileName);
-                    	document.getElementById("logo").value = data.fileName; 
-                    }
-                } ,
-                error: function (XMLHttpRequest, textStatus, errorThrown) {   
-                     		console.log(errorThrown);   
-               } 
-        };  
- 
-        $("#jvForm").ajaxSubmit(options);
-   
-    }  
-    
-    function addkouzi(){
-    	var logo = document.getElementById("logo").value.trim();
-    	var name = document.getElementById("name").value.trim();
-    	if(logo == ""){
-    		alert("请上传logo");
-    		return;
-    	}
-    	if(name == ""){
-    		alert("请输入必填信息（口子名称）");
-    		return;
-    	}
-    	var options = {
-    		url: "../app_add.do",
-    		type: "POST",
-    		dataType: "json",
-    		success: function(data){
-    			if(data.hint == "success"){
-    				alert("添加成功！");
-    			}else if(data.hint == "already_exist"){
-    				alert("口子已存在！");
-    			}else if(data.hint == "not_permission"){
-    				alert("你没有权限进行此操作！");
-    			}else if(data.hint == "un_login"){
-    				alert("登录超时，请重新登录!");
-    			}else {
-    				alert("服务器繁忙！");
-    			}
-    		}
-    	};
-    	$("#kouzi_form").ajaxSubmit(options);
-    }
-</script>
 
 <body>
 <div class="navcon">
@@ -200,10 +140,25 @@
                     <td>申请条件</td>
                     <td><input type="text" maxlength="50" name="need_condition" placeholder="如：芝麻信用分600以上,年龄18周岁以上" /></td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <td>合作价格</td>
                     <td><input type="text" name="price" maxlength="15" placeholder="8a" /></td>
-                </tr>
+                </tr>-->
+
+                 <tr>
+                     <td>定量下架</td>
+                     <td><input type="number" value="0" name="put_away_ua" placeholder="超过指定ua后下架" /></td>
+                 </tr>
+
+                 <tr>
+                     <td>定时下架</td>
+                     <td>
+                         <div class="layui-input-inline">
+                             <input type="text" class="layui-input" name="put_away_time" id="put_away_time" placeholder="yyyy-MM-dd HH:mm:ss">
+                         </div>
+                     </td>
+                 </tr>
+
         </form> 
                 <tr>
                     <td></td>
@@ -214,5 +169,74 @@
         </table>
     </div>
 </div>
+
+<script>
+    function uploadPic() {
+        var options = {
+            url: "../image_upload.do",
+            type: "post",
+            dataType: "json",
+            success: function(data) {
+                if(data.hint == "file_too_large"){
+                    alert("Logo不得超过100kb");
+                }else if(data.hint == "un_login"){
+                    alert("登录超时，请重新登录！");
+                }else if (data.hint == "not_permission"){
+                    alert("抱歉，你没有权限");
+                } else if (data.hint == "unknow_error"){
+                    alert("错误-1，如多次出现，请联系管理员");
+                }else{
+                    $("#allUrl").attr("src", "../upload/" + data.fileName);
+                    document.getElementById("logo").value = data.fileName;
+                }
+            } ,
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        };
+
+        $("#jvForm").ajaxSubmit(options);
+
+    }
+
+    function addkouzi(){
+        var logo = document.getElementById("logo").value.trim();
+        var name = document.getElementById("name").value.trim();
+        if(logo == ""){
+            alert("请上传logo");
+            return;
+        }
+        if(name == ""){
+            alert("请输入必填信息（口子名称）");
+            return;
+        }
+        var options = {
+            url: "../app_add.do",
+            type: "POST",
+            dataType: "json",
+            success: function(data){
+                if(data.hint == "success"){
+                    alert("添加成功！");
+                }else if(data.hint == "already_exist"){
+                    alert("口子已存在！");
+                }else if(data.hint == "not_permission"){
+                    alert("你没有权限进行此操作！");
+                }else if(data.hint == "un_login"){
+                    alert("登录超时，请重新登录!");
+                }else {
+                    alert("服务器繁忙！");
+                }
+            }
+        };
+        $("#kouzi_form").ajaxSubmit(options);
+    }
+
+    //日期时间选择器
+    laydate.render({
+        elem: '#put_away_time'
+        , type: 'datetime'
+    });
+
+</script>
 </body>
 </html>

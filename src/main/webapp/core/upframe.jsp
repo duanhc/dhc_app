@@ -104,6 +104,8 @@
                 <td>用户总数（UV）</td>
                 <td>今日新增</td>
                 <td>昨日UV</td>
+                <td>定量下架</td>
+                <td>定时下架</td>
                 <td>操作</td>
             </tr>
 
@@ -116,6 +118,8 @@
                     <td>${item.all_ua}</td>
                     <td>${item.today_ua}</td>
                     <td>${item.yester_ua}</td>
+                    <td>${item.put_away_ua}</td>
+                    <td>${item.put_away_time}</td>
                     <td>
                         <a class="upframe" onclick="upApp(${item.id})">上架</a>
                         <a class="upframe" href="app_alt_view.do?id=${item.id}">修改</a>

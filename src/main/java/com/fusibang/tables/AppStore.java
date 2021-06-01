@@ -5,12 +5,12 @@
 
 package com.fusibang.tables;
 
-import java.sql.Date;
-
-import javax.persistence.*;
-
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+
+import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(
@@ -45,6 +45,16 @@ public class AppStore {
     private int today_ua;
     private int yester_ua;
     private int all_ua;
+    /**
+     * 产品下架ua
+     */
+    @Column(nullable = true)
+    private int put_away_ua;
+    /**
+     * 产品下架时间
+     */
+    @Column(nullable = true)
+    private Timestamp put_away_time;
     private Date add_time;
 
     public AppStore() {
@@ -192,5 +202,21 @@ public class AppStore {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public int getPut_away_ua() {
+        return put_away_ua;
+    }
+
+    public void setPut_away_ua(int put_away_ua) {
+        this.put_away_ua = put_away_ua;
+    }
+
+    public Timestamp getPut_away_time() {
+        return put_away_time;
+    }
+
+    public void setPut_away_time(Timestamp put_away_time) {
+        this.put_away_time = put_away_time;
     }
 }

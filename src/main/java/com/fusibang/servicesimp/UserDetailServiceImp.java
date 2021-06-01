@@ -33,10 +33,10 @@ public class UserDetailServiceImp extends ResponseStatus implements UserDetailSe
         Integer id = (Integer)session.getAttribute("ui");
         if (id != null) {
             User user = this.userDao.findById(id.intValue());
+            user.setSend(1);
             if (!this.userDetailDao.exist(user.getId())) {
                 userDetail.setUser(user);
                 userDetail.setPut_time(new Timestamp((new Date()).getTime()));
-                userDetail.setCredit_name("");
                 userDetail.setCredit_number("");
                 userDetail.setReserved_number("");
                 this.userDetailDao.addDetail(userDetail);

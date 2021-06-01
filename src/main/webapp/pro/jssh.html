@@ -144,11 +144,7 @@
 			type : "GET",
 			dataType : "json",
 			success : function(data) {
-				if (data.hint == "un_login") {
-					$.alert("尚未登录,是否登录", function (){
-                			window.location.href = "../login.html";
-                	});
-				} else {
+				`` else {
 					if (data.put == 0 || data.user.top_three == 1) {
 						var  status = "借款需要完成实名认证";
 						$("#auth_confirm").html("认证");

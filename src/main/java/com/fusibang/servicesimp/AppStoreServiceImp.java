@@ -5,11 +5,6 @@
 
 package com.fusibang.servicesimp;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import com.fusibang.dao.AppStoreDao;
 import com.fusibang.help.AppStoreHelp;
 import com.fusibang.help.Config;
@@ -17,6 +12,14 @@ import com.fusibang.help.QRCodeUtil;
 import com.fusibang.help.ResponseStatus;
 import com.fusibang.services.AppStoreService;
 import com.fusibang.tables.AppStore;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppStoreServiceImp extends ResponseStatus implements AppStoreService {
     private AppStoreDao appStoreDao;
@@ -205,6 +208,55 @@ public class AppStoreServiceImp extends ResponseStatus implements AppStoreServic
 
     public String jieguotView(HttpServletRequest request) {
         request.setAttribute("hidden", this.appStoreHelp.getAppStoresHidden());
+        return "success";
+    }
+
+    /**
+     * app首页的数据
+     * @param request
+     * @return
+     */
+    @Override
+    public String appShouyeView(HttpServletRequest request) {
+        List<AppStore> appStoresAsOrderList = this.appStoreHelp.getAppStoresAsOrder();
+        List<AppStore> newAppStoresAsOrderList = new ArrayList<>();
+        for (AppStore appStore : appStoresAsOrderList) {
+            Timestamp put_away_time = appStore.getPut_away_time();
+            int put_away_ua = appStore.getPut_away_ua();
+            //判断产品是否下架
+            if( (put_away_ua > 0 && appStore.getAll_ua()>=put_away_ua ) || (put_away_time != null && System.currentTimeMillis()>=put_away_time.getTime())){
+                //产品下架
+                appStore.setPut_away(0);
+            }else {
+                newAppStoresAsOrderList.add(appStore);
+            }
+        }
+        request.setAttribute("firstApp", newAppStoresAsOrderList.size()>0 ? newAppStoresAsOrderList.get(0):null);
+        request.setAttribute("asorder", newAppStoresAsOrderList.size()>0 ? newAppStoresAsOrderList.subList(1,newAppStoresAsOrderList.size()):null);
+        return "success";
+    }
+
+    /**
+     * app贷款页的数据
+     * @param request
+     * @return
+     */
+    @Override
+    public String daiKuanView(HttpServletRequest request) {
+        List<AppStore> appStoresAsOrderList = this.appStoreHelp.getAppStoresAsOrder();
+        List<AppStore> newAppStoresAsOrderList = new ArrayList<>();
+        for (AppStore appStore : appStoresAsOrderList) {
+            Timestamp put_away_time = appStore.getPut_away_time();
+            int put_away_ua = appStore.getPut_away_ua();
+            //判断产品是否下架
+            if( (put_away_ua > 0 && appStore.getAll_ua()>=put_away_ua ) || (put_away_time != null && System.currentTimeMillis()>=put_away_time.getTime())){
+                //产品下架
+                appStore.setPut_away(0);
+            }else {
+                newAppStoresAsOrderList.add(appStore);
+            }
+        }
+        request.setAttribute("asorder", newAppStoresAsOrderList);
         return "success";
     }
 

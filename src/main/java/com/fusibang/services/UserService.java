@@ -5,10 +5,11 @@
 
 package com.fusibang.services;
 
+import com.fusibang.tables.AppStore;
+import com.fusibang.tables.User;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import com.fusibang.tables.User;
 
 public interface UserService {
     String loginUser(String var1, String var2, HttpSession var3);
@@ -30,4 +31,10 @@ public interface UserService {
     String getAllRt(HttpServletRequest var1);
 
     String delUser(User var1, HttpSession var2);
+
+    boolean existUser(String phone_number);
+
+    User getById(Integer userId);
+
+    AppStore findApp(Integer appId);
 }

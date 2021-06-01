@@ -5,8 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet"  href="core/css/index.css" type="text/css" />
-<script src="http://hkwj.v228.10000net.cn/js/jquery.min.js"></script>
-<script src="core/js/jquery.form.js" type="text/javascript"></script> 
+<script src="core/js/jquery.min.js"></script>
+<script src="core/js/jquery.form.js" type="text/javascript"></script>
+<script src="core/laydate/laydate.js" type="text/javascript"></script>
 <title>添加产品</title>
 <style>
 /*右边css*/
@@ -117,6 +118,12 @@
     	};
     	$("#kouzi_form").ajaxSubmit(options);
     }
+
+    //日期时间选择器
+    laydate.render({
+        elem: '#put_away_time'
+        , type: 'datetime'
+    });
 </script>
 
 <body>
@@ -203,10 +210,26 @@
                     <td>申请条件</td>
                     <td><input type="text" maxlength="50" name="need_condition" value="${app.need_condition}" placeholder="如：芝麻信用分600以上,年龄18周岁以上" /></td>
                 </tr>
-                <tr>
-                    <td>合作价格</td>
-                    <td><input type="text" name="price" maxlength="15" value="${app.price}" placeholder="8a" /></td>
-                </tr>
+<%--                <tr>--%>
+<%--                    <td>合作价格</td>--%>
+<%--                    <td>--%>
+                        <input type="hidden" name="price" maxlength="15" value="${app.price}" placeholder="8a" />
+<%--                    </td>--%>
+<%--                </tr>--%>
+
+                 <tr>
+                     <td>定量下架</td>
+                     <td><input type="number" value="0" name="put_away_ua" placeholder="超过指定ua后下架" /></td>
+                 </tr>
+
+                 <tr>
+                     <td>定时下架</td>
+                     <td>
+                         <div class="layui-input-inline">
+                             <input type="text" class="layui-input" name="put_away_time" id="put_away_time" placeholder="yyyy-MM-dd HH:mm:ss">
+                         </div>
+                     </td>
+                 </tr>
         </form> 
                 <tr>
                     <td></td>

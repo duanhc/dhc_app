@@ -5,20 +5,19 @@
 
 package com.fusibang.actions;
 
-import java.io.IOException;
+import com.fusibang.services.UserService;
+import com.fusibang.tables.AppStore;
+import com.fusibang.tables.User;
+import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-
-import com.fusibang.services.UserService;
-import com.fusibang.tables.User;
-import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
+import java.io.IOException;
 
 public class UserAction extends ActionSupport implements ServletRequestAware, ServletResponseAware, ModelDriven<User> {
     private static final long serialVersionUID = 1L;
@@ -105,7 +104,10 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
     public String add() {
         HttpSession session = this.request.getSession();
         String result;
-        if(this.phone_verify != null && this.phone_verify.equals(session.getAttribute("vr" + this.user.getPhone_number()))) {
+//        if(this.phone_verify != null && this.phone_verify.equals(session.getAttribute("vr" + this.user.getPhone_number()))) {
+        //判断是否已注册
+        if(!this.userService.existUser(this.user.getPhone_number())) {
+            //注册用户
             String e = this.userService.addUser(this.user, session);
             Cookie cookie = new Cookie("token", e);
             cookie.setMaxAge(2592000);
@@ -115,14 +117,47 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
             this.response.addCookie(cookie);
             this.response.addCookie(cookie2);
             result = "{\"hint\":\"success\"}";
-        } else {
-            result = "{\"hint\":\"phone_code_error\"}";
+        }else {
+            result = "{\"hint\":\"already_exist\"}";
         }
 
         try {
             this.response.getWriter().write(result);
         } catch (IOException var6) {
             var6.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public String qnq() {
+        HttpSession session = this.request.getSession();
+        String appId = this.request.getParameter("appId");
+        Integer aid = Integer.parseInt(appId);
+        Integer userId = (Integer)session.getAttribute("ui");
+        String result;
+        if (userId == null) {
+            result = "{\"hint\":\"un_login\"}";
+        } else {
+            AppStore appStore = userService.findApp(aid);
+            User user = this.userService.getById(userId);
+            if (user == null) {
+                result = "{\"hint\":\"un_login\"}";
+            } else if(appStore == null ){
+                result = "{\"hint\":\"no_data\"}";
+            }else if(appStore.getPut_away() == 0 ){
+                result = "{\"hint\":\"put_away\"}";
+            }else if (user.getSend() == 0) {
+                result = "{\"hint\":\"un_send\"}";
+            } else {
+                result = "{\"hint\":\"send\"}";
+            }
+        }
+
+        try {
+            this.response.getWriter().write(result);
+        } catch (IOException var5) {
+            var5.printStackTrace();
         }
 
         return null;
@@ -155,11 +190,14 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
     }
 
     public String logined() throws IOException {
-        String phone = (String)this.request.getSession().getAttribute("u");
-        if(phone != null) {
-            this.response.getWriter().write("logined,phone:" + phone);
+        Integer userId = (Integer)this.request.getSession().getAttribute("ui");
+        String result = "";
+        if(userId != null) {
+            result = "{\"hint\":\"logined,userId:"+userId+"\"}";
+            this.response.getWriter().write(result);
         } else {
-            this.response.getWriter().write("unlogin....");
+            result = "{\"hint\":\"unlogin\"}";
+            this.response.getWriter().write(result);
         }
 
         return null;

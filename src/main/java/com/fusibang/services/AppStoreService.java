@@ -5,11 +5,11 @@
 
 package com.fusibang.services;
 
+import com.fusibang.tables.AppStore;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.fusibang.tables.AppStore;
 
 public interface AppStoreService {
     String add(AppStore var1, HttpSession var2);
@@ -35,4 +35,8 @@ public interface AppStoreService {
     String marketView(HttpServletRequest var1);
 
     String jieguotView(HttpServletRequest var1);
+
+    String appShouyeView(HttpServletRequest request);
+
+    String daiKuanView(HttpServletRequest request);
 }

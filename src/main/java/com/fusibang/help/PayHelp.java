@@ -5,13 +5,6 @@
 
 package com.fusibang.help;
 
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
-
-import org.apache.log4j.Logger;
-
 import com.fusibang.dao.IdentifyDao;
 import com.fusibang.dao.PayDao;
 import com.fusibang.dao.UserDao;
@@ -19,6 +12,12 @@ import com.fusibang.tables.Channel;
 import com.fusibang.tables.Identify;
 import com.fusibang.tables.Pay;
 import com.fusibang.tables.User;
+import org.apache.log4j.Logger;
+
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 
 public class PayHelp {
     private static final Logger logger = Logger.getLogger(PayHelp.class);
@@ -34,14 +33,19 @@ public class PayHelp {
     public boolean updateChannel(Channel channel) {
         channel.setToday_ua(channel.getToday_ua() + 1);
         channel.setAll_ua(channel.getAll_ua() + 1);
-        if(channel.getAll_ua() > 5 && channel.getId() != 0 && channel.getId() != 2) {
-            return false;
-        } else {
-            channel.setPay1(channel.getPay1() + 1);
-            channel.setPay(channel.getPay() + 1);
-            channel.setMonth1(channel.getMonth1() + 1);
-            return true;
-        }
+//        if(channel.getAll_ua() > 5 && channel.getId() != 0 && channel.getId() != 2) {
+//            return false;
+//        } else {
+//            channel.setPay1(channel.getPay1() + 1);
+//            channel.setPay(channel.getPay() + 1);
+//            channel.setMonth1(channel.getMonth1() + 1);
+//            return true;
+//        }
+
+        channel.setPay1(channel.getPay1() + 1);
+        channel.setPay(channel.getPay() + 1);
+        channel.setMonth1(channel.getMonth1() + 1);
+        return true;
     }
 
     public String updatePay(String outer_trade_no, String inner_trade_no, float amount) {

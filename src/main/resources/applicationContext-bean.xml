@@ -88,6 +88,7 @@
         <property name="payHelp" ref="payHelp"></property>
         <property name="host" value="${project.host}"></property>
         <property name="webName" value="${project.name}"></property>
+        <property name="appStoreDao" ref="appStoreDao"></property>
     </bean>
     <bean id="userAction" class="com.fusibang.actions.UserAction" scope="prototype">
         <property name="userService" ref="userService"></property>

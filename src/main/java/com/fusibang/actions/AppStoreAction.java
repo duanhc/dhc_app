@@ -5,20 +5,18 @@
 
 package com.fusibang.actions;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-
 import com.fusibang.help.AppStoreHelp;
 import com.fusibang.services.AppStoreService;
 import com.fusibang.tables.AppStore;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 public class AppStoreAction extends ActionSupport implements ServletRequestAware, ServletResponseAware, ModelDriven<AppStore> {
     private static final long serialVersionUID = 1L;
@@ -34,6 +32,16 @@ public class AppStoreAction extends ActionSupport implements ServletRequestAware
 
     public String marketView() {
         this.appStoreService.marketView(this.request);
+        return "success";
+    }
+
+    public String shouye() {
+        this.appStoreService.appShouyeView(this.request);
+        return "success";
+    }
+
+    public String daikuan() {
+        this.appStoreService.daiKuanView(this.request);
         return "success";
     }
 

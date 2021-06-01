@@ -77,6 +77,14 @@
 		<action name="app_market" class="appStoreAction" method="marketView">
 			<result>/dynamic/kouzi.jsp</result>
 		</action>
+        <!--  app首页      -->
+        <action name="app_shouye" class="appStoreAction" method="shouye">
+            <result>/pro/shouye.jsp</result>
+        </action>
+        <!--  app贷款页      -->
+        <action name="app_daikuan" class="appStoreAction" method="daikuan">
+            <result>/pro/daikuan.jsp</result>
+        </action>
 		<action name="app_getqr" class="appStoreAction" method="getQRCode">
 			<result name="not_permission" type="redirect">/core/nopermission.html</result>
 			<result name="un_login" type="redirect">/core/timeout.html</result>
@@ -143,6 +151,8 @@
 			<result name="illegal_request" type="redirect">/core/illegal_request.html</result>
 			<result name="un_login" type="redirect">/core/timeout.html</result>
 		</action>
+<!--    去拿钱    -->
+        <action name="qnq" class="userAction" method="qnq"></action>
 	<!-- 用户状态 -->
 		<action name="faxian" class="identifyAction" method="faxian">
 			<result name="success" type="">/pro/faxian.jsp</result>

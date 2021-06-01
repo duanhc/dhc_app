@@ -6,11 +6,16 @@
 package com.fusibang.servicesimp;
 
 import com.fusibang.dao.AdminDao;
+import com.fusibang.dao.AppStoreDao;
 import com.fusibang.dao.ChannelDao;
 import com.fusibang.dao.UserDao;
-import com.fusibang.help.*;
+import com.fusibang.help.Config;
+import com.fusibang.help.JedisFactory;
+import com.fusibang.help.PayHelp;
+import com.fusibang.help.ResponseStatus;
 import com.fusibang.services.UserService;
 import com.fusibang.tables.Admin;
+import com.fusibang.tables.AppStore;
 import com.fusibang.tables.Channel;
 import com.fusibang.tables.User;
 import org.apache.log4j.Logger;
@@ -32,6 +37,7 @@ public class UserServiceImp extends ResponseStatus implements UserService {
     private PayHelp payHelp;
     private String host;
     private String webName;
+    private AppStoreDao appStoreDao;
 
     public UserServiceImp() {
     }
@@ -39,21 +45,37 @@ public class UserServiceImp extends ResponseStatus implements UserService {
     public String loginUser(String phone, String pwd, HttpSession session) {
         User user = this.userDao.findByPhone(phone);
         if(user != null) {
-            String token = (new MD5()).getMD5ofStr(phone + pwd + user.getSalt());
-            if(token.equals(user.getPassword())) {
+//            String token = (new MD5()).getMD5ofStr(phone + pwd + user.getSalt());
+//            if(token.equals(user.getPassword())) {
                 session.setAttribute("ui", Integer.valueOf(user.getId()));
                 Jedis jedis = this.jedisFactory.getInstance();
-                jedis.set(phone, token);
+                jedis.set(phone, phone);
                 jedis.set(phone + "id", String.valueOf(user.getId()));
                 jedis.expire(phone + "id", Config.tokenTime);
                 jedis.expire(phone, Config.tokenTime);
                 jedis.close();
-                return token;
-            } else {
-                return "{\"hint\":\"password_error\"}";
-            }
+                return phone;
+//            } else {
+//                return "{\"hint\":\"password_error\"}";
+//            }
         } else {
-            return "{\"hint\":\"account_not_found\"}";
+//            return "{\"hint\":\"account_not_found\"}";
+            // 注册
+            user = new User();
+            user.setPhone_number(phone);
+            user.setPassword("000000");
+            user.setSource(0);
+            this.addUser(user, session);
+
+            // 登陆
+            session.setAttribute("ui", Integer.valueOf(user.getId()));
+            Jedis jedis = this.jedisFactory.getInstance();
+            jedis.set(phone, phone);
+            jedis.set(phone + "id", String.valueOf(user.getId()));
+            jedis.expire(phone + "id", Config.tokenTime);
+            jedis.expire(phone, Config.tokenTime);
+            jedis.close();
+            return phone;
         }
     }
 
@@ -113,7 +135,7 @@ public class UserServiceImp extends ResponseStatus implements UserService {
         }
 
         String token = this.userDao.addUser(user);
-        session.removeAttribute("vr" + user.getPhone_number());
+//        session.removeAttribute("vr" + user.getPhone_number());
         Jedis jedis = this.jedisFactory.getInstance();
         jedis.set(user.getPhone_number(), token);
         jedis.expire(user.getPhone_number(), Config.tokenTime);
@@ -275,8 +297,32 @@ public class UserServiceImp extends ResponseStatus implements UserService {
         }
     }
 
+    @Override
+    public boolean existUser(String phone) {
+        if(this.userDao.existUser(phone)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public User getById(Integer userId) {
+        User user = this.userDao.findById(userId);
+        return user;
+    }
+
+    @Override
+    public AppStore findApp(Integer appId) {
+        return appStoreDao.findById(appId);
+    }
+
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
+    }
+
+    public void setAppStoreDao(AppStoreDao appStoreDao) {
+        this.appStoreDao = appStoreDao;
     }
 
     public void setJedisFactory(JedisFactory jedisFactory) {

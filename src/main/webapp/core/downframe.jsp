@@ -104,6 +104,8 @@
                 <td>今日新增</td>
                 <td>昨日UV</td>
                 <td>当前位置</td>
+                <td>定量下架</td>
+                <td>定时下架</td>
                 <td>操作</td>
             </tr>
 
@@ -117,6 +119,8 @@
                     <td>${item.today_ua}</td>
                     <td>${item.yester_ua}</td>
                     <td>${item.priority}</td>
+                    <td>${item.put_away_ua}</td>
+                    <td>${item.put_away_time}</td>
                     <td>
                         <a class="upframe" href="app_getqr.do?id=${item.id}">QR Code</a>
                         <a class="upframe" onclick="downApp(${item.id});">下架</a>

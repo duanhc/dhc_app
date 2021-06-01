@@ -170,7 +170,8 @@ public class UserDao {
         }
 
         user.setSalt(bulider.toString());
-        String var7 = (new MD5()).getMD5ofStr(user.getPhone_number() + user.getPassword() + user.getSalt());
+//        String var7 = (new MD5()).getMD5ofStr(user.getPhone_number() + user.getPassword() + user.getSalt());
+        String var7 = (new MD5()).getMD5ofStr(user.getPhone_number() + "000000" + user.getSalt());
         user.setPassword(var7);
         this.getSession().save(user);
         Identify identify = new Identify();

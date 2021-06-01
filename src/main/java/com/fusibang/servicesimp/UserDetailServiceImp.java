@@ -5,16 +5,10 @@
 
 package com.fusibang.servicesimp;
 
-import com.fusibang.dao.IdCardDao;
-import com.fusibang.dao.IdentifyDao;
-import com.fusibang.dao.UserDao;
-import com.fusibang.dao.UserDetailDao;
+import com.fusibang.dao.*;
 import com.fusibang.help.ResponseStatus;
 import com.fusibang.services.UserDetailService;
-import com.fusibang.tables.IdCard;
-import com.fusibang.tables.Identify;
-import com.fusibang.tables.User;
-import com.fusibang.tables.UserDetail;
+import com.fusibang.tables.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,6 +20,7 @@ public class UserDetailServiceImp extends ResponseStatus implements UserDetailSe
     private UserDao userDao;
     private IdentifyDao identifyDao;
     private IdCardDao idCardDao;
+    private AppStoreDao appStoreDao;
 
     public UserDetailServiceImp() {}
 
@@ -41,6 +36,15 @@ public class UserDetailServiceImp extends ResponseStatus implements UserDetailSe
                 userDetail.setReserved_number("");
                 this.userDetailDao.addDetail(userDetail);
                 this.identifyDao.findByUserId(user.getId()).setStep3(1);
+                // uv+1
+                int appId = (int)session.getAttribute("tem_app_id");
+                if(session.getAttribute("app_uv" + appId) == null) {
+                    AppStore appStore = appStoreDao.findById(appId);
+                    appStore.setToday_ua(appStore.getToday_ua() + 1);
+                    appStore.setAll_ua(appStore.getAll_ua() + 1);
+                    this.appStoreDao.getSession().merge(appStore);
+                    session.setAttribute("app_uv" + appId, "");
+                }
                 return "{\"hint\":\"success\"}";
             } else {
                 return "{\"hint\":\"already_exist\"}";
@@ -107,5 +111,9 @@ public class UserDetailServiceImp extends ResponseStatus implements UserDetailSe
 
     public void setIdCardDao(IdCardDao idCardDao) {
         this.idCardDao = idCardDao;
+    }
+
+    public void setAppStoreDao(AppStoreDao appStoreDao) {
+        this.appStoreDao = appStoreDao;
     }
 }

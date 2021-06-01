@@ -134,6 +134,7 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
         HttpSession session = this.request.getSession();
         String appId = this.request.getParameter("appId");
         Integer aid = Integer.parseInt(appId);
+        session.setAttribute("tem_app_id",aid);
         Integer userId = (Integer)session.getAttribute("ui");
         String result;
         if (userId == null) {
@@ -150,6 +151,10 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
             }else if (user.getSend() == 0) {
                 result = "{\"hint\":\"un_send\"}";
             } else {
+                if(session.getAttribute("app_uv" + appId) == null) {
+                    userService.altApp(appStore);
+                    session.setAttribute("app_uv" + appId, "");
+                }
                 result = "{\"hint\":\"send\"}";
             }
         }

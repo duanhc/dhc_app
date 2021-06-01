@@ -222,7 +222,8 @@
                 success : function(data) {
                     if (data.hint == "send") {
                         //已认证
-                        window.location.href=appUrl;
+                        // window.location.href=appUrl;
+                        window.open(appUrl);
                     }else if(data.hint == "un_send"){
                         window.location.href="./ziliao.html?appUrl="+appUrl;
                     }else if(data.hint == "un_login") {

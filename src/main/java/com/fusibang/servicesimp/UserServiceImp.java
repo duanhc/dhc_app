@@ -317,6 +317,13 @@ public class UserServiceImp extends ResponseStatus implements UserService {
         return appStoreDao.findById(appId);
     }
 
+    @Override
+    public void altApp(AppStore appStore) {
+        appStore.setToday_ua(appStore.getToday_ua() + 1);
+        appStore.setAll_ua(appStore.getAll_ua() + 1);
+        this.appStoreDao.getSession().merge(appStore);
+    }
+
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }

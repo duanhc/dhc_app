@@ -37,4 +37,6 @@ public interface UserService {
     User getById(Integer userId);
 
     AppStore findApp(Integer appId);
+
+    void altApp(AppStore appStore);
 }

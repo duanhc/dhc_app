@@ -74,7 +74,7 @@
 		<div id="top_mess">
 			<div class="jingp">
 				<div class="jimg">
-					<img src="images/test.png" style="width: 10vw;margin-top: 3vw;margin-left: 2vw;border-radius: 50%;"/>
+					<img src="../upload/${firstApp.logo}" style="width: 10vw;margin-top: 3vw;margin-left: 2vw;border-radius: 50%;"/>
 				</div>
 				<span style="font-size: 4vw;">${firstApp.name}</span>
 				<div class="jplogo">
@@ -252,7 +252,8 @@
                 success : function(data) {
                     if (data.hint == "send") {
                         //已认证
-                        window.location.href=appUrl;
+                        // window.location.href=appUrl;
+                        window.open(appUrl);
                     }else if(data.hint == "un_send"){
                         window.location.href="./ziliao.html?appUrl="+appUrl;
                     }else if(data.hint == "un_login") {

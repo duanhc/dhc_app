@@ -78,7 +78,7 @@
                         <li>
                             <div class="tj_top">
                                 <div class="tjimg">
-                                    <img src="images/test.png" style="width: 10vw;border-radius: 50%;"/>
+                                    <img src="../upload/${app.logo}" style="width: 10vw;border-radius: 50%;"/>
                                 </div>
                                 <div class="tjname">
                                         ${app.name}
@@ -182,7 +182,8 @@
                     if (data.hint == "send") {
                         //已认证
                         let url = $(".qnq").attr("appURL");
-                        window.location.href=url;
+                        // window.location.href=url;
+                        window.open(appUrl);
                     }else if(data.hint == "un_send"){
                         window.location.href="./ziliao.html?appId="+appId;
                     }else if(data.hint == "un_login") {

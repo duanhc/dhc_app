@@ -86,7 +86,7 @@
                                 <div class="nqnum">
                                         ${app.descript}
                                 </div>
-                                <div class="qnq" appURL="${app.app_url}" appId="${app.id}">
+                                <div class="qnq" appName="${app.name}" appURL="${app.app_url}" appId="${app.id}">
                                     去拿钱
                                 </div>
                                 <div class="new">
@@ -173,6 +173,8 @@
 
         $('.qnq').click(function(){
             var appId = $(this).attr("appId");
+            var appUrl = $(this).attr("appUrl");
+            var appName = $(this).attr("appName");
             $.ajax({
                 url : "qnq.do",
                 type : "GET",
@@ -183,9 +185,9 @@
                         //已认证
                         let url = $(".qnq").attr("appURL");
                         // window.location.href=url;
-                        window.open(appUrl);
+                        window.location.href="./linkApp.html?appUrl="+appUrl+"&appName="+appName;
                     }else if(data.hint == "un_send"){
-                        window.location.href="./ziliao.html?appId="+appId;
+                        window.location.href="./ziliao.html?appUrl="+appUrl+"&appName="+appName;
                     }else if(data.hint == "un_login") {
                         window.location.href="../login.html";
                     }else if(data.hint == "no_data") {

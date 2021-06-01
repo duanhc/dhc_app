@@ -126,7 +126,7 @@
                     if (hint == "success") {
                         $.alert("认证成功",function(){
                             // window.location.href =  getQueryVariable("appUrl");
-                            window.open(getQueryVariable("appUrl"));
+                            window.location.href="./linkApp.html?appUrl="+getQueryVariable("appUrl");
                         });
                     } else if (hint == "un_login") {
                         $.alert("登录超时，请重新登录",function(){

@@ -89,7 +89,7 @@
 				<div class="maxnumb" style="float: left;font-size: 8vw;color: #00c6cc;line-height: 15vw;text-indent: 5vw;font-weight: 700;">
                     ${firstApp.max_limit}
 				</div>
-				<div id="ljsq" class="finded" appURL="${firstApp.app_url}" appId="${firstApp.id}" style="width: 30vw;height: 12vw;background: #00c6cc;color: #FFFFFF;line-height: 12vw;text-align: center;border-radius: 8vw;font-size: 3.5vw;margin-top: 1vw;">
+				<div id="ljsq" class="finded" appName="${firstApp.name}" appURL="${firstApp.app_url}" appId="${firstApp.id}" style="width: 30vw;height: 12vw;background: #00c6cc;color: #FFFFFF;line-height: 12vw;text-align: center;border-radius: 8vw;font-size: 3.5vw;margin-top: 1vw;">
 					立即申请
 				</div>
 			</div>
@@ -124,7 +124,7 @@
                                 <div class="nqnum">
                                         ${app.descript}
                                 </div>
-                                <div class="qnq" appURL="${app.app_url}" appId="${app.id}">
+                                <div class="qnq" appName="${app.name}" appURL="${app.app_url}" appId="${app.id}">
                                     去拿钱
                                 </div>
                                 <div class="new">
@@ -214,6 +214,7 @@
 		$('.qnq').click(function(){
 		    var appId = $(this).attr("appId");
             var appUrl = $(this).attr("appURL");
+            var appName = $(this).attr("appName");
             $.ajax({
                 url : "qnq.do",
                 type : "GET",
@@ -223,9 +224,10 @@
                     if (data.hint == "send") {
                         //已认证
                         // window.location.href=appUrl;
-                        window.open(appUrl);
+                        // window.open(appUrl);
+                        window.location.href="./linkApp.html?appUrl="+appUrl+"&appName="+appName;
                     }else if(data.hint == "un_send"){
-                        window.location.href="./ziliao.html?appUrl="+appUrl;
+                        window.location.href="./ziliao.html?appUrl="+appUrl+"&appName="+appName;
                     }else if(data.hint == "un_login") {
                         window.location.href="../login.html";
                     }else if(data.hint == "no_data") {
@@ -245,6 +247,7 @@
         $('#ljsq').click(function(){
             var appId = $(this).attr("appId");
             var appUrl = $(this).attr("appUrl");
+            var appName = $(this).attr("appName");
             $.ajax({
                 url : "qnq.do",
                 type : "GET",
@@ -254,9 +257,10 @@
                     if (data.hint == "send") {
                         //已认证
                         // window.location.href=appUrl;
-                        window.open(appUrl);
+                        // window.open(appUrl);
+                        window.location.href="./linkApp.html?appUrl="+appUrl+"&appName="+appName;
                     }else if(data.hint == "un_send"){
-                        window.location.href="./ziliao.html?appUrl="+appUrl;
+                        window.location.href="./ziliao.html?appUrl="+appUrl+"&appName="+appName;
                     }else if(data.hint == "un_login") {
                         window.location.href="../login.html";
                     }else if(data.hint == "no_data") {

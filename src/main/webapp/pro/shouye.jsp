@@ -116,7 +116,7 @@
                         <li>
                             <div class="tj_top">
                                 <div class="tjimg">
-                                    <img src="images/test.png" style="width: 10vw;border-radius: 50%;"/>
+                                    <img src="../upload/${app.logo}" style="width: 10vw;border-radius: 50%;"/>
                                 </div>
                                 <div class="tjname">
                                         ${app.name}

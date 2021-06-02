@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>butterfly</display-name>
+  
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext*.xml</param-value>
+  </context-param>
+  <context-param>
+    <param-name>send</param-name>
+    <param-value>false</param-value>
+  </context-param>
+  <context-param>
+    <param-name>weixin</param-name>
+    <param-value>1</param-value>
+  </context-param>
+  <context-param>
+    <param-name>app</param-name>
+    <param-value>皮皮借</param-value>
+  </context-param>
+  <context-param>
+    <param-name>host</param-name>
+    <param-value>www.nx9i9.com</param-value>
+  </context-param>
+  <context-param>
+    <param-name>webName</param-name>
+    <param-value>butterfly</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+   <listener>
+    <listener-class>com.fusibang.help.InitialListenter</listener-class>
+  </listener>
+
+  <filter>
+    <filter-name>crossFilter</filter-name>
+    <filter-class>com.fusibang.butterfly.CorsFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>crossFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <filter>
+  	<filter-name>concurrenFilter</filter-name>
+  	<filter-class>com.fusibang.help.ConcurrenFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>concurrenFilter</filter-name>
+  	<url-pattern>*</url-pattern>
+  </filter-mapping>
+  
+  <filter>
+  	<filter-name>loginFilter</filter-name>
+  	<filter-class>com.fusibang.help.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>loginFilter</filter-name>
+  	<url-pattern>*.action</url-pattern>
+  </filter-mapping>
+  
+  <filter>
+    <filter-name>struts2</filter-name>
+    <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>struts2</filter-name>
+    <url-pattern>*.action</url-pattern>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+  
+</web-app>

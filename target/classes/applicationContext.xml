@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<context:property-placeholder location="classpath:config.properties"/>
+	<bean name="config" class="com.fusibang.help.Config" scope="singleton">
+			<property name="redisHost" value="${redis.redisHost}"></property>
+			<property name="redisPort" value="${redis.redisPort}"></property>
+			<property name="redisAuth" value="${redis.redisAuth}"></property>
+			<property name="projectHost" value="${project.host}"></property>
+			<property name="projectName" value="${project.name}"></property>
+			<property name="doFilter" value="false"></property>
+			<property name="frequency" value="20"></property>
+			<property name="timeSample" value="10"></property>
+			<property name="ipWhites">
+				<list>
+					<value>127.0.0.1</value>
+				</list>
+			</property>
+	</bean>
+	
+<!-- redis -->
+	<bean name="jedisFactory" class="com.fusibang.help.JedisFactory">
+		<property name="config" ref="config" ></property>
+	</bean>	
+<!-- 配置C3P0数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="user" value="${jdbc.user}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+		<property name="driverClass" value="${jdbc.driverClass}"></property>
+		<property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
+		<property name="initialPoolSize" value="${jdbc.initPoolSize}"></property>
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}"></property>
+	</bean>
+	
+<!-- 配置sessionFactory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
+		<!--基于xml文件--> 
+		<!--  <property name="mappingLocations" value="classpath:***.cfg.xml"></property>  -->
+		<!-- 基于注解 -->
+		<property name="packagesToScan" value="com.fusibang.tables"/>
+	</bean>
+
+	<!-- 配置Spring 声明式事物 -->
+
+	<!-- 事物管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 事物切入点 -->
+	<aop:config  expose-proxy="true" proxy-target-class="true">
+		<aop:pointcut expression="execution(public * com.fusibang.services.*.*(..))" id="txPointcut"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+	</aop:config>
+		
+	<!-- 事物属性 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>

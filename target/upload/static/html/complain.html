@@ -1,0 +1,378 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>投诉</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <!-- <link rel="stylesheet" href="https://dxjk.oss-cn-hangzhou.aliyuncs.com/mui.min.css"> -->
+    <link rel="stylesheet" href="http://dzez.v228.10000net.cn/css/weui.min.css">
+	<link rel="stylesheet" href="http://dzez.v228.10000net.cn/css/jquery-weui.min.css">
+    <style type="text/css">
+      .weui-uploader__file{
+        background-image: url('http://upload.jianshu.io/users/upload_avatars/147944/32c50269444e.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96');
+      }
+      body{
+        background-color: #F1F0F5;
+      }
+      .weui-cell{
+        background-color: #FFF; 
+      }
+      .mt0{
+        margin-top: 0;
+      }
+      form#myForm1>input {
+          height: 77px;
+          width: 77px;
+          opacity: 0;
+          position: relative;
+          z-index: 99999;
+      }
+      .wxtips{
+        background-color: #E15E63;
+        margin: 0;
+        padding: 0;
+        line-height: 22px;
+        text-align: center;
+        color: #FFF;
+        font-size: 12px;
+        padding: 3px 0;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        right: 0;
+        top: 0;
+        box-sizing: border-box;
+        display: none;
+      }
+    </style>
+  </head>
+  <body onload="addBackListener();">
+    <p class="wxtips" id="wxTips"></p>
+    <input type="hidden" id="gzhIdVal" name="">
+    <div class="wrap">
+      <p class="weui-cells__title">投诉帐号</p>
+      <!-- 公众号信息 -->
+      <div class="weui-cell">
+          <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+              <img id="wximg" src="../../tipimages/yylg.png" style="width: 50px;display: block">
+          </div>
+          <div class="weui-cell__bd">
+              <p id="wxname"></p>
+              <p style="font-size: 13px;color: #888888;" id="wxh"></p>
+          </div>
+      </div>
+      <!-- 投诉文字框 -->
+      <p class="weui-cells__title">投诉描述</p>
+      <div class="weui-cells weui-cells_form">
+          <div class="weui-cell">
+              <div class="weui-cell__bd">
+                  <textarea class="weui-textarea" id="tsTextContent" placeholder="请输入投诉内容" rows="3" maxlength="200"></textarea>
+                  <div class="weui-textarea-counter"><span id="tsTextCount">0</span>/200</div>
+              </div>
+          </div>
+      </div>
+      <!-- 隐形的查看/删除框 -->
+      <div class="weui-gallery" id="gallery">
+        <span class="weui-gallery__img" id="galleryImg"></span>
+        <div class="weui-gallery__opr">
+          <a href="javascript:" rel="external nofollow" class="weui-gallery__del">
+            <i class="weui-icon-delete weui-icon_gallery-delete"></i>
+          </a>
+        </div>
+      </div>
+      <!-- 图片上传框 -->
+      <div class="weui-cells weui-cells_form mt0">
+        <div class="weui-cell">
+          <div class="weui-cell__bd">
+            <div class="weui-uploader">
+              <div class="weui-uploader__hd">
+                <p class="weui-uploader__title">图片上传</p>
+                <div class="weui-uploader__info" id="imgCount">0/4</div>
+              </div>
+              <div class="weui-uploader__bd">
+                <ul class="weui-uploader__files" id="uploaderFiles">
+                 <!--  <li class="weui-uploader__file"></li>
+                  <li class="weui-uploader__file"></li>
+                  <li id="addImgBtn" class="weui-uploader__file weui-uploader__file_status"> -->
+                </ul>
+                <div class="weui-uploader__input-box" id="addImgFrom">
+                  <!-- <input id="uploaderInput" class="weui-uploader__input zjxfjs_file" type="file" accept="image/*" multiple=""> -->
+                  <form id="myForm1" action="http://www.qqyzk.top/uploadImg.up?resType=1" method="post">
+                    <input type="file" id="indexBtnFile" name="file" >
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 链接地址 -->
+      <div class="weui-cells weui-cells_form mt0">
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label for="" class="weui-label">证据链接</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="text" id="addressUrl" value="" placeholder="选填">
+            </div>
+            <div class="weui-cell__ft">
+                <i class="weui-icon-info-circle" style="opacity: 0;"></i>
+            </div>
+        </div>
+      </div>
+      <!-- 提交 -->
+      <a href="javascript:;" class="weui-btn weui-btn_primary" id="postBtn" style="margin: 13px;">提交</a>
+
+    </div>
+
+<!-- ajax上传 -->
+   <!--  <form id="myForm1" action="https://www.51dixiajinku.com/uploadImg.up?resType=1" method="post" hidden="hidden">
+      <input type="file" id="indexBtnFile" name="file" onchange="submit1()">
+    </form> -->
+
+  <!-- <script src="https://dxjk.oss-cn-hangzhou.aliyuncs.com/mui.min.js"></script> -->
+    <script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+        <script src="https://dxjk.oss-cn-hangzhou.aliyuncs.com/jquery.form.min.js"></script>
+    <script type="text/javascript">
+        //返回键处理
+        function addBackListener() {
+            document.addEventListener('plusready', function() {
+                var webview = plus.webview.currentWebview();
+                plus.key.addEventListener('backbutton', function() {
+                    webview.canBack(function(e) {
+                        if(e.canBack) {
+                            webview.back();
+                        } else {
+                            //webview.close(); //hide,quit
+                            //plus.runtime.quit();
+                            //首页返回键处理
+                            //处理逻辑：1秒内，连续两次按返回键，则退出应用；
+                            var first = null;
+                            plus.key.addEventListener('backbutton', function() {
+                                //首次按键，提示‘再按一次退出应用’
+                                if (!first) {
+                                    first = new Date().getTime();
+                                    //console.log('再按一次退出应用');
+                                    setTimeout(function() {
+                                        first = null;
+                                    }, 1000);
+                                } else {
+                                    if (new Date().getTime() - first < 1500) {
+                                        plus.runtime.quit();
+                                    }
+                                }
+                            }, false);
+                        }
+                    })
+                });
+            });
+        }
+
+      // mui.init();
+      $(function() {
+        var apiArr = {
+          upload :"/uploadImg.up?resType=1",//上传图片
+        }
+        var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)"></li>',
+          $gallery = $("#gallery"),
+          $galleryImg = $("#galleryImg"),
+          $uploaderInput = $("#uploaderInput"),
+          $uploaderFiles = $("#uploaderFiles");
+        // $uploaderInput.on("change", function(e) {
+          // $("#indexBtnFile").click();
+          // var src, url = window.URL || window.webkitURL || window.mozURL,
+            // files = e.target.files;
+          // for(var i = 0, len = files.length; i < len; ++i) {
+          //   var file = files[i];
+          //   if(url) {
+          //     src = url.createObjectURL(file);
+          //   } else {
+          //     src = e.target.result;
+          //   }
+          //   $uploaderFiles.append($(tmpl.replace('#url#', src)));
+          // }
+        // });
+        var index; //第几张图片
+        $uploaderFiles.on("click", "li", function() {
+          index = $(this).index();
+          $galleryImg.attr("style", this.getAttribute("style"));
+          $gallery.fadeIn(100);
+        });
+        $gallery.on("click", function() {
+          $gallery.fadeOut(100);
+        });
+        //删除图片 删除图片的代码也贴出来。
+        $(".weui-gallery__del").click(function() { //这部分刚才放错地方了，放到$(function(){})外面去了
+          console.log('删除');
+          $uploaderFiles.find("li").eq(index).remove();
+
+          postImgArr.splice(index, 1)
+
+          setView();
+        });
+
+      //上传
+      // form ajax
+      var $indexBtnFile = $("#indexBtnFile"),
+          postImgArr = new Array(),//放图片的数组啊~
+          $tsTextContent = $("#tsTextContent"),
+          $tsTextCount= $("#tsTextCount"),
+          $postBtn = $("#postBtn"),
+          $addressUrl = $("#addressUrl"),
+          $wxTips = $("#wxTips");
+
+
+      $(".addImgBtn").click(function(){
+        $indexBtnFile.click();
+      });
+		  
+		  
+	function getObjectURL(file) {  
+     var url = null;  
+     if (window.createObjcectURL != undefined) {  
+         url = window.createOjcectURL(file);  
+     } else if (window.URL != undefined) {  
+         url = window.URL.createObjectURL(file);  
+     } else if (window.webkitURL != undefined) {  
+         url = window.webkitURL.createObjectURL(file);  
+     }  
+     return url;  
+ 	}  
+	$("#indexBtnFile").change(function(){	
+     	var file = this.files[0];
+     	var url = getObjectURL(file);
+		submitImg(url);
+        $('#myForm1').submit(function(){
+          // showLoadingToast("上传中");
+          console.log('上传中')
+        });
+ 	});
+
+		  
+    
+      function submitImg(url) {
+		  $uploaderFiles.append($(tmpl.replace('#url#', url)));
+		  postImgArr.push(url);
+		  $indexBtnFile.val("");
+          setView();
+		  var ii = 0;//计次器
+          var maxFor = 1000;//最大执行次数
+          function getImgBG(url){
+               var img = "";
+               img = new Image();  
+               img.onload=function(){setImgBG(img.src)}; 
+               img.onerror=function(){if(ii<maxFor){getImgBG(url)};} 
+               img.src=url;
+          }
+             getImgBG(url);
+          
+      }
+      //设置视图（上传图片）
+          function setView(){
+            var imgLen = $uploaderFiles.find('li').length;
+            $("#imgCount").text(imgLen+'/4');
+            if(imgLen>=4){
+              $("#addImgFrom").hide();
+            }else{
+              $("#addImgFrom").show();
+            }
+            console.log("postImgArr")
+            console.log(postImgArr)
+          }
+          //投诉描述输入时 实时检测
+          $tsTextContent.bind('input propertychange', function() {  
+            var value = $(this).val();
+            $tsTextCount.text(value.length)
+            return false;
+          });  
+          //提交
+          $postBtn.click(function(){
+            var tsTextContent = $tsTextContent.val();
+            var postImgStr = postImgArr.join(',');
+            var addressUrl = $addressUrl.val();
+            var gzhId = $("#gzhIdVal").val();
+            if(!tsTextContent){
+              showWxTips('请输入投诉描述');return false;
+            }else if(!postImgStr){
+              showWxTips('请添加证据截图');return false;
+            }
+            //投诉内容
+            console.log(tsTextContent);
+            // 图片
+            console.log(postImgStr)  
+            // 证据链接
+            console.log(addressUrl) 
+            if(addressUrl){
+              var postData = {
+                gzhId:gzhId,
+                comment:tsTextContent,
+                picurl:postImgStr,
+                zjurl:addressUrl
+              }
+            }else{
+              var postData = {
+                gzhId:gzhId,
+                comment:tsTextContent,
+                picurl:postImgStr,
+              }
+            }
+            
+             var api = "complain-success.html";
+                    window.location.href = "complain-success.html";          
+          });
+          function showWxTips(info){
+            $wxTips.text(info)
+            $wxTips.show();
+            setTimeout(function(){
+              $wxTips.hide();
+            },4000)
+          }
+      });
+
+function getQueryString(name) { 
+  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+  var r = window.location.search.substr(1).match(reg); 
+  if (r != null) return decodeURIComponent(r[2]); return null; 
+}
+// var from = getQueryString('from');
+// if(from=='gzh'){
+//  ts()
+// }
+// function ts(){
+//    // window.location.href = "ts.ssj";return;
+//    var api = "/dxjk/addComplain.reg";
+//   $.ajax({
+//       type: "POST",
+//       url: api,
+//       dataType:'JSON',
+//       cache: false,
+//       success: function(data){
+//           if(data.success){
+//              // showTipsInfo('投诉成功');
+//               window.location.href = "ts.ssj?from=gzh";
+//           }
+//       }
+//   });
+// }
+      function getgzhInfo(){
+        var api = "/getGzh.reg";
+         $.ajax({
+             type: "POST",
+             url: api,
+             data:{gzhId:getQueryString('gzhid')},
+             dataType:'JSON',
+             cache: false,
+             success: function(data){
+                 if(data.success){
+                  $("#wximg").attr('src',data.gzhDTO.pucimgurl);
+                  $("#wxname").text(data.gzhDTO.publicname);
+                  $("#wxgzh").text('微信号：',data.gzhDTO.publicnum);
+                  $("#gzhIdVal").val(data.gzhDTO.id);
+                 }
+             }
+         });  
+      }
+      getgzhInfo()
+    </script>
+  </body>
+</html>

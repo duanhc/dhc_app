@@ -159,11 +159,11 @@
 
         //是否未登录
         $.ajax({
-            url : "need_login.do",
+            url : "need_login.action",
             type : "GET",
             dataType : "json",
             success : function(data) {
-                if (data.hint == "unlogin") {
+                if (data.hint == "un_login") {
                     $.alert("尚未登录,是否登录", function (){
                         window.location.href = "../login.html";
                     });
@@ -176,7 +176,7 @@
             var appUrl = $(this).attr("appUrl");
             var appName = $(this).attr("appName");
             $.ajax({
-                url : "qnq.do",
+                url : "qnq.action",
                 type : "GET",
                 data : "appId="+appId,
                 dataType : "json",

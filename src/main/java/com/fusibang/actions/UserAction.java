@@ -5,6 +5,7 @@
 
 package com.fusibang.actions;
 
+import com.fusibang.help.Config;
 import com.fusibang.services.UserService;
 import com.fusibang.tables.AppStore;
 import com.fusibang.tables.User;
@@ -26,6 +27,7 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
     private UserService userService;
     private User user;
     private String phone_verify;
+    private Config config;
 
     public UserAction() {
     }
@@ -94,6 +96,7 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
             for(int var3 = 0; var3 < var4; ++var3) {
                 Cookie cookie = var5[var3];
                 cookie.setMaxAge(0);
+                cookie.setPath("/"+config.getProjectName());
                 this.response.addCookie(cookie);
             }
         }
@@ -195,15 +198,15 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
     }
 
     public String logined() throws IOException {
-        Integer userId = (Integer)this.request.getSession().getAttribute("ui");
-        String result = "";
-        if(userId != null) {
-            result = "{\"hint\":\"logined,userId:"+userId+"\"}";
-            this.response.getWriter().write(result);
-        } else {
-            result = "{\"hint\":\"unlogin\"}";
-            this.response.getWriter().write(result);
-        }
+//        Integer userId = (Integer)this.request.getSession().getAttribute("ui");
+//        String result = "";
+//        if(userId != null) {
+//            result = "{\"hint\":\"logined,userId:"+userId+"\"}";
+//            this.response.getWriter().write(result);
+//        } else {
+//            result = "{\"hint\":\"un_login\"}";
+//            this.response.getWriter().write(result);
+//        }
 
         return null;
     }
@@ -274,5 +277,9 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
 
     public void setPhone_verify(String phone_verify) {
         this.phone_verify = phone_verify;
+    }
+
+    public void setConfig(Config config) {
+        this.config = config;
     }
 }

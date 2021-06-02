@@ -92,6 +92,7 @@
     </bean>
     <bean id="userAction" class="com.fusibang.actions.UserAction" scope="prototype">
         <property name="userService" ref="userService"></property>
+        <property name="config" ref="config"></property>
     </bean>
     <!-- 用户认证 -->
     <bean id="identifyDao" class="com.fusibang.dao.IdentifyDao">

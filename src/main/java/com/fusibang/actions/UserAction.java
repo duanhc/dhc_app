@@ -152,7 +152,7 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
                 result = "{\"hint\":\"un_send\"}";
             } else {
                 if(session.getAttribute("app_uv" + appId) == null) {
-                    userService.altApp(appStore);
+                    userService.altApp(appStore,user.getPhone_number());
                     session.setAttribute("app_uv" + appId, "");
                 }
                 result = "{\"hint\":\"send\"}";

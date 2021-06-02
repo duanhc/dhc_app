@@ -128,6 +128,7 @@
         <property name="identifyDao" ref="identifyDao"></property>
         <property name="idCardDao" ref="IdCardDao"></property>
         <property name="appStoreDao" ref="appStoreDao"></property>
+        <property name="jedisFactory" ref="jedisFactory"></property>
     </bean>
     <bean id="userDetailAction" class="com.fusibang.actions.UserDetailAction" scope="prototype">
         <property name="userDetailService" ref="userDetailService"></property>

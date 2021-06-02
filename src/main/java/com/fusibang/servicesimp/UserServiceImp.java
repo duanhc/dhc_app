@@ -318,10 +318,19 @@ public class UserServiceImp extends ResponseStatus implements UserService {
     }
 
     @Override
-    public void altApp(AppStore appStore) {
-        appStore.setToday_ua(appStore.getToday_ua() + 1);
-        appStore.setAll_ua(appStore.getAll_ua() + 1);
-        this.appStoreDao.getSession().merge(appStore);
+    public void altApp(AppStore appStore,String phone) {
+        String key = "app_uv_"+phone+"_"+appStore.getId();
+        Jedis jedis = this.jedisFactory.getInstance();
+        //判断redis中是否有缓存
+        if(!jedis.exists(key).booleanValue()){
+            appStore.setToday_ua(appStore.getToday_ua() + 1);
+            appStore.setAll_ua(appStore.getAll_ua() + 1);
+            this.appStoreDao.getSession().merge(appStore);
+
+            jedis.set(key, System.currentTimeMillis()+"");
+            jedis.expire(key, 86400);
+        }
+        jedis.close();
     }
 
     public void setUserDao(UserDao userDao) {

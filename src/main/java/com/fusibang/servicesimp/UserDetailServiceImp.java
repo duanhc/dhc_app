@@ -6,9 +6,11 @@
 package com.fusibang.servicesimp;
 
 import com.fusibang.dao.*;
+import com.fusibang.help.JedisFactory;
 import com.fusibang.help.ResponseStatus;
 import com.fusibang.services.UserDetailService;
 import com.fusibang.tables.*;
+import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,6 +23,7 @@ public class UserDetailServiceImp extends ResponseStatus implements UserDetailSe
     private IdentifyDao identifyDao;
     private IdCardDao idCardDao;
     private AppStoreDao appStoreDao;
+    private JedisFactory jedisFactory;
 
     public UserDetailServiceImp() {}
 
@@ -39,11 +42,21 @@ public class UserDetailServiceImp extends ResponseStatus implements UserDetailSe
                 // uv+1
                 int appId = (int)session.getAttribute("tem_app_id");
                 if(session.getAttribute("app_uv" + appId) == null) {
-                    AppStore appStore = appStoreDao.findById(appId);
-                    appStore.setToday_ua(appStore.getToday_ua() + 1);
-                    appStore.setAll_ua(appStore.getAll_ua() + 1);
-                    this.appStoreDao.getSession().merge(appStore);
+                    String key = "app_uv_"+user.getPhone_number()+"_"+appId;
+                    Jedis jedis = this.jedisFactory.getInstance();
+                    //判断redis中是否有缓存
+                    if(!jedis.exists(key).booleanValue()){
+                        AppStore appStore = appStoreDao.findById(appId);
+                        appStore.setToday_ua(appStore.getToday_ua() + 1);
+                        appStore.setAll_ua(appStore.getAll_ua() + 1);
+                        this.appStoreDao.getSession().merge(appStore);
+
+                        jedis.set(key, System.currentTimeMillis()+"");
+                        jedis.expire(key, 86400);
+                    }
+                    jedis.close();
                     session.setAttribute("app_uv" + appId, "");
+
                 }
                 return "{\"hint\":\"success\"}";
             } else {
@@ -115,5 +128,9 @@ public class UserDetailServiceImp extends ResponseStatus implements UserDetailSe
 
     public void setAppStoreDao(AppStoreDao appStoreDao) {
         this.appStoreDao = appStoreDao;
+    }
+
+    public void setJedisFactory(JedisFactory jedisFactory) {
+        this.jedisFactory = jedisFactory;
     }
 }

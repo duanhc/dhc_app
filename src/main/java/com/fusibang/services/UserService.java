@@ -38,5 +38,5 @@ public interface UserService {
 
     AppStore findApp(Integer appId);
 
-    void altApp(AppStore appStore);
+    void altApp(AppStore appStore, String phone);
 }
